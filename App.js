@@ -1,21 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState} from 'react';
+import {View,Text,FlatList} from 'react-native';
 
-export default function App() {
+const domain = 'http://127.0.0.1:5000/'
+const phrase = domain + 'home'
+
+const App = () => {
+  const [data, setData] = useState([]);
+
+  fetch(phrase)
+  .then((response) => response.json())
+  .then((json) => setData(json))
+  .catch((error) => console.error(error))
+  .finally(_ => console.log("Texttt: ",data.text, " Authorrr: ",data.author));
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={{ flex: 1, padding: 24 }}>
+      <FlatList
+        data={data}
+        keyExtractor={({ id }, index) => id}
+        renderItem={({ item }) => (
+          <Text>{item.text}, {item.author}</Text>
+        )}
+      />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
