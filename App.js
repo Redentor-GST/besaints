@@ -1,18 +1,18 @@
-import React, { useEffect, useState} from 'react';
 import {View,
         Text,
         StatusBar,
         StyleSheet,
         Platform,
-        Dimensions,
-        ImageBackground,
+        Button
         } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Phrase from './components/Phrase'
+import * as React from 'react'
 
-//import Phrase from './components/Phrase'
 
-
-const viewStyle = StyleSheet.create({
-  container : {
+const styles = StyleSheet.create({
+  view : {
     backgroundColor : 'black',
     textAlign : 'center',
     justifyContent : 'center',
@@ -21,29 +21,40 @@ const viewStyle = StyleSheet.create({
     height : '100%',
     paddingTop : Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     padding : 20
-  }
-})
-
-const logoStyle = StyleSheet.create({
-  container : {
+  },
+  logo : {
     paddingTop : Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     fontSize : 40,
     textAlign : 'center',
     textAlignVertical : 'center',
     color : 'white'
   }
-});
+})
 
-export default function App () {
+const Stack = createStackNavigator();
+
+function homeScreen ({ navigation }) {
   return (
-    <View style={viewStyle.container}>
+    <View style={styles.view}>
       <StatusBar  
         backgroundColor = "#2f4f4f"  
         barStyle = "dark-content"
         animated = {true}
         translucent = {true}
       />  
-      <Text style={logoStyle.container}>Be Saints</Text>
+      <Text style={styles.logo}>Be Saints</Text>
+      <Button title='Frase del dia' onPress={() => navigation.navigate('Phrase')} />
     </View>
+  )
+}
+
+export default function App () {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name='Home' component={homeScreen} options={{headerShown : false}} />
+        <Stack.Screen name='Phrase' component={Phrase} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
