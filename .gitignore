@@ -15,4 +15,5 @@ web-build/
 .vscode
 *.swp
 phone.sh
+.expo-shared
 

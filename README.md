@@ -1,6 +1,8 @@
-# *We should think of a name for this project* - Client
+# *Be Saints* - Client
 
-Client side of our wonderful app
+Client side of Be Saints app
+
+Our app shows a saint phrase a day.
 
 ## How to get this thing running?
 * $ `npm i` (if you haven`t done this before)

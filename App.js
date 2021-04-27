@@ -8,6 +8,7 @@ import {View,
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Phrase from './components/Phrase'
+import Contact from './components/Contact'
 import * as React from 'react'
 
 
@@ -28,6 +29,15 @@ const styles = StyleSheet.create({
     textAlign : 'center',
     textAlignVertical : 'center',
     color : 'white'
+  },
+  contact : {
+    ...StyleSheet.absoluteFillObject,
+    flex: 1,
+    alignItems: 'flex-end',
+    alignSelf : 'flex-end',
+    marginTop : 750,
+    fontSize : 40,
+    textAlign : 'right'
   }
 })
 
@@ -43,7 +53,10 @@ function homeScreen ({ navigation }) {
         translucent = {true}
       />  
       <Text style={styles.logo}>Be Saints</Text>
-      <Button title='Frase del dia' onPress={() => navigation.navigate('Phrase')} />
+      <Button title='Daily Phrase' onPress={() => navigation.navigate('Phrase')} />
+      <View style = {styles.contact}>
+        <Button title='Contact' onPress={() => {navigation.navigate('Contact')}}></Button>
+      </View>
     </View>
   )
 }
@@ -54,6 +67,8 @@ export default function App () {
       <Stack.Navigator>
         <Stack.Screen name='Home' component={homeScreen} options={{headerShown : false}} />
         <Stack.Screen name='Phrase' component={Phrase} />
+        <Stack.Screen name='Info' component={Phrase} />
+        <Stack.Screen name='Contact' component={Contact} />
       </Stack.Navigator>
     </NavigationContainer>
   )

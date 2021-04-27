@@ -13,11 +13,12 @@ const phrase = domain + 'home'
 
 const styles = StyleSheet.create({
   phrase : {
+    textAlignVertical : 'center',
+    textAlign : 'center',
     paddingTop : Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     fontSize : 19,  
     fontStyle : 'italic',
     color : 'black',
-    textAlign : 'center',
   },
 })
 
