@@ -41,6 +41,15 @@ const styles = StyleSheet.create({
     marginTop: 750,
     fontSize: 40,
     textAlign: 'right'
+  },
+  push: {
+    ...StyleSheet.absoluteFillObject,
+    flex: 1,
+    alignItems: 'flex-start',
+    alignSelf: 'flex-start',
+    marginTop: 750,
+    fontSize: 40,
+    textAlign: 'left'
   }
 })
 
@@ -56,9 +65,12 @@ function homeScreen({ navigation }) {
         translucent={true}
       />
       <Text style={styles.logo}>Be Saints</Text>
-      <Button title='Daily Phrase' onPress={() => navigation.navigate('Phrase')} />
+        <Button title='Daily Phrase' onPress={() => navigation.navigate('Phrase')} />
       <View style={styles.contact}>
         <Button title='Contact' onPress={() => { navigation.navigate('Contact') }}></Button>
+      </View>
+      <View styles={styles.push}>
+        <Button title='Push' onPress={() => { navigation.navigate('Push') }}></Button>
       </View>
     </View>
   )
@@ -70,8 +82,8 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name='Home' component={homeScreen} options={{ headerShown: false }} />
         <Stack.Screen name='Phrase' component={Phrase} />
-        <Stack.Screen name='Info' component={Phrase} />
-        <Stack.Screen name='Contact' component={Push} />
+        <Stack.Screen name='Contact' component={Contact} />
+        <Stack.Screen name='Push' component={Push} />
       </Stack.Navigator>
     </NavigationContainer>
   )

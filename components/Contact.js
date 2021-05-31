@@ -28,7 +28,7 @@ export default function Contact() {
     return (
         <View>
             <Text style={styles.link} onPress={() => Linking.openURL('https://github.com/iqueralt')}>
-                Ignacio Queraltooo
+                Ignacio Queralt
             </Text>
             <TouchableOpacity onPress={() => { Linking.openURL('https://github.com/iqueralt') }} activeOpacity={1}>
                 <Image source={require('../resources/nachotalarga.png')} style={styles.images}></Image>
