@@ -1,7 +1,14 @@
 import * as Notifications from 'expo-notifications';
-import React, { Component , useState , useEffect, useRef} from 'react'
+import React, { Component , useState , useEffect} from 'react'
 import { View, Text, Platform } from 'react-native'
 import Constants from 'expo-constants';
+import { getDailyPhrase } from './Phrase'
+
+//TODO let the user set these
+const NotificationTriggerHour = 7;
+const NotificationTriggetMinute = 0;
+const domain = 'https://cosmic-anthem-308314.nw.r.appspot.com/'
+const phrase = domain + 'phrases'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -42,28 +49,47 @@ async function registerForPushNotificationsAsync () {
 
 export default function Push () {
     const [token,setToken] = useState("");
-
+    const [data, setData] = useState([]);
+  
     useEffect  (() => { 
+        getDailyPhrase(phrase)
+        .then((res) => setData(res))
+        .catch((exc) => console.log(exc));
+
         registerForPushNotificationsAsync().then((token) => setToken(token));
-        //Because for IOS apps you will need to use CalendarNotificationTrigger.
+
         if (Platform.OS === 'android') {
             Notifications.scheduleNotificationAsync({
                 content : {
-                    title : "Hi",
-                    body : "Putoelquelee",
+                    title : "Daily Phrase",
+                    body : data.text + " " + data.author,
                     vibrate : true,
                 },
-                trigger : null
-                /*
-                TODO, use this to schedule the notification
+                //! This works, but throws an exception
+                //![Unhandled promise rejection: Error: Exception in HostFunction: Malformed calls from JS: field sizes are different.]
+                //? Works? Yes Should we worry? Probably
                 trigger: {
-                    type: 'daily',
-                    hour: 7,
-                    minute: 00,
+                    hour: NotificationTriggerHour,
+                    minute: NotificationTriggetMinute,
+                    repeats : true,
                 },
-                */
             })
             .then(() => console.log("Sent!"))
+        }
+        else if (Platform.OS === 'ios') {
+          Notifications.scheduleNotificationAsync({
+            content : {
+                title : "Daily Phrase",
+                body : data.text + data.author,
+                vibrate : true,
+            },
+            trigger: {
+                type : 'daily',
+                hour: NotificationTriggerHour,
+                minute: NotificationTriggetMinute,
+            },
+        })
+        .then(() => console.log("Sent!"))
         }
     },[])  
 

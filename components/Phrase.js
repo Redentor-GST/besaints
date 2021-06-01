@@ -40,15 +40,18 @@ function phraseView(data) {
   )
 }
 
+export async function getDailyPhrase (from) {
+  const data = await fetch(from);
+  const json = data.json();
+  return json;
+}
+
 export default function Phrase() {
   const [data, setData] = useState([]);
   //TODO change the view when the user rotates the device
   const { isRotated } = useDeviceOrientation();
   useEffect(() => {
-    fetch(phrase)
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => console.error(error))
+    getDailyPhrase(phrase).then((res) => setData(res))
   }, []);
 
   return phraseView(data);
