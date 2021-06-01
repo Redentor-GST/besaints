@@ -9,7 +9,7 @@ import {View,
 import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
 const domain = 'https://cosmic-anthem-308314.nw.r.appspot.com/'
-const phrase = domain + 'home'
+const phrase = domain + 'phrases'
 
 const styles = StyleSheet.create({
   phrase: {

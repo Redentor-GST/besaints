@@ -14,7 +14,7 @@ import * as React from 'react'
 
 const styles = StyleSheet.create({
   view : {
-    backgroundColor : 'black',
+    backgroundColor : 'black',    //? Should we change the baground to black?
     textAlign : 'center',
     justifyContent : 'center',
     alignItems : 'center',
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     marginTop : 750,    //TODO this should be more general, may cause conflict in other devices
     fontSize: 40,
   },
-  push: {
+  push: {               //To use when push notification branch is merged
     ...StyleSheet.absoluteFillObject,
     flex: 1,
     alignItems: 'flex-start',
@@ -67,9 +67,6 @@ function homeScreen ({ navigation }) {
       <View style={styles.contact}>
         <Button title='Contacto' onPress={() => { navigation.navigate('Contact') }}></Button>
       </View>
-      <View style = {styles.push}>
-        <Button title='Push' onPress={() => { navigation.navigate('Push') }}></Button>
-      </View>
     </View>
   )
 }
@@ -80,7 +77,6 @@ export default function App () {
       <Stack.Navigator>
         <Stack.Screen name='Home' component={homeScreen} options={{headerShown : false}} />
         <Stack.Screen name='Phrase' component={Phrase} />
-        <Stack.Screen name='Info' component={Phrase} />
         <Stack.Screen name='Contact' component={Contact} />
       </Stack.Navigator>
     </NavigationContainer>

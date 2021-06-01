@@ -1,4 +1,3 @@
-import { Link } from '@react-navigation/native';
 import * as React from 'react'
 import {View,
     Text,
@@ -43,7 +42,7 @@ export default function Contact () {
 
             <View>
                 <Text style={{color : 'blue',textAlign : 'left',fontSize : 17}} onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}>
-                    Email us! 📨
+                    Envianos un email! 📨
                 </Text>
             </View>
         </View>
