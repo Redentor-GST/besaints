@@ -12,29 +12,25 @@ const domain = 'https://cosmic-anthem-308314.nw.r.appspot.com/'
 const phrase = domain + 'home'
 
 const styles = StyleSheet.create({
-  phrase : {
-    textAlignVertical : 'center',
-    textAlign : 'center',
-    paddingTop : Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-    fontSize : 19,  
-    fontStyle : 'italic',
-    color : 'black',
+  phrase: {
+    textAlign: 'center',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    fontSize: 23,
+    fontStyle: 'italic',
+    color: 'black',
   },
+  phraseView : {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 })
 
 function phraseView (data) {
   return (
-    <View>
-      <View>
-        <StatusBar  
-          backgroundColor = "#2f4f4f"  
-          barStyle = "dark-content"
-          animated = {true}
-          translucent = {true}
-        />  
-        <Text style={styles.phrase}>{data.text}</Text>
-      </View>
-      <Text style = {{textAlign : 'right'}}> {data.author} </Text>
+    <View style={styles.phraseView}>
+      <Text style={styles.phrase}>{data.text}</Text>
+      <Text style={{ textAlign: 'right' }}> {data.author} </Text>
     </View>
   )
 }

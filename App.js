@@ -23,22 +23,30 @@ const styles = StyleSheet.create({
     paddingTop : Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     padding : 20
   },
-  logo : {
-    paddingTop : Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-    fontSize : 40,
-    textAlign : 'center',
-    textAlignVertical : 'center',
-    color : 'white'
+  logo: {
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    fontSize: 40,
+    textAlign: 'center',
+    justifyContent: 'center',
+    color: 'white'
   },
   contact : {
     ...StyleSheet.absoluteFillObject,
     flex: 1,
     alignItems: 'flex-end',
-    alignSelf : 'flex-end',
-    marginTop : 750,
-    fontSize : 40,
-    textAlign : 'right'
-  }
+    alignSelf: 'flex-end',
+    marginTop : 750,    //TODO this should be more general, may cause conflict in other devices
+    fontSize: 40,
+  },
+  push: {
+    ...StyleSheet.absoluteFillObject,
+    flex: 1,
+    alignItems: 'flex-start',
+    alignSelf: 'flex-start',
+    marginTop: 750,
+    fontSize: 40,
+    textAlign: 'left'
+  },
 })
 
 const Stack = createStackNavigator();
@@ -46,16 +54,21 @@ const Stack = createStackNavigator();
 function homeScreen ({ navigation }) {
   return (
     <View style={styles.view}>
-      <StatusBar  
-        backgroundColor = "#2f4f4f"  
-        barStyle = "dark-content"
-        animated = {true}
-        translucent = {true}
-      />  
+      <StatusBar
+        backgroundColor="#2f4f4f"  //? Should we change this to white?
+        barStyle="dark-content"
+        animated={true}
+        translucent={true}
+      />
       <Text style={styles.logo}>Be Saints</Text>
-      <Button title='Daily Phrase' onPress={() => navigation.navigate('Phrase')} />
-      <View style = {styles.contact}>
-        <Button title='Contact' onPress={() => {navigation.navigate('Contact')}}></Button>
+      <View style = {{marginTop : 10}}>
+        <Button title='Frase diaria' onPress={() => navigation.navigate('Phrase')}/>
+      </View>
+      <View style={styles.contact}>
+        <Button title='Contacto' onPress={() => { navigation.navigate('Contact') }}></Button>
+      </View>
+      <View style = {styles.push}>
+        <Button title='Push' onPress={() => { navigation.navigate('Push') }}></Button>
       </View>
     </View>
   )
