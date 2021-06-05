@@ -1,20 +1,18 @@
 import * as Notifications from 'expo-notifications';
-import React, { Component , useState , useEffect, useRef} from 'react'
-import { View, Text, Platform } from 'react-native'
+import { Platform } from 'react-native'
 import Constants from 'expo-constants';
 import { getDailyPhrase } from './Phrase'
 
 const domain = 'https://cosmic-anthem-308314.nw.r.appspot.com/'
 const phrase = domain + 'phrases'
-const hourTrigger = 7;
-const minuteTrigger = 0;
+const hourTrigger = 12;
+const minuteTrigger = 32;
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: false,
     shouldSetBadge: false,
-    sticky : false,
   }),
 });
 
@@ -51,6 +49,7 @@ export default async function sendNotification () {
 
     //? Is setting the token necessary?
     const token = await registerForPushNotificationsAsync();
+    /*
     let notificationListener;
     Notifications.addNotificationReceivedListener(notification => notificationListener = notification);
     let responseListener;
@@ -58,23 +57,33 @@ export default async function sendNotification () {
       responseListener = response;
       console.log(response);
     });
-
-    await Notifications.cancelAllScheduledNotificationsAsync();
+    */
+    //Notifications.getAllScheduledNotificationsAsync().then(notifs => console.log("B: Notificaciones scheduleadas : ",notifs))
+    //await Notifications.cancelAllScheduledNotificationsAsync();
     Notifications.scheduleNotificationAsync({
       content : {
-          title : "Daily Phrase",
-          body : data.text + " " + data.author,
-          vibrate : true,
+          title : "Frase del dia",
+          body  : data.text + " " + data.author,
       },
       trigger : {
-        hour : hourTrigger,
+        hour   : hourTrigger,
         minute : minuteTrigger,
-      },
+      }
     });
-    console.log("Notification: ", data.text + " " + data.author + " set to " + hourTrigger + ":" + minuteTrigger);
 
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };  
+    const today = new Date();
+    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+    console.log(time + " Notification set: {\n" +
+      "Hour: " + hourTrigger + ",\n" +
+      "Minute: " + minuteTrigger + ",\n" +
+      "Body: " + data.text + " " + data.author + ",\n" + 
+      "}"
+    );
+
+    Notifications.getAllScheduledNotificationsAsync().then(notifs => console.log("A: Notificaciones scheduleadas : ",notifs))
+    //return () => {
+    //  Notifications.removeNotificationSubscription(notificationListener);
+    //  Notifications.removeNotificationSubscription(responseListener);
+    //};  
 }

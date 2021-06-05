@@ -6,9 +6,8 @@ const TASK_NAME = "ScheduleNotification"
 
 TaskManager.defineTask(TASK_NAME, () => sendNotification())
 
-const dayInMinutes = 24*60;
 BackgroundFetch.registerTaskAsync(TASK_NAME,{
-    minimumInterval : dayInMinutes,
+    minimumInterval : 5,
     stopOnTerminate : false,
     startOnBoot : true,
 }).then(() => console.log("Registered"))

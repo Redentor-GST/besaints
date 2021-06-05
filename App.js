@@ -6,11 +6,7 @@ import {
   Platform,
   Button
 } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Phrase from './components/Phrase'
-import Contact from './components/Contact'
-import Push from './components/Push'
+import ScheduleNotificationTask from './services/ScheduleNotificationTask'
 
 import * as React from 'react'
 
@@ -51,9 +47,15 @@ const styles = StyleSheet.create({
   },
 })
 
-const Stack = createStackNavigator();
+const unregisterScheduleNotificationTask  = () => {
+  ScheduleNotificationTask.unregister()
+}
 
 function homeScreen ({ navigation }) {
+  
+}
+
+export default function App() {
   return (
     <View style={styles.view}>
       <StatusBar
@@ -64,27 +66,8 @@ function homeScreen ({ navigation }) {
       />
       <Text style={styles.logo}>Be Saints</Text>
       <View style = {{marginTop : 10}}>
-        <Button title='Frase diaria' onPress={() => navigation.navigate('Phrase')}/>
-      </View>
-      <View style={styles.contact}>
-        <Button title='Contacto' onPress={() => { navigation.navigate('Contact') }}></Button>
-      </View>
-      <View style={styles.push}>
-        <Button title='Push' onPress={() =>{navigation.navigate('Push')}}></Button>
+        <Button title='Unregister Task' onPress={() => unregisterScheduleNotificationTask()}></Button>
       </View>
     </View>
-  )
-}
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name='Home' component={homeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name='Phrase' component={Phrase} />
-        <Stack.Screen name='Contact' component={Contact} />
-        <Stack.Screen name='Push' component={Push} />
-      </Stack.Navigator>
-    </NavigationContainer>
   )
 }
