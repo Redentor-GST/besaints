@@ -5,8 +5,8 @@ import { getDailyPhrase } from './Phrase'
 
 const domain = 'https://cosmic-anthem-308314.nw.r.appspot.com/'
 const phrase = domain + 'phrases'
-const hourTrigger = 19;
-const minuteTrigger = 43;
+const hourTrigger = 20;
+const minuteTrigger = 0;
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -44,22 +44,22 @@ async function registerForPushNotificationsAsync() {
   }
 };
 
+function secondsLeftTo(hour, minute) {
+  const now = new Date();
+  const future = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute);
+  const dif = now.getTime() - future.getTime();
+  const seconds = Math.abs(dif / 1000);
+  return seconds;
+}
+
 export default async function sendNotification() {
   const data = await getDailyPhrase(phrase)
 
   //? Is setting the token necessary?
   const token = await registerForPushNotificationsAsync();
-  /*
-  let notificationListener;
-  Notifications.addNotificationReceivedListener(notification => notificationListener = notification);
-  let responseListener;
-  Notifications.addNotificationResponseReceivedListener(response => {
-    responseListener = response;
-    console.log(response);
-  });
-  */
-  //Notifications.getAllScheduledNotificationsAsync().then(notifs => console.log("B: Notificaciones scheduleadas : ",notifs))
+
   await Notifications.cancelAllScheduledNotificationsAsync();
+  const today = new Date();
   if (Platform.OS === "ios") {
     Notifications.scheduleNotificationAsync({
       content: {
@@ -72,8 +72,21 @@ export default async function sendNotification() {
       }
     });
   }
+  else if (Platform.OS === 'android') {
+    const trig = await Notifications.getNextTriggerDateAsync({
+      seconds: secondsLeftTo(hourTrigger, minuteTrigger)
+    })
 
-  const today = new Date();
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Frase del dia",
+        body: data.text + " " + data.author,
+      },
+      trigger: trig
+    })
+      .catch(e => console.log(e))
+  }
+
   const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
   console.log(time + " Notification set: {\n" +
@@ -84,8 +97,4 @@ export default async function sendNotification() {
   );
 
   Notifications.getAllScheduledNotificationsAsync().then(notifs => console.log("A: Notificaciones scheduleadas : ", notifs))
-  //return () => {
-  //  Notifications.removeNotificationSubscription(notificationListener);
-  //  Notifications.removeNotificationSubscription(responseListener);
-  //};  
 }

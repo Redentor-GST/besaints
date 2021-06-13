@@ -4,7 +4,12 @@ import sendNotification from '../components/Push'
 
 const TASK_NAME = "ScheduleNotification"
 
-TaskManager.defineTask(TASK_NAME, () => sendNotification())
+TaskManager.defineTask(TASK_NAME, () => {
+    const today = new Date();
+    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    console.log(time + " Background task running")
+    sendNotification();
+})
 
 BackgroundFetch.registerTaskAsync(TASK_NAME, {
     minimumInterval: 5,
