@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "besaints",
+    "name": "Be Saints",
     "slug": "besaints",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/bs-icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -33,7 +33,7 @@
       "package": "be.saints.client"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/bs-icon.png"
     }
   }
 }

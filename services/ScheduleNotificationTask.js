@@ -11,8 +11,9 @@ TaskManager.defineTask(TASK_NAME, () => {
     sendNotification();
 })
 
+const interval = 15 * 60;
 BackgroundFetch.registerTaskAsync(TASK_NAME, {
-    minimumInterval: 5,
+    minimumInterval: interval,
     stopOnTerminate: false,
     startOnBoot: true,
 }).then(() => console.log("Registered"))
