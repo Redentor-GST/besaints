@@ -27,7 +27,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/bs-icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "be.saints.client"
