@@ -9,17 +9,18 @@ import {
 import ScheduleNotificationTask from './services/ScheduleNotificationTask'
 
 import * as React from 'react'
+import sendNotification from './components/Push';
 
 const styles = StyleSheet.create({
-  view : {
-    backgroundColor : 'black',    //? Should we change the baground to black?
-    textAlign : 'center',
-    justifyContent : 'center',
-    alignItems : 'center',
-    width : '100%',
-    height : '100%',
-    paddingTop : Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-    padding : 20
+  view: {
+    backgroundColor: 'black',    //? Should we change the baground to black?
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    padding: 20
   },
   logo: {
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
@@ -28,12 +29,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'white'
   },
-  contact : {
+  contact: {
     ...StyleSheet.absoluteFillObject,
     flex: 1,
     alignItems: 'flex-end',
     alignSelf: 'flex-end',
-    marginTop : 750,    //TODO this should be more general, may cause conflict in other devices
+    marginTop: 750,    //TODO this should be more general, may cause conflict in other devices
     fontSize: 40,
   },
   push: {               //To use when push notification branch is merged
@@ -47,12 +48,12 @@ const styles = StyleSheet.create({
   },
 })
 
-const unregisterScheduleNotificationTask  = () => {
+const unregisterScheduleNotificationTask = () => {
   ScheduleNotificationTask.unregister()
 }
 
-function homeScreen ({ navigation }) {
-  
+function homeScreen({ navigation }) {
+
 }
 
 export default function App() {
@@ -65,7 +66,7 @@ export default function App() {
         translucent={true}
       />
       <Text style={styles.logo}>Be Saints</Text>
-      <View style = {{marginTop : 10}}>
+      <View style={{ marginTop: 10 }}>
         <Button title='Unregister Task' onPress={() => unregisterScheduleNotificationTask()}></Button>
       </View>
     </View>
