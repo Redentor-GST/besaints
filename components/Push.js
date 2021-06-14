@@ -6,7 +6,7 @@ import { getDailyPhrase } from './Phrase'
 const domain = 'https://cosmic-anthem-308314.nw.r.appspot.com/'
 const phrase = domain + 'phrases'
 const hourTrigger = 20;
-const minuteTrigger = 0;
+const minuteTrigger = 45;
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -60,39 +60,34 @@ export default async function sendNotification() {
 
   await Notifications.cancelAllScheduledNotificationsAsync();
   const today = new Date();
-  if (Platform.OS === "ios") {
-    Notifications.scheduleNotificationAsync({
+  const trig = await Notifications.getNextTriggerDateAsync({
+    seconds: secondsLeftTo(hourTrigger, minuteTrigger)
+  })
+  Notifications.scheduleNotificationAsync({
+    content: {
+      title: "Frase del dia",
+      body: data.text + " " + data.author,
+    },
+    trigger: Platform.OS === "ios" ? {
+      hour: hourTrigger,
+      minute: minuteTrigger,
+    } : trig
+  })
+    .then(() => Notifications.scheduleNotificationAsync({
       content: {
-        title: "Frase del dia",
-        body: data.text + " " + data.author,
+        title: "Alert",
+        body: "Notification set to " + hourTrigger + ":" + minuteTrigger
       },
-      trigger: {
-        hour: hourTrigger,
-        minute: minuteTrigger,
-      }
-    });
-  }
-  else if (Platform.OS === 'android') {
-    const trig = await Notifications.getNextTriggerDateAsync({
-      seconds: secondsLeftTo(hourTrigger, minuteTrigger)
-    })
-
-    Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Frase del dia",
-        body: data.text + " " + data.author,
-      },
-      trigger: trig
-    })
-      .catch(e => console.log(e))
-  }
+      trigger: null
+    }))
+    .catch(e => console.log(e))
 
   const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
   console.log(time + " Notification set: {\n" +
-    "Hour: " + hourTrigger + ",\n" +
-    "Minute: " + minuteTrigger + ",\n" +
-    "Body: " + data.text + " " + data.author + ",\n" +
+    "   Hour: " + hourTrigger + ",\n" +
+    "   Minute: " + minuteTrigger + ",\n" +
+    "   Body: " + data.text + " " + data.author + ",\n" +
     "}"
   );
 

@@ -11,18 +11,21 @@ TaskManager.defineTask(TASK_NAME, () => {
     sendNotification();
 })
 
-const interval = 15 * 60;
+const interval = 5;
 BackgroundFetch.registerTaskAsync(TASK_NAME, {
-    minimumInterval: interval,
+    minimumInterval: 1,
     stopOnTerminate: false,
     startOnBoot: true,
-}).then(() => console.log("Registered"))
+}).then(() => {
+    const _today = new Date();
+    const _time = _today.getHours() + ":" + _today.getMinutes() + ":" + _today.getSeconds();
+    console.log("Application started at " + _time);
+})
     .catch(error => console.log(error));
 
 
 //We should set a flag to know if the user wants to receive notifications
-const unregister = () => {
-    // alert('Must use physical device for Push Notifications');
+export default function unregister() {
     if (TaskManager.isTaskDefined(TASK_NAME)) {
 
         BackgroundFetch.unregisterTaskAsync(TASK_NAME)
@@ -30,5 +33,3 @@ const unregister = () => {
             .catch(error => console.log(error));
     }
 }
-
-export default { unregister }
