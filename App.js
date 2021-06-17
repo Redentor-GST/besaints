@@ -9,7 +9,7 @@ import {
 import unregister from './services/ScheduleNotificationTask'
 
 import * as React from 'react'
-import { ScheduleNotification } from './components/Push';
+//import { ScheduleNotification } from './components/Push';
 
 const styles = StyleSheet.create({
   view: {
@@ -59,9 +59,8 @@ export default function App() {
       />
       <Text style={styles.logo}>Be Saints</Text>
       <View style={{ marginTop: 10 }}>
-        <ScheduleNotification />
+        <Button title='Unregister Task' onPress={() => unregister()}></Button>
       </View>
-      <Button title='Unregister Task' onPress={() => unregister()}></Button>
       <View style={{ marginTop: 20 }}>
       </View>
     </View>
