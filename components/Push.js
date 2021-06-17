@@ -5,7 +5,7 @@ import { Platform } from 'react-native';
 
 const domain = 'https://cosmic-anthem-308314.nw.r.appspot.com/'
 const phrase = domain + 'phrases'
-const hourTrigger = 21;
+const hourTrigger = 7;
 const minuteTrigger = 0;
 let shouldSendNotifications = true;
 

@@ -7,8 +7,12 @@ import {
   Button
 } from 'react-native';
 import unregister from './services/ScheduleNotificationTask'
-
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react'
+import Phrase from './components/Phrase';
+import Settings from './components/Settings';
+import Contact from './components/Contact'
 //import { ScheduleNotification } from './components/Push';
 
 const styles = StyleSheet.create({
@@ -34,21 +38,19 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-end',
     alignSelf: 'flex-end',
-    marginTop: 750,    //TODO this should be more general, may cause conflict in other devices
-    fontSize: 40,
+    justifyContent: 'flex-end'
   },
-  push: {               //To use when push notification branch is merged
+  settings: {
     ...StyleSheet.absoluteFillObject,
     flex: 1,
     alignItems: 'flex-start',
-    alignSelf: 'flex-start',
-    marginTop: 750,
-    fontSize: 40,
-    textAlign: 'left'
+    justifyContent: 'flex-end'
   },
 })
 
-export default function App() {
+const Stack = createStackNavigator();
+
+function homeScreen({ navigation }) {
   return (
     <View style={styles.view}>
       <StatusBar
@@ -59,10 +61,27 @@ export default function App() {
       />
       <Text style={styles.logo}>Be Saints</Text>
       <View style={{ marginTop: 10 }}>
-        <Button title='Unregister Task' onPress={() => unregister()}></Button>
+        <Button title='Frase diaria' onPress={() => navigation.navigate('Frase del dia')} />
       </View>
-      <View style={{ marginTop: 20 }}>
+      <View style={styles.contact}>
+        <Button title='Contacto' onPress={() => navigation.navigate('Contacto')}></Button>
+      </View>
+      <View style={styles.settings}>
+        <Button title='Ajustes' onPress={_ => navigation.navigate('Ajustes')}></Button>
       </View>
     </View>
+  )
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name='Home' component={homeScreen} options={{ headerShown: false }} />
+        <Stack.Screen name='Frase del dia' component={Phrase} />
+        <Stack.Screen name='Ajustes' component={Settings} />
+        <Stack.Screen name='Contacto' component={Contact} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }

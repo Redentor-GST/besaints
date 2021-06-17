@@ -8,12 +8,12 @@ TaskManager.defineTask(TASK_NAME, () => {
     const today = new Date();
     const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     console.log(time + " Background task running")
-    sendNotification(false, 20, 0);
+    sendNotification();
 })
 
-const interval = 5;
+const interval = 8;
 BackgroundFetch.registerTaskAsync(TASK_NAME, {
-    minimumInterval: 1,
+    minimumInterval: interval,
     stopOnTerminate: false,
     startOnBoot: true,
 })
