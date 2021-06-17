@@ -6,10 +6,10 @@ import {
   Platform,
   Button
 } from 'react-native';
-import ScheduleNotificationTask from './services/ScheduleNotificationTask'
+import unregister from './services/ScheduleNotificationTask'
 
 import * as React from 'react'
-import sendNotification from './components/Push';
+import { ScheduleNotification } from './components/Push';
 
 const styles = StyleSheet.create({
   view: {
@@ -48,14 +48,6 @@ const styles = StyleSheet.create({
   },
 })
 
-const unregisterScheduleNotificationTask = () => {
-  ScheduleNotificationTask.unregister()
-}
-
-function homeScreen({ navigation }) {
-
-}
-
 export default function App() {
   return (
     <View style={styles.view}>
@@ -67,7 +59,10 @@ export default function App() {
       />
       <Text style={styles.logo}>Be Saints</Text>
       <View style={{ marginTop: 10 }}>
-        <Button title='Unregister Task' onPress={() => unregisterScheduleNotificationTask()}></Button>
+        <ScheduleNotification />
+      </View>
+      <Button title='Unregister Task' onPress={() => unregister()}></Button>
+      <View style={{ marginTop: 20 }}>
       </View>
     </View>
   )

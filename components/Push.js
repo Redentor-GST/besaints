@@ -1,13 +1,21 @@
 import * as Notifications from 'expo-notifications';
-import { Platform } from 'react-native'
 import Constants from 'expo-constants';
 import { getDailyPhrase } from './Phrase'
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Button, Platform } from 'react-native';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 const domain = 'https://cosmic-anthem-308314.nw.r.appspot.com/'
 const phrase = domain + 'phrases'
-const hourTrigger = 20;
-const minuteTrigger = 45;
+const hourTrigger = 21;
+const minuteTrigger = 0;
+let shouldSendNotifications = false;
 
+/*
+export const getShouldSendNotifications = () => AsyncStorage.getItem("shouldSendNotification");
+
+const setShouldSendNotifications = (value) => AsyncStorage.setItem("shouldSendNotification", value)
+*/
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -35,7 +43,7 @@ async function registerForPushNotificationsAsync() {
     alert('Must use physical device for Push Notifications');
 
   if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
+    await Notifications.setNotificationChannelAsync('default', {
       name: 'default',
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
@@ -52,44 +60,96 @@ function secondsLeftTo(hour, minute) {
   return seconds;
 }
 
-export default async function sendNotification() {
+/**
+ * @brief Schedules a notification for today at hourTrigger : minuteTrigger
+ * @param { hourTrigger }
+ * @param { minuteTrigger }
+ * @returns {today} date
+ function getDateTrigger(hourTrigger, minuteTrigger) {
+   const today = new Date()
+   today.setHours(hourTrigger, minuteTrigger);
+   
+   return today;
+  }
+*/
+
+async function sendNotification(instant = false, triggerHour = hourTrigger, triggerMinute = minuteTrigger) {
+  console.log("ShouldSend?: ", shouldSendNotifications);
+  if (!shouldSendNotifications) return;
   const data = await getDailyPhrase(phrase)
-
-  //? Is setting the token necessary?
-  const token = await registerForPushNotificationsAsync();
-
-  await Notifications.cancelAllScheduledNotificationsAsync();
-  const today = new Date();
-  const trig = await Notifications.getNextTriggerDateAsync({
-    seconds: secondsLeftTo(hourTrigger, minuteTrigger)
-  })
-  Notifications.scheduleNotificationAsync({
+  await Notifications.cancelAllScheduledNotificationsAsync()
+  await Notifications.scheduleNotificationAsync({
     content: {
       title: "Frase del dia",
       body: data.text + " " + data.author,
     },
-    trigger: Platform.OS === "ios" ? {
-      hour: hourTrigger,
-      minute: minuteTrigger,
-    } : trig
+    trigger: instant ? null :
+      Platform.OS === "ios" ? {
+        hour: triggerHour,
+        minute: triggerMinute,
+      } :
+        {
+          seconds: secondsLeftTo(triggerHour, triggerMinute),
+          channelId: 'default',
+        }
   })
-    .then(() => Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Alert",
-        body: "Notification set to " + hourTrigger + ":" + minuteTrigger
-      },
-      trigger: null
-    }))
-    .catch(e => console.log(e))
+    .catch(e => console.error(e))
 
+  const today = new Date();
   const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-  console.log(time + " Notification set: {\n" +
-    "   Hour: " + hourTrigger + ",\n" +
-    "   Minute: " + minuteTrigger + ",\n" +
+  console.log(instant ? "Instant Notification" : time + " Notification set: {\n" +
+    "   Hour: " + triggerHour + ",\n" +
+    "   Minute: " + triggerMinute + ",\n" +
     "   Body: " + data.text + " " + data.author + ",\n" +
     "}"
   );
 
-  Notifications.getAllScheduledNotificationsAsync().then(notifs => console.log("A: Notificaciones scheduleadas : ", notifs))
+  if (!instant)
+    Notifications.getAllScheduledNotificationsAsync().then(notifs => console.log("A: Notificaciones scheduleadas : ", notifs))
+}
+
+export default function ScheduleNotification(props) {
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+
+  /*
+  We can use this as a button component just to toogle notifications on/off
+  and set the time
+  */
+  //await sendNotification()
+
+  return (
+    <View>
+      <BouncyCheckbox text='Send Notifications' onPress={() => {
+        //localStorage.setItem("shouldSendNotifications", !shouldSendNotifications);
+        shouldSendNotifications = !shouldSendNotifications;
+        console.log("Should send?: ", shouldSendNotifications);
+      }} />
+      <Button title="Instant Notification" onPress={() => sendNotification(true)} ></Button>
+      <Button title="Next Minute Notification" onPress={() => {
+        const now = new Date();
+        sendNotification(false, now.getHours(), now.getMinutes() + 1);
+      }} ></Button>
+    </View>
+  )
 }
