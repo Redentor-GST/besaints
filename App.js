@@ -6,14 +6,14 @@ import {
   Platform,
   Button
 } from 'react-native';
-import unregister from './services/ScheduleNotificationTask'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react'
 import Phrase from './components/Phrase';
 import Settings from './components/Settings';
 import Contact from './components/Contact'
-//import { ScheduleNotification } from './components/Push';
+import { ScheduleNotification } from './components/Push';
+import unregister from './services/ScheduleNotificationTask';
 
 const styles = StyleSheet.create({
   view: {

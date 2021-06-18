@@ -7,6 +7,7 @@ const domain = 'https://cosmic-anthem-308314.nw.r.appspot.com/'
 const phrase = domain + 'phrases'
 const hourTrigger = 7;
 const minuteTrigger = 0;
+const errorPrefix = "BESAINTS ------ "
 let shouldSendNotifications = true;
 
 /*
@@ -50,36 +51,39 @@ async function registerForPushNotificationsAsync() {
   }
 };
 
+function getDateTrigger(hourTrigger, minuteTrigger) {
+  const rn = new Date()
+  if (hourTrigger < rn.getHours() || hourTrigger == rn.getHours() && minuteTrigger < rn.getMinutes())
+    rn.setDate(rn.getDate() + 1);
+  rn.setHours(hourTrigger, minuteTrigger);
+
+  return rn;
+}
+
 function secondsLeftTo(hour, minute) {
   const now = new Date();
-  const future = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute);
-  const dif = now.getTime() - future.getTime();
+  const future = getDateTrigger(hour, minute);
+  let dif = now.getTime() - future.getTime();
   const seconds = Math.abs(dif / 1000);
+
   return seconds;
 }
 
-/**
- * TODO switch to this for android
- * @brief Schedules a notification for today at hourTrigger : minuteTrigger
- * @param { hourTrigger }
- * @param { minuteTrigger }
- * @returns {today} date
- function getDateTrigger(hourTrigger, minuteTrigger) {
-   const today = new Date()
-   today.setHours(hourTrigger, minuteTrigger);
-   
-   return today;
-  }
-*/
 export default async function sendNotification(instant = false, triggerHour = hourTrigger, triggerMinute = minuteTrigger) {
   if (!shouldSendNotifications) return;
-  const data = await getDailyPhrase(phrase)
-  await Notifications.cancelAllScheduledNotificationsAsync()
-  await registerForPushNotificationsAsync();
+  const data = await getDailyPhrase(phrase);
+  await Notifications.cancelAllScheduledNotificationsAsync().catch(e => console.error(errorPrefix + "Exception on cancelNotifs: " + e));
+  await registerForPushNotificationsAsync().catch(e => console.error(errorPrefix + "Exception in registerNotifs: " + e))
+  const now = new Date();
+  const dateTrigger = getDateTrigger(triggerHour, triggerMinute);
   await Notifications.scheduleNotificationAsync({
     content: {
       title: "Frase del dia",
       body: data.text + " " + data.author,
+      data: {
+        setAt: now.toTimeString(),
+        triggerDate: dateTrigger.toDateString() + " " + dateTrigger.toTimeString()
+      }
     },
     trigger: instant ? null :
       Platform.OS === "ios" ? {
@@ -88,15 +92,17 @@ export default async function sendNotification(instant = false, triggerHour = ho
       } :
         {
           seconds: secondsLeftTo(triggerHour, triggerMinute),
+          //For some reason this does not work, the function does, but the date field doesn`t
+          //date: getDateTrigger(triggerHour, triggerMinute),
           channelId: 'default',
         }
   })
-    .catch(e => console.error(e))
+    .catch(e => console.error(errorPrefix + "Exception in schedule Notifications: " + e))
 
   const today = new Date();
-  const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-  console.log(instant ? "Instant Notification" : time + " Notification set: {\n" +
+  console.log(instant ? "Instant Notification" : today.toTimeString().replace("GMT-0300 (-03)", '') +
+    " Notification set: {\n" +
     "   Hour: " + triggerHour + ",\n" +
     "   Minute: " + triggerMinute + ",\n" +
     "   Body: " + data.text + " " + data.author + ",\n" +

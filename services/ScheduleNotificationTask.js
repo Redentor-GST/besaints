@@ -5,32 +5,32 @@ import sendNotification from '../components/Push'
 const TASK_NAME = "ScheduleNotification"
 
 TaskManager.defineTask(TASK_NAME, () => {
-    const today = new Date();
-    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    console.log(time + " Background task running")
-    sendNotification();
+  const today = new Date();
+  const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  console.log(time + " Background task running")
+  sendNotification(false, 19, 20);
 })
 
-const interval = 8;
+const interval = 5;
 BackgroundFetch.registerTaskAsync(TASK_NAME, {
-    minimumInterval: interval,
-    stopOnTerminate: false,
-    startOnBoot: true,
+  minimumInterval: interval,
+  stopOnTerminate: false,
+  startOnBoot: true,
 })
-    .then(() => {
-        const _today = new Date();
-        const _time = _today.getHours() + ":" + _today.getMinutes() + ":" + _today.getSeconds();
-        console.log("Application started at " + _time);
-    })
-    .catch(error => console.log(error));
+  .then(() => {
+    const _today = new Date();
+    const _time = _today.getHours() + ":" + _today.getMinutes() + ":" + _today.getSeconds();
+    console.log("Application started at " + _time);
+  })
+  .catch(error => console.log(error));
 
 
 //We should set a flag to know if the user wants to receive notifications
 export default function unregister() {
-    if (TaskManager.isTaskDefined(TASK_NAME)) {
+  if (TaskManager.isTaskDefined(TASK_NAME)) {
 
-        BackgroundFetch.unregisterTaskAsync(TASK_NAME)
-            .then(() => console.log("Unregistered"))
-            .catch(error => console.log(error));
-    }
+    BackgroundFetch.unregisterTaskAsync(TASK_NAME)
+      .then(() => console.log("Unregistered"))
+      .catch(error => console.log(error));
+  }
 }

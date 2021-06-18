@@ -26,15 +26,14 @@ export default function Settings() {
         Notifications.getAllScheduledNotificationsAsync()
             .then(res => {
                 try {
-                    const secondsLeft = res[0].trigger.seconds;
-                    setnextNotifTime(Math.floor(secondsLeft));
-                    console.log(nextNotifTime);
+                    setnextNotifTime((res[0].content.data.triggerDate).replace('GMT-0300 (-03)', ''));
                 }
                 catch (e) {
-                    console.log(e);
+                    console.error(e);
                     setareThereNotifications(false);
                 }
             })
+            .catch(e => console.error(e));
     }, [])
 
     return (
@@ -55,10 +54,7 @@ export default function Settings() {
                 sendNotification(false, nexthhour.getHours(), nexthhour.getMinutes());
             }}></Button>
             <Text>
-                Next Notification :
-                {areThereNotifications ?
-                    getDate(nextNotifTime).toDateString() + " "
-                    + getDate(nextNotifTime).toTimeString().replace('GMT-0300 (-03)', '') : "NONE"}
+                Next Notification : {areThereNotifications ? nextNotifTime + " " : "NONE"}
             </Text>
         </View>
     )

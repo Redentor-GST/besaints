@@ -13,11 +13,18 @@ const domain = 'https://cosmic-anthem-308314.nw.r.appspot.com/'
 const phrase = domain + 'phrases'
 
 const styles = StyleSheet.create({
-  phrase: {
-    textAlignVertical: 'center',
+  phraseView: {
     textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-    fontSize: 19,
+    padding: 20
+  },
+  phrase: {
+    textAlign: 'center',
+    fontSize: 24,
     fontStyle: 'italic',
     color: 'black',
   },
@@ -26,7 +33,7 @@ const styles = StyleSheet.create({
 function phraseView(data) {
   return (
     <View>
-      <View>
+      <View style={styles.phraseView}>
         <StatusBar
           backgroundColor="#2f4f4f"
           barStyle="dark-content"
@@ -40,7 +47,7 @@ function phraseView(data) {
   )
 }
 
-export async function getDailyPhrase (from) {
+export async function getDailyPhrase(from) {
   const data = await fetch(from);
   const json = data.json();
   return json;
