@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'flex-end'
   },
+  },
 })
 
 const Stack = createStackNavigator();

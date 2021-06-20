@@ -32,6 +32,7 @@
           "fetch"
         ]
       }
+      "bundleIdentifier": "be.saints.client"
     },
     "android": {
       "adaptiveIcon": {

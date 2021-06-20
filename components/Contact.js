@@ -42,8 +42,8 @@ export default function Contact() {
             </TouchableOpacity>
 
             <View>
-                <Text style={{ color: 'blue', textAlign: 'left', fontSize: 17 }} onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}>
-                    Email us! 📨
+                <Text style={{color : 'blue',textAlign : 'left',fontSize : 17}} onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}>
+                    Envianos un email! 📨
                 </Text>
             </View>
         </View>
