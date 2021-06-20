@@ -1,6 +1,6 @@
 import * as TaskManager from 'expo-task-manager';
 import * as BackgroundFetch from 'expo-background-fetch';
-import sendNotification from '../components/Push'
+import scheduleNotification from '../components/Push';
 
 const TASK_NAME = "ScheduleNotification"
 
@@ -8,7 +8,7 @@ TaskManager.defineTask(TASK_NAME, () => {
   const today = new Date();
   const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   console.log(time + " Background task running")
-  sendNotification(false, 19, 20);
+  scheduleNotification(false, 20, 30);
 })
 
 const interval = 5;

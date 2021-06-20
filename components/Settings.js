@@ -8,12 +8,7 @@ import {
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import sendNotification from './Push';
 import * as Notifications from 'expo-notifications';
-
-function getDate(seconds) {
-    const now = new Date();
-    const next = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds() + seconds);
-    return next;
-}
+import scheduleNotification from './Push';
 
 export default function Settings() {
     const [sendNotifications, setsendNotifications] = useState(true);
@@ -43,15 +38,15 @@ export default function Settings() {
             <TextInput placeholder='Default 7:00 AM' onChangeText={hour => setnotificationHour(hour)} />
             <Text>Minuto</Text>
             <TextInput placeholder='Default 7:00 AM' onChangeText={minute => setnotificationMinute(minute)} />
-            <Button title='Instant Notification' onPress={_ => sendNotification(true)}></Button>
+            <Button title='Instant Notification' onPress={_ => scheduleNotification(true)}></Button>
             <Button title='Next Minute Notification' onPress={_ => {
                 const now = new Date();
-                sendNotification(false, now.getHours(), now.getMinutes() + 1);
+                scheduleNotification(false, now.getHours(), now.getMinutes() + 1);
             }}></Button>
             <Button title='Next Half Hour Notification' onPress={_ => {
                 const now = new Date();
                 const nexthhour = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 30);
-                sendNotification(false, nexthhour.getHours(), nexthhour.getMinutes());
+                scheduleNotification(false, nexthhour.getHours(), nexthhour.getMinutes());
             }}></Button>
             <Text>
                 Next Notification : {areThereNotifications ? nextNotifTime + " " : "NONE"}

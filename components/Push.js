@@ -7,7 +7,6 @@ const domain = 'https://cosmic-anthem-308314.nw.r.appspot.com/'
 const phrase = domain + 'phrases'
 const hourTrigger = 7;
 const minuteTrigger = 0;
-const errorPrefix = "BESAINTS ------ "
 let shouldSendNotifications = true;
 
 /*
@@ -69,20 +68,33 @@ function secondsLeftTo(hour, minute) {
   return seconds;
 }
 
-export default async function sendNotification(instant = false, triggerHour = hourTrigger, triggerMinute = minuteTrigger) {
-  if (!shouldSendNotifications) return;
-  const data = await getDailyPhrase(phrase);
-  await Notifications.cancelAllScheduledNotificationsAsync().catch(e => console.error(errorPrefix + "Exception on cancelNotifs: " + e));
-  await registerForPushNotificationsAsync().catch(e => console.error(errorPrefix + "Exception in registerNotifs: " + e))
+async function cancelScheduledNotification(triggerHour, triggerMinute) {
+  const scheduled = await Notifications.getAllScheduledNotificationsAsync();
+  if (scheduled === []) return;
+  try {
+    for (let i = 0; i < scheduled.length; i++) {
+      const notifData = scheduled[i].content.data;
+      if (notifData.hourTrig === triggerHour && notifData.minuteTrig === triggerMinute)
+        await Notifications.cancelScheduledNotificationAsync(scheduled[i].identifier);
+    }
+  }
+  catch (e) {
+    console.error("Exception in cancelScheduledNotification: " + e.toString());
+  }
+}
+
+const notification = (triggerHour, triggerMinute, data, instant) => {
   const now = new Date();
   const dateTrigger = getDateTrigger(triggerHour, triggerMinute);
-  await Notifications.scheduleNotificationAsync({
+  return {
     content: {
       title: "Frase del dia",
       body: data.text + " " + data.author,
       data: {
         setAt: now.toTimeString(),
-        triggerDate: dateTrigger.toDateString() + " " + dateTrigger.toTimeString()
+        triggerDate: dateTrigger.toDateString() + " " + dateTrigger.toTimeString(),
+        hourTrig: triggerHour,
+        minuteTrig: triggerMinute
       }
     },
     trigger: instant ? null :
@@ -96,19 +108,18 @@ export default async function sendNotification(instant = false, triggerHour = ho
           //date: getDateTrigger(triggerHour, triggerMinute),
           channelId: 'default',
         }
-  })
-    .catch(e => console.error(errorPrefix + "Exception in schedule Notifications: " + e))
+  }
+}
 
-  const today = new Date();
-
-  console.log(instant ? "Instant Notification" : today.toTimeString().replace("GMT-0300 (-03)", '') +
-    " Notification set: {\n" +
-    "   Hour: " + triggerHour + ",\n" +
-    "   Minute: " + triggerMinute + ",\n" +
-    "   Body: " + data.text + " " + data.author + ",\n" +
-    "}"
-  );
+export default async function scheduleNotification(instant = false, triggerHour = hourTrigger, triggerMinute = minuteTrigger) {
+  if (!shouldSendNotifications) return;
+  const data = await getDailyPhrase(phrase);
+  await cancelScheduledNotification(triggerHour, triggerMinute).catch(e => console.error(e));
+  await registerForPushNotificationsAsync().catch(e => console.error("Exception in registerNotifs: " + e))
+  await Notifications.scheduleNotificationAsync(notification(triggerHour, triggerMinute, data, instant))
+    .catch(e => console.error("Exception in schedule Notifications: " + e))
 
   if (!instant)
-    Notifications.getAllScheduledNotificationsAsync().then(notifs => console.log("A: Notificaciones scheduleadas : ", notifs))
+    Notifications.getAllScheduledNotificationsAsync()
+      .then(notifs => console.log("A: Notificaciones scheduleadas : ", notifs))
 }
