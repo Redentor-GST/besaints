@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "react-native",
-    "slug": "react-native",
+    "name": "Be Saints",
+    "slug": "besaints",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/bs-icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -16,18 +16,33 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/bs-icon.png"
+        }
+      ]
+    ],
     "ios": {
       "supportsTablet": true,
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "location",
+          "fetch"
+        ]
+      }
       "bundleIdentifier": "be.saints.client"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/bs-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "be.saints.client"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/bs-icon.png"
     }
   }
 }

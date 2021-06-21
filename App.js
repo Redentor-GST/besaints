@@ -1,27 +1,30 @@
-import {View,
-        Text,
-        StatusBar,
-        StyleSheet,
-        Platform,
-        Button
-        } from 'react-native';
+import {
+  View,
+  Text,
+  StatusBar,
+  StyleSheet,
+  Platform,
+  Button
+} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Phrase from './components/Phrase'
-import Contact from './components/Contact'
 import * as React from 'react'
-
+import Phrase from './components/Phrase';
+import Settings from './components/Settings';
+import Contact from './components/Contact'
+import { ScheduleNotification } from './components/Push';
+import unregister from './services/ScheduleNotificationTask';
 
 const styles = StyleSheet.create({
-  view : {
-    backgroundColor : 'black',    //? Should we change the baground to black?
-    textAlign : 'center',
-    justifyContent : 'center',
-    alignItems : 'center',
-    width : '100%',
-    height : '100%',
-    paddingTop : Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-    padding : 20
+  view: {
+    backgroundColor: 'black',    //? Should we change the baground to black?
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    padding: 20
   },
   logo: {
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
@@ -30,28 +33,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'white'
   },
-  contact : {
+  contact: {
     ...StyleSheet.absoluteFillObject,
     flex: 1,
     alignItems: 'flex-end',
     alignSelf: 'flex-end',
-    marginTop : 750,    //TODO this should be more general, may cause conflict in other devices
-    fontSize: 40,
+    justifyContent: 'flex-end'
   },
-  push: {               //To use when push notification branch is merged
+  settings: {
     ...StyleSheet.absoluteFillObject,
     flex: 1,
     alignItems: 'flex-start',
-    alignSelf: 'flex-start',
-    marginTop: 750,
-    fontSize: 40,
-    textAlign: 'left'
+    justifyContent: 'flex-end'
+  },
   },
 })
 
 const Stack = createStackNavigator();
 
-function homeScreen ({ navigation }) {
+function homeScreen({ navigation }) {
   return (
     <View style={styles.view}>
       <StatusBar
@@ -61,23 +61,27 @@ function homeScreen ({ navigation }) {
         translucent={true}
       />
       <Text style={styles.logo}>Be Saints</Text>
-      <View style = {{marginTop : 10}}>
-        <Button title='Frase diaria' onPress={() => navigation.navigate('Phrase')}/>
+      <View style={{ marginTop: 10 }}>
+        <Button title='Frase diaria' onPress={() => navigation.navigate('Frase del dia')} />
       </View>
       <View style={styles.contact}>
-        <Button title='Contacto' onPress={() => { navigation.navigate('Contact') }}></Button>
+        <Button title='Contacto' onPress={() => navigation.navigate('Contacto')}></Button>
+      </View>
+      <View style={styles.settings}>
+        <Button title='Ajustes' onPress={_ => navigation.navigate('Ajustes')}></Button>
       </View>
     </View>
   )
 }
 
-export default function App () {
+export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name='Home' component={homeScreen} options={{headerShown : false}} />
-        <Stack.Screen name='Phrase' component={Phrase} />
-        <Stack.Screen name='Contact' component={Contact} />
+        <Stack.Screen name='Home' component={homeScreen} options={{ headerShown: false }} />
+        <Stack.Screen name='Frase del dia' component={Phrase} />
+        <Stack.Screen name='Ajustes' component={Settings} />
+        <Stack.Screen name='Contacto' component={Contact} />
       </Stack.Navigator>
     </NavigationContainer>
   )
