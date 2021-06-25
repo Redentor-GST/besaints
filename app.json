@@ -31,7 +31,7 @@
           "location",
           "fetch"
         ]
-      }
+      },
       "bundleIdentifier": "be.saints.client"
     },
     "android": {

@@ -12,8 +12,6 @@ import * as React from 'react'
 import Phrase from './components/Phrase';
 import Settings from './components/Settings';
 import Contact from './components/Contact'
-import { ScheduleNotification } from './components/Push';
-import unregister from './services/ScheduleNotificationTask';
 
 const styles = StyleSheet.create({
   view: {
@@ -45,8 +43,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     justifyContent: 'flex-end'
-  },
-  },
+  }
 })
 
 const Stack = createStackNavigator();
