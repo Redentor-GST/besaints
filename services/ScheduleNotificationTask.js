@@ -8,7 +8,7 @@ TaskManager.defineTask(TASK_NAME, () => {
   const today = new Date();
   const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   console.log(time + " Background task running")
-  scheduleNotification(false, 20, 30);
+  scheduleNotification(false, 8, 0);
 })
 
 const interval = 5;

@@ -6,7 +6,6 @@ import {
     Button
 } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import sendNotification from './Push';
 import * as Notifications from 'expo-notifications';
 import scheduleNotification from './Push';
 
@@ -24,7 +23,7 @@ export default function Settings() {
                     setnextNotifTime((res[0].content.data.triggerDate).replace('GMT-0300 (-03)', ''));
                 }
                 catch (e) {
-                    console.error(e);
+                    console.log("This error just means there are no notifications scheduled ->", e);
                     setareThereNotifications(false);
                 }
             })
