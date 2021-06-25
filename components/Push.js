@@ -92,9 +92,9 @@ const notification = (triggerHour, triggerMinute, data, instant) => {
       body: data.text + " " + data.author,
       data: {
         setAt: now.toTimeString(),
-        triggerDate: dateTrigger.toDateString() + " " + dateTrigger.toTimeString(),
+        triggerDateStr: dateTrigger.toDateString() + " " + dateTrigger.toTimeString(),
         hourTrig: triggerHour,
-        minuteTrig: triggerMinute
+        minuteTrig: triggerMinute,
       }
     },
     trigger: instant ? null :

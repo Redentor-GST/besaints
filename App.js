@@ -12,11 +12,10 @@ import * as React from 'react'
 import Phrase from './components/Phrase';
 import Settings from './components/Settings';
 import Contact from './components/Contact';
-import MyState from './components/State';
 
 const styles = StyleSheet.create({
   view: {
-    backgroundColor: 'black',    //? Should we change the baground to black?
+    backgroundColor: 'white',
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: 'center',
     justifyContent: 'center',
-    color: 'white'
+    color: 'black'
   },
   contact: {
     ...StyleSheet.absoluteFillObject,
@@ -62,9 +61,6 @@ function homeScreen({ navigation }) {
       <View style={{ marginTop: 10 }}>
         <Button title='Frase diaria' onPress={() => navigation.navigate('Frase del dia')} />
       </View>
-      <View style={{ marginTop: 15 }}>
-        <Button title='State' onPress={() => navigation.navigate('State')} />
-      </View>
       <View style={styles.contact}>
         <Button title='Contacto' onPress={() => navigation.navigate('Contacto')}></Button>
       </View>
@@ -81,8 +77,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name='Home' component={homeScreen} options={{ headerShown: false }} />
         <Stack.Screen name='Frase del dia' component={Phrase} />
-        <Stack.Screen name='Ajustes' component={MyState} />
-        <Stack.Screen name='State' component={MyState} />
+        <Stack.Screen name='Ajustes' component={Settings} />
         <Stack.Screen name='Contacto' component={Contact} />
       </Stack.Navigator>
     </NavigationContainer>
