@@ -70,7 +70,7 @@ function homeScreen({ navigation }) {
     </View>
   )
 }
-
+// :)
 export default function App() {
   return (
     <NavigationContainer>
