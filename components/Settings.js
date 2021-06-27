@@ -71,20 +71,6 @@ export default function Settings() {
     return (
         <View>
             <BouncyCheckbox text='Enviar Notificationes' onPress={() => invertShouldSendNotifications()} />
-            <Text>Hora</Text>
-            <TextInput placeholder='Default 7:00 AM' onChangeText={hour => setnotificationHour(hour)} />
-            <Text>Minuto</Text>
-            <TextInput placeholder='Default 7:00 AM' onChangeText={minute => setnotificationMinute(minute)} />
-            <Button title='Instant Notification' onPress={_ => scheduleNotification(true)}></Button>
-            <Button title='Next Minute Notification' onPress={_ => {
-                const now = new Date();
-                scheduleNotification(false, now.getHours(), now.getMinutes() + 1);
-            }}></Button>
-            <Button title='Next Half Hour Notification' onPress={_ => {
-                const now = new Date();
-                const nexthhour = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 30);
-                scheduleNotification(false, nexthhour.getHours(), nexthhour.getMinutes());
-            }}></Button>
             <View>
                 <Button onPress={showTimepicker} title="Definir horario de notificaciones" />
             </View>
@@ -98,14 +84,6 @@ export default function Settings() {
                     onChange={onChange}
                 />
             )}
-            <Button title='Cancelar todas las notificaciones'
-                onPress={async () => await Notifications.cancelAllScheduledNotificationsAsync()}>
-            </Button>
-            <Button title='Log all notifications' onPress={async _ => {
-                const notifs = await Notifications.getAllScheduledNotificationsAsync();
-                console.log(notifs);
-            }}></Button>
-
             <Text>
                 Next Notification : {areThereNotifications ? nextNotifTime + " " : "NONE"}
             </Text>
