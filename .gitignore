@@ -16,4 +16,5 @@ web-build/
 *.swp
 phone.sh
 .expo-shared
+aux.js
 

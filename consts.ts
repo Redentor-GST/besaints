@@ -8,4 +8,6 @@ export const userDefaultLanguage = () =>
         NativeModules.SettingsManager.settings.AppleLanguages[0] :
         NativeModules.I18nManager.localeIdentifier
 
+export const farFuture = new Date(4000, 12, 28, 23, 59, 59);
+
 //?Maybe db = new Databse() should be here
