@@ -6,13 +6,6 @@ import Database from '../db/db'
 const TASK_NAME = "ScheduleNotification"
 const db = new Database();
 
-db.getShouldSendNotifications()
-  .then(res => console.log("Should the app send notifications?: ", res))
-db.getDateTrigger()
-  .then(dateTrigger => console.log("DATETRIGGER: ", dateTrigger.toString()));
-
-//console.log("Notifications scheduled at ", dateTrigger)
-
 export const invertShouldSendNotifications = async () => {
   const ssn = await db.getShouldSendNotifications();
   db.setShouldSendNotifications(!ssn);
@@ -55,6 +48,7 @@ defineTask();
 registerTask();
 
 //We re not using this
+/*
 function unregister() {
   if (TaskManager.isTaskDefined(TASK_NAME)) {
 
@@ -62,4 +56,4 @@ function unregister() {
       .then(() => console.log("Unregistered"))
       .catch(error => console.log(error));
   }
-}
+}*/
