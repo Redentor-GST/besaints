@@ -71,6 +71,11 @@ export default function Settings() {
             .then(res => setssn(res));
         db.getDateTrigger()
             .then(dateTrigger => setnotifDateTrigger(dateTrigger));
+        db.getUserDefinedLanguage()
+            .then(userDefinedLanguage => {
+                if (userDefinedLanguage)
+                    setSelectedLanguage(userDefinedLanguage);
+            })
 
         Notifications.getAllScheduledNotificationsAsync()
             .then(res => {
@@ -100,7 +105,10 @@ export default function Settings() {
             <Picker
                 selectedValue={selectedLanguage}
                 style={{ height: 30, width: 130 }}
-                onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
+                onValueChange={(itemValue, itemIndex) => {
+                    setSelectedLanguage(itemValue);
+                    db.setUserDefinedLanguage(itemValue);
+                }}
             >
                 <Picker.Item label="English" value="en" />
                 <Picker.Item label="Spanish" value="es" />

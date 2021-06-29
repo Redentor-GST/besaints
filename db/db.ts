@@ -43,4 +43,10 @@ export default class Database {
 
     clear = async () =>
         await AsyncStorage.multiRemove(["dateTrigger", "shouldSendNotifications"]);
+
+    getUserDefinedLanguage = async () =>
+        await AsyncStorage.getItem("userDefinedLanguage");
+
+    setUserDefinedLanguage = async (value: 'en' | 'es') =>
+        await AsyncStorage.setItem("userDefinedLanguage", value);
 }
