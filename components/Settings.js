@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
     View,
     Text,
     Button,
-    Platform
+    Platform,
+    StyleSheet
 } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import * as Notifications from 'expo-notifications';
@@ -11,6 +12,9 @@ import scheduleNotification from '../utils/push';
 import { invertShouldSendNotifications } from '../services/ScheduleNotificationTask';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Database from '../db/db';
+import { userDefaultLanguage } from '../consts';
+import { Picker } from '@react-native-picker/picker';
+
 
 const farFuture = new Date(4000, 12, 28, 23, 59, 59);
 
@@ -25,7 +29,7 @@ function nearestNotification(notifs) {
                 min = realDate;
         }
         catch (e) {
-            console.error("i: " + i.toString() + + e);
+            console.error(e);
         }
     }
     return min;
@@ -40,7 +44,8 @@ export default function Settings() {
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
     const [ssn, setssn] = useState(true);
-    const [notifDateTrigger, setnotifDateTrigger] = useState(new Date())
+    const [notifDateTrigger, setnotifDateTrigger] = useState(new Date());
+    const [selectedLanguage, setSelectedLanguage] = useState(userDefaultLanguage());
 
     const onChange = async (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -92,6 +97,14 @@ export default function Settings() {
                 setssn(_ssn);
             }
             } />
+            <Picker
+                selectedValue={selectedLanguage}
+                style={{ height: 30, width: 130 }}
+                onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
+            >
+                <Picker.Item label="English" value="en" />
+                <Picker.Item label="Spanish" value="es" />
+            </Picker>
             <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />
             <View>
                 <Button onPress={showTimepicker} title="Definir horario de notificaciones" />
@@ -111,6 +124,7 @@ export default function Settings() {
             </Text>
             <Text> Should send notifications? {ssn ? " Yes" : " No"} </Text>
             <Text> Date Trigger for notifications {notifDateTrigger.toTimeString()} </Text>
+
         </View>
     )
 }
