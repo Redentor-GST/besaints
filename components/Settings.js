@@ -74,7 +74,7 @@ export default function Settings() {
             .catch(e => console.error(e));
     }, [])
 
-    return (Platform.OS === 'ios' ?
+    return (
         <View>
             <BouncyCheckbox isChecked={ssn} text='Enviar Notificationes' style={{ alignSelf: 'center' }}
                 onPress={async () => {
@@ -116,49 +116,6 @@ export default function Settings() {
             <Text> Should send notifications? {ssn ? " Yes" : " No"} </Text>
             <Text> Date Trigger for notifications {notifDateTrigger.toTimeString()} </Text>
             */}
-
-        </View>
-        :
-        <View>
-            <BouncyCheckbox isChecked={ssn} text='Enviar Notificationes' onPress={async () => {
-                const _ssn = await invertShouldSendNotifications();
-                setssn(_ssn);
-            }
-            } />
-            <Picker
-                selectedValue={selectedLanguage}
-                style={{ height: 30, width: 130 }}
-                onValueChange={(itemValue, itemIndex) => {
-                    setSelectedLanguage(itemValue);
-                    db.setUserDefinedLanguage(itemValue);
-                }}
-            >
-                <Picker.Item label="English" value="en" />
-                <Picker.Item label="Spanish" value="es" />
-            </Picker>
-            <View>
-                <Button onPress={showTimepicker} title="Definir horario de notificaciones" />
-            </View>
-            {show && (
-                <DateTimePicker
-                    testID="dateTimePicker"
-                    value={date}
-                    mode={mode}
-                    is24Hour={true}
-                    display="default"
-                    onChange={onChange}
-                />
-            )}
-            {/**
-             * DEBUG
-            <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />
-             <Text>
-                Next Notification : {areThereNotifications ? nextNotifTime + " " : "NONE"}
-            </Text>
-            <Text> Should send notifications? {ssn ? " Yes" : " No"} </Text>
-            <Text> Date Trigger for notifications {notifDateTrigger.toTimeString().slice(0, 5)} </Text>
-             */}
-
         </View>
     )
 }
