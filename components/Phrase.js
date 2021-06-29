@@ -74,8 +74,6 @@ export default function Phrase() {
       .then(res => setData(res))
   }, []);
 
-
-  console.log(data);
   try {
     const view = phraseView(data)
     return view;
