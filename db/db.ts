@@ -4,12 +4,8 @@ import { createDateTrigger, parseTimestrToDate } from '../utils/utils';
 
 export default class Database {
     getShouldSendNotifications = async () => {
-        let ssn = await AsyncStorage.getItem('shouldSendNotifications');
-        if (ssn) {
-            ssn = JSON.parse(ssn);
-            return ssn;
-        }
-        else return true;
+        const ssn = await AsyncStorage.getItem('shouldSendNotifications');
+        return ssn ? JSON.parse(ssn) : true;
     }
 
     getDateTrigger = async () => {
@@ -30,17 +26,20 @@ export default class Database {
         }
     }
 
-    setShouldSendNotifications = async (value: boolean | number) => {
+    setShouldSendNotifications = async (value: boolean | number) =>
         await AsyncStorage.setItem("shouldSendNotifications", JSON.stringify(value))
-        console.log("Setting shouldsend to: ", value);
-    }
 
     setDateTrigger = async (value: Date | string) => {
         await AsyncStorage.setItem("dateTrigger", value.toString())
             .catch(e => console.error(e));
-        console.log("Setting date trigger: ", value.toString());
     }
 
     clear = async () =>
         await AsyncStorage.multiRemove(["dateTrigger", "shouldSendNotifications"]);
+
+    getUserDefinedLanguage = async () =>
+        await AsyncStorage.getItem("userDefinedLanguage");
+
+    setUserDefinedLanguage = async (value: 'en' | 'es') =>
+        await AsyncStorage.setItem("userDefinedLanguage", value);
 }

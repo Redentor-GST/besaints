@@ -1,3 +1,5 @@
+import { farFuture } from "../consts";
+
 export function createDateTrigger(hourTrigger: number, minuteTrigger: number) {
     const rn = new Date()
     if (hourTrigger < rn.getHours() || hourTrigger == rn.getHours() && minuteTrigger < rn.getMinutes())
@@ -30,4 +32,21 @@ export function parseTimestrToDate(str: string) {
         console.error(e);
         return null;
     }
+}
+
+export function nearestNotification(notifs) {
+    let min = farFuture;
+    for (let i = 0; i < notifs.length; i++) {
+        try {
+            const date = notifs[i].content.data;
+            const now = new Date();
+            const realDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), date.hourTrig, date.minuteTrig)
+            if (realDate.getTime() < min.getTime())
+                min = realDate;
+        }
+        catch (e) {
+            console.error(e);
+        }
+    }
+    return min;
 }
