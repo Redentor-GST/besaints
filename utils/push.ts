@@ -61,13 +61,14 @@ async function registerForPushNotificationsAsync() {
  * If the notification was already sent, it gets erased from the scheduled notifications array automatically
  * so it wont cause trouble
  */
-async function shouldSchedule(triggerHour: number, triggerMinute: number) {
+async function shouldSchedule(triggerHour: number, triggerMinute: number, data: Phrase) {
   const notifs = await Notifications.getAllScheduledNotificationsAsync()
   for (let i = 0; i < notifs.length; i++) {
     const notifData = notifs[i].content.data;
     const hour = notifData.hourTrig;
     const minute = notifData.minuteTrig;
-    if (hour === triggerHour && triggerMinute == minute)
+    const text = notifData.text;
+    if (hour === triggerHour && triggerMinute == minute && text === data.text)
       return false;
   }
   return true;
@@ -85,6 +86,7 @@ const notification = (triggerHour: number, triggerMinute: number, data: Phrase, 
         triggerDateStr: dateTrigger.toDateString() + " " + dateTrigger.toTimeString(),
         hourTrig: triggerHour,
         minuteTrig: triggerMinute,
+        text: data.text
       }
     },
     trigger: instant ? null :
@@ -106,9 +108,9 @@ export default async function scheduleNotification(instant: boolean = false,
   triggerHour: number = hourTrigger, triggerMinute: number = minuteTrigger) {
   const ssn = await db.getShouldSendNotifications();
   if (!ssn) return;
-  const shouldSched = await shouldSchedule(triggerHour, triggerMinute);
-  if (!shouldSched) return;
   const data = await getDailyPhrase(phrase);
+  const shouldSched = await shouldSchedule(triggerHour, triggerMinute, data);
+  if (!shouldSched) return;
   //await Notifications.cancelAllScheduledNotificationsAsync();
   await registerForPushNotificationsAsync()
     .catch(e => console.error("Exception in registerNotifs: " + e))
