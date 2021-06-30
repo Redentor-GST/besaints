@@ -11,11 +11,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react'
 import Phrase from './components/Phrase';
 import Settings from './components/Settings';
-import Contact from './components/Contact'
+import Contact from './components/Contact';
 
 const styles = StyleSheet.create({
   view: {
-    backgroundColor: 'black',    //? Should we change the baground to black?
+    backgroundColor: 'white',
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: 'center',
     justifyContent: 'center',
-    color: 'white'
+    color: 'black'
   },
   contact: {
     ...StyleSheet.absoluteFillObject,
