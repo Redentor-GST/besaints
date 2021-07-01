@@ -7,7 +7,9 @@ import {
     StyleSheet,
     Button,
     FlatList,
-    Platform
+    Platform,
+    ScrollView,
+    SafeAreaView
 } from 'react-native';
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
@@ -20,6 +22,7 @@ const emptySaintInfoArr: [SaintInfo] = [{ saint: "", info: "" }]
 
 const styles = StyleSheet.create({
     noMeLaContainer: {
+        flex: 1,
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
@@ -50,8 +53,6 @@ async function getDailySaint(): Promise<[SaintInfo]> {
 
 export default function DailySaint() {
     const [dailySaintObj, setdailySaintObj] = useState(emptySaintInfoArr);
-    const [show, setshow] = useState(false);
-    const [saintObj, setsaintObj] = useState(emptySaintInfoArr[0]);
 
     useEffect(() => {
         getDailySaint()
@@ -71,16 +72,15 @@ export default function DailySaint() {
     )
 
     return (
-        <View style={styles.noMeLaContainer}>
-            <FlatList
-                data={dailySaintObj}
-                renderItem={({ item }) => <SaintView _saintObj={item} />}
-            />
-            {show && (
-                <View style={{ alignSelf: 'center', justifyContent: 'center' }}>
-                    <Text>{saintObj.saint} {saintObj.info}</Text>
-                </View>
-            )}
-        </View>
+        <SafeAreaView style={styles.noMeLaContainer}>
+            <ScrollView>
+                <FlatList
+                    data={dailySaintObj}
+                    renderItem={({ item }) => <SaintView _saintObj={item} />}
+                    ListHeaderComponent={<SaintView _saintObj={emptySaintInfoArr[0]} />}
+                    ListFooterComponent={<View></View>}
+                />
+            </ScrollView>
+        </SafeAreaView>
     )
 }
