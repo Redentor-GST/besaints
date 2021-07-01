@@ -12,7 +12,7 @@ import scheduleNotification from '../utils/push';
 import { invertShouldSendNotifications } from '../services/ScheduleNotificationTask';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Database from '../db/db';
-import { farFuture, userDefaultLanguage } from '../consts';
+import { farFuture, userDefaultLanguage } from '../utils/consts';
 import { Picker } from '@react-native-picker/picker';
 import { nearestNotification } from '../utils/utils';
 

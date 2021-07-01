@@ -1,4 +1,4 @@
-import { farFuture } from "../consts";
+import { farFuture } from "./consts";
 
 export function createDateTrigger(hourTrigger: number, minuteTrigger: number) {
     const rn = new Date()

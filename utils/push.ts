@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 import { getDailyPhrase } from '../components/Phrase'
 import { Platform } from 'react-native';
 import Database from '../db/db';
-import { hourTrigger, minuteTrigger } from '../consts'
+import { hourTrigger, minuteTrigger } from './consts'
 import { createDateTrigger, secondsLeftTo } from './utils';
 
 const domain = 'https://cosmic-anthem-308314.nw.r.appspot.com/'

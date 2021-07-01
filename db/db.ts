@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { hourTrigger, minuteTrigger } from '../consts';
+import { hourTrigger, minuteTrigger } from '../utils/consts';
 import { createDateTrigger, parseTimestrToDate } from '../utils/utils';
 
 export default class Database {
