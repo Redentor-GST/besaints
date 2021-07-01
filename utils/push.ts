@@ -6,8 +6,6 @@ import Database from '../db/db';
 import { hourTrigger, minuteTrigger } from './consts'
 import { createDateTrigger, secondsLeftTo } from './utils';
 
-const domain = 'https://cosmic-anthem-308314.nw.r.appspot.com/'
-const phrase = domain + 'phrases'
 const db = new Database();
 
 interface Phrase {
@@ -108,7 +106,7 @@ export default async function scheduleNotification(instant: boolean = false,
   triggerHour: number = hourTrigger, triggerMinute: number = minuteTrigger) {
   const ssn = await db.getShouldSendNotifications();
   if (!ssn) return;
-  const data = await getDailyPhrase(phrase);
+  const data = await getDailyPhrase();
   const shouldSched = await shouldSchedule(triggerHour, triggerMinute, data);
   if (!shouldSched) return;
   //await Notifications.cancelAllScheduledNotificationsAsync();

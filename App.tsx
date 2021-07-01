@@ -13,6 +13,7 @@ import * as React from 'react'
 import Phrase from './components/Phrase';
 import Settings from './components/Settings';
 import Contact from './components/Contact';
+import DailySaint from './components/Saints';
 
 const styles = StyleSheet.create({
   view: {
@@ -60,6 +61,9 @@ function homeScreen({ navigation }) {
       />
       <Text style={styles.logo}>Be Saints</Text>
       <Button title='Frase diaria' onPress={() => navigation.navigate('Frase del dia')} />
+      <View style={{ marginTop: 5 }}>
+        <Button title='Santos del dia' onPress={_ => navigation.navigate('Santos del dia')} />
+      </View>
       <View style={styles.contact}>
         <Button title='Contacto' onPress={() => navigation.navigate('Contacto')}></Button>
       </View>
@@ -84,6 +88,7 @@ export default function App() {
         <Stack.Screen name='Frase del dia' component={Phrase} />
         <Stack.Screen name='Ajustes' component={Settings} />
         <Stack.Screen name='Contacto' component={Contact} />
+        <Stack.Screen name='Santos del dia' component={DailySaint} />
       </Stack.Navigator>
     </NavigationContainer>
   )

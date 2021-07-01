@@ -8,11 +8,10 @@ import {
   ScrollView,
   SafeAreaView
 } from 'react-native';
+import { phraseEndpoint } from '../utils/consts';
 
-import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
+//import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
-const domain = 'https://cosmic-anthem-308314.nw.r.appspot.com/';
-const phrase = domain + 'phrases';
 //Number of characters the screen can handle without scrolling (with font = 30)
 const maxText = 686;
 
@@ -43,7 +42,7 @@ const styles = StyleSheet.create({
 
 function phraseView(data) {
   return data.text.length + data.author.length <= maxText ? (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }} >
       <ScrollView contentContainerStyle={styles.phraseView}>
         <Text style={styles.phrase}>{data.text}</Text>
         <Text style={styles.author}> {data.author} </Text>
@@ -58,8 +57,8 @@ function phraseView(data) {
     </SafeAreaView>
 }
 
-export async function getDailyPhrase(from) {
-  const data = await fetch(from);
+export async function getDailyPhrase() {
+  const data = await fetch(phraseEndpoint);
   const json = data.json();
 
   return json;
@@ -70,7 +69,7 @@ export default function Phrase() {
   //TODO change the view when the user rotates the device
   //const { isRotated } = useDeviceOrientation();
   useEffect(() => {
-    getDailyPhrase(phrase)
+    getDailyPhrase()
       .then(res => setData(res))
   }, []);
 

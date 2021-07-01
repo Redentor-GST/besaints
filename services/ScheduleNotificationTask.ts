@@ -2,7 +2,6 @@ import * as TaskManager from 'expo-task-manager';
 import * as BackgroundFetch from 'expo-background-fetch';
 import scheduleNotification from '../utils/push';
 import Database from '../db/db'
-import { userDefaultLanguage } from '../utils/consts';
 
 const TASK_NAME = "ScheduleNotification"
 const db = new Database();
@@ -32,7 +31,7 @@ const defineTask = () => {
 }
 
 const registerTask = () => {
-  const interval = 5;
+  const interval = 40;
   BackgroundFetch.registerTaskAsync(TASK_NAME, {
     minimumInterval: interval,
     stopOnTerminate: false,
