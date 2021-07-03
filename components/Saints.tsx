@@ -5,20 +5,22 @@ import {
     Text,
     StatusBar,
     StyleSheet,
-    Button,
     FlatList,
     Platform,
     ScrollView,
-    SafeAreaView
+    SafeAreaView,
+    ActivityIndicator,
 } from 'react-native';
+import { SaintInfo } from "../utils/interfaces";
+import Database from "../db/db";
+import { fetchFromServer } from "../utils/utils";
+
+const db = new Database();
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
-interface SaintInfo {
-    info: string;
-    saint: string;
-}
+//!NOT AT ALL PROUD OF WHAT I DID HERE, WORKS? YES, MAKES ME WANNA THROW UP? ALSO YES
 
-const emptySaintInfoArr: [SaintInfo] = [{ saint: "", info: "" }]
+const emptySaintInfo: SaintInfo = { saint: "", info: "" }
 
 const styles = StyleSheet.create({
     noMeLaContainer: {
@@ -41,23 +43,39 @@ const styles = StyleSheet.create({
     }
 });
 
-//Number of characters the screen can handle without scrolling (with font = 30)
-const maxText = 686;
-
-async function getDailySaint(): Promise<[SaintInfo]> {
-    const dailyInfo = await fetch(saintsEndpoint)
-    const dailyInfoJson = await dailyInfo.json();
-
-    return dailyInfoJson;
-}
-
 export default function DailySaint() {
-    const [dailySaintObj, setdailySaintObj] = useState(emptySaintInfoArr);
+    const [dailySaintObj, setdailySaintObj] = useState(emptySaintInfo);
+    const [loaded, setloaded] = useState(false);
 
     useEffect(() => {
-        getDailySaint()
-            .then(dso => setdailySaintObj(dso));
-    }, [])
+        if (!loaded)
+            getSaintsInfo()
+                .then(res => {
+                    setdailySaintObj(res);
+                    setloaded(true);
+                })
+    }, []);
+
+    const getSaintsInfo = async (): Promise<SaintInfo> => {
+        const today = new Date();
+        //!Wow! This is pretty 🤮🤮
+        const dbDailySaints = await db.getDailySaints();
+        let res: SaintInfo;
+
+        if (!dbDailySaints)
+            res = await fetchFromServer(saintsEndpoint);
+
+        else if (dbDailySaints.date.toDateString() !== today.toDateString())
+            //!DRY
+            res = await fetchFromServer(saintsEndpoint)
+        else
+            res = {
+                info: dbDailySaints.info,
+                saint: dbDailySaints.saint
+            }
+
+        return res;
+    }
 
     const SaintView = ({ _saintObj }) => (
         <View>
@@ -71,16 +89,26 @@ export default function DailySaint() {
         </View>
     )
 
-    return (
-        <SafeAreaView style={styles.noMeLaContainer}>
-            <ScrollView>
-                <FlatList
-                    data={dailySaintObj}
-                    renderItem={({ item }) => <SaintView _saintObj={item} />}
-                    ListHeaderComponent={<SaintView _saintObj={emptySaintInfoArr[0]} />}
-                    ListFooterComponent={<View></View>}
-                />
-            </ScrollView>
-        </SafeAreaView>
-    )
+    try {
+        return !loaded ?
+            <ActivityIndicator size="large" />
+            : (
+                <SafeAreaView style={styles.noMeLaContainer}>
+                    <ScrollView>
+                        {/*THIS IS WEIRD AS FUCK */}
+                        {/*THIS ISN`T AN ARRAY, BUT WORKS*/}
+                        <FlatList
+                            data={[dailySaintObj[0]]}
+                            renderItem={({ item }) => <SaintView _saintObj={item} />}
+                            ListHeaderComponent={<SaintView _saintObj={dailySaintObj} />}
+                            ListFooterComponent={<View></View>}
+                        />
+                    </ScrollView>
+
+                </SafeAreaView>
+            )
+    }
+    catch (e) {
+        console.error(e);
+    }
 }

@@ -9,7 +9,7 @@ import {
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import * as Notifications from 'expo-notifications';
 import scheduleNotification from '../utils/push';
-import { invertShouldSendNotifications } from '../services/ScheduleNotificationTask';
+import { invertShouldSendNotifications } from '../services/BackgroundTasks';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Database from '../db/db';
 import { farFuture, userDefaultLanguage } from '../utils/consts';
@@ -82,6 +82,7 @@ export default function Settings() {
                     setssn(_ssn);
                 }
                 } />
+            <Button title='Clear database' onPress={async _ => await db.clear()} />
             <Button onPress={showTimepicker} title="Definir horario de notificaciones" />
             {show && (
                 <DateTimePicker

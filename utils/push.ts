@@ -1,17 +1,12 @@
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
-import { getDailyPhrase } from '../components/Phrase'
 import { Platform } from 'react-native';
 import Database from '../db/db';
-import { hourTrigger, minuteTrigger } from './consts'
-import { createDateTrigger, secondsLeftTo } from './utils';
+import { hourTrigger, minuteTrigger, phraseEndpoint } from './consts'
+import { createDateTrigger, fetchFromServer, secondsLeftTo } from './utils';
+import { Phrase } from './interfaces';
 
 const db = new Database();
-
-interface Phrase {
-  text: string,
-  author: string
-}
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -106,7 +101,7 @@ export default async function scheduleNotification(instant: boolean = false,
   triggerHour: number = hourTrigger, triggerMinute: number = minuteTrigger) {
   const ssn = await db.getShouldSendNotifications();
   if (!ssn) return;
-  const data = await getDailyPhrase();
+  const data = await fetchFromServer(phraseEndpoint);
   const shouldSched = await shouldSchedule(triggerHour, triggerMinute, data);
   if (!shouldSched) return;
   //await Notifications.cancelAllScheduledNotificationsAsync();
