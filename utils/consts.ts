@@ -13,4 +13,8 @@ export const userDefaultLanguage = () => {
 
 export const farFuture = new Date(4000, 12, 28, 23, 59, 59);
 
+const domain = 'https://cosmic-anthem-308314.nw.r.appspot.com/';
+export const phraseEndpoint = domain + 'phrases';
+export const saintsEndpoint = domain + 'saints'
+
 //?Maybe db = new Databse() should be here
