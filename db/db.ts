@@ -48,7 +48,7 @@ export default class Database {
         const dailyPhrase = await AsyncStorage.getItem("DailyPhrase");
         if (dailyPhrase) {
             const parsed = JSON.parse(dailyPhrase);
-            parsed.date = Date.parse(parsed.date);
+            parsed.date = new Date(Date.parse(parsed.date));
             return parsed;
         }
         else return null;
@@ -63,7 +63,7 @@ export default class Database {
         const dailySaints = await AsyncStorage.getItem("DailySaints");
         if (dailySaints) {
             const parsed = JSON.parse(dailySaints);
-            parsed.date = Date.parse(parsed.date)
+            parsed.date = new Date(Date.parse(parsed.date));
             return parsed;
         }
         else return null;

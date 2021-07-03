@@ -5,18 +5,15 @@ import Database from '../db/db'
 import { fetchFromServer } from '../utils/utils';
 import { phraseEndpoint, saintsEndpoint } from '../utils/consts';
 
-const TASK_NAME = "ScheduleNotification"
 const db = new Database();
+const interval = 1;
+const scheduleNotificationTaskName = "ScheduleNotification";
+const cacheTaskName = "Cache"
 
-export const invertShouldSendNotifications = async () => {
-  const ssn = await db.getShouldSendNotifications();
-  db.setShouldSendNotifications(!ssn);
-  return !ssn;
-}
-const interval = 40;
-
-const defineTask = (name: string, callback) =>
+const defineTask = (name: string, callback) => {
+  if (TaskManager.isTaskDefined(name)) return;
   TaskManager.defineTask(name, callback);
+}
 
 const registerTask = (name: string) => {
   BackgroundFetch.registerTaskAsync(name, {
@@ -26,52 +23,55 @@ const registerTask = (name: string) => {
   })
     .then(() => {
       const today = new Date();
-      console.log("Task " + name + " running " + today.toTimeString());
+      console.log(today.toTimeString() + " Task " + name + " defined");
     })
     .catch(error => console.log(error));
 }
 
-const scheduleNotificationTask = () => {
+const scheduleNotificationTask = async () => {
   const today = new Date();
-  console.log(today.toTimeString() + " Background task running")
-  db.getShouldSendNotifications()
-    .then(shouldSendNotifications => {
-      if (shouldSendNotifications) {
-        db.getDateTrigger()
-          .then(dateTrigger => {
-            dateTrigger ?
-              scheduleNotification(false, dateTrigger.getHours(), dateTrigger.getMinutes()) :
-              scheduleNotification(false)
-          })
-      }
-    })
+  console.log(today.toTimeString() + " " + scheduleNotificationTaskName);
+  const dbssn = await db.getShouldSendNotifications();
+  if (dbssn) {
+    const dbDateTrigger = await db.getDateTrigger();
+    dbDateTrigger ?
+      scheduleNotification(false, dbDateTrigger.getHours(), dbDateTrigger.getMinutes()) :
+      scheduleNotification(false)
+  }
 }
 
-const cacheTask = () => {
+const getDailyPhraseTask = async () => {
   const today = new Date();
-  db.getDailyPhrase()
-    .then(res => {
-      console.log("res: ", res);
-      if (!res)
-        if (res.date.toDateString() !== today.toDateString())
-          fetchFromServer(phraseEndpoint)
-            .then(phrase => db.setDailyPhrase(phrase)
-              .then(_ => console.log("Phrase set")))
-    })
-    .catch(e => console.error("Exception in background task: cachetask.getdailyphrase " + e));
-  db.getDailySaints()
-    .then(dbDailySaints => {
-      if (!dbDailySaints)
-        if (dbDailySaints.date.toDateString() !== today.toDateString())
-          fetchFromServer(saintsEndpoint)
-            .then(dailySaints => db.setDailySaints(dailySaints)
-              .then(_ => console.log("Daily saint set!")))
-    })
-    .catch(e => console.error("Exception in background task: cachetask.getdailysaints " + e));
+  const dbDailyPhrase = await db.getDailyPhrase();
+  if (!dbDailyPhrase) {
+    const fetched = await fetchFromServer(phraseEndpoint)
+    await db.setDailyPhrase(fetched);
+  }
+  else if (dbDailyPhrase.date.toDateString() !== today.toDateString()) {
+    const fetched = await fetchFromServer(phraseEndpoint)
+    await db.setDailyPhrase(fetched);
+  }
 }
 
-const scheduleNotificationTaskName = "ScheduleNotification";
-const cacheTaskName = "Cache"
+const getDailySaintsTask = async () => {
+  const today = new Date();
+  const dbDailySaints = await db.getDailySaints();
+  if (!dbDailySaints) {
+    const fetched = await fetchFromServer(saintsEndpoint)
+    await db.setDailySaints(fetched)
+  }
+  else if (dbDailySaints.date.toDateString() !== today.toDateString()) {
+    const fetched = await fetchFromServer(saintsEndpoint)
+    await db.setDailySaints(fetched)
+  }
+}
+
+const cacheTask = async () => {
+  const today = new Date();
+  console.log(today.toTimeString() + " " + cacheTaskName);
+  await getDailyPhraseTask();
+  await getDailySaintsTask();
+}
 
 defineTask(scheduleNotificationTaskName, scheduleNotificationTask);
 defineTask(cacheTaskName, cacheTask);
