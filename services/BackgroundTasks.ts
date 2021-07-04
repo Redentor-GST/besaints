@@ -75,10 +75,15 @@ const cacheTask = () => {
 const scheduleNotificationTaskName = "ScheduleNotification";
 const cacheTaskName = "Cache"
 
-defineTask(scheduleNotificationTaskName, scheduleNotificationTask);
-defineTask(cacheTaskName, cacheTask);
-registerTask(scheduleNotificationTaskName);
-registerTask(cacheTaskName);
+try {
+  defineTask(scheduleNotificationTaskName, scheduleNotificationTask);
+  defineTask(cacheTaskName, cacheTask);
+  registerTask(scheduleNotificationTaskName);
+  registerTask(cacheTaskName);
+}
+catch (e) {
+  console.error(e);
+}
 
 //We re not using this
 /*

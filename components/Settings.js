@@ -64,6 +64,7 @@ export default function Settings() {
                     setssn(!_ssn);
                 }
                 } />
+            <Button title='Clear Database' onPress={async _ => await db.clear()} />
             <Button onPress={showTimepicker} title="Definir horario de notificaciones" />
             {show && (
                 <DateTimePicker

@@ -47,27 +47,21 @@ export default function DailySaint() {
 
     useEffect(() => {
         getSaintsInfo()
-            .then(res =>
-                setdailySaintObj(res.info)
-            )
-            .finally(() =>
+            .then(() =>
                 setloaded(true)
             )
     }, []);
 
-    const getSaintsInfo = async (): Promise<SaintInfoWithDate> => {
+    const getSaintsInfo = async () => {
         const today = new Date();
         const dbDailySaints: SaintInfoWithDate = await db.getDailySaints();
-        let res: SaintInfoWithDate;
 
         if (!dbDailySaints)
-            res = await fetchFromServer(saintsEndpoint);
+            setdailySaintObj(await fetchFromServer(saintsEndpoint));
         else if (dbDailySaints.date.toDateString() !== today.toDateString())
-            res = await fetchFromServer(saintsEndpoint)
+            setdailySaintObj(await fetchFromServer(saintsEndpoint));
         else
-            res = dbDailySaints;
-
-        return res;
+            setdailySaintObj(dbDailySaints.info)
     }
 
     const SaintView = ({ _saintObj }) => (
@@ -83,21 +77,22 @@ export default function DailySaint() {
     )
 
     try {
-        return !loaded ?
-            <View style={{ alignContent: 'center', alignSelf: 'center' }}>
-                <ActivityIndicator size="large" />
-            </View>
-            : (
-                <SafeAreaView style={styles.noMeLaContainer}>
-                    <ScrollView>
-                        <FlatList
-                            data={dailySaintObj}
-                            renderItem={({ item }) => <SaintView _saintObj={item} />}
-                            ListHeaderComponent={<SaintView _saintObj={dailySaintObj} />}
-                            ListFooterComponent={<View></View>}
-                        />
-                    </ScrollView>
-                </SafeAreaView>
+        return loaded ? (
+            <SafeAreaView style={styles.noMeLaContainer}>
+                <ScrollView>
+                    <FlatList
+                        data={dailySaintObj}
+                        renderItem={({ item }) => <SaintView _saintObj={item} />}
+                        ListHeaderComponent={<SaintView _saintObj={dailySaintObj} />}
+                        ListFooterComponent={<View></View>}
+                    />
+                </ScrollView>
+            </SafeAreaView>
+        ) :
+            (
+                <View style={{ alignContent: 'center', alignSelf: 'center' }}>
+                    <ActivityIndicator size="large" />
+                </View>
             )
     }
     catch (e) {
