@@ -23,7 +23,9 @@
     "expo-permissions": "~12.0.1",
     "expo-server-sdk": "^3.6.0",
     "expo-status-bar": "~1.0.4",
+    "expo-updates": "~0.5.4",
     "link": "^0.1.5",
+    "node-fetch": "^2.6.1",
     "react": "16.13.1",
     "react-dom": "^16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
@@ -37,8 +39,7 @@
     "react-native-web": "^0.16.3",
     "tslib": "^2.3.0",
     "unimodules-permissions-interface": "~6.1.0",
-    "zlib": "^1.0.5",
-    "expo-updates": "~0.5.4"
+    "zlib": "^1.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

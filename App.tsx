@@ -5,8 +5,10 @@ import {
   StyleSheet,
   Platform,
   Button,
-  SafeAreaView
+  SafeAreaView,
+  ActivityIndicator
 } from 'react-native';
+import { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react'
@@ -14,6 +16,7 @@ import Phrase from './components/Phrase';
 import Settings from './components/Settings';
 import Contact from './components/Contact';
 import DailySaint from './components/Saints';
+import { init } from './services/BackgroundTasks';
 
 const styles = StyleSheet.create({
   view: {
@@ -51,6 +54,7 @@ const styles = StyleSheet.create({
 const Stack = createStackNavigator();
 
 function homeScreen({ navigation }) {
+
   return Platform.OS === 'android' ? (
     <View style={styles.view}>
       <StatusBar
@@ -81,15 +85,24 @@ function homeScreen({ navigation }) {
 }
 // :)
 export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name='Home' component={homeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name='Frase del dia' component={Phrase} />
-        <Stack.Screen name='Ajustes' component={Settings} />
-        <Stack.Screen name='Contacto' component={Contact} />
-        <Stack.Screen name='Santos del dia' component={DailySaint} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  )
+  const [backgroundLoaded, setbackgroundLoaded] = useState(false)
+
+  useEffect(() => {
+    init()
+      .then(_ => setbackgroundLoaded(true))
+  })
+
+  return backgroundLoaded ?
+    (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name='Home' component={homeScreen} options={{ headerShown: false }} />
+          <Stack.Screen name='Frase del dia' component={Phrase} />
+          <Stack.Screen name='Ajustes' component={Settings} />
+          <Stack.Screen name='Contacto' component={Contact} />
+          <Stack.Screen name='Santos del dia' component={DailySaint} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    ) :
+    <ActivityIndicator />
 }
