@@ -11,6 +11,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Database from '../db/db';
 import { userDefaultLanguage } from '../utils/consts';
 import { Picker } from '@react-native-picker/picker';
+import scheduleNotification from '../utils/push';
 
 const db = new Database();
 
@@ -30,6 +31,7 @@ export default function Settings() {
         setnotifDateTrigger(currentDate)
         await Notifications.cancelAllScheduledNotificationsAsync();
         await db.setDateTrigger(currentDate.toTimeString());
+        await scheduleNotification(false, currentDate.getHours(), currentDate.getMinutes());
     };
 
     const showMode = (currentMode) => {
