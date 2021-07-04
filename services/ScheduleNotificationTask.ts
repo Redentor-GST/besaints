@@ -10,7 +10,6 @@ export default class ScheduleNotificationTask {
         const today = new Date();
         console.log(today.toTimeString() + " scheduleNotificationTask running")
         const dbssn = await db.getShouldSendNotifications();
-
         if (!dbssn) return;
 
         const dbDateTrigger = await db.getDateTrigger()
