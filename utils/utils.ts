@@ -51,7 +51,7 @@ export function nearestNotification(notifs) {
     return min;
 }
 
-export async function fetchFromServer(from) {
+export async function fetchFromServer(from: string) {
     const data = await fetch(from);
     const json = data.json();
 

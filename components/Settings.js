@@ -1,33 +1,27 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     View,
-    Text,
     Button,
     Platform,
     ActivityIndicator
 } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import * as Notifications from 'expo-notifications';
-import scheduleNotification from '../utils/push';
-import { invertShouldSendNotifications } from '../services/BackgroundTasks';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Database from '../db/db';
-import { farFuture, userDefaultLanguage } from '../utils/consts';
+import { userDefaultLanguage } from '../utils/consts';
 import { Picker } from '@react-native-picker/picker';
-import { nearestNotification } from '../utils/utils';
 
 const db = new Database();
 
 export default function Settings() {
-    const [nextNotifTime, setnextNotifTime] = useState("");
-    const [areThereNotifications, setareThereNotifications] = useState(true);
     const [date, setDate] = useState(new Date(1598051730000));
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
     const [ssn, setssn] = useState(true);
-    const [notifDateTrigger, setnotifDateTrigger] = useState(new Date());
     const [selectedLanguage, setSelectedLanguage] = useState(userDefaultLanguage());
     const [ssnLoaded, setssnLoaded] = useState(false);
+    const [notifDateTrigger, setnotifDateTrigger] = useState(new Date())
 
     const onChange = async (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -59,21 +53,6 @@ export default function Settings() {
                 if (userDefinedLanguage)
                     setSelectedLanguage(userDefinedLanguage);
             })
-
-        Notifications.getAllScheduledNotificationsAsync()
-            .then(res => {
-                try {
-                    const nearestNotif = nearestNotification(res);
-                    nearestNotif.getTime() === farFuture.getTime() ?
-                        setareThereNotifications(false) :
-                        setnextNotifTime(nearestNotif.toTimeString());
-                }
-                catch (e) {
-                    console.warn("This warning just means there are no notifications scheduled ->", e);
-                    setareThereNotifications(false);
-                }
-            })
-            .catch(e => console.error(e));
     }, [ssn])
 
     return ssnLoaded ? (
@@ -85,13 +64,11 @@ export default function Settings() {
                     setssn(!_ssn);
                 }
                 } />
-            <Text> Proxima notificacion: {nextNotifTime.slice(0, 5)} </Text>
-            <Button title='Clear Database' onPress={async _ => await db.clear()} />
             <Button onPress={showTimepicker} title="Definir horario de notificaciones" />
             {show && (
                 <DateTimePicker
                     testID="dateTimePicker"
-                    value={date}
+                    value={notifDateTrigger}
                     mode={mode}
                     is24Hour={true}
                     display="default"
