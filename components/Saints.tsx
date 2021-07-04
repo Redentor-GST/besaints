@@ -11,7 +11,7 @@ import {
     SafeAreaView,
     ActivityIndicator,
 } from 'react-native';
-import { SaintInfo } from "../utils/interfaces";
+import { SaintInfo, SaintInfoWithDate } from "../utils/interfaces";
 import Database from "../db/db";
 import { fetchFromServer } from "../utils/utils";
 
@@ -20,7 +20,7 @@ const db = new Database();
 
 //!NOT AT ALL PROUD OF WHAT I DID HERE, WORKS? YES, MAKES ME WANNA THROW UP? ALSO YES
 
-const emptySaintInfo: SaintInfo = { saint: "", info: "" }
+const emptySaintInfo: SaintInfo = { info: '', saint: '' };
 
 const styles = StyleSheet.create({
     noMeLaContainer: {
@@ -44,24 +44,26 @@ const styles = StyleSheet.create({
 });
 
 export default function DailySaint() {
-    const [dailySaintObj, setdailySaintObj] = useState(emptySaintInfo);
+    const [dailySaintObj, setdailySaintObj] = useState([emptySaintInfo]);
     const [loaded, setloaded] = useState(false);
 
     useEffect(() => {
-        if (!loaded)
-            getSaintsInfo()
-                .then(res => {
-                    setdailySaintObj(res);
-                    setloaded(true);
-                })
+        getSaintsInfo()
+            .then(res =>
+                setdailySaintObj(res.info)
+            )
+            .finally(() => {
+                setloaded(true);
+                console.log("Daily Saints Loaded!");
+            })
     }, []);
 
-    const getSaintsInfo = async (): Promise<SaintInfo> => {
+    const getSaintsInfo = async (): Promise<SaintInfoWithDate> => {
         const today = new Date();
         //!Wow! This is pretty 🤮🤮
-        const dbDailySaints = await db.getDailySaints();
-        let res: SaintInfo;
-
+        const dbDailySaints: SaintInfoWithDate = await db.getDailySaints();
+        let res: SaintInfoWithDate;
+        console.log("dbdailysaints: ", dbDailySaints);
         if (!dbDailySaints)
             res = await fetchFromServer(saintsEndpoint);
 
@@ -69,10 +71,7 @@ export default function DailySaint() {
             //!DRY
             res = await fetchFromServer(saintsEndpoint)
         else
-            res = {
-                info: dbDailySaints.info,
-                saint: dbDailySaints.saint
-            }
+            res = dbDailySaints;
 
         return res;
     }
@@ -91,20 +90,21 @@ export default function DailySaint() {
 
     try {
         return !loaded ?
-            <ActivityIndicator size="large" />
+            <View style={{ alignContent: 'center', alignSelf: 'center' }}>
+                <ActivityIndicator size="large" />
+            </View>
             : (
                 <SafeAreaView style={styles.noMeLaContainer}>
                     <ScrollView>
                         {/*THIS IS WEIRD AS FUCK */}
                         {/*THIS ISN`T AN ARRAY, BUT WORKS*/}
                         <FlatList
-                            data={[dailySaintObj[0]]}
+                            data={dailySaintObj}
                             renderItem={({ item }) => <SaintView _saintObj={item} />}
                             ListHeaderComponent={<SaintView _saintObj={dailySaintObj} />}
                             ListFooterComponent={<View></View>}
                         />
                     </ScrollView>
-
                 </SafeAreaView>
             )
     }

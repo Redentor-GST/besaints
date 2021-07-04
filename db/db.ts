@@ -62,20 +62,22 @@ export default class Database {
     getDailySaints = async (): Promise<SaintInfoWithDate> => {
         const dailySaints = await AsyncStorage.getItem("DailySaints");
         if (dailySaints) {
-            const parsed = JSON.parse(dailySaints);
-            parsed.date = new Date(Date.parse(parsed.date));
-            return parsed;
+            const parsed: SaintInfoWithDate = JSON.parse(dailySaints);
+            return typeof (parsed.date) === 'string' ? {
+                info: parsed.info,
+                date: new Date(Date.parse(parsed.date))
+            } : parsed;
         }
         else return null;
     }
 
-    setDailySaints = async (value: SaintInfo) => {
+    setDailySaints = async (value: [SaintInfo]) => {
         const valueWithDate: SaintInfoWithDate = {
-            info: value.info,
-            saint: value.saint,
+            info: value,
             date: new Date()
         }
-        await AsyncStorage.setItem("DailySaints", JSON.stringify(valueWithDate))
+        const stringified = JSON.stringify(valueWithDate);
+        await AsyncStorage.setItem("DailySaints", stringified);
     }
 
     clear = async () =>

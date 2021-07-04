@@ -47,12 +47,12 @@ const cacheTask = () => {
   const today = new Date();
   console.log(today.toTimeString() + " cacheTask Running")
   db.getDailyPhrase()
-    .then(res => {
-      if (!res)
+    .then(dbDailyPhrase => {
+      if (!dbDailyPhrase)
         fetchFromServer(phraseEndpoint)
           .then(phrase => db.setDailyPhrase(phrase)
             .then(_ => console.log("Phrase set")))
-      else if (res.date.toDateString() !== today.toDateString())
+      else if (dbDailyPhrase.date.toDateString() !== today.toDateString())
         fetchFromServer(phraseEndpoint)
           .then(phrase => db.setDailyPhrase(phrase)
             .then(_ => console.log("Phrase set")))
@@ -60,7 +60,6 @@ const cacheTask = () => {
     .catch(e => console.error("Exception in background task: cachetask.getdailyphrase " + e));
   db.getDailySaints()
     .then(dbDailySaints => {
-      console.log("dates: ", dbDailySaints.date.toDateString(), today.toDateString())
       if (!dbDailySaints)
         fetchFromServer(saintsEndpoint)
           .then(dailySaints => db.setDailySaints(dailySaints)

@@ -1,21 +1,20 @@
-export interface Phrase {
+export interface Phrase extends Object {
     text: string,
     author: string
 }
 
-export interface PhraseWithDate {
+export interface PhraseWithDate extends Object {
     text: string;
     author: string;
     date: Date;
 }
 
-export interface SaintInfo {
+export interface SaintInfo extends Object {
     info: string;
     saint: string;
 }
 
-export interface SaintInfoWithDate {
-    info: string;
-    saint: string;
-    date: Date;
+export interface SaintInfoWithDate extends Object {
+    info: [SaintInfo],
+    date: Date
 }
