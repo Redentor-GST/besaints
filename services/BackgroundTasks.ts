@@ -5,85 +5,78 @@ import Database from '../db/db'
 import { fetchFromServer } from '../utils/utils';
 import { phraseEndpoint, saintsEndpoint } from '../utils/consts';
 
-const TASK_NAME = "ScheduleNotification"
 const db = new Database();
-
-
+const scheduleNotificationTaskName = "ScheduleNotification";
+const cacheTaskName = "Cache"
 const interval = 5;
 
-const defineTask = (name: string, callback) =>
+function defineTask(name: string, callback) {
   TaskManager.defineTask(name, callback);
+  console.log("Task " + name + " defined");
+}
 
-const registerTask = (name: string) => {
-  BackgroundFetch.registerTaskAsync(name, {
+async function registerTask(name: string) {
+  await BackgroundFetch.registerTaskAsync(name, {
     minimumInterval: interval,
     stopOnTerminate: false,
     startOnBoot: true,
   })
-    .then(() => {
-      const today = new Date();
-      console.log(today.toTimeString() + " Task " + name + " registered ");
-    })
-    .catch(error => console.log(error));
+  const today = new Date();
+  console.log(today.toTimeString() + " Task " + name + " registered ");
 }
 
-const scheduleNotificationTask = () => {
+async function fetchAndSet(from: string, setter) {
+  const dbFetch = await fetchFromServer(from)
+  setter(dbFetch);
+}
+
+const scheduleNotificationTask = async () => {
   const today = new Date();
   console.log(today.toTimeString() + " scheduleNotificationTask running")
-  db.getShouldSendNotifications()
-    .then(shouldSendNotifications => {
-      if (shouldSendNotifications) {
-        db.getDateTrigger()
-          .then(dateTrigger => {
-            dateTrigger ?
-              scheduleNotification(false, dateTrigger.getHours(), dateTrigger.getMinutes()) :
-              scheduleNotification(false)
-          })
-      }
-    })
+  const dbssn = await db.getShouldSendNotifications();
+
+  if (!dbssn) return;
+
+  const dbDateTrigger = await db.getDateTrigger()
+  dbDateTrigger ?
+    await scheduleNotification(false, dbDateTrigger.getHours(), dbDateTrigger.getMinutes()) :
+    await scheduleNotification(false)
 }
 
-const cacheTask = () => {
+const getDailyPhraseTask = async () => {
+  const today = new Date();
+  const dbDailyPhrase = await db.getDailyPhrase();
+
+  if (!dbDailyPhrase)
+    await fetchAndSet(phraseEndpoint, db.setDailyPhrase)
+  else if (dbDailyPhrase.date.toDateString() !== today.toDateString())
+    await fetchAndSet(phraseEndpoint, db.setDailyPhrase)
+}
+
+const getDailySaints = async () => {
+  const today = new Date();
+  const dbDailySaints = await db.getDailySaints();
+  if (!dbDailySaints)
+    await fetchAndSet(saintsEndpoint, db.setDailySaints);
+  else if (dbDailySaints.date.toDateString() !== today.toDateString())
+    await fetchAndSet(saintsEndpoint, db.setDailySaints);
+}
+
+const cacheTask = async () => {
   const today = new Date();
   console.log(today.toTimeString() + " cacheTask Running")
-  db.getDailyPhrase()
-    .then(dbDailyPhrase => {
-      if (!dbDailyPhrase)
-        fetchFromServer(phraseEndpoint)
-          .then(phrase => db.setDailyPhrase(phrase)
-            .then(_ => console.log("Phrase set")))
-      else if (dbDailyPhrase.date.toDateString() !== today.toDateString())
-        fetchFromServer(phraseEndpoint)
-          .then(phrase => db.setDailyPhrase(phrase)
-            .then(_ => console.log("Phrase set")))
-    })
-    .catch(e => console.error("Exception in background task: cachetask.getdailyphrase " + e));
-  db.getDailySaints()
-    .then(dbDailySaints => {
-      if (!dbDailySaints)
-        fetchFromServer(saintsEndpoint)
-          .then(dailySaints => db.setDailySaints(dailySaints)
-            .then(_ => console.log("Daily saint set!")))
-      else if (dbDailySaints.date.toDateString() !== today.toDateString())
-        fetchFromServer(saintsEndpoint)
-          .then(dailySaints => db.setDailySaints(dailySaints)
-            .then(_ => console.log("Daily saint set!")))
-    })
-    .catch(e => console.error("Exception in background task: cachetask.getdailysaints " + e));
+  await getDailyPhraseTask();
+  await getDailySaints();
 }
 
-const scheduleNotificationTaskName = "ScheduleNotification";
-const cacheTaskName = "Cache"
-
-try {
+async function init() {
   defineTask(scheduleNotificationTaskName, scheduleNotificationTask);
   defineTask(cacheTaskName, cacheTask);
-  registerTask(scheduleNotificationTaskName);
-  registerTask(cacheTaskName);
+  await registerTask(scheduleNotificationTaskName);
+  await registerTask(cacheTaskName);
 }
-catch (e) {
-  console.error(e);
-}
+
+init().then(_ => console.log("Init done!"));
 
 //We re not using this
 /*
