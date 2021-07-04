@@ -18,8 +18,6 @@ import { fetchFromServer } from "../utils/utils";
 const db = new Database();
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
-//!NOT AT ALL PROUD OF WHAT I DID HERE, WORKS? YES, MAKES ME WANNA THROW UP? ALSO YES
-
 const emptySaintInfo: SaintInfo = { info: '', saint: '' };
 
 const styles = StyleSheet.create({
@@ -52,23 +50,19 @@ export default function DailySaint() {
             .then(res =>
                 setdailySaintObj(res.info)
             )
-            .finally(() => {
-                setloaded(true);
-                console.log("Daily Saints Loaded!");
-            })
+            .finally(() =>
+                setloaded(true)
+            )
     }, []);
 
     const getSaintsInfo = async (): Promise<SaintInfoWithDate> => {
         const today = new Date();
-        //!Wow! This is pretty 🤮🤮
         const dbDailySaints: SaintInfoWithDate = await db.getDailySaints();
         let res: SaintInfoWithDate;
-        console.log("dbdailysaints: ", dbDailySaints);
+
         if (!dbDailySaints)
             res = await fetchFromServer(saintsEndpoint);
-
         else if (dbDailySaints.date.toDateString() !== today.toDateString())
-            //!DRY
             res = await fetchFromServer(saintsEndpoint)
         else
             res = dbDailySaints;
@@ -96,8 +90,6 @@ export default function DailySaint() {
             : (
                 <SafeAreaView style={styles.noMeLaContainer}>
                     <ScrollView>
-                        {/*THIS IS WEIRD AS FUCK */}
-                        {/*THIS ISN`T AN ARRAY, BUT WORKS*/}
                         <FlatList
                             data={dailySaintObj}
                             renderItem={({ item }) => <SaintView _saintObj={item} />}
