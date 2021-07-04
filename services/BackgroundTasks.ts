@@ -9,7 +9,7 @@ const TASK_NAME = "ScheduleNotification"
 const db = new Database();
 
 
-const interval = 40;
+const interval = 5;
 
 const defineTask = (name: string, callback) =>
   TaskManager.defineTask(name, callback);
@@ -22,14 +22,14 @@ const registerTask = (name: string) => {
   })
     .then(() => {
       const today = new Date();
-      console.log("Task " + name + " running " + today.toTimeString());
+      console.log(today.toTimeString() + " Task " + name + " registered ");
     })
     .catch(error => console.log(error));
 }
 
 const scheduleNotificationTask = () => {
   const today = new Date();
-  console.log(today.toTimeString() + " Background task running")
+  console.log(today.toTimeString() + " scheduleNotificationTask running")
   db.getShouldSendNotifications()
     .then(shouldSendNotifications => {
       if (shouldSendNotifications) {
@@ -45,9 +45,9 @@ const scheduleNotificationTask = () => {
 
 const cacheTask = () => {
   const today = new Date();
+  console.log(today.toTimeString() + " cacheTask Running")
   db.getDailyPhrase()
     .then(res => {
-      console.log("res: ", res);
       if (!res)
         fetchFromServer(phraseEndpoint)
           .then(phrase => db.setDailyPhrase(phrase)
@@ -60,6 +60,7 @@ const cacheTask = () => {
     .catch(e => console.error("Exception in background task: cachetask.getdailyphrase " + e));
   db.getDailySaints()
     .then(dbDailySaints => {
+      console.log("dates: ", dbDailySaints.date.toDateString(), today.toDateString())
       if (!dbDailySaints)
         fetchFromServer(saintsEndpoint)
           .then(dailySaints => db.setDailySaints(dailySaints)

@@ -4,7 +4,7 @@ import {
     Text,
     Button,
     Platform,
-    StyleSheet
+    ActivityIndicator
 } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import * as Notifications from 'expo-notifications';
@@ -27,6 +27,7 @@ export default function Settings() {
     const [ssn, setssn] = useState(true);
     const [notifDateTrigger, setnotifDateTrigger] = useState(new Date());
     const [selectedLanguage, setSelectedLanguage] = useState(userDefaultLanguage());
+    const [ssnLoaded, setssnLoaded] = useState(false);
 
     const onChange = async (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -49,7 +50,8 @@ export default function Settings() {
     useEffect(() => {
 
         db.getShouldSendNotifications()
-            .then(res => setssn(res));
+            .then(res => setssn(res))
+            .finally(_ => setssnLoaded(true))
         db.getDateTrigger()
             .then(dateTrigger => setnotifDateTrigger(dateTrigger));
         db.getUserDefinedLanguage()
@@ -72,9 +74,9 @@ export default function Settings() {
                 }
             })
             .catch(e => console.error(e));
-    }, [])
+    }, [ssn])
 
-    return (
+    return ssnLoaded ? (
         <View>
             <BouncyCheckbox isChecked={ssn} text='Enviar Notificationes' style={{ alignSelf: 'center' }}
                 onPress={async () => {
@@ -83,6 +85,8 @@ export default function Settings() {
                     setssn(!_ssn);
                 }
                 } />
+            <Text> Proxima notificacion: {nextNotifTime.slice(0, 5)} </Text>
+            <Button title='Clear Database' onPress={async _ => await db.clear()} />
             <Button onPress={showTimepicker} title="Definir horario de notificaciones" />
             {show && (
                 <DateTimePicker
@@ -118,5 +122,11 @@ export default function Settings() {
             <Text> Date Trigger for notifications {notifDateTrigger.toTimeString()} </Text>
             */}
         </View>
-    )
+    ) :
+        (
+            <View>
+                <ActivityIndicator />
+            </View>
+
+        )
 }

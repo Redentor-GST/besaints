@@ -70,8 +70,12 @@ export default class Database {
     }
 
     setDailySaints = async (value: SaintInfo) => {
-        value["date"] = new Date();
-        await AsyncStorage.setItem("DailySaints", JSON.stringify(value))
+        const valueWithDate: SaintInfoWithDate = {
+            info: value.info,
+            saint: value.saint,
+            date: new Date()
+        }
+        await AsyncStorage.setItem("DailySaints", JSON.stringify(valueWithDate))
     }
 
     clear = async () =>
