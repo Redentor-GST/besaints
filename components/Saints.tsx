@@ -47,21 +47,23 @@ export default function DailySaint() {
 
     useEffect(() => {
         getSaintsInfo()
-            .then(() =>
+            .then(res => {
+                setdailySaintObj(res);
                 setloaded(true)
+            }
             )
     }, []);
 
-    const getSaintsInfo = async () => {
+    async function getSaintsInfo(): Promise<[SaintInfo]> {
         const today = new Date();
         const dbDailySaints: SaintInfoWithDate = await db.getDailySaints();
 
         if (!dbDailySaints)
-            setdailySaintObj(await fetchFromServer(saintsEndpoint));
+            return await fetchFromServer(saintsEndpoint);
         else if (dbDailySaints.date.toDateString() !== today.toDateString())
-            setdailySaintObj(await fetchFromServer(saintsEndpoint));
+            return await fetchFromServer(saintsEndpoint);
         else
-            setdailySaintObj(dbDailySaints.info)
+            return dbDailySaints.info
     }
 
     const SaintView = ({ _saintObj }) => (
