@@ -99,8 +99,6 @@ const notification = (triggerHour: number, triggerMinute: number, data: Phrase, 
 //Default value is 7:00 am
 export default async function scheduleNotification(instant: boolean = false,
   triggerHour: number = hourTrigger, triggerMinute: number = minuteTrigger) {
-  const ssn = await db.getShouldSendNotifications();
-  if (!ssn) return;
   const data = await fetchFromServer(phraseEndpoint);
   const shouldSched = await shouldSchedule(triggerHour, triggerMinute, data);
   if (!shouldSched) return;
