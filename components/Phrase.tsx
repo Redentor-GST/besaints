@@ -71,26 +71,25 @@ export default function PhraseView() {
   //TODO change the view when the user rotates the device
   //const { isRotated } = useDeviceOrientation();
   useEffect(() => {
-    const today = new Date();
-    //!Wow! This is pretty 🤮🤮
-    db.getDailyPhrase()
-      .then(dbDailyPhrase => {
-        if (!dbDailyPhrase)
-          fetchFromServer(phraseEndpoint)
-            .then(res => setData(res))
-        else if (dbDailyPhrase.date.toDateString() !== today.toDateString())
-          //!DRY
-          fetchFromServer(phraseEndpoint)
-            .then(res => setData(res))
-        else {
-          const phraseWithoutDate: Phrase = {
-            text: dbDailyPhrase.text,
-            author: dbDailyPhrase.author
-          }
-          setData(phraseWithoutDate);
-        }
-      })
+    getPhrase()
+      .then(phrase => setData(phrase))
   }, []);
+
+  async function getPhrase() {
+    const today = new Date();
+    const dbDailyPhrase = await db.getDailyPhrase();
+    if (!dbDailyPhrase)
+      return await fetchFromServer(phraseEndpoint);
+    else if (dbDailyPhrase.date.toDateString() !== today.toDateString())
+      return await fetchFromServer(phraseEndpoint);
+    else {
+      const phraseWithoutDate: Phrase = {
+        text: dbDailyPhrase.text,
+        author: dbDailyPhrase.author
+      }
+      return phraseWithoutDate;
+    }
+  }
 
   try {
     const view = phraseView(data)
