@@ -14,7 +14,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react'
 import Phrase from './components/Phrase';
 import Settings from './components/Settings';
-import Contact from './components/Contact';
 import DailySaint from './components/Saints';
 import { init } from './services/BackgroundTasks';
 
@@ -36,19 +35,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'black'
   },
-  contact: {
-    ...StyleSheet.absoluteFillObject,
-    flex: 1,
-    alignItems: 'flex-end',
-    alignSelf: 'flex-end',
-    justifyContent: 'flex-end'
-  },
-  settings: {
-    ...StyleSheet.absoluteFillObject,
-    flex: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'flex-end'
-  }
 })
 
 const Stack = createStackNavigator();
@@ -68,10 +54,10 @@ function homeScreen({ navigation }) {
       <View style={{ marginTop: 5 }}>
         <Button title='Santos del día' onPress={_ => navigation.navigate('Santos del dia')} />
       </View>
-      <View style={styles.settings}>
+      <View style={{ marginTop: 5 }}>
         <Button title='Ajustes' onPress={_ => navigation.navigate('Ajustes')}></Button>
       </View>
-    </View>
+    </View >
   ) :
     <SafeAreaView style={styles.view}>
       <Text style={styles.logo}>Be Saints</Text>
