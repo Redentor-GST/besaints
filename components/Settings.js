@@ -73,8 +73,10 @@ export default function Settings() {
                     value={notifDateTrigger}
                     mode={mode}
                     is24Hour={true}
-                    display="default"
+                    display="spinner"
                     onChange={onChange}
+                    minuteInterval={15}
+                    disabled={true}
                 />
             )}
             <View style={{ alignSelf: 'center' }}>
@@ -94,6 +96,7 @@ export default function Settings() {
             {/**
              * DEBUG
             <Button title='Log all notifications' onPress={async _ => await Notifications.getAllScheduledNotificationsAsync().then(res => console.log(res))} />
+            <Button title='Kill all notifications' onPress={async _ => await Notifications.cancelAllScheduledNotificationsAsync().then(_ => console.log("deleted!"))} />
             <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />
             <Text>
                 Next Notification : {areThereNotifications ? nextNotifTime + " " : "NONE"}
