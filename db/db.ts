@@ -82,4 +82,10 @@ export default class Database {
 
     clear = async () =>
         await AsyncStorage.multiRemove(this.tables);
+
+    removeDailyPhrase = async () =>
+        await AsyncStorage.removeItem('DailyPhrase');
+
+    removeDailySaints = async () =>
+        await AsyncStorage.removeItem('DailySaints');
 }

@@ -16,19 +16,27 @@ export default class CacheTask {
     const today = new Date();
     const dbDailyPhrase = await db.getDailyPhrase();
 
-    if (!dbDailyPhrase)
+    if (!dbDailyPhrase) {
+      await db.removeDailyPhrase();
       await this.fetchAndSet(phraseEndpoint, db.setDailyPhrase)
-    else if (dbDailyPhrase.date.toDateString() !== today.toDateString())
+    }
+    else if (dbDailyPhrase.date.toDateString() !== today.toDateString()) {
+      await db.removeDailyPhrase();
       await this.fetchAndSet(phraseEndpoint, db.setDailyPhrase)
+    }
   }
 
   private getDailySaints = async () => {
     const today = new Date();
     const dbDailySaints = await db.getDailySaints();
-    if (!dbDailySaints)
+    if (!dbDailySaints) {
       await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
-    else if (dbDailySaints.date.toDateString() !== today.toDateString())
+      await db.removeDailySaints();
+    }
+    else if (dbDailySaints.date.toDateString() !== today.toDateString()) {
       await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
+      await db.removeDailySaints();
+    }
   }
 
   private cacheTask = async () => {

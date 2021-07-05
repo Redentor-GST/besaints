@@ -93,6 +93,7 @@ export default function Settings() {
 
             {/**
              * DEBUG
+            <Button title='Log all notifications' onPress={async _ => await Notifications.getAllScheduledNotificationsAsync().then(res => console.log(res))} />
             <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />
             <Text>
                 Next Notification : {areThereNotifications ? nextNotifTime + " " : "NONE"}
