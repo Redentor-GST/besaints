@@ -10,9 +10,10 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import * as Notifications from 'expo-notifications';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Database from '../db/db';
-import { userDefaultLanguage } from '../utils/consts';
-import { Picker } from '@react-native-picker/picker';
+//import { userDefaultLanguage } from '../utils/consts';
 import scheduleNotification from '../utils/push';
+import SelectMultiple from 'react-native-select-multiple'
+
 
 const db = new Database();
 
@@ -21,9 +22,10 @@ export default function Settings() {
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
     const [ssn, setssn] = useState(true);
-    const [selectedLanguage, setSelectedLanguage] = useState(userDefaultLanguage());
+    //const [selectedLanguage, setSelectedLanguage] = useState(userDefaultLanguage());
     const [ssnLoaded, setssnLoaded] = useState(false);
-    const [notifDateTrigger, setnotifDateTrigger] = useState(new Date())
+    const [notifDateTrigger, setnotifDateTrigger] = useState(new Date());
+    const [selected, setselected] = useState([]);
 
     const onChange = async (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -51,15 +53,32 @@ export default function Settings() {
             .finally(_ => setssnLoaded(true))
         db.getDateTrigger()
             .then(dateTrigger => setnotifDateTrigger(dateTrigger));
+        /*
         db.getUserDefinedLanguage()
             .then(userDefinedLanguage => {
                 if (userDefinedLanguage)
                     setSelectedLanguage(userDefinedLanguage);
-            })
+            })*/
     }, [ssn])
+
+    async function changessn() {
+        const _ssn = await db.getShouldSendNotifications();
+        await db.setShouldSendNotifications(!_ssn);
+        setssn(!_ssn);
+    }
+
+    function renderLabel() {
+        return (
+            <View>
+                <Text> Enviar Notificaciones </Text>
+            </View>
+        )
+    }
 
     return ssnLoaded ? (
         <View>
+            {/*
+            
             <BouncyCheckbox isChecked={ssn} text='Enviar Notificationes' style={{ alignSelf: 'center' }}
                 onPress={async () => {
                     const _ssn = await db.getShouldSendNotifications();
@@ -67,6 +86,14 @@ export default function Settings() {
                     setssn(!_ssn);
                 }
                 } />
+            */}
+            <SelectMultiple
+                items={[ssn]}
+                selectedItems={ssn ? [ssn] : []}
+                onSelectionsChange={changessn}
+                renderLabel={renderLabel}
+            />
+            <Button title='Log all notifications' onPress={async _ => await Notifications.getAllScheduledNotificationsAsync().then(res => console.log(res))} />
             <Button onPress={showTimepicker} title="Definir horario de notificaciones" />
             {show && (
                 <DateTimePicker
@@ -80,7 +107,8 @@ export default function Settings() {
                     disabled={true}
                 />
             )}
-            <Text style={{ color: 'blue', textAlign: 'center', fontSize: 19 }} onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}>
+            <Text style={{ color: 'blue', textAlign: 'center', fontSize: 19 }}
+                onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}>
                 Envianos un email! 📨
             </Text>
 
