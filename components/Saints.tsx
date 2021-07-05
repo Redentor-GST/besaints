@@ -105,7 +105,7 @@ export default function DailySaint() {
                         ListHeaderComponent={<SaintView _saintObj={dailySaintObj} />}
                         ListFooterComponent={<View></View>}
                     />
-                    <Button title='Para leer mas sobre los santos del dia ingresa aqui'
+                    <Button title='Para leer mas sobre los santos del dia ingresa aquí'
                         onPress={_ => Linking.openURL(getTodaysVaticanLink())}
                     />
                 </ScrollView>
