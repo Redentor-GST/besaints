@@ -10,6 +10,8 @@ import {
     ScrollView,
     SafeAreaView,
     ActivityIndicator,
+    Button,
+    Linking,
 } from 'react-native';
 import { SaintInfo, SaintInfoWithDate } from "../utils/interfaces";
 import Database from "../db/db";
@@ -40,6 +42,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     }
 });
+
+function getTodaysVaticanLink(): string {
+    const today = new Date();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+    let monthStr = month.toString();
+    let dayStr = day.toString();
+    if (month < 10)
+        monthStr = '0' + monthStr;
+    if (day < 10)
+        dayStr = '0' + dayStr;
+    const link = 'https://www.vaticannews.va/es/santos/' + monthStr +
+        '/' + dayStr + '.html';
+    return link;
+}
 
 export default function DailySaint() {
     const [dailySaintObj, setdailySaintObj] = useState([emptySaintInfo]);
@@ -88,12 +105,16 @@ export default function DailySaint() {
                         ListHeaderComponent={<SaintView _saintObj={dailySaintObj} />}
                         ListFooterComponent={<View></View>}
                     />
+                    <Button title='Para leer mas sobre los santos del dia ingresa aqui'
+                        onPress={_ => Linking.openURL(getTodaysVaticanLink())}
+                    />
                 </ScrollView>
             </SafeAreaView>
         ) :
             (
                 <View style={{ alignContent: 'center', alignSelf: 'center' }}>
                     <ActivityIndicator size="large" />
+                    <Text> Loaded: {loaded} </Text>
                 </View>
             )
     }
