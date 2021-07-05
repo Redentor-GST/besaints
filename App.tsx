@@ -79,6 +79,9 @@ function homeScreen({ navigation }) {
     <SafeAreaView style={styles.view}>
       <Text style={styles.logo}>Be Saints</Text>
       <Button title="Frase del dia" onPress={_ => navigation.navigate("Frase del dia")}></Button>
+      <View style={{ marginTop: 5 }}>
+        <Button title='Santos del dia' onPress={_ => navigation.navigate('Santos del dia')} />
+      </View>
       <Button title='Contacto' onPress={() => navigation.navigate('Contacto')}></Button>
       <Button title='Ajustes' onPress={_ => navigation.navigate('Ajustes')}></Button>
     </SafeAreaView>
