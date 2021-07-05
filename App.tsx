@@ -73,8 +73,9 @@ export default function App() {
   const [backgroundLoaded, setbackgroundLoaded] = useState(false)
 
   useEffect(() => {
-    init()
-      .then(_ => setbackgroundLoaded(true))
+    if (!backgroundLoaded)
+      init()
+        .then(_ => setbackgroundLoaded(true))
   })
 
   return backgroundLoaded ?
