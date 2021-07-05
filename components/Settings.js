@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {
+    Text,
     View,
     Button,
     Platform,
@@ -79,22 +80,25 @@ export default function Settings() {
                     disabled={true}
                 />
             )}
-            <View style={{ alignSelf: 'center' }}>
-                <Picker
-                    selectedValue={selectedLanguage}
-                    style={{ height: 20, width: 130 }}
-                    onValueChange={(itemValue, itemIndex) => {
-                        setSelectedLanguage(itemValue);
-                        db.setUserDefinedLanguage(itemValue);
-                    }}
-                >
-                    <Picker.Item label="English" value="en" />
-                    <Picker.Item label="Spanish" value="es" />
-                </Picker>
-            </View>
+            <Text style={{ color: 'blue', textAlign: 'center', fontSize: 19 }} onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}>
+                Envianos un email! 📨
+            </Text>
 
             {/**
              * DEBUG
+             <View style={{ alignSelf: 'center' }}>
+                 <Picker
+                     selectedValue={selectedLanguage}
+                     style={{ height: 20, width: 130 }}
+                     onValueChange={(itemValue, itemIndex) => {
+                         setSelectedLanguage(itemValue);
+                         db.setUserDefinedLanguage(itemValue);
+                     }}
+                 >
+                     <Picker.Item label="English" value="en" />
+                     <Picker.Item label="Spanish" value="es" />
+                 </Picker>
+             </View>
             <Button title='Log all notifications' onPress={async _ => await Notifications.getAllScheduledNotificationsAsync().then(res => console.log(res))} />
             <Button title='Kill all notifications' onPress={async _ => await Notifications.cancelAllScheduledNotificationsAsync().then(_ => console.log("deleted!"))} />
             <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />

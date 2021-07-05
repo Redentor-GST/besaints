@@ -64,12 +64,9 @@ function homeScreen({ navigation }) {
         translucent={true}
       />
       <Text style={styles.logo}>Be Saints</Text>
-      <Button title='Frase diaria' onPress={() => navigation.navigate('Frase del dia')} />
+      <Button title='Frase del día' onPress={() => navigation.navigate('Frase del dia')} />
       <View style={{ marginTop: 5 }}>
-        <Button title='Santos del dia' onPress={_ => navigation.navigate('Santos del dia')} />
-      </View>
-      <View style={styles.contact}>
-        <Button title='Contacto' onPress={() => navigation.navigate('Contacto')}></Button>
+        <Button title='Santos del día' onPress={_ => navigation.navigate('Santos del dia')} />
       </View>
       <View style={styles.settings}>
         <Button title='Ajustes' onPress={_ => navigation.navigate('Ajustes')}></Button>
@@ -78,11 +75,10 @@ function homeScreen({ navigation }) {
   ) :
     <SafeAreaView style={styles.view}>
       <Text style={styles.logo}>Be Saints</Text>
-      <Button title="Frase del dia" onPress={_ => navigation.navigate("Frase del dia")}></Button>
+      <Button title="Frase del día" onPress={_ => navigation.navigate("Frase del dia")}></Button>
       <View style={{ marginTop: 5 }}>
-        <Button title='Santos del dia' onPress={_ => navigation.navigate('Santos del dia')} />
+        <Button title='Santos del día' onPress={_ => navigation.navigate('Santos del dia')} />
       </View>
-      <Button title='Contacto' onPress={() => navigation.navigate('Contacto')}></Button>
       <Button title='Ajustes' onPress={_ => navigation.navigate('Ajustes')}></Button>
     </SafeAreaView>
 }
@@ -101,9 +97,8 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name='Home' component={homeScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Frase del dia' component={Phrase} />
-          <Stack.Screen name='Ajustes' component={Settings} />
-          <Stack.Screen name='Contacto' component={Contact} />
           <Stack.Screen name='Santos del dia' component={DailySaint} />
+          <Stack.Screen name='Ajustes' component={Settings} />
         </Stack.Navigator>
       </NavigationContainer>
     ) :
