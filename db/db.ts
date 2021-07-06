@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { hourTrigger, minuteTrigger } from '../utils/consts';
-import { Phrase, SaintInfo } from '../utils/interfaces';
+import { dbSaintInfo, Phrase, SaintInfo } from '../utils/interfaces';
 import { createDateTrigger, parseTimestrToDate } from '../utils/utils';
 
 export default class Database {
@@ -49,7 +49,6 @@ export default class Database {
         if (dailyPhrase) {
             const parsed = JSON.parse(dailyPhrase);
             parsed.date = new Date(Date.parse(parsed.date));
-            console.log("getDailyPhrase returned: ", parsed);
             return parsed;
         }
         else return null;
@@ -57,20 +56,17 @@ export default class Database {
 
     setDailyPhrase = async (value: Phrase) => {
         const stringified = JSON.stringify(value);
-        console.log("setDailyPhrase is storing: ", stringified);
         await AsyncStorage.setItem("DailyPhrase", stringified);
     }
 
-    getDailySaints = async (): Promise<[SaintInfo]> => {
+    getDailySaints = async (): Promise<dbSaintInfo> => {
         const dailySaints = await AsyncStorage.getItem("DailySaints");
         if (dailySaints) {
-            const parsed = JSON.parse(dailySaints);
-            const res = typeof (parsed.date) === 'string' ? {
-                info: parsed.info,
-                saint: parsed.saint,
-                date: new Date(Date.parse(parsed.date))
-            } : parsed;
-            console.log("getDailySaints returned: ", res);
+            const parsed: dbSaintInfo = JSON.parse(dailySaints);
+            return {
+                saints_data: parsed.saints_data,
+                date: parsed.date
+            };
         }
         else return null;
     }

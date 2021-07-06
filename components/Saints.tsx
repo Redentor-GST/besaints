@@ -1,4 +1,3 @@
-import { saintsEndpoint } from "../utils/consts";
 import React, { useEffect, useState } from 'react';
 import {
     View,
@@ -13,14 +12,13 @@ import {
     Button,
     Linking,
 } from 'react-native';
-import { SaintInfo, SaintInfoWithDate } from "../utils/interfaces";
+import { SaintInfo } from "../utils/interfaces";
 import Database from "../db/db";
-import { fetchFromServer } from "../utils/utils";
 
 const db = new Database();
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
-const emptySaintInfo: SaintInfo = { info: '', saint: '' };
+const emptySaintInfo: SaintInfo = { info: '', saint: '', date: new Date() };
 
 const styles = StyleSheet.create({
     noMeLaContainer: {
@@ -63,25 +61,13 @@ export default function DailySaint() {
     const [loaded, setloaded] = useState(false);
 
     useEffect(() => {
-        getSaintsInfo()
+        db.getDailySaints()
             .then(res => {
-                setdailySaintObj(res);
+                setdailySaintObj(res.saints_data);
                 setloaded(true)
             }
             )
     }, []);
-
-    async function getSaintsInfo(): Promise<[SaintInfo]> {
-        const today = new Date();
-        const dbDailySaints: SaintInfoWithDate = await db.getDailySaints();
-
-        if (!dbDailySaints)
-            return await fetchFromServer(saintsEndpoint);
-        else if (dbDailySaints.date.toDateString() !== today.toDateString())
-            return await fetchFromServer(saintsEndpoint);
-        else
-            return dbDailySaints.info
-    }
 
     const SaintView = ({ _saintObj }) => (
         <View>

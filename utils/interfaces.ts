@@ -9,3 +9,8 @@ export interface SaintInfo extends Object {
     saint: string;
     date: Date;
 }
+
+export interface dbSaintInfo extends Object {
+    saints_data: [SaintInfo],
+    date: Date
+}
