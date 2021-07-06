@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-        padding: 20
+        paddingHorizontal: 20,
+        paddingBottom: 15
     },
     saint: {
         textAlign: 'left',
@@ -91,17 +92,15 @@ export default function DailySaint() {
     try {
         return loaded ? (
             <SafeAreaView style={styles.noMeLaContainer}>
-                <ScrollView>
-                    <FlatList
-                        data={dailySaintObj}
-                        renderItem={({ item }) => <SaintView _saintObj={item} />}
-                        ListHeaderComponent={<SaintView _saintObj={dailySaintObj} />}
-                        ListFooterComponent={<View></View>}
-                    />
-                    <Button title='Para leer mas sobre los santos del dia ingresa aquí'
+                <FlatList
+                    data={dailySaintObj}
+                    renderItem={({ item }) => <SaintView _saintObj={item} />}
+                    keyExtractor={(saint) => saint.saint}
+                    ListHeaderComponent={<SaintView _saintObj={dailySaintObj} />}
+                    ListFooterComponent={<Button title='Para leer mas sobre los santos del dia ingresa aquí'
                         onPress={_ => Linking.openURL(getTodaysVaticanLink())}
-                    />
-                </ScrollView>
+                    />}
+                />
             </SafeAreaView>
         ) :
             (
