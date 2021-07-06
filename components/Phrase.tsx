@@ -73,7 +73,13 @@ export default function PhraseView() {
   //const { isRotated } = useDeviceOrientation();
   useEffect(() => {
     db.getDailyPhrase()
-      .then(phrase => setData(phrase))
+      .then(phrase => {
+        if (phrase)
+          setData(phrase);
+        else
+          fetchFromServer(phraseEndpoint)
+            .then(svDailyPhrase => setData(svDailyPhrase))
+      })
   }, []);
 
   try {

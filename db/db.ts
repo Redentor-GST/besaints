@@ -46,12 +46,7 @@ export default class Database {
 
     getDailyPhrase = async (): Promise<Phrase> => {
         const dailyPhrase = await AsyncStorage.getItem("DailyPhrase");
-        if (dailyPhrase) {
-            const parsed = JSON.parse(dailyPhrase);
-            parsed.date = new Date(Date.parse(parsed.date));
-            return parsed;
-        }
-        else return null;
+        return dailyPhrase ? JSON.parse(dailyPhrase) : null;
     }
 
     setDailyPhrase = async (value: Phrase) => {
@@ -73,7 +68,6 @@ export default class Database {
 
     setDailySaints = async (value: [SaintInfo]) => {
         const stringified = JSON.stringify(value);
-        console.log("setDailySaints is storing: ", stringified);
         await AsyncStorage.setItem("DailySaints", stringified);
     }
 

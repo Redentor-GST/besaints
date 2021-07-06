@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 import { SaintInfo } from "../utils/interfaces";
 import Database from "../db/db";
+import { fetchFromServer } from '../utils/utils';
+import { saintsEndpoint } from '../utils/consts';
 
 const db = new Database();
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
@@ -63,7 +65,12 @@ export default function DailySaint() {
     useEffect(() => {
         db.getDailySaints()
             .then(res => {
-                setdailySaintObj(res.saints_data);
+                if (res)
+                    setdailySaintObj(res.saints_data);
+                else
+                    fetchFromServer(saintsEndpoint)
+                        .then(svSaints => setdailySaintObj(svSaints.saints_data))
+
                 setloaded(true)
             }
             )
