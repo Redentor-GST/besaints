@@ -21,7 +21,8 @@ const maxText = 686;
 
 const emptyPhrase: Phrase = {
   text: "",
-  author: ""
+  author: "",
+  date: new Date()
 }
 
 const styles = StyleSheet.create({
@@ -71,25 +72,9 @@ export default function PhraseView() {
   //TODO change the view when the user rotates the device
   //const { isRotated } = useDeviceOrientation();
   useEffect(() => {
-    getPhrase()
+    db.getDailyPhrase()
       .then(phrase => setData(phrase))
   }, []);
-
-  async function getPhrase() {
-    const today = new Date();
-    const dbDailyPhrase = await db.getDailyPhrase();
-    if (!dbDailyPhrase)
-      return await fetchFromServer(phraseEndpoint);
-    else if (dbDailyPhrase.date.toDateString() !== today.toDateString())
-      return await fetchFromServer(phraseEndpoint);
-    else {
-      const phraseWithoutDate: Phrase = {
-        text: dbDailyPhrase.text,
-        author: dbDailyPhrase.author
-      }
-      return phraseWithoutDate;
-    }
-  }
 
   try {
     const view = phraseView(data)

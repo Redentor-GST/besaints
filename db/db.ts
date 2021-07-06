@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { hourTrigger, minuteTrigger } from '../utils/consts';
-import { Phrase, PhraseWithDate, SaintInfo, SaintInfoWithDate } from '../utils/interfaces';
+import { dbSaintInfo, Phrase, SaintInfo } from '../utils/interfaces';
 import { createDateTrigger, parseTimestrToDate } from '../utils/utils';
 
 export default class Database {
@@ -44,7 +44,7 @@ export default class Database {
     setUserDefinedLanguage = async (value: 'en' | 'es') =>
         await AsyncStorage.setItem("userDefinedLanguage", value);
 
-    getDailyPhrase = async (): Promise<PhraseWithDate> => {
+    getDailyPhrase = async (): Promise<Phrase> => {
         const dailyPhrase = await AsyncStorage.getItem("DailyPhrase");
         if (dailyPhrase) {
             const parsed = JSON.parse(dailyPhrase);
@@ -55,28 +55,25 @@ export default class Database {
     }
 
     setDailyPhrase = async (value: Phrase) => {
-        value["date"] = new Date();
-        await AsyncStorage.setItem("DailyPhrase", JSON.stringify(value));
+        const stringified = JSON.stringify(value);
+        await AsyncStorage.setItem("DailyPhrase", stringified);
     }
 
-    getDailySaints = async (): Promise<SaintInfoWithDate> => {
+    getDailySaints = async (): Promise<dbSaintInfo> => {
         const dailySaints = await AsyncStorage.getItem("DailySaints");
         if (dailySaints) {
-            const parsed: SaintInfoWithDate = JSON.parse(dailySaints);
-            return typeof (parsed.date) === 'string' ? {
-                info: parsed.info,
-                date: new Date(Date.parse(parsed.date))
-            } : parsed;
+            const parsed: dbSaintInfo = JSON.parse(dailySaints);
+            return {
+                saints_data: parsed.saints_data,
+                date: parsed.date
+            };
         }
         else return null;
     }
 
     setDailySaints = async (value: [SaintInfo]) => {
-        const valueWithDate: SaintInfoWithDate = {
-            info: value,
-            date: new Date()
-        }
-        const stringified = JSON.stringify(valueWithDate);
+        const stringified = JSON.stringify(value);
+        console.log("setDailySaints is storing: ", stringified);
         await AsyncStorage.setItem("DailySaints", stringified);
     }
 
