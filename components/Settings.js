@@ -94,6 +94,7 @@ export default function Settings() {
                 renderLabel={renderLabel}
             />
             <Button title='Log all notifications' onPress={async _ => await Notifications.getAllScheduledNotificationsAsync().then(res => console.log(res))} />
+            <Button title='Clear Database' onPress={_ => db.clear()} />
             <Button onPress={showTimepicker} title="Definir horario de notificaciones" />
             {show && (
                 <DateTimePicker
