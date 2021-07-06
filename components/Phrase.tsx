@@ -11,7 +11,7 @@ import {
 import Database from '../db/db';
 import { phraseEndpoint } from '../utils/consts';
 import { Phrase } from '../utils/interfaces';
-import { fetchFromServer } from '../utils/utils';
+import { checkDataNotOutdated, fetchFromServer } from '../utils/utils';
 
 const db = new Database();
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
@@ -74,11 +74,8 @@ export default function PhraseView() {
   useEffect(() => {
     db.getDailyPhrase()
       .then(phrase => {
-        if (phrase)
-          setData(phrase);
-        else
-          fetchFromServer(phraseEndpoint)
-            .then(svDailyPhrase => setData(svDailyPhrase))
+        checkDataNotOutdated(phrase, phraseEndpoint)
+          .then(res => setData(res));
       })
   }, []);
 

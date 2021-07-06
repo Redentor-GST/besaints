@@ -1,4 +1,5 @@
 import { farFuture } from "./consts";
+import { dbSaintInfo, Phrase } from "./interfaces";
 
 export function createDateTrigger(hourTrigger: number, minuteTrigger: number) {
     const rn = new Date()
@@ -56,4 +57,19 @@ export async function fetchFromServer(from: string) {
     const json = data.json();
 
     return json;
+}
+
+/**
+ * @param obj the object to check the date
+ * @param endpoint the endpoint to in case of the object being outdated, fetch the object
+ * @returns the updated object
+ */
+export async function checkDataNotOutdated(obj: dbSaintInfo | Phrase, endpoint: string): Promise<any> {
+    const today = new Date();
+    let flag = true;
+    if (!obj)
+        flag = false;
+    else if (obj.date.toDateString() !== today.toDateString())
+        flag = false;
+    return flag ? obj : await fetchFromServer(endpoint);
 }

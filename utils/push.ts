@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 import Database from '../db/db';
 import { hourTrigger, minuteTrigger, phraseEndpoint } from './consts'
-import { createDateTrigger, fetchFromServer, secondsLeftTo } from './utils';
+import { checkDataNotOutdated, createDateTrigger, fetchFromServer, secondsLeftTo } from './utils';
 import { Phrase } from './interfaces';
 
 const db = new Database();
@@ -99,12 +99,8 @@ const notification = (triggerHour: number, triggerMinute: number, data: Phrase, 
 //Default value is 7:00 am
 export default async function scheduleNotification(instant: boolean = false,
   triggerHour: number = hourTrigger, triggerMinute: number = minuteTrigger) {
-  const today = new Date();
-  let data = await db.getDailyPhrase();
-  if (!data)
-    data = await fetchFromServer(phraseEndpoint);
-  else if (data.date.toDateString() !== today.toDateString())
-    data = await fetchFromServer(phraseEndpoint)
+  let data: any = await db.getDailyPhrase();
+  data = await checkDataNotOutdated(data, phraseEndpoint);
 
   const shouldSched = await shouldSchedule(triggerHour, triggerMinute, data);
   if (!shouldSched) return;

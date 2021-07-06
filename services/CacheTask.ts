@@ -35,13 +35,12 @@ export default class CacheTask {
       await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
     }
     else {
-      if (dbDailySaints[0])
-        if (dbDailySaints[0].date.toDateString() !== today.toDateString()) {
-          await db.removeDailySaints();
-          await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
-        }
-        else
-          return null;
+      if (dbDailySaints.date.toDateString() !== today.toDateString()) {
+        await db.removeDailySaints();
+        await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
+      }
+      else
+        return null;
     }
   }
 

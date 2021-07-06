@@ -46,11 +46,25 @@ export default class Database {
 
     getDailyPhrase = async (): Promise<Phrase> => {
         const dailyPhrase = await AsyncStorage.getItem("DailyPhrase");
-        return dailyPhrase ? JSON.parse(dailyPhrase) : null;
+        if (dailyPhrase) {
+            const parsed = JSON.parse(dailyPhrase)
+            if (typeof (parsed.date) === 'string') {
+                const res: Phrase = {
+                    author: parsed.author,
+                    text: parsed.text,
+                    date: new Date(Date.parse(parsed.date))
+                }
+                return res;
+            }
+            return parsed;
+        }
+        else
+            return null
     }
 
     setDailyPhrase = async (value: Phrase) => {
         const stringified = JSON.stringify(value);
+        await this.removeDailyPhrase();
         await AsyncStorage.setItem("DailyPhrase", stringified);
     }
 
@@ -58,16 +72,23 @@ export default class Database {
         const dailySaints = await AsyncStorage.getItem("DailySaints");
         if (dailySaints) {
             const parsed: dbSaintInfo = JSON.parse(dailySaints);
-            return {
-                saints_data: parsed.saints_data,
-                date: parsed.date
-            };
+            return typeof (parsed.date) === 'string' ?
+                {
+                    saints_data: parsed.saints_data,
+                    date: new Date(Date.parse(parsed.date))
+                }
+                : {
+                    saints_data: parsed.saints_data,
+                    date: parsed.date
+                };
         }
         else return null;
     }
 
     setDailySaints = async (value: [SaintInfo]) => {
         const stringified = JSON.stringify(value);
+        //? Is this necessary?
+        await this.removeDailySaints();
         await AsyncStorage.setItem("DailySaints", stringified);
     }
 
