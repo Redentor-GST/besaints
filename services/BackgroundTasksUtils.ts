@@ -3,7 +3,7 @@ import * as BackgroundFetch from 'expo-background-fetch';
 
 //Everywhere says that this are seconds but they are minutes
 //15 Because its the minimum interval for IOS
-const interval = 1;
+const interval = 4;
 
 export function defineTask(name: string, callback) {
     if (TaskManager.isTaskDefined(name)) return;

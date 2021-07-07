@@ -102,7 +102,8 @@ export default async function scheduleNotification(instant: boolean = false,
   console.log("We now are in scheduleNotification()!");
   let data: any = await db.getDailyPhrase();
   console.log("scheduleNotification(): Data received from database: ", data);
-  data = await checkDataNotOutdated(data, phraseEndpoint);
+  if (!await checkDataNotOutdated(data))
+    data = fetchFromServer(phraseEndpoint);
   console.log("scheduleNotification(): Data stored after running checkDataNotOudated(): ", data);
 
   const shouldSched = await shouldSchedule(triggerHour, triggerMinute, data);

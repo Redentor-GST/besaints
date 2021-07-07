@@ -1,5 +1,5 @@
 import Database from '../db/db'
-import { fetchFromServer } from '../utils/utils';
+import { compareTodayvsDate, fetchFromServer } from '../utils/utils';
 import { phraseEndpoint, saintsEndpoint } from '../utils/consts';
 import { defineTask, registerTask } from './BackgroundTasksUtils';
 
@@ -16,20 +16,19 @@ export default class CacheTask {
   }
 
   private getDailyPhraseTask = async () => {
-    const today = new Date();
     const dbDailyPhrase = await db.getDailyPhrase();
-    console.log("We are not win services/getDailyPhraseTask()");
+    console.log("We are now in services/getDailyPhraseTask()");
     console.log("getDailyPhraseTask(): Results from database: ", dbDailyPhrase);
     if (!dbDailyPhrase) {
       await db.removeDailyPhrase();
       const fetched = await this.fetchAndSet(phraseEndpoint, db.setDailyPhrase);
       console.log("getDailyPhraseTask(): The result was null, so im storing in database what i fetched from server: ", fetched);
     }
-    else if (dbDailyPhrase.date.getTime() < today.getTime()) {
+    else if (!compareTodayvsDate(dbDailyPhrase.date)) {
       await db.removeDailyPhrase();
       const fetched = await this.fetchAndSet(phraseEndpoint, db.setDailyPhrase);
-      console.log("getDailyPhraseTask(): The date: (", today.toDateString() +
-        ") was older than today: (", today.toDateString() +
+      console.log("getDailyPhraseTask(): The date" +
+        ") was older than today: (", +
       "), so im storing in database what i fetched from server: ", fetched);
     }
     else
@@ -37,7 +36,6 @@ export default class CacheTask {
   }
 
   private getDailySaints = async () => {
-    const today = new Date();
     const dbDailySaints = await db.getDailySaints();
     console.log("We are now in services/getDailySaints()")
     console.log("getDailySaints(): Results from database: ", dbDailySaints);
@@ -46,13 +44,11 @@ export default class CacheTask {
       const fetched = await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
       console.log("getDailySaints(): The result was null, so im storing in database what i fetched from server: ", fetched);
     }
-    else if (dbDailySaints.date.getTime() < today.getTime()) {
-      console.log("getDailySaints() getTime, dbDailySaints: ", dbDailySaints.date.getTime(),
-        " today: ", today.getTime());
+    else if (!compareTodayvsDate(dbDailySaints.date)) {
       await db.removeDailySaints();
       const fetched = await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
-      console.log("getDailySaints(): The date: (", today.toDateString() +
-        ") was older than today: (", today.toDateString() +
+      console.log("getDailySaints(): The date: (", +
+        ") was older than today: (", +
       "), so im storing in database what i fetched from server: ", fetched);
     }
     else

@@ -54,30 +54,21 @@ export function nearestNotification(notifs) {
 
 export async function fetchFromServer(from: string) {
     const data = await fetch(from);
-    console.log("We are now in fetchFromserver()!");
     if (from === phraseEndpoint) {
         const json = await data.json();
-        console.log("fetchFromserver(): case phraseEndpoint")
-        console.log("fetchFromserver(): json returned: ", json,
-            " typeof date: ", typeof (json.date));
         const res = typeof (json.date) === 'string' ? {
             text: json.text,
             author: json.author,
-            date: new Date(Date.parse(json.date))
+            date: parseDate(json.date)
         } : json;
-        console.log("fetchFromserver(): returning: ", res);
         return res;
     }
     else if (from === saintsEndpoint) {
         const json = await data.json();
-        console.log("fetchFromserver(): case saintsEndpoint")
-        console.log("fetchFromserver(): json returned: ", json,
-            " typeof date: ", typeof (json.date));
         const res = typeof (json.date) === 'string' ? {
             saints_data: json.saints_data,
-            date: new Date(Date.parse(json.date))
+            date: parseDate(json.date)
         } : json;
-        console.log("fetchFromserver(): returning: ", res);
         return res;
     }
     else return null;
@@ -89,16 +80,41 @@ export async function fetchFromServer(from: string) {
  * @returns the updated object
  */
 export async function checkDataNotOutdated(obj: dbSaintInfo | Phrase, endpoint: string): Promise<any> {
-    const today = new Date();
     console.log("Now we are in checkDataNotOutdated()");
     let flag = true;
     if (!obj) {
         console.log("checkDataNotOutdated(): passed object was null");
         flag = false;
     }
-    else if (obj.date.toTimeString() !== today.toTimeString()) {
-        console.log("checkDataNotOutdated(): passed object was null");
+    else if (!compareTodayvsDate(obj.date)) {
+        console.log("checkDataNotOutdated(): passed object date was different from today`s date");
         flag = false;
     }
-    return flag ? obj : await fetchFromServer(endpoint);
+    return flag ? obj : fetchFromServer(endpoint);
+}
+
+/**
+ * Parse a date string CORRECTLY
+ * Like, who tf thought "oh, lets make the months go from 0 to 11" ¿?¿?_¿?¿?¿?¿"
+ * @param dateStr date string (expected something like yy-dd-mm)
+ * @returns date parsed
+ */
+export function parseDate(dateStr: string): Date {
+    //Expected string 2021-07-07
+    const splitted = dateStr.split('-');
+    const newNum = parseInt(splitted[2]) + 1;
+    const newNumStr = newNum < 10 ? '0' + newNum.toString() : newNum.toString();
+    const str = splitted[0] + '-' + splitted[1] + '-' + newNumStr;
+    return new Date(Date.parse(str));
+}
+
+export function compareTodayvsDate(date: Date) {
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    const _date = new Date(date);
+    console.log("_date: ", _date);
+    //For the flies
+    _date.setHours(0, 0, 0, 0);
+    console.log("Date at the end: ", date);
+    return _date.getTime() === now.getTime();
 }
