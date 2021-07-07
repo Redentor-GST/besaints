@@ -80,16 +80,11 @@ export async function fetchFromServer(from: string) {
  * @returns the updated object
  */
 export async function checkDataNotOutdated(obj: dbSaintInfo | Phrase, endpoint: string): Promise<any> {
-    console.log("Now we are in checkDataNotOutdated()");
     let flag = true;
-    if (!obj) {
-        console.log("checkDataNotOutdated(): passed object was null");
+    if (!obj)
         flag = false;
-    }
-    else if (!compareTodayvsDate(obj.date)) {
-        console.log("checkDataNotOutdated(): passed object date was different from today`s date");
+    else if (!compareTodayvsDate(obj.date))
         flag = false;
-    }
     return flag ? obj : fetchFromServer(endpoint);
 }
 
@@ -112,9 +107,7 @@ export function compareTodayvsDate(date: Date) {
     const now = new Date();
     now.setHours(0, 0, 0, 0);
     const _date = new Date(date);
-    console.log("_date: ", _date);
     //For the flies
     _date.setHours(0, 0, 0, 0);
-    console.log("Date at the end: ", date);
     return _date.getTime() === now.getTime();
 }
