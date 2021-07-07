@@ -8,7 +8,8 @@ const TASK_NAME = 'ScheduleNotification';
 export default class ScheduleNotificationTask {
     private scheduleNotificationTask = async () => {
         const today = new Date();
-        console.log(today.toTimeString() + " scheduleNotificationTask running")
+        //console.log(today.toTimeString() + " scheduleNotificationTask running")
+        console.log(today.toString() + " Schedule Notification Task Running")
         const dbssn = await db.getShouldSendNotifications();
         if (!dbssn) return;
 

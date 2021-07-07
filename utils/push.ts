@@ -99,10 +99,14 @@ const notification = (triggerHour: number, triggerMinute: number, data: Phrase, 
 //Default value is 7:00 am
 export default async function scheduleNotification(instant: boolean = false,
   triggerHour: number = hourTrigger, triggerMinute: number = minuteTrigger) {
+  console.log("We now are in scheduleNotification()!");
   let data: any = await db.getDailyPhrase();
+  console.log("scheduleNotification(): Data received from database: ", data);
   data = await checkDataNotOutdated(data, phraseEndpoint);
+  console.log("scheduleNotification(): Data stored after running checkDataNotOudated(): ", data);
 
   const shouldSched = await shouldSchedule(triggerHour, triggerMinute, data);
+  console.log("scheduleNotification(): Should Schedule?: ", shouldSched);
   if (!shouldSched) return;
   //await Notifications.cancelAllScheduledNotificationsAsync();
   await registerForPushNotificationsAsync()
