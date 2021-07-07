@@ -25,7 +25,7 @@ export default class CacheTask {
       const fetched = await this.fetchAndSet(phraseEndpoint, db.setDailyPhrase);
       console.log("getDailyPhraseTask(): The result was null, so im storing in database what i fetched from server: ", fetched);
     }
-    else if (dbDailyPhrase.date.toDateString() !== today.toDateString()) {
+    else if (dbDailyPhrase.date.getTime() < today.getTime()) {
       await db.removeDailyPhrase();
       const fetched = await this.fetchAndSet(phraseEndpoint, db.setDailyPhrase);
       console.log("getDailyPhraseTask(): The date: (", today.toDateString() +
@@ -46,7 +46,9 @@ export default class CacheTask {
       const fetched = await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
       console.log("getDailySaints(): The result was null, so im storing in database what i fetched from server: ", fetched);
     }
-    else if (dbDailySaints.date.toDateString() !== today.toDateString()) {
+    else if (dbDailySaints.date.getTime() < today.getTime()) {
+      console.log("getDailySaints() getTime, dbDailySaints: ", dbDailySaints.date.getTime(),
+        " today: ", today.getTime());
       await db.removeDailySaints();
       const fetched = await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
       console.log("getDailySaints(): The date: (", today.toDateString() +
