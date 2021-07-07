@@ -93,8 +93,6 @@ export default function Settings() {
                 onSelectionsChange={changessn}
                 renderLabel={renderLabel}
             />
-            <Button title='Log all notifications' onPress={async _ => await Notifications.getAllScheduledNotificationsAsync().then(res => console.log(res))} />
-            <Button title='Clear Database' onPress={_ => db.clear()} />
             <Button onPress={showTimepicker} title="Definir horario de notificaciones" />
             {show && (
                 <DateTimePicker
@@ -128,6 +126,7 @@ export default function Settings() {
                      <Picker.Item label="Spanish" value="es" />
                  </Picker>
              </View>
+            <Button title='Clear Database' onPress={_ => db.clear()} />
             <Button title='Log all notifications' onPress={async _ => await Notifications.getAllScheduledNotificationsAsync().then(res => console.log(res))} />
             <Button title='Kill all notifications' onPress={async _ => await Notifications.cancelAllScheduledNotificationsAsync().then(_ => console.log("deleted!"))} />
             <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />

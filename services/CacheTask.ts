@@ -17,48 +17,33 @@ export default class CacheTask {
 
   private getDailyPhraseTask = async () => {
     const dbDailyPhrase = await db.getDailyPhrase();
-    console.log("We are now in services/getDailyPhraseTask()");
-    console.log("getDailyPhraseTask(): Results from database: ", dbDailyPhrase);
+
     if (!dbDailyPhrase) {
       await db.removeDailyPhrase();
-      const fetched = await this.fetchAndSet(phraseEndpoint, db.setDailyPhrase);
-      console.log("getDailyPhraseTask(): The result was null, so im storing in database what i fetched from server: ", fetched);
+      await this.fetchAndSet(phraseEndpoint, db.setDailyPhrase);
     }
     else if (!compareTodayvsDate(dbDailyPhrase.date)) {
       await db.removeDailyPhrase();
-      const fetched = await this.fetchAndSet(phraseEndpoint, db.setDailyPhrase);
-      console.log("getDailyPhraseTask(): The date" +
-        ") was older than today: (", +
-      "), so im storing in database what i fetched from server: ", fetched);
+      await this.fetchAndSet(phraseEndpoint, db.setDailyPhrase);
     }
-    else
-      console.log("getDailyPhraseTask(): All good, we do nothing");
   }
 
   private getDailySaints = async () => {
     const dbDailySaints = await db.getDailySaints();
-    console.log("We are now in services/getDailySaints()")
-    console.log("getDailySaints(): Results from database: ", dbDailySaints);
+
     if (!dbDailySaints) {
       await db.removeDailySaints();
-      const fetched = await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
-      console.log("getDailySaints(): The result was null, so im storing in database what i fetched from server: ", fetched);
+      await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
     }
     else if (!compareTodayvsDate(dbDailySaints.date)) {
       await db.removeDailySaints();
-      const fetched = await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
-      console.log("getDailySaints(): The date: (", +
-        ") was older than today: (", +
-      "), so im storing in database what i fetched from server: ", fetched);
+      await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
     }
-    else
-      console.log("getDailySaints(): All good, we do nothing");
   }
 
   private cacheTask = async () => {
     const today = new Date();
-    //console.log(today.toTimeString() + " cacheTask Running")
-    console.log(today.toString() + " Cache Task Running");
+    console.log(today.toTimeString() + " cacheTask Running")
     await this.getDailyPhraseTask();
     await this.getDailySaints();
   }
