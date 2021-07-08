@@ -1,9 +1,9 @@
 import * as TaskManager from 'expo-task-manager';
 import * as BackgroundFetch from 'expo-background-fetch';
+import Constants from 'expo-constants';
 
-//Everywhere says that this are seconds but they are minutes
-//15 Because its the minimum interval for IOS
-const interval = 4;
+//These arent seconds nor minutes, dont really know what they are
+const interval = Constants.isDevice ? 200 : 4;
 
 export function defineTask(name: string, callback) {
     if (TaskManager.isTaskDefined(name)) return;
