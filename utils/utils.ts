@@ -91,16 +91,16 @@ export async function checkDataNotOutdated(obj: dbSaintInfo | Phrase, endpoint: 
 /**
  * Parse a date string CORRECTLY
  * Like, who tf thought "oh, lets make the months go from 0 to 11" ¿?¿?_¿?¿?¿?¿"
- * @param dateStr date string (expected something like yy-dd-mm)
+ * @param dateStr date string (expected something like yy-mm-dd)
  * @returns date parsed
  */
 export function parseDate(dateStr: string): Date {
     //Expected string 2021-07-07
-    const splitted = dateStr.split('-');
-    const newNum = parseInt(splitted[2]) + 1;
-    const newNumStr = newNum < 10 ? '0' + newNum.toString() : newNum.toString();
-    const str = splitted[0] + '-' + splitted[1] + '-' + newNumStr;
-    return new Date(Date.parse(str));
+    // const splitted = dateStr.split('-');
+    // const newNum = parseInt(splitted[1]) + 1;
+    // const newNumStr = newNum < 10 ? '0' + newNum.toString() : newNum.toString();
+    // const str = splitted[0] + '-' + newNumStr + '-' + splitted[2];
+    return new Date(Date.parse(dateStr));
 }
 
 export function compareTodayvsDate(date: Date) {
