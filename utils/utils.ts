@@ -1,5 +1,5 @@
-import { farFuture } from "./consts";
-import { dbSaintInfo, Phrase } from "./interfaces";
+import { farFuture, phraseEndpoint, saintsEndpoint } from "./consts";
+import { dbSaintInfo, Phrase, SaintInfo } from "./interfaces";
 
 export function createDateTrigger(hourTrigger: number, minuteTrigger: number) {
     const rn = new Date()
@@ -54,9 +54,24 @@ export function nearestNotification(notifs) {
 
 export async function fetchFromServer(from: string) {
     const data = await fetch(from);
-    const json = data.json();
-
-    return json;
+    if (from === phraseEndpoint) {
+        const json = await data.json();
+        const res = typeof (json.date) === 'string' ? {
+            text: json.text,
+            author: json.author,
+            date: parseDate(json.date)
+        } : json;
+        return res;
+    }
+    else if (from === saintsEndpoint) {
+        const json = await data.json();
+        const res = typeof (json.date) === 'string' ? {
+            saints_data: json.saints_data,
+            date: parseDate(json.date)
+        } : json;
+        return res;
+    }
+    else return null;
 }
 
 /**
@@ -65,11 +80,34 @@ export async function fetchFromServer(from: string) {
  * @returns the updated object
  */
 export async function checkDataNotOutdated(obj: dbSaintInfo | Phrase, endpoint: string): Promise<any> {
-    const today = new Date();
     let flag = true;
     if (!obj)
         flag = false;
-    else if (obj.date.toDateString() !== today.toDateString())
+    else if (!compareTodayvsDate(obj.date))
         flag = false;
-    return flag ? obj : await fetchFromServer(endpoint);
+    return flag ? obj : fetchFromServer(endpoint);
+}
+
+/**
+ * Parse a date string CORRECTLY
+ * Like, who tf thought "oh, lets make the months go from 0 to 11" ¿?¿?_¿?¿?¿?¿"
+ * @param dateStr date string (expected something like yy-dd-mm)
+ * @returns date parsed
+ */
+export function parseDate(dateStr: string): Date {
+    //Expected string 2021-07-07
+    const splitted = dateStr.split('-');
+    const newNum = parseInt(splitted[2]) + 1;
+    const newNumStr = newNum < 10 ? '0' + newNum.toString() : newNum.toString();
+    const str = splitted[0] + '-' + splitted[1] + '-' + newNumStr;
+    return new Date(Date.parse(str));
+}
+
+export function compareTodayvsDate(date: Date) {
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    const _date = new Date(date);
+    //For the flies
+    _date.setHours(0, 0, 0, 0);
+    return _date.getTime() === now.getTime();
 }

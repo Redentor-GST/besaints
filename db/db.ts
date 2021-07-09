@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { hourTrigger, minuteTrigger } from '../utils/consts';
 import { dbSaintInfo, Phrase, SaintInfo } from '../utils/interfaces';
-import { createDateTrigger, parseTimestrToDate } from '../utils/utils';
+import { createDateTrigger, parseTimestrToDate, parseDate } from '../utils/utils';
 
 export default class Database {
 
@@ -85,7 +85,7 @@ export default class Database {
         else return null;
     }
 
-    setDailySaints = async (value: [SaintInfo]) => {
+    setDailySaints = async (value: dbSaintInfo) => {
         const stringified = JSON.stringify(value);
         //? Is this necessary?
         await this.removeDailySaints();

@@ -1,5 +1,5 @@
 import Database from '../db/db'
-import { fetchFromServer } from '../utils/utils';
+import { compareTodayvsDate, fetchFromServer } from '../utils/utils';
 import { phraseEndpoint, saintsEndpoint } from '../utils/consts';
 import { defineTask, registerTask } from './BackgroundTasksUtils';
 
@@ -10,37 +10,34 @@ export default class CacheTask {
   private async fetchAndSet(from: string, setter) {
     const dbFetch = await fetchFromServer(from)
     setter(dbFetch);
+
+    //This return is not meant to be here, im just using it for debugging
+    return dbFetch;
   }
 
   private getDailyPhraseTask = async () => {
-    const today = new Date();
     const dbDailyPhrase = await db.getDailyPhrase();
 
     if (!dbDailyPhrase) {
       await db.removeDailyPhrase();
-      await this.fetchAndSet(phraseEndpoint, db.setDailyPhrase)
+      await this.fetchAndSet(phraseEndpoint, db.setDailyPhrase);
     }
-    else if (dbDailyPhrase.date.toDateString() !== today.toDateString()) {
+    else if (!compareTodayvsDate(dbDailyPhrase.date)) {
       await db.removeDailyPhrase();
-      await this.fetchAndSet(phraseEndpoint, db.setDailyPhrase)
+      await this.fetchAndSet(phraseEndpoint, db.setDailyPhrase);
     }
   }
 
   private getDailySaints = async () => {
-    const today = new Date();
     const dbDailySaints = await db.getDailySaints();
 
     if (!dbDailySaints) {
       await db.removeDailySaints();
       await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
     }
-    else {
-      if (dbDailySaints.date.toDateString() !== today.toDateString()) {
-        await db.removeDailySaints();
-        await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
-      }
-      else
-        return null;
+    else if (!compareTodayvsDate(dbDailySaints.date)) {
+      await db.removeDailySaints();
+      await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
     }
   }
 
