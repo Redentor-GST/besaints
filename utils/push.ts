@@ -100,8 +100,7 @@ const notification = (triggerHour: number, triggerMinute: number, data: Phrase, 
 export default async function scheduleNotification(instant: boolean = false,
   triggerHour: number = hourTrigger, triggerMinute: number = minuteTrigger) {
   let data: any = await db.getDailyPhrase();
-  if (!await checkDataNotOutdated(data, phraseEndpoint))
-    data = fetchFromServer(phraseEndpoint);
+  data = await checkDataNotOutdated(data, phraseEndpoint);
 
   const shouldSched = await shouldSchedule(triggerHour, triggerMinute, data);
   if (!shouldSched) return;

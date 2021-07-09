@@ -86,6 +86,7 @@ export async function checkDataNotOutdated(obj: dbSaintInfo | Phrase, endpoint: 
     else if (!compareTodayvsDate(obj.date))
         flag = false;
     return flag ? obj : fetchFromServer(endpoint);
+    return flag ? obj : await fetchFromServer(endpoint);
 }
 
 /**
