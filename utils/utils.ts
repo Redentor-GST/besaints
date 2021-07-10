@@ -97,11 +97,14 @@ export async function checkDataNotOutdated(obj: dbSaintInfo | Phrase, endpoint: 
  */
 export function parseDate(dateStr: string): Date {
     //Expected string 2021-07-07
+    console.log("parseDate(): received string: ", dateStr, new Date(Date.parse(dateStr)).toDateString())
     const splitted = dateStr.split('-');
     const newNum = parseInt(splitted[2]) + 1;
     const newNumStr = newNum < 10 ? '0' + newNum.toString() : newNum.toString();
     const str = splitted[0] + '-' + splitted[1] + '-' + newNumStr;
-    return new Date(Date.parse(str));
+    const date = new Date(Date.parse(str));
+    console.log("parseDate(): returning ", date.toDateString(), compareTodayvsDate(date));
+    return date;
 }
 
 export function compareTodayvsDate(date: Date) {
@@ -110,5 +113,5 @@ export function compareTodayvsDate(date: Date) {
     const _date = new Date(date);
     //For the flies
     _date.setHours(0, 0, 0, 0);
-    return _date.getTime() === now.getTime();
+    return _date.getTime() >= now.getTime();
 }
