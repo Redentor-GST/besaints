@@ -61,8 +61,14 @@ async function shouldSchedule(triggerHour: number, triggerMinute: number, data: 
     const hour = notifData.hourTrig;
     const minute = notifData.minuteTrig;
     const text = notifData.text;
-    if (hour === triggerHour && triggerMinute == minute && text === data.text)
+    if (hour === triggerHour && triggerMinute == minute && text === data.text) {
+      //Just a debug log, remove when sure that is working
+      console.log("Not scheduling the new notification because ", hour === triggerHour
+        && minute == triggerMinute ? "there is already a notification scheduled at " +
+        hour.toString() + ":" + minute.toString() + " with body= " + notifData.text
+        : text === data.text ? text + " is already scheduled" : "")
       return false;
+    }
   }
   return true;
 };

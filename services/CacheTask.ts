@@ -26,9 +26,11 @@ export default class CacheTask {
       await db.removeDailyPhrase();
       await this.fetchAndSet(phraseEndpoint, db.setDailyPhrase);
     }
+    else
+      console.log("getDailyPhraseTask(): All good, storing nothing");
   }
 
-  private getDailySaints = async () => {
+  private getDailySaintsTask = async () => {
     const dbDailySaints = await db.getDailySaints();
 
     if (!dbDailySaints) {
@@ -39,13 +41,15 @@ export default class CacheTask {
       await db.removeDailySaints();
       await this.fetchAndSet(saintsEndpoint, db.setDailySaints);
     }
+    else
+      console.log("getDailySaintsTask(): all good, storing nothing");
   }
 
   private cacheTask = async () => {
     const today = new Date();
     console.log(today.toTimeString() + " cacheTask Running")
     await this.getDailyPhraseTask();
-    await this.getDailySaints();
+    await this.getDailySaintsTask();
   }
 
   async init() {

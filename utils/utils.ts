@@ -85,7 +85,7 @@ export async function checkDataNotOutdated(obj: dbSaintInfo | Phrase, endpoint: 
         flag = false;
     else if (!compareTodayvsDate(obj.date))
         flag = false;
-    return flag ? obj : fetchFromServer(endpoint);
+
     return flag ? obj : await fetchFromServer(endpoint);
 }
 
@@ -97,11 +97,11 @@ export async function checkDataNotOutdated(obj: dbSaintInfo | Phrase, endpoint: 
  */
 export function parseDate(dateStr: string): Date {
     //Expected string 2021-07-07
-    // const splitted = dateStr.split('-');
-    // const newNum = parseInt(splitted[1]) + 1;
-    // const newNumStr = newNum < 10 ? '0' + newNum.toString() : newNum.toString();
-    // const str = splitted[0] + '-' + newNumStr + '-' + splitted[2];
-    return new Date(Date.parse(dateStr));
+    const splitted = dateStr.split('-');
+    const newNum = parseInt(splitted[2]) + 1;
+    const newNumStr = newNum < 10 ? '0' + newNum.toString() : newNum.toString();
+    const str = splitted[0] + '-' + splitted[1] + '-' + newNumStr;
+    return new Date(Date.parse(str));
 }
 
 export function compareTodayvsDate(date: Date) {

@@ -3,7 +3,7 @@ import * as BackgroundFetch from 'expo-background-fetch';
 import Constants from 'expo-constants';
 
 //These arent seconds nor minutes, dont really know what they are
-const interval = Constants.isDevice ? 200 : 4;
+const interval = Constants.isDevice ? 15 : 1;
 
 export function defineTask(name: string, callback) {
     if (TaskManager.isTaskDefined(name)) return;
@@ -18,6 +18,7 @@ export async function registerTask(name: string) {
         stopOnTerminate: false,
         startOnBoot: true,
     })
+    await BackgroundFetch.setMinimumIntervalAsync(interval);
     const today = new Date();
     console.log(today.toTimeString() + " Task " + name + " registered ");
 }

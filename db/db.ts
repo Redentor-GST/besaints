@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { hourTrigger, minuteTrigger } from '../utils/consts';
 import { dbSaintInfo, Phrase, SaintInfo } from '../utils/interfaces';
-import { createDateTrigger, parseTimestrToDate, parseDate } from '../utils/utils';
+import { createDateTrigger, parseTimestrToDate, parseDate, checkDataNotOutdated, compareTodayvsDate } from '../utils/utils';
 
 export default class Database {
 
@@ -48,15 +48,12 @@ export default class Database {
         const dailyPhrase = await AsyncStorage.getItem("DailyPhrase");
         if (dailyPhrase) {
             const parsed = JSON.parse(dailyPhrase)
-            if (typeof (parsed.date) === 'string') {
-                const res: Phrase = {
-                    author: parsed.author,
-                    text: parsed.text,
-                    date: new Date(Date.parse(parsed.date))
-                }
-                return res;
-            }
-            return parsed;
+            const res = typeof (parsed.date) === 'string' ? {
+                author: parsed.author,
+                text: parsed.text,
+                date: parseDate(parsed.date)
+            } : parsed
+            return res;
         }
         else
             return null
@@ -64,7 +61,6 @@ export default class Database {
 
     setDailyPhrase = async (value: Phrase) => {
         const stringified = JSON.stringify(value);
-        await this.removeDailyPhrase();
         await AsyncStorage.setItem("DailyPhrase", stringified);
     }
 
@@ -72,23 +68,22 @@ export default class Database {
         const dailySaints = await AsyncStorage.getItem("DailySaints");
         if (dailySaints) {
             const parsed: dbSaintInfo = JSON.parse(dailySaints);
-            return typeof (parsed.date) === 'string' ?
+            const res = typeof (parsed.date) === 'string' ?
                 {
                     saints_data: parsed.saints_data,
-                    date: new Date(Date.parse(parsed.date))
+                    date: parseDate(parsed.date)
                 }
                 : {
                     saints_data: parsed.saints_data,
                     date: parsed.date
                 };
+            return res;
         }
         else return null;
     }
 
     setDailySaints = async (value: dbSaintInfo) => {
         const stringified = JSON.stringify(value);
-        //? Is this necessary?
-        await this.removeDailySaints();
         await AsyncStorage.setItem("DailySaints", stringified);
     }
 

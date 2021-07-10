@@ -87,6 +87,9 @@ export default function Settings() {
                 }
                 } />
             */}
+            <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />
+            <Button title='Clear Database' onPress={_ => db.clear()} />
+            <Button title='Log all notifications' onPress={async _ => await Notifications.getAllScheduledNotificationsAsync().then(res => console.log(res))} />
             <SelectMultiple
                 items={[ssn]}
                 selectedItems={ssn ? [ssn] : []}
@@ -110,7 +113,7 @@ export default function Settings() {
                 onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}>
                 Envianos un email! 📨
             </Text>
-
+            <Text> v0.9.0 </Text>
             {/**
              * DEBUG
              <View style={{ alignSelf: 'center' }}>
@@ -126,10 +129,8 @@ export default function Settings() {
                      <Picker.Item label="Spanish" value="es" />
                  </Picker>
              </View>
-            <Button title='Clear Database' onPress={_ => db.clear()} />
-            <Button title='Log all notifications' onPress={async _ => await Notifications.getAllScheduledNotificationsAsync().then(res => console.log(res))} />
             <Button title='Kill all notifications' onPress={async _ => await Notifications.cancelAllScheduledNotificationsAsync().then(_ => console.log("deleted!"))} />
-            <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />
+
             <Text>
                 Next Notification : {areThereNotifications ? nextNotifTime + " " : "NONE"}
             </Text>
