@@ -55,7 +55,8 @@ async function registerForPushNotificationsAsync() {
  * so it wont cause trouble
  */
 async function shouldSchedule(triggerHour: number, triggerMinute: number, data: Phrase) {
-  const notifs = await Notifications.getAllScheduledNotificationsAsync()
+  const notifs = await Notifications.getAllScheduledNotificationsAsync();
+  console.log("shouldSchedule(): triggerHour: ", triggerHour, " triggerMinute: ", triggerMinute, "text: ", data.text)
   for (let i = 0; i < notifs.length; i++) {
     const notifData = notifs[i].content.data;
     const hour = notifData.hourTrig;
@@ -63,10 +64,9 @@ async function shouldSchedule(triggerHour: number, triggerMinute: number, data: 
     const text = notifData.text;
     if (hour === triggerHour && triggerMinute == minute && text === data.text) {
       //Just a debug log, remove when sure that is working
-      console.log("Not scheduling the new notification because ", hour === triggerHour
-        && minute == triggerMinute ? "there is already a notification scheduled at " +
-        hour.toString() + ":" + minute.toString() + " with body= " + notifData.text
-        : text === data.text ? text + " is already scheduled" : "")
+      console.log("Not scheduling the new notification because ",
+        "there is already a notification scheduled at " + hour.toString() +
+        ":" + minute.toString() + " with body= " + notifData.text)
       return false;
     }
   }

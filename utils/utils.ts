@@ -54,24 +54,7 @@ export function nearestNotification(notifs) {
 
 export async function fetchFromServer(from: string) {
     const data = await fetch(from);
-    if (from === phraseEndpoint) {
-        const json = await data.json();
-        const res = typeof (json.date) === 'string' ? {
-            text: json.text,
-            author: json.author,
-            date: parseDate(json.date)
-        } : json;
-        return res;
-    }
-    else if (from === saintsEndpoint) {
-        const json = await data.json();
-        const res = typeof (json.date) === 'string' ? {
-            saints_data: json.saints_data,
-            date: parseDate(json.date)
-        } : json;
-        return res;
-    }
-    else return null;
+    return data.json();
 }
 
 /**
@@ -86,32 +69,22 @@ export async function checkDataNotOutdated(obj: dbSaintInfo | Phrase, endpoint: 
     else if (!compareTodayvsDate(obj.date))
         flag = false;
 
-    return flag ? obj : await fetchFromServer(endpoint);
+    console.log("checkDataNotOutdated(): Flag: ", flag)
+    const res = flag ? obj : await fetchFromServer(endpoint);
+    console.log("checkDataNotOutdated(): Res: ", res);
+    return res;
 }
 
-/**
- * Parse a date string CORRECTLY
- * Like, who tf thought "oh, lets make the months go from 0 to 11" ¿?¿?_¿?¿?¿?¿"
- * @param dateStr date string (expected something like yy-mm-dd)
- * @returns date parsed
- */
-export function parseDate(dateStr: string): Date {
-    //Expected string 2021-07-07
-    console.log("parseDate(): received string: ", dateStr, new Date(Date.parse(dateStr)).toDateString())
-    const splitted = dateStr.split('-');
-    const newNum = parseInt(splitted[2]) + 1;
-    const newNumStr = newNum < 10 ? '0' + newNum.toString() : newNum.toString();
-    const str = splitted[0] + '-' + splitted[1] + '-' + newNumStr;
-    const date = new Date(Date.parse(str));
-    console.log("parseDate(): returning ", date.toDateString(), compareTodayvsDate(date));
-    return date;
-}
-
-export function compareTodayvsDate(date: Date) {
+export function compareTodayvsDate(date: string) {
     const now = new Date();
-    now.setHours(0, 0, 0, 0);
-    const _date = new Date(date);
-    //For the flies
-    _date.setHours(0, 0, 0, 0);
-    return _date.getTime() >= now.getTime();
+    console.log("compareTodayvsDate(): received: date: ", date, " today: ", getDateStr(now, true))
+    return getDateStr(now, true) === date;
+}
+
+export function getDateStr(date: Date, incrementMonth: Boolean) {
+    const year = date.getFullYear();
+    const month = incrementMonth ? date.getMonth() + 1 : date.getMonth();
+    const dat = date.getDate();
+    const fullStr = year.toString() + '-' + (month < 10 ? '0' + month.toString() : month.toString()) + '-' + dat.toString();
+    return fullStr;
 }

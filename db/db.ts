@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { hourTrigger, minuteTrigger } from '../utils/consts';
 import { dbSaintInfo, Phrase, SaintInfo } from '../utils/interfaces';
-import { createDateTrigger, parseTimestrToDate, parseDate, checkDataNotOutdated, compareTodayvsDate } from '../utils/utils';
+import { createDateTrigger, parseTimestrToDate, checkDataNotOutdated, compareTodayvsDate } from '../utils/utils';
 
 export default class Database {
 
@@ -48,11 +48,12 @@ export default class Database {
         const dailyPhrase = await AsyncStorage.getItem("DailyPhrase");
         if (dailyPhrase) {
             const parsed = JSON.parse(dailyPhrase)
-            const res = typeof (parsed.date) === 'string' ? {
+            const res: Phrase = {
                 author: parsed.author,
                 text: parsed.text,
-                date: parseDate(parsed.date)
-            } : parsed
+                date: parsed.date
+            }
+            console.log("getDailyPhrase(): returning: ", res);
             return res;
         }
         else
@@ -61,6 +62,7 @@ export default class Database {
 
     setDailyPhrase = async (value: Phrase) => {
         const stringified = JSON.stringify(value);
+        console.log("setDailyPhrase(): storing: ", stringified);
         await AsyncStorage.setItem("DailyPhrase", stringified);
     }
 
@@ -68,16 +70,10 @@ export default class Database {
         const dailySaints = await AsyncStorage.getItem("DailySaints");
         if (dailySaints) {
             const parsed: dbSaintInfo = JSON.parse(dailySaints);
-            const res = typeof (parsed.date) === 'string' ?
-                {
-                    saints_data: parsed.saints_data,
-                    date: parseDate(parsed.date)
-                }
-                : {
-                    saints_data: parsed.saints_data,
-                    date: parsed.date
-                };
-            return res;
+            return {
+                saints_data: parsed.saints_data,
+                date: parsed.date
+            };
         }
         else return null;
     }
