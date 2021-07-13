@@ -110,10 +110,7 @@ export default function Settings() {
                 onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}>
                 Envianos un email! 📨
             </Text>
-            <Button title='Clear Database' onPress={_ => db.clear()} />
-            <Button title='Log all notifications' onPress={async _ => await Notifications.getAllScheduledNotificationsAsync().then(res => console.log(res))} />
-            <Button title='Kill all notifications' onPress={async _ => await Notifications.cancelAllScheduledNotificationsAsync().then(_ => console.log("deleted!"))} />
-            <Text> v0.9.0 </Text>
+            <Text> v0.9.1 </Text>
             {/**
              * DEBUG
              <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />

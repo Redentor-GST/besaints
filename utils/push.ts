@@ -56,7 +56,6 @@ async function registerForPushNotificationsAsync() {
  */
 async function shouldSchedule(triggerHour: number, triggerMinute: number, data: Phrase) {
   const notifs = await Notifications.getAllScheduledNotificationsAsync();
-  console.log("shouldSchedule(): triggerHour: ", triggerHour, " triggerMinute: ", triggerMinute, "text: ", data.text)
   for (let i = 0; i < notifs.length; i++) {
     const notifData = notifs[i].content.data;
     const hour = notifData.hourTrig;

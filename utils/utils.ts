@@ -1,4 +1,4 @@
-import { farFuture, phraseEndpoint, saintsEndpoint } from "./consts";
+import { farFuture } from "./consts";
 import { dbSaintInfo, Phrase, SaintInfo } from "./interfaces";
 
 export function createDateTrigger(hourTrigger: number, minuteTrigger: number) {
@@ -69,7 +69,7 @@ export async function checkDataNotOutdated(obj: dbSaintInfo | Phrase, endpoint: 
     else if (!compareTodayvsDate(obj.date))
         flag = false;
 
-    console.log("checkDataNotOutdated(): Flag: ", flag)
+    console.log("checkDataNotOutdated(): Flag: ", flag);
     const res = flag ? obj : await fetchFromServer(endpoint);
     console.log("checkDataNotOutdated(): Res: ", res);
     return res;
