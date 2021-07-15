@@ -1,21 +1,31 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { hourTrigger, minuteTrigger } from '../utils/consts';
-import { dbSaintInfo, Phrase, SaintInfo } from '../utils/interfaces';
-import { createDateTrigger, parseTimestrToDate, checkDataNotOutdated, compareTodayvsDate } from '../utils/utils';
+import { Phrase } from '../utils/interfaces';
+import { createDateTrigger, parseTimestrToDate, compareTodayvsDate } from '../utils/utils';
+import { yearlyDicts } from './yearlyDicts';
 
 export default class Database {
 
-    tables = ["dateTrigger", "shouldSendNotifications", "DailyPhrase", "DailySaints"]
+    tables = ["dateTrigger", "shouldSendNotifications", "phrases"]
 
-    getShouldSendNotifications = async () => {
+    public async init(): Promise<void> {
+        const dbPhrases = await AsyncStorage.getItem('phrases');
+        if (dbPhrases === null) {
+            const today = new Date();
+            const yearlyDict = yearlyDicts[today.getFullYear()];
+            await AsyncStorage.setItem("phrases", JSON.stringify(yearlyDict));
+        }
+    }
+
+    getShouldSendNotifications = async (): Promise<boolean> => {
         const ssn = await AsyncStorage.getItem('shouldSendNotifications');
         return ssn ? JSON.parse(ssn) : true;
     }
 
-    setShouldSendNotifications = async (value: boolean | number) =>
+    setShouldSendNotifications = async (value: boolean | number): Promise<void> =>
         await AsyncStorage.setItem("shouldSendNotifications", JSON.stringify(value))
 
-    getDateTrigger = async () => {
+    getDateTrigger = async (): Promise<Date> => {
         try {
             const datrig = await AsyncStorage.getItem('dateTrigger')
             if (datrig != null) {
@@ -33,62 +43,27 @@ export default class Database {
         }
     }
 
-    setDateTrigger = async (value: Date | string) => {
+    setDateTrigger = async (value: Date | string): Promise<void> => {
         await AsyncStorage.setItem("dateTrigger", value.toString())
             .catch(e => console.error(e));
     }
 
-    getUserDefinedLanguage = async () =>
+    getUserDefinedLanguage = async (): Promise<string> =>
         await AsyncStorage.getItem("userDefinedLanguage");
 
-    setUserDefinedLanguage = async (value: 'en' | 'es') =>
+    setUserDefinedLanguage = async (value: 'en' | 'es'): Promise<void> =>
         await AsyncStorage.setItem("userDefinedLanguage", value);
 
+    private getAllPhrases = async (): Promise<Phrase[]> =>
+        JSON.parse(await AsyncStorage.getItem("phrases"));
+
     getDailyPhrase = async (): Promise<Phrase> => {
-        const dailyPhrase = await AsyncStorage.getItem("DailyPhrase");
-        if (dailyPhrase) {
-            const parsed = JSON.parse(dailyPhrase)
-            const res: Phrase = {
-                author: parsed.author,
-                text: parsed.text,
-                date: parsed.date
-            }
-            console.log("getDailyPhrase(): returning: ", res);
-            return res;
-        }
-        else
-            return null
+        const phrases = await this.getAllPhrases();
+        for (const phrase of phrases)
+            if (compareTodayvsDate(phrase.date))
+                return phrase;
     }
 
-    setDailyPhrase = async (value: Phrase) => {
-        const stringified = JSON.stringify(value);
-        console.log("setDailyPhrase(): storing: ", stringified);
-        await AsyncStorage.setItem("DailyPhrase", stringified);
-    }
-
-    getDailySaints = async (): Promise<dbSaintInfo> => {
-        const dailySaints = await AsyncStorage.getItem("DailySaints");
-        if (dailySaints) {
-            const parsed: dbSaintInfo = JSON.parse(dailySaints);
-            return {
-                saints_data: parsed.saints_data,
-                date: parsed.date
-            };
-        }
-        else return null;
-    }
-
-    setDailySaints = async (value: dbSaintInfo) => {
-        const stringified = JSON.stringify(value);
-        await AsyncStorage.setItem("DailySaints", stringified);
-    }
-
-    clear = async () =>
+    clear = async (): Promise<void> =>
         await AsyncStorage.multiRemove(this.tables);
-
-    removeDailyPhrase = async () =>
-        await AsyncStorage.removeItem('DailyPhrase');
-
-    removeDailySaints = async () =>
-        await AsyncStorage.removeItem('DailySaints');
 }

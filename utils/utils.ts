@@ -77,14 +77,13 @@ export async function checkDataNotOutdated(obj: dbSaintInfo | Phrase, endpoint: 
 
 export function compareTodayvsDate(date: string) {
     const now = new Date();
-    console.log("compareTodayvsDate(): received: date: ", date, " today: ", getDateStr(now, true))
     return getDateStr(now, true) === date;
 }
 
 export function getDateStr(date: Date, incrementMonth: Boolean) {
-    const year = date.getFullYear();
+    //Expected string "07-15"
     const month = incrementMonth ? date.getMonth() + 1 : date.getMonth();
     const dat = date.getDate();
-    const fullStr = year.toString() + '-' + (month < 10 ? '0' + month.toString() : month.toString()) + '-' + dat.toString();
+    const fullStr = (month < 10 ? '0' + month.toString() : month.toString()) + '-' + dat.toString();
     return fullStr;
 }

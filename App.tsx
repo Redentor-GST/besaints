@@ -15,7 +15,7 @@ import * as React from 'react'
 import Phrase from './components/Phrase';
 import Settings from './components/Settings';
 import DailySaint from './components/Saints';
-import { init } from './services/BackgroundTasks';
+import Database from './db/db';
 
 const styles = StyleSheet.create({
   view: {
@@ -73,9 +73,11 @@ export default function App() {
   const [backgroundLoaded, setbackgroundLoaded] = useState(false)
 
   useEffect(() => {
-    if (!backgroundLoaded)
-      init()
+    if (!backgroundLoaded) {
+      const db = new Database();
+      db.init()
         .then(_ => setbackgroundLoaded(true))
+    }
   })
 
   return backgroundLoaded ?
