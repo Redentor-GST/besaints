@@ -1,7 +1,13 @@
 import { NativeModules, Platform } from 'react-native'
+import { DateTrigger } from './interfaces';
 
-export const hourTrigger = 7;
-export const minuteTrigger = 0;
+export const defaultHourTrigger = 7;
+export const defaultMinuteTrigger = 0;
+export const defaultTrigger: DateTrigger = {
+    hour: defaultHourTrigger,
+    minute: defaultMinuteTrigger
+}
+
 export const userDefaultLanguage = () => {
     const lang = Platform.OS === 'ios' ?
         NativeModules.SettingsManager.settings.AppleLocale ||

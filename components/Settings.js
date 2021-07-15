@@ -11,9 +11,8 @@ import * as Notifications from 'expo-notifications';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Database from '../db/db';
 //import { userDefaultLanguage } from '../utils/consts';
-import scheduleNotification from '../utils/push';
+import NotificationsUtils from '../utils/notifications';
 import SelectMultiple from 'react-native-select-multiple'
-
 
 const db = new Database();
 
@@ -31,10 +30,15 @@ export default function Settings() {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
         setDate(currentDate);
-        setnotifDateTrigger(currentDate)
-        await Notifications.cancelAllScheduledNotificationsAsync();
-        await db.setDateTrigger(currentDate.toTimeString());
-        await scheduleNotification(false, currentDate.getHours(), currentDate.getMinutes());
+        setnotifDateTrigger(currentDate);
+        const nu = new NotificationsUtils();
+        await nu.cancelAllScheduledNotifications();
+        const dateTrigger = {
+            hour: currentDate.getHours(),
+            minute: currentDate.getMinutes()
+        }
+        await db.setDateTrigger(dateTrigger);
+        await nu.scheduleAllYearlyNotifications();
     };
 
     const showMode = (currentMode) => {
@@ -52,7 +56,12 @@ export default function Settings() {
             .then(res => setssn(res))
             .finally(_ => setssnLoaded(true))
         db.getDateTrigger()
-            .then(dateTrigger => setnotifDateTrigger(dateTrigger));
+            .then(dateTrigger => {
+                const now = new Date();
+                const date = new Date(now.getFullYear(), now.getMonth() - 1,
+                    now.getDate(), dateTrigger.hour, dateTrigger.minute)
+                setnotifDateTrigger(date);
+            });
         /*
         db.getUserDefinedLanguage()
             .then(userDefinedLanguage => {
@@ -110,13 +119,13 @@ export default function Settings() {
                 onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}>
                 Envianos un email! 📨
             </Text>
+            <Button title='Log all notifications' onPress={async _ => await Notifications.getAllScheduledNotificationsAsync().then(res => console.log(res))} />
+            <Button title='Kill all notifications' onPress={async _ => await Notifications.cancelAllScheduledNotificationsAsync().then(_ => console.log("deleted!"))} />
             <Text> v0.9.1 </Text>
             {/**
              * DEBUG
              <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />
             <Button title='Clear Database' onPress={_ => db.clear()} />
-            <Button title='Log all notifications' onPress={async _ => await Notifications.getAllScheduledNotificationsAsync().then(res => console.log(res))} />
-            <Button title='Kill all notifications' onPress={async _ => await Notifications.cancelAllScheduledNotificationsAsync().then(_ => console.log("deleted!"))} />
              <View style={{ alignSelf: 'center' }}>
                  <Picker
                      selectedValue={selectedLanguage}

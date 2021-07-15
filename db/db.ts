@@ -1,20 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { hourTrigger, minuteTrigger } from '../utils/consts';
-import { Phrase } from '../utils/interfaces';
-import { createDateTrigger, parseTimestrToDate, compareTodayvsDate } from '../utils/utils';
+import { defaultTrigger } from '../utils/consts';
+import { DateTrigger, Phrase } from '../utils/interfaces';
+import { compareTodayvsDate } from '../utils/utils';
 import { yearlyDicts } from './yearlyDicts';
 
 export default class Database {
 
     tables = ["dateTrigger", "shouldSendNotifications", "phrases"]
 
-    public async init(): Promise<void> {
-        const dbPhrases = await AsyncStorage.getItem('phrases');
-        if (dbPhrases === null) {
-            const today = new Date();
-            const yearlyDict = yearlyDicts[today.getFullYear()];
-            await AsyncStorage.setItem("phrases", JSON.stringify(yearlyDict));
-        }
+    storeYearlyPhrases = async (): Promise<void> => {
+        const today = new Date();
+        const yearlyDict = yearlyDicts[today.getFullYear()];
+        await AsyncStorage.setItem("phrases", JSON.stringify(yearlyDict));
     }
 
     getShouldSendNotifications = async (): Promise<boolean> => {
@@ -25,17 +22,10 @@ export default class Database {
     setShouldSendNotifications = async (value: boolean | number): Promise<void> =>
         await AsyncStorage.setItem("shouldSendNotifications", JSON.stringify(value))
 
-    getDateTrigger = async (): Promise<Date> => {
+    getDateTrigger = async (): Promise<DateTrigger> => {
         try {
             const datrig = await AsyncStorage.getItem('dateTrigger')
-            if (datrig != null) {
-                const fstparse = parseTimestrToDate(datrig);
-                if (fstparse === null) console.error("Error parsing the date at getDateTrigger");
-                const datetrig = createDateTrigger(fstparse.getHours(), fstparse.getMinutes());
-                return datetrig;
-            }
-            else
-                return createDateTrigger(hourTrigger, minuteTrigger);
+            return datrig != null ? JSON.parse(datrig) : defaultTrigger;
         }
         catch (e) {
             console.error(e);
@@ -43,8 +33,8 @@ export default class Database {
         }
     }
 
-    setDateTrigger = async (value: Date | string): Promise<void> => {
-        await AsyncStorage.setItem("dateTrigger", value.toString())
+    setDateTrigger = async (value: DateTrigger): Promise<void> => {
+        await AsyncStorage.setItem("dateTrigger", JSON.stringify(value))
             .catch(e => console.error(e));
     }
 
@@ -54,7 +44,7 @@ export default class Database {
     setUserDefinedLanguage = async (value: 'en' | 'es'): Promise<void> =>
         await AsyncStorage.setItem("userDefinedLanguage", value);
 
-    private getAllPhrases = async (): Promise<Phrase[]> =>
+    getAllPhrases = async (): Promise<Phrase[]> =>
         JSON.parse(await AsyncStorage.getItem("phrases"));
 
     getDailyPhrase = async (): Promise<Phrase> => {

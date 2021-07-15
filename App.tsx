@@ -16,6 +16,8 @@ import Phrase from './components/Phrase';
 import Settings from './components/Settings';
 import DailySaint from './components/Saints';
 import Database from './db/db';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import NotificationsUtils from './utils/notifications';
 
 const styles = StyleSheet.create({
   view: {
@@ -73,9 +75,18 @@ export default function App() {
   const [backgroundLoaded, setbackgroundLoaded] = useState(false)
 
   useEffect(() => {
-    if (!backgroundLoaded) {
+    async function init() {
       const db = new Database();
-      db.init()
+      const nu = new NotificationsUtils();
+      if (!await AsyncStorage.getItem('phrases'))
+        await db.storeYearlyPhrases();
+
+      const scheduledNotifs = await nu.getAllScheduledNotifications();
+      if (scheduledNotifs.length === 0)
+        await nu.scheduleAllYearlyNotifications();
+    }
+    if (!backgroundLoaded) {
+      init()
         .then(_ => setbackgroundLoaded(true))
     }
   })

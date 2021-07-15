@@ -1,55 +1,21 @@
-import { farFuture } from "./consts";
 import { dbSaintInfo, Phrase, SaintInfo } from "./interfaces";
 
-export function createDateTrigger(hourTrigger: number, minuteTrigger: number) {
+export function createDateTrigger(date: string, hourTrigger: number, minuteTrigger: number): Date {
+    const parsed = parseStrDate(date);
+    const month = parsed[0];
+    const day = parsed[1];
     const rn = new Date()
-    if (hourTrigger < rn.getHours() || hourTrigger == rn.getHours() && minuteTrigger < rn.getMinutes())
-        rn.setDate(rn.getDate() + 1);
-    rn.setHours(hourTrigger, minuteTrigger);
+    const dateTrigger = new Date(rn.getFullYear(), month - 1, day, hourTrigger, minuteTrigger, 0);
 
-    return rn;
+    return dateTrigger;
 }
 
-export function secondsLeftTo(hour: number, minute: number) {
-    const now = new Date();
-    const future = createDateTrigger(hour, minute);
-    let dif = now.getTime() - future.getTime();
-    const seconds = Math.abs(dif / 1000);
-
-    return seconds;
-}
-
-export function parseTimestrToDate(str: string) {
-    //Expected string = 20:15:30 GMT-0300 (-03)
-    const split = str.split(':');
-    try {
-        const hour = parseInt(split[0]);
-        const minute = parseInt(split[1]);
-        const now = new Date();
-        const final = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute)
-        return final;
-    }
-    catch (e) {
-        console.error(e);
-        return null;
-    }
-}
-
-export function nearestNotification(notifs) {
-    let min = farFuture;
-    for (let i = 0; i < notifs.length; i++) {
-        try {
-            const date = notifs[i].content.data;
-            const now = new Date();
-            const realDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), date.hourTrig, date.minuteTrig)
-            if (realDate.getTime() < min.getTime())
-                min = realDate;
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }
-    return min;
+function parseStrDate(date: string): [number, number] {
+    //Expected string "07-15"
+    const split = date.split('-');
+    const month = parseInt(split[0]);
+    const day = parseInt(split[1]);
+    return [month, day];
 }
 
 export async function fetchFromServer(from: string) {
