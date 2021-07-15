@@ -1,3 +1,10 @@
+/*
+TODO schedule a yearly notification that reminds the people
+to open the app at the beginning of the year to load the 
+new phrases
+*/
+
+
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
@@ -96,6 +103,7 @@ export default class NotificationsUtils {
     let hourTrigger = dateTrigger ? dateTrigger.hour : defaultHourTrigger;
     let minuteTrigger = dateTrigger ? dateTrigger.minute : defaultMinuteTrigger;
     for (const phrase of phrases)
+      //TODO schedule only the notifications that are after today
       this.scheduleNotification(false, hourTrigger, minuteTrigger, phrase);
   }
 }

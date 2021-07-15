@@ -18,6 +18,7 @@ import DailySaint from './components/Saints';
 import Database from './db/db';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NotificationsUtils from './utils/notifications';
+import { initTasks } from './services/BackgroundTasks';
 
 const styles = StyleSheet.create({
   view: {
@@ -86,6 +87,8 @@ export default function App() {
         await nu.scheduleAllYearlyNotifications();
     }
     if (!backgroundLoaded) {
+      initTasks()
+        .then(_ => { })
       init()
         .then(_ => setbackgroundLoaded(true))
     }

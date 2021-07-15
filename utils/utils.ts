@@ -1,4 +1,4 @@
-import { dbSaintInfo, Phrase, SaintInfo } from "./interfaces";
+import { dbSaintInfo, Phrase } from "./interfaces";
 
 export function createDateTrigger(date: string, hourTrigger: number, minuteTrigger: number): Date {
     const parsed = parseStrDate(date);
