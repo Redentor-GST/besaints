@@ -12,6 +12,7 @@ import Database from '../db/db';
 import { createDateTrigger } from './utils';
 import { Phrase } from './interfaces';
 import { defaultMinuteTrigger, defaultHourTrigger } from './consts';
+import moment from 'moment'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -75,16 +76,12 @@ export default class NotificationsUtils {
         }
       },
       trigger: instant ? null :
-        Platform.OS === "ios" ? {
-          hour: triggerHour,
-          minute: triggerMinute,
-        } :
-          {
-            //seconds: secondsLeftTo(triggerHour, triggerMinute),
-            //For some reason this does not work, the function does, but the date field doesn`t
-            date: dateTrigger,
-            channelId: 'default',
-          }
+        {
+          date: dateTrigger,
+          channelId: 'default',
+          type: 'calendar',
+          repeats: 'false'
+        }
     }
   }
 
@@ -102,9 +99,13 @@ export default class NotificationsUtils {
     const dateTrigger = await this.db.getDateTrigger();
     let hourTrigger = dateTrigger ? dateTrigger.hour : defaultHourTrigger;
     let minuteTrigger = dateTrigger ? dateTrigger.minute : defaultMinuteTrigger;
-    for (const phrase of phrases)
-      //TODO schedule only the notifications that are after today
+    const now = new Date();
+    const firstOfTheYear = new Date(now.getFullYear(), 0, 1);
+    const daysSinceYearsStarted = moment().diff(firstOfTheYear, "days");
+    for (const phrase of phrases.slice(daysSinceYearsStarted))
       this.scheduleNotification(false, hourTrigger, minuteTrigger, phrase);
+
+    console.log("Finished scheduling notifications")
   }
 }
 
