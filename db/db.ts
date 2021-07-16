@@ -9,6 +9,7 @@ export default class Database {
     tables = ["dateTrigger", "shouldSendNotifications", "phrases"]
 
     storeYearlyPhrases = async (): Promise<void> =>
+        //TODO parse to utf, or wait for nacho to do it
         await AsyncStorage.setItem("phrases", JSON.stringify(getDict()));
 
     getShouldSendNotifications = async (): Promise<boolean> => {

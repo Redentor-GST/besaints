@@ -59,6 +59,7 @@ function getTodaysVaticanLink(): string {
     return link;
 }
 
+
 export default function DailySaint() {
     const [dailySaintObj, setdailySaintObj] = useState([emptySaintInfo]);
     const [loaded, setloaded] = useState(false);

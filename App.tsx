@@ -38,6 +38,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'black'
   },
+  activityContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    padding: 20
+  }
 })
 
 const Stack = createStackNavigator();
@@ -105,5 +113,16 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     ) :
-    <ActivityIndicator />
+    (
+      (
+        <View>
+          <View style={styles.activityContainer}>
+            <ActivityIndicator size="large" color="#00ff00" />
+            <Text> Por favor espera mientras terminamos de trabajar algunas cosas! </Text>
+            <Text> Este proceso puede tomar algunos minutos</Text>
+            <Text> Podes salir de la aplicacion mientras esto termina (pero no la cierres) </Text>
+          </View>
+        </View>
+      )
+    )
 }

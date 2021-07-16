@@ -87,6 +87,9 @@ export default class NotificationsUtils {
 
   private async scheduleNotification(instant: boolean = false,
     triggerHour: number, triggerMinute: number, data: Phrase) {
+
+    if (!await this.db.getShouldSendNotifications()) return;
+
     await this.registerForPushNotificationsAsync()
       .catch(e => console.error("Exception in registerNotifs: " + e))
     const notification = this.notification(triggerHour, triggerMinute, data, instant);
@@ -102,8 +105,10 @@ export default class NotificationsUtils {
     const now = new Date();
     const firstOfTheYear = new Date(now.getFullYear(), 0, 1);
     const daysSinceYearsStarted = moment().diff(firstOfTheYear, "days");
-    for (const phrase of phrases.slice(daysSinceYearsStarted))
-      this.scheduleNotification(false, hourTrigger, minuteTrigger, phrase);
+    for (const phrase of phrases.slice(daysSinceYearsStarted)) {
+      console.log("Scheduling the notification at: ", phrase.date)
+      await this.scheduleNotification(false, hourTrigger, minuteTrigger, phrase);
+    }
 
     console.log("Finished scheduling notifications")
   }
