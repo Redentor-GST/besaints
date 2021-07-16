@@ -11,8 +11,8 @@ import { Platform } from 'react-native';
 import Database from '../db/db';
 import { createDateTrigger } from './utils';
 import { Phrase } from './interfaces';
-import { defaultMinuteTrigger, defaultHourTrigger } from './consts';
-import moment from 'moment'
+import { defaultMinuteTrigger, defaultHourTrigger, daysSince1Jan } from './consts';
+
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -102,9 +102,7 @@ export default class NotificationsUtils {
     const dateTrigger = await this.db.getDateTrigger();
     let hourTrigger = dateTrigger ? dateTrigger.hour : defaultHourTrigger;
     let minuteTrigger = dateTrigger ? dateTrigger.minute : defaultMinuteTrigger;
-    const now = new Date();
-    const firstOfTheYear = new Date(now.getFullYear(), 0, 1);
-    const daysSinceYearsStarted = moment().diff(firstOfTheYear, "days");
+    const daysSinceYearsStarted = daysSince1Jan();
     for (const phrase of phrases.slice(daysSinceYearsStarted)) {
       console.log("Scheduling the notification at: ", phrase.date)
       await this.scheduleNotification(false, hourTrigger, minuteTrigger, phrase);

@@ -117,29 +117,31 @@ export default function Settings() {
                 onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}>
                 Envianos un email! 📨
             </Text>
-            <Text> v0.9.2 </Text>
+            <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
+            <Button title='How Many' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res.length))}></Button>
+            <Text> v0.9.2.1</Text>
             {/**
-             * DEBUG
+            * DEBUG
             <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} />
             <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
             <Button title='How Many' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res.length))}></Button>
-             <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />
+            <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />
             <Button title='Clear Database' onPress={_ => db.clear()} />
             <Button title='Log all notifications' onPress={async _ => await Notifications.getAllScheduledNotificationsAsync().then(res => console.log(res))} />
             <Button title='Kill all notifications' onPress={async _ => await Notifications.cancelAllScheduledNotificationsAsync().then(_ => console.log("deleted!"))} />
-             <View style={{ alignSelf: 'center' }}>
-                 <Picker
-                     selectedValue={selectedLanguage}
-                     style={{ height: 20, width: 130 }}
-                     onValueChange={(itemValue, itemIndex) => {
-                         setSelectedLanguage(itemValue);
-                         db.setUserDefinedLanguage(itemValue);
-                     }}
-                 >
-                     <Picker.Item label="English" value="en" />
-                     <Picker.Item label="Spanish" value="es" />
-                 </Picker>
-             </View>
+            <View style={{ alignSelf: 'center' }}>
+                <Picker
+                    selectedValue={selectedLanguage}
+                    style={{ height: 20, width: 130 }}
+                    onValueChange={(itemValue, itemIndex) => {
+                        setSelectedLanguage(itemValue);
+                        db.setUserDefinedLanguage(itemValue);
+                    }}
+                >
+                    <Picker.Item label="English" value="en" />
+                    <Picker.Item label="Spanish" value="es" />
+                </Picker>
+            </View>
             <Text>
                 Next Notification : {areThereNotifications ? nextNotifTime + " " : "NONE"}
             </Text>

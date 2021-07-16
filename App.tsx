@@ -19,6 +19,8 @@ import Database from './db/db';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NotificationsUtils from './utils/notifications';
 import { initTasks } from './services/BackgroundTasks';
+import { isLeapYear } from './utils/utils';
+import { daysSince1Jan } from './utils/consts';
 
 const styles = StyleSheet.create({
   view: {
@@ -91,7 +93,9 @@ export default function App() {
         await db.storeYearlyPhrases();
 
       const scheduledNotifs = await nu.getAllScheduledNotifications();
-      if (scheduledNotifs.length === 0)
+      const daysSinceYearStarted = daysSince1Jan();
+      const leftingDays = isLeapYear() ? 366 - daysSinceYearStarted : 365 - daysSinceYearStarted;
+      if (scheduledNotifs.length === 0 || scheduledNotifs.length + 1 < leftingDays)
         await nu.scheduleAllYearlyNotifications();
     }
     if (!backgroundLoaded) {
@@ -121,6 +125,7 @@ export default function App() {
             <Text> Por favor espera mientras terminamos de trabajar algunas cosas! </Text>
             <Text> Este proceso puede tomar algunos minutos</Text>
             <Text> Podes salir de la aplicacion mientras esto termina (pero no la cierres) </Text>
+            <Text> Este proceso se hace solo una vez al año </Text>
           </View>
         </View>
       )

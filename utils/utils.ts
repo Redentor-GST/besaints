@@ -53,3 +53,9 @@ export function getDateStr(date: Date, incrementMonth: Boolean) {
     const fullStr = (month < 10 ? '0' + month.toString() : month.toString()) + '-' + dat.toString();
     return fullStr;
 }
+
+export const isLeapYear = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+}
