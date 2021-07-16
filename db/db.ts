@@ -2,17 +2,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { defaultTrigger } from '../utils/consts';
 import { DateTrigger, Phrase } from '../utils/interfaces';
 import { compareTodayvsDate } from '../utils/utils';
-import { yearlyDicts } from './yearlyDicts';
+import { getDict } from './yearlyDicts';
 
 export default class Database {
 
     tables = ["dateTrigger", "shouldSendNotifications", "phrases"]
 
-    storeYearlyPhrases = async (): Promise<void> => {
-        const today = new Date();
-        const yearlyDict = yearlyDicts[today.getFullYear()];
-        await AsyncStorage.setItem("phrases", JSON.stringify(yearlyDict));
-    }
+    storeYearlyPhrases = async (): Promise<void> =>
+        await AsyncStorage.setItem("phrases", JSON.stringify(getDict()));
 
     getShouldSendNotifications = async (): Promise<boolean> => {
         const ssn = await AsyncStorage.getItem('shouldSendNotifications');

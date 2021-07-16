@@ -1,6 +1,6 @@
 import { Phrase } from "../utils/interfaces"
 
-const y2021: Phrase[] = [
+const odd: Phrase[] = [
     {
         "text": "Lo que nos hace santos y agradables a Dios es lo que nuestra vocaciÃ³n nos exige, y no lo que escoge nuestra propia voluntad.",
         "author": "San Francisco de Sales",
@@ -1828,6 +1828,12 @@ const y2021: Phrase[] = [
     }
 ]
 
-export const yearlyDicts = {
-    "2021": y2021
+//TODO fill with phrases
+const even: Phrase[] = [];
+
+export function getDict() {
+    const today = new Date();
+    const year = today.getFullYear();
+    return year % 2 === 0 ? even : odd;
+
 }
