@@ -6,8 +6,6 @@ import {
     Platform,
     ActivityIndicator
 } from 'react-native';
-import BouncyCheckbox from "react-native-bouncy-checkbox";
-import * as Notifications from 'expo-notifications';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Database from '../db/db';
 //import { userDefaultLanguage } from '../utils/consts';

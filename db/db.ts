@@ -22,7 +22,14 @@ export default class Database {
     getDateTrigger = async (): Promise<DateTrigger> => {
         try {
             const datrig = await AsyncStorage.getItem('dateTrigger')
-            return datrig != null ? JSON.parse(datrig) : defaultTrigger;
+            if (datrig !== null) {
+                const split = datrig.split(':');
+                return {
+                    hour: parseInt(split[0]),
+                    minute: parseInt(split[1])
+                }
+            }
+            else return defaultTrigger;
         }
         catch (e) {
             console.error(e);
