@@ -103,7 +103,10 @@ export default class NotificationsUtils {
     let hourTrigger = dateTrigger ? dateTrigger.hour : defaultHourTrigger;
     let minuteTrigger = dateTrigger ? dateTrigger.minute : defaultMinuteTrigger;
     const daysSinceYearsStarted = daysSince1Jan();
-    for (const phrase of phrases.slice(daysSinceYearsStarted)) {
+    const now = new Date();
+    const dateDateTrigger = new Date(now.getFullYear(), now.getMonth(), now.getDate(), dateTrigger.hour, dateTrigger.minute);
+    const firstNotificationHasToSchedule = now.getTime() > dateDateTrigger.getTime();
+    for (const phrase of phrases.slice(firstNotificationHasToSchedule ? daysSinceYearsStarted : daysSinceYearsStarted + 1)) {
       console.log("Scheduling the notification at: ", phrase.date)
       await this.scheduleNotification(false, hourTrigger, minuteTrigger, phrase);
     }

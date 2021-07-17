@@ -95,6 +95,10 @@ export default function App() {
       const scheduledNotifs = await nu.getAllScheduledNotifications();
       const daysSinceYearStarted = daysSince1Jan();
       const leftingDays = isLeapYear() ? 366 - daysSinceYearStarted : 365 - daysSinceYearStarted;
+      /*
+      This will run ONLY  once a year, and in that case, notifs.length should be 0
+      But i set the other conditions for this debugging part
+      */
       if (scheduledNotifs.length === 0 || scheduledNotifs.length + 1 < leftingDays)
         await nu.scheduleAllYearlyNotifications();
     }
@@ -123,7 +127,8 @@ export default function App() {
           <View style={styles.activityContainer}>
             <ActivityIndicator size="large" color="#00ff00" />
             <Text> Por favor espera mientras terminamos de trabajar algunas cosas! </Text>
-            <Text> Este proceso puede tomar algunos minutos</Text>
+            <Text> Este proceso toma solo unos segundos</Text>
+            <Text> Es mas, seguramente no llegues ni a leer este texto </Text>
             <Text> Podes salir de la aplicacion mientras esto termina (pero no la cierres) </Text>
             <Text> Este proceso se hace solo una vez al año </Text>
           </View>

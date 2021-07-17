@@ -4,7 +4,8 @@ import {
     View,
     Button,
     Platform,
-    ActivityIndicator
+    ActivityIndicator,
+    StatusBar
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Database from '../db/db';
@@ -23,7 +24,12 @@ export default function Settings() {
     const [ssnLoaded, setssnLoaded] = useState(false);
     const [notifDateTrigger, setnotifDateTrigger] = useState(new Date());
     const [selected, setselected] = useState([]);
+    const [howMany, sethowMany] = useState(0);
+    const [howManyLoaded, sethowManyLoaded] = useState(false);
+    const [loadingNotifications, setloadingNotifications] = useState(false);
 
+    //!Potential bug here, app closes when you change the schedule
+    //?Dont really know why
     const onChange = async (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
@@ -36,7 +42,12 @@ export default function Settings() {
             minute: currentDate.getMinutes()
         }
         await db.setDateTrigger(dateTrigger);
+        setloadingNotifications(true);
+        console.log("About to schedule");
         await nu.scheduleAllYearlyNotifications();
+        console.log("Scheduled");
+        setloadingNotifications(false);
+        console.log("Bye");
     };
 
     const showMode = (currentMode) => {
@@ -60,6 +71,12 @@ export default function Settings() {
                     now.getDate(), dateTrigger.hour, dateTrigger.minute)
                 setnotifDateTrigger(date);
             });
+        new NotificationsUtils().getAllScheduledNotifications()
+            .then(res => {
+                sethowMany(res.length);
+                sethowManyLoaded(true);
+            });
+
         /*
         db.getUserDefinedLanguage()
             .then(userDefinedLanguage => {
@@ -82,7 +99,7 @@ export default function Settings() {
         )
     }
 
-    return ssnLoaded ? (
+    return ssnLoaded && howManyLoaded && !loadingNotifications ? (
         <View>
             {/*
             
@@ -118,8 +135,8 @@ export default function Settings() {
                 Envianos un email! 📨
             </Text>
             <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
-            <Button title='How Many' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res.length))}></Button>
-            <Text> v0.9.2.1</Text>
+            <Text> {howMany} </Text>
+            <Text> v0.9.2.2</Text>
             {/**
             * DEBUG
             <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} />
@@ -151,10 +168,16 @@ export default function Settings() {
         </View>
     ) :
         (
-            <View>
-                <ActivityIndicator />
+            <View style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                height: '100%',
+                paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+                padding: 20
+            }}>
+                <ActivityIndicator size="large" color="#00ff00" />
             </View>
-
         )
 }
 //:)

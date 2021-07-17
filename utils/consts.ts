@@ -2,7 +2,7 @@ import { NativeModules, Platform } from 'react-native'
 import { DateTrigger } from './interfaces';
 import moment from 'moment'
 
-export const defaultHourTrigger = 7;
+export const defaultHourTrigger = 8;
 export const defaultMinuteTrigger = 0;
 export const defaultTrigger: DateTrigger = {
     hour: defaultHourTrigger,
