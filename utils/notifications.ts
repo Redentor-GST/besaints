@@ -36,21 +36,20 @@ export default class NotificationsUtils {
 
   private async registerForPushNotificationsAsync() {
     let token = "";
-    if (Constants.isDevice) {
-      const { status: existingStatus } = await Notifications.getPermissionsAsync();
-      let finalStatus = existingStatus;
-      if (existingStatus !== 'granted') {
-        const { status } = await Notifications.requestPermissionsAsync();
-        finalStatus = status;
-      }
-      if (finalStatus !== 'granted') {
-        console.log('Failed to get push token for push notification!');
-        return;
-      }
-      token = (await Notifications.getExpoPushTokenAsync()).data;
-    }
-    else
+    if (!Constants.isDevice) {
       alert('Must use physical device for Push Notifications');
+      return;
+    }
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      console.log('Failed to get push token for push notification!');
+      return;
+    }
 
     if (Platform.OS === 'android') {
       await Notifications.setNotificationChannelAsync('default', {
@@ -60,6 +59,10 @@ export default class NotificationsUtils {
         lightColor: '#FF231F7C',
       });
     }
+
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log("Token: ", token);
+    return token;
   };
 
   private notification = (triggerHour: number, triggerMinute: number, data: Phrase, instant: boolean) => {
@@ -90,8 +93,6 @@ export default class NotificationsUtils {
 
     if (!await this.db.getShouldSendNotifications()) return;
 
-    await this.registerForPushNotificationsAsync()
-      .catch(e => console.error("Exception in registerNotifs: " + e))
     const notification = this.notification(triggerHour, triggerMinute, data, instant);
     await Notifications.scheduleNotificationAsync(notification)
       .catch(e => console.error("Exception in schedule Notifications: " + e))
@@ -100,13 +101,13 @@ export default class NotificationsUtils {
   async scheduleAllYearlyNotifications() {
     const phrases = await this.db.getAllPhrases();
     const dateTrigger = await this.db.getDateTrigger();
-    let hourTrigger = dateTrigger ? dateTrigger.hour : defaultHourTrigger;
-    let minuteTrigger = dateTrigger ? dateTrigger.minute : defaultMinuteTrigger;
+    const hourTrigger = dateTrigger ? dateTrigger.hour : defaultHourTrigger;
+    const minuteTrigger = dateTrigger ? dateTrigger.minute : defaultMinuteTrigger;
     const daysSinceYearsStarted = daysSince1Jan();
-    const now = new Date();
-    const dateDateTrigger = new Date(now.getFullYear(), now.getMonth(), now.getDate(), dateTrigger.hour, dateTrigger.minute);
-    const firstNotificationHasToSchedule = now.getTime() > dateDateTrigger.getTime();
-    for (const phrase of phrases.slice(firstNotificationHasToSchedule ? daysSinceYearsStarted : daysSinceYearsStarted + 1)) {
+    const token = await this.registerForPushNotificationsAsync()
+      .catch(e => console.error("Exception in registerNotifs: " + e))
+    if (!token) return;
+    for (const phrase of phrases.slice(daysSinceYearsStarted)) {
       console.log("Scheduling the notification at: ", phrase.date)
       await this.scheduleNotification(false, hourTrigger, minuteTrigger, phrase);
     }
