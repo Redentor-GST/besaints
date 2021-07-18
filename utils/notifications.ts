@@ -79,12 +79,18 @@ export default class NotificationsUtils {
         }
       },
       trigger: instant ? null :
-        {
-          date: dateTrigger,
-          channelId: 'default',
-          type: 'calendar',
-          repeats: 'false'
-        }
+        Platform.OS === 'ios' ?
+          {
+            date: dateTrigger,
+            type: 'calendar',
+            repeats: 'false'
+          }
+          :
+          {
+            date: dateTrigger,
+            channelId: 'default',
+            repeats: 'false'
+          }
     }
   }
 

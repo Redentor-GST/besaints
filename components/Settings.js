@@ -134,9 +134,8 @@ export default function Settings() {
                 onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}>
                 Envianos un email! 📨
             </Text>
-            <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
             <Text> {howMany} </Text>
-            <Text> v0.9.2.2</Text>
+            <Text> v0.9.2.4</Text>
             {/**
             * DEBUG
             <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} />
