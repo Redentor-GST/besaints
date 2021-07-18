@@ -5,8 +5,8 @@ export function createDateTrigger(date: string, hourTrigger: number, minuteTrigg
     const month = parsed[0];
     const day = parsed[1];
     const rn = new Date()
-    const dateTrigger = new Date(rn.getFullYear(), month - 1, day, hourTrigger, minuteTrigger, 0);
-
+    const dateTrigger = new Date(rn.getFullYear(), month - 1, day);
+    dateTrigger.setHours(hourTrigger, minuteTrigger, 0);
     return dateTrigger;
 }
 
