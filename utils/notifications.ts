@@ -66,6 +66,7 @@ export default class NotificationsUtils {
 
   private notification = (triggerHour: number, triggerMinute: number, data: Phrase, instant: boolean) => {
     const dateTrigger = createDateTrigger(data.date, triggerHour, triggerMinute);
+    console.log("DateTrigger: ", dateTrigger, " : ", dateTrigger.toTimeString());
     return {
       content: {
         title: "Frase del dia",
@@ -78,18 +79,12 @@ export default class NotificationsUtils {
         }
       },
       trigger: instant ? null :
-        Platform.OS === 'ios' ?
-          {
-            date: dateTrigger,
-            type: 'calendar',
-            repeats: 'false'
-          }
-          :
-          {
-            date: dateTrigger,
-            channelId: 'default',
-            repeats: 'false'
-          }
+        {
+          date: dateTrigger,
+          channelId: 'default',
+          repeats: 'false',
+          type: 'calendar'
+        }
     }
   }
 
@@ -98,9 +93,14 @@ export default class NotificationsUtils {
 
     if (!await this.db.getShouldSendNotifications()) return;
 
-    const notification = this.notification(triggerHour, triggerMinute, data, instant);
-    await Notifications.scheduleNotificationAsync(notification)
-      .catch(e => console.error("Exception in schedule Notifications: " + e))
+    try {
+      const notification = this.notification(triggerHour, triggerMinute, data, instant);
+      await Notifications.scheduleNotificationAsync(notification)
+      //.catch(e => console.error("Exception in schedule Notifications: " + e))
+    }
+    catch (e) {
+      console.error("Error where it has to " + e);
+    }
   }
 
   async scheduleAllYearlyNotifications() {

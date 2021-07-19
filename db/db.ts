@@ -26,10 +26,10 @@ export default class Database {
         try {
             const datrig = await AsyncStorage.getItem(this.timeTriggerName)
             if (datrig !== null) {
-                const split = datrig.split(':');
+                const parsed = JSON.parse(datrig);
                 return {
-                    hour: parseInt(split[0]),
-                    minute: parseInt(split[1])
+                    hour: parseInt(parsed.hour),
+                    minute: parseInt(parsed.minute)
                 }
             }
             else return defaultTrigger;
@@ -40,10 +40,8 @@ export default class Database {
         }
     }
 
-    setTimeTrigger = async (value: TimeTrigger): Promise<void> => {
+    setTimeTrigger = async (value: TimeTrigger): Promise<void> =>
         await AsyncStorage.setItem(this.timeTriggerName, JSON.stringify(value))
-            .catch(e => console.error(e));
-    }
 
     /*
     getUserDefinedLanguage = async (): Promise<string> =>
