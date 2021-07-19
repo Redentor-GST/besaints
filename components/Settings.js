@@ -37,11 +37,11 @@ export default function Settings() {
         setnotifDateTrigger(currentDate);
         const nu = new NotificationsUtils();
         await nu.cancelAllScheduledNotifications();
-        const dateTrigger = {
+        const timeTrigger = {
             hour: currentDate.getHours(),
             minute: currentDate.getMinutes()
         }
-        await db.setDateTrigger(dateTrigger);
+        await db.setTimeTrigger(timeTrigger);
         setloadingNotifications(true);
         console.log("About to schedule");
         await nu.scheduleAllYearlyNotifications();
@@ -64,11 +64,11 @@ export default function Settings() {
         db.getShouldSendNotifications()
             .then(res => setssn(res))
             .finally(_ => setssnLoaded(true))
-        db.getDateTrigger()
-            .then(dateTrigger => {
+        db.getTimeTrigger()
+            .then(timeTrigger => {
                 const now = new Date();
                 const date = new Date(now.getFullYear(), now.getMonth() - 1,
-                    now.getDate(), dateTrigger.hour, dateTrigger.minute)
+                    now.getDate(), timeTrigger.hour, timeTrigger.minute)
                 setnotifDateTrigger(date);
             });
         new NotificationsUtils().getAllScheduledNotifications()

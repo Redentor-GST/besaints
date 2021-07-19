@@ -1,28 +1,30 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { defaultTrigger } from '../utils/consts';
-import { DateTrigger, Phrase } from '../utils/interfaces';
+import { Phrase, TimeTrigger } from '../utils/interfaces';
 import { compareTodayvsDate } from '../utils/utils';
 import { getDict } from './yearlyDicts';
 
 export default class Database {
 
-    tables = ["dateTrigger", "shouldSendNotifications", "phrases"]
+    timeTriggerName = "timeTrigger";
+    ssnName = "shouldSendNotifications";
+    phrasesName = "phrases";
+    tables = [this.timeTriggerName, this.ssnName, this.phrasesName]
 
     storeYearlyPhrases = async (): Promise<void> =>
-        //TODO parse to utf, or wait for nacho to do it
-        await AsyncStorage.setItem("phrases", JSON.stringify(getDict()));
+        await AsyncStorage.setItem(this.phrasesName, JSON.stringify(getDict()));
 
     getShouldSendNotifications = async (): Promise<boolean> => {
-        const ssn = await AsyncStorage.getItem('shouldSendNotifications');
+        const ssn = await AsyncStorage.getItem(this.ssnName);
         return ssn ? JSON.parse(ssn) : true;
     }
 
     setShouldSendNotifications = async (value: boolean | number): Promise<void> =>
-        await AsyncStorage.setItem("shouldSendNotifications", JSON.stringify(value))
+        await AsyncStorage.setItem(this.ssnName, JSON.stringify(value))
 
-    getDateTrigger = async (): Promise<DateTrigger> => {
+    getTimeTrigger = async (): Promise<TimeTrigger> => {
         try {
-            const datrig = await AsyncStorage.getItem('dateTrigger')
+            const datrig = await AsyncStorage.getItem(this.timeTriggerName)
             if (datrig !== null) {
                 const split = datrig.split(':');
                 return {
@@ -38,19 +40,21 @@ export default class Database {
         }
     }
 
-    setDateTrigger = async (value: DateTrigger): Promise<void> => {
-        await AsyncStorage.setItem("dateTrigger", JSON.stringify(value))
+    setTimeTrigger = async (value: TimeTrigger): Promise<void> => {
+        await AsyncStorage.setItem(this.timeTriggerName, JSON.stringify(value))
             .catch(e => console.error(e));
     }
 
+    /*
     getUserDefinedLanguage = async (): Promise<string> =>
-        await AsyncStorage.getItem("userDefinedLanguage");
+        await AsyncStorage.getItem();
 
     setUserDefinedLanguage = async (value: 'en' | 'es'): Promise<void> =>
         await AsyncStorage.setItem("userDefinedLanguage", value);
+    */
 
     getAllPhrases = async (): Promise<Phrase[]> =>
-        JSON.parse(await AsyncStorage.getItem("phrases"));
+        JSON.parse(await AsyncStorage.getItem(this.phrasesName));
 
     getDailyPhrase = async (): Promise<Phrase> => {
         const phrases = await this.getAllPhrases();
