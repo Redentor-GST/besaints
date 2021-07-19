@@ -107,6 +107,7 @@ export default function App() {
         .then(_ => { })
       init()
         .then(_ => setbackgroundLoaded(true))
+      //new Database().clear().then(_ => console.log("Cleared!"))
     }
   })
 

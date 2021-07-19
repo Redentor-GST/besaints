@@ -61,7 +61,6 @@ export default class NotificationsUtils {
     }
 
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log("Token: ", token);
     return token;
   };
 
@@ -106,9 +105,9 @@ export default class NotificationsUtils {
 
   async scheduleAllYearlyNotifications() {
     const phrases = await this.db.getAllPhrases();
-    const dateTrigger = await this.db.getDateTrigger();
-    const hourTrigger = dateTrigger ? dateTrigger.hour : defaultHourTrigger;
-    const minuteTrigger = dateTrigger ? dateTrigger.minute : defaultMinuteTrigger;
+    const timeTrigger = await this.db.getTimeTrigger();
+    const hourTrigger = timeTrigger ? timeTrigger.hour : defaultHourTrigger;
+    const minuteTrigger = timeTrigger ? timeTrigger.minute : defaultMinuteTrigger;
     const daysSinceYearsStarted = daysSince1Jan();
     const token = await this.registerForPushNotificationsAsync()
       .catch(e => console.error("Exception in registerNotifs: " + e))
