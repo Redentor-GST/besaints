@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View,
   Text,
   StatusBar,
   StyleSheet,
@@ -9,9 +8,7 @@ import {
   SafeAreaView
 } from 'react-native';
 import Database from '../db/db';
-import { phraseEndpoint } from '../utils/consts';
 import { Phrase } from '../utils/interfaces';
-import { checkDataNotOutdated, fetchFromServer } from '../utils/utils';
 
 const db = new Database();
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
@@ -22,7 +19,7 @@ const maxText = 686;
 const emptyPhrase: Phrase = {
   text: "",
   author: "",
-  date: new Date()
+  date: ""
 }
 
 const styles = StyleSheet.create({
@@ -73,18 +70,9 @@ export default function PhraseView() {
   //const { isRotated } = useDeviceOrientation();
   useEffect(() => {
     db.getDailyPhrase()
-      .then(phrase => {
-        checkDataNotOutdated(phrase, phraseEndpoint)
-          .then(res => setData(res));
-      })
-  }, []);
+      .then(phrase => setData(phrase))
+  }
+    , []);
 
-  try {
-    const view = phraseView(data)
-    return view;
-  }
-  catch (e) {
-    console.log("Ignore this error -> " + e);
-  }
-  return <View></View>
+  return phraseView(data);
 }

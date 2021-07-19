@@ -20,7 +20,7 @@ import { saintsEndpoint } from '../utils/consts';
 const db = new Database();
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
-const emptySaintInfo: SaintInfo = { info: '', saint: '', date: new Date() };
+const emptySaintInfo: SaintInfo = { info: '', saint: '', date: "" };
 
 const styles = StyleSheet.create({
     noMeLaContainer: {
@@ -58,6 +58,7 @@ function getTodaysVaticanLink(): string {
         '/' + dayStr + '.html';
     return link;
 }
+
 
 export default function DailySaint() {
     const [dailySaintObj, setdailySaintObj] = useState([emptySaintInfo]);

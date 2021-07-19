@@ -14,3 +14,8 @@ export interface dbSaintInfo extends Object {
     saints_data: [SaintInfo],
     date: string
 }
+
+export interface DateTrigger extends Object {
+    hour: number;
+    minute: number;
+}

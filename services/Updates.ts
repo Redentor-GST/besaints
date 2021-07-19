@@ -1,18 +1,15 @@
 import * as Updates from 'expo-updates';
-import { defineTask, registerTask } from './BackgroundTasksUtils';
 import Constants from 'expo-constants';
-
-const TASK_NAME = 'UpdateTask';
+import { defineTask } from './BackgroundTasksUtils';
 
 export default class UpdateTask {
-    private updateAppTask = async () => {
+    updateAppTask = async () => {
         //Cant update on emulators!
         if (!Constants.isDevice) return;
         const now = new Date();
         console.log(now.toTimeString() + " Update Task Running");
         try {
             const areThereUpdates = (await Updates.checkForUpdateAsync()).isAvailable;
-            console.log("arethereupdates?: ", areThereUpdates);
             if (areThereUpdates) {
                 await Updates.fetchUpdateAsync()
                 await Updates.reloadAsync()
@@ -24,8 +21,7 @@ export default class UpdateTask {
         }
     }
 
-    public async init() {
-        defineTask(TASK_NAME, this.updateAppTask);
-        await registerTask(TASK_NAME);
+    async init() {
+        defineTask("UpdateTask", this.updateAppTask);
     }
 }

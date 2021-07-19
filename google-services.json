@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "867528006300",
+    "project_id": "besaints1",
+    "storage_bucket": "besaints1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867528006300:android:dcf049ec81ad4785ac2b59",
+        "android_client_info": {
+          "package_name": "be.saints.client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867528006300-5piasi9i8ijssr8t446mh9jc2p93kdp7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByv1wJz9rjfib89Is3fqoqiMMYJKPbBgI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "867528006300-5piasi9i8ijssr8t446mh9jc2p93kdp7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

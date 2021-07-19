@@ -4,16 +4,14 @@ import {
     View,
     Button,
     Platform,
-    ActivityIndicator
+    ActivityIndicator,
+    StatusBar
 } from 'react-native';
-import BouncyCheckbox from "react-native-bouncy-checkbox";
-import * as Notifications from 'expo-notifications';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Database from '../db/db';
 //import { userDefaultLanguage } from '../utils/consts';
-import scheduleNotification from '../utils/push';
+import NotificationsUtils from '../utils/notifications';
 import SelectMultiple from 'react-native-select-multiple'
-
 
 const db = new Database();
 
@@ -26,15 +24,30 @@ export default function Settings() {
     const [ssnLoaded, setssnLoaded] = useState(false);
     const [notifDateTrigger, setnotifDateTrigger] = useState(new Date());
     const [selected, setselected] = useState([]);
+    const [howMany, sethowMany] = useState(0);
+    const [howManyLoaded, sethowManyLoaded] = useState(false);
+    const [loadingNotifications, setloadingNotifications] = useState(false);
 
+    //!Potential bug here, app closes when you change the schedule
+    //?Dont really know why
     const onChange = async (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
         setDate(currentDate);
-        setnotifDateTrigger(currentDate)
-        await Notifications.cancelAllScheduledNotificationsAsync();
-        await db.setDateTrigger(currentDate.toTimeString());
-        await scheduleNotification(false, currentDate.getHours(), currentDate.getMinutes());
+        setnotifDateTrigger(currentDate);
+        const nu = new NotificationsUtils();
+        await nu.cancelAllScheduledNotifications();
+        const dateTrigger = {
+            hour: currentDate.getHours(),
+            minute: currentDate.getMinutes()
+        }
+        await db.setDateTrigger(dateTrigger);
+        setloadingNotifications(true);
+        console.log("About to schedule");
+        await nu.scheduleAllYearlyNotifications();
+        console.log("Scheduled");
+        setloadingNotifications(false);
+        console.log("Bye");
     };
 
     const showMode = (currentMode) => {
@@ -52,7 +65,18 @@ export default function Settings() {
             .then(res => setssn(res))
             .finally(_ => setssnLoaded(true))
         db.getDateTrigger()
-            .then(dateTrigger => setnotifDateTrigger(dateTrigger));
+            .then(dateTrigger => {
+                const now = new Date();
+                const date = new Date(now.getFullYear(), now.getMonth() - 1,
+                    now.getDate(), dateTrigger.hour, dateTrigger.minute)
+                setnotifDateTrigger(date);
+            });
+        new NotificationsUtils().getAllScheduledNotifications()
+            .then(res => {
+                sethowMany(res.length);
+                sethowManyLoaded(true);
+            });
+
         /*
         db.getUserDefinedLanguage()
             .then(userDefinedLanguage => {
@@ -75,7 +99,7 @@ export default function Settings() {
         )
     }
 
-    return ssnLoaded ? (
+    return ssnLoaded && howManyLoaded && !loadingNotifications ? (
         <View>
             {/*
             
@@ -110,26 +134,30 @@ export default function Settings() {
                 onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}>
                 Envianos un email! 📨
             </Text>
-            <Text> v0.9.1 </Text>
+            <Text> {howMany} </Text>
+            <Text> v0.9.2.4</Text>
             {/**
-             * DEBUG
-             <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />
+            * DEBUG
+            <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} />
+            <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
+            <Button title='How Many' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res.length))}></Button>
+            <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />
             <Button title='Clear Database' onPress={_ => db.clear()} />
             <Button title='Log all notifications' onPress={async _ => await Notifications.getAllScheduledNotificationsAsync().then(res => console.log(res))} />
             <Button title='Kill all notifications' onPress={async _ => await Notifications.cancelAllScheduledNotificationsAsync().then(_ => console.log("deleted!"))} />
-             <View style={{ alignSelf: 'center' }}>
-                 <Picker
-                     selectedValue={selectedLanguage}
-                     style={{ height: 20, width: 130 }}
-                     onValueChange={(itemValue, itemIndex) => {
-                         setSelectedLanguage(itemValue);
-                         db.setUserDefinedLanguage(itemValue);
-                     }}
-                 >
-                     <Picker.Item label="English" value="en" />
-                     <Picker.Item label="Spanish" value="es" />
-                 </Picker>
-             </View>
+            <View style={{ alignSelf: 'center' }}>
+                <Picker
+                    selectedValue={selectedLanguage}
+                    style={{ height: 20, width: 130 }}
+                    onValueChange={(itemValue, itemIndex) => {
+                        setSelectedLanguage(itemValue);
+                        db.setUserDefinedLanguage(itemValue);
+                    }}
+                >
+                    <Picker.Item label="English" value="en" />
+                    <Picker.Item label="Spanish" value="es" />
+                </Picker>
+            </View>
             <Text>
                 Next Notification : {areThereNotifications ? nextNotifTime + " " : "NONE"}
             </Text>
@@ -139,10 +167,16 @@ export default function Settings() {
         </View>
     ) :
         (
-            <View>
-                <ActivityIndicator />
+            <View style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                height: '100%',
+                paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+                padding: 20
+            }}>
+                <ActivityIndicator size="large" color="#00ff00" />
             </View>
-
         )
 }
 //:)
