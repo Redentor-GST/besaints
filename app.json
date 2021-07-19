@@ -26,12 +26,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "infoPlist": {
-        "UIBackgroundModes": [
-          "location",
-          "fetch"
-        ]
-      },
+      "infoPlist": {},
       "bundleIdentifier": "be.saints.client"
     },
     "android": {
@@ -39,6 +34,7 @@
         "foregroundImage": "./assets/bs-icon.png",
         "backgroundColor": "#FFFFFF"
       },
+      "googleServicesFile": "./google-services.json",
       "package": "be.saints.client"
     },
     "web": {

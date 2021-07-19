@@ -15,7 +15,12 @@ import * as React from 'react'
 import Phrase from './components/Phrase';
 import Settings from './components/Settings';
 import DailySaint from './components/Saints';
-import { init } from './services/BackgroundTasks';
+import Database from './db/db';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import NotificationsUtils from './utils/notifications';
+import { initTasks } from './services/BackgroundTasks';
+import { isLeapYear } from './utils/utils';
+import { daysSince1Jan } from './utils/consts';
 
 const styles = StyleSheet.create({
   view: {
@@ -35,6 +40,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'black'
   },
+  activityContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    padding: 20
+  }
 })
 
 const Stack = createStackNavigator();
@@ -73,9 +86,28 @@ export default function App() {
   const [backgroundLoaded, setbackgroundLoaded] = useState(false)
 
   useEffect(() => {
-    if (!backgroundLoaded)
+    async function init() {
+      const db = new Database();
+      const nu = new NotificationsUtils();
+      if (!await AsyncStorage.getItem('phrases'))
+        await db.storeYearlyPhrases();
+
+      const scheduledNotifs = await nu.getAllScheduledNotifications();
+      const daysSinceYearStarted = daysSince1Jan();
+      const leftingDays = isLeapYear() ? 366 - daysSinceYearStarted : 365 - daysSinceYearStarted;
+      /*
+      This will run ONLY  once a year, and in that case, notifs.length should be 0
+      But i set the other conditions for this debugging part
+      */
+      if (scheduledNotifs.length === 0 || scheduledNotifs.length + 1 < leftingDays)
+        await nu.scheduleAllYearlyNotifications();
+    }
+    if (!backgroundLoaded) {
+      initTasks()
+        .then(_ => { })
       init()
         .then(_ => setbackgroundLoaded(true))
+    }
   })
 
   return backgroundLoaded ?
@@ -89,5 +121,18 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     ) :
-    <ActivityIndicator />
+    (
+      (
+        <View>
+          <View style={styles.activityContainer}>
+            <ActivityIndicator size="large" color="#00ff00" />
+            <Text> Por favor espera mientras terminamos de trabajar algunas cosas! </Text>
+            <Text> Este proceso toma solo unos segundos</Text>
+            <Text> Es mas, seguramente no llegues ni a leer este texto </Text>
+            <Text> Podes salir de la aplicacion mientras esto termina (pero no la cierres) </Text>
+            <Text> Este proceso se hace solo una vez al año </Text>
+          </View>
+        </View>
+      )
+    )
 }
