@@ -103,11 +103,12 @@ export default function App() {
         await nu.scheduleAllYearlyNotifications();
     }
     if (!backgroundLoaded) {
+      //!DEBUG ONLY
+      new Database().clear().then(_ => console.log("Cleared!"))
       initTasks()
         .then(_ => { })
       init()
         .then(_ => setbackgroundLoaded(true))
-      //new Database().clear().then(_ => console.log("Cleared!"))
     }
   })
 

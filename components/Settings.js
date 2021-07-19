@@ -127,7 +127,7 @@ export default function Settings() {
                     display="spinner"
                     onChange={onChange}
                     minuteInterval={15}
-                    disabled={true}
+                    disabled={false}
                 />
             )}
             <Text style={{ color: 'blue', textAlign: 'center', fontSize: 19 }}
