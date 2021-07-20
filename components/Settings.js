@@ -11,7 +11,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Database from '../db/db';
 //import { userDefaultLanguage } from '../utils/consts';
 import NotificationsUtils from '../utils/notifications';
-import SelectMultiple from 'react-native-select-multiple'
+import ToggleSwitch from 'toggle-switch-react-native'
 
 const db = new Database();
 
@@ -43,11 +43,8 @@ export default function Settings() {
         }
         await db.setTimeTrigger(timeTrigger);
         setloadingNotifications(true);
-        console.log("About to schedule");
         await nu.scheduleAllYearlyNotifications();
-        console.log("Scheduled");
         setloadingNotifications(false);
-        console.log("Bye");
     };
 
     const showMode = (currentMode) => {
@@ -101,21 +98,14 @@ export default function Settings() {
 
     return ssnLoaded && howManyLoaded && !loadingNotifications ? (
         <View>
-            {/*
-            
-            <BouncyCheckbox isChecked={ssn} text='Enviar Notificationes' style={{ alignSelf: 'center' }}
-                onPress={async () => {
-                    const _ssn = await db.getShouldSendNotifications();
-                    await db.setShouldSendNotifications(!_ssn);
-                    setssn(!_ssn);
-                }
-                } />
-            */}
-            <SelectMultiple
-                items={[ssn]}
-                selectedItems={ssn ? [ssn] : []}
-                onSelectionsChange={changessn}
-                renderLabel={renderLabel}
+            <ToggleSwitch
+                isOn={ssn}
+                onColor="green"
+                offColor="red"
+                label="Enviar Notificaciones"
+                labelStyle={{ color: "black", fontWeight: "900" }}
+                size="small"
+                onToggle={async _ => await changessn()}
             />
             <Button onPress={showTimepicker} title="Definir horario de notificaciones" />
             {show && (
@@ -135,7 +125,7 @@ export default function Settings() {
                 Envianos un email! 📨
             </Text>
             <Text> {howMany} </Text>
-            <Text> v0.9.2.4</Text>
+            <Text> v0.9.2.5</Text>
             {/**
             * DEBUG
             <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} />
