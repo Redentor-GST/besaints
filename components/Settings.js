@@ -23,7 +23,6 @@ export default function Settings() {
     //const [selectedLanguage, setSelectedLanguage] = useState(userDefaultLanguage());
     const [ssnLoaded, setssnLoaded] = useState(false);
     const [notifDateTrigger, setnotifDateTrigger] = useState(new Date());
-    const [selected, setselected] = useState([]);
     const [howMany, sethowMany] = useState(0);
     const [howManyLoaded, sethowManyLoaded] = useState(false);
     const [loadingNotifications, setloadingNotifications] = useState(false);
@@ -88,14 +87,6 @@ export default function Settings() {
         setssn(!_ssn);
     }
 
-    function renderLabel() {
-        return (
-            <View>
-                <Text> Enviar Notificaciones </Text>
-            </View>
-        )
-    }
-
     return ssnLoaded && howManyLoaded && !loadingNotifications ? (
         <View>
             <ToggleSwitch
@@ -106,6 +97,7 @@ export default function Settings() {
                 labelStyle={{ color: "black", fontWeight: "900" }}
                 size="small"
                 onToggle={async _ => await changessn()}
+                animationSpeed={50}
             />
             <Button onPress={showTimepicker} title="Definir horario de notificaciones" />
             {show && (
@@ -133,26 +125,6 @@ export default function Settings() {
             <Button title='How Many' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res.length))}></Button>
             <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />
             <Button title='Clear Database' onPress={_ => db.clear()} />
-            <Button title='Log all notifications' onPress={async _ => await Notifications.getAllScheduledNotificationsAsync().then(res => console.log(res))} />
-            <Button title='Kill all notifications' onPress={async _ => await Notifications.cancelAllScheduledNotificationsAsync().then(_ => console.log("deleted!"))} />
-            <View style={{ alignSelf: 'center' }}>
-                <Picker
-                    selectedValue={selectedLanguage}
-                    style={{ height: 20, width: 130 }}
-                    onValueChange={(itemValue, itemIndex) => {
-                        setSelectedLanguage(itemValue);
-                        db.setUserDefinedLanguage(itemValue);
-                    }}
-                >
-                    <Picker.Item label="English" value="en" />
-                    <Picker.Item label="Spanish" value="es" />
-                </Picker>
-            </View>
-            <Text>
-                Next Notification : {areThereNotifications ? nextNotifTime + " " : "NONE"}
-            </Text>
-            <Text> Should send notifications? {ssn ? " Yes" : " No"} </Text>
-            <Text> Date Trigger for notifications {notifDateTrigger.toTimeString()} </Text>
             */}
         </View>
     ) :
