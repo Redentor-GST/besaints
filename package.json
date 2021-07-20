@@ -21,6 +21,7 @@
     "expo-notifications": "~0.12.3",
     "expo-permissions": "~12.1.1",
     "expo-server-sdk": "^3.6.0",
+    "expo-splash-screen": "~0.11.2",
     "expo-status-bar": "~1.0.4",
     "expo-updates": "~0.8.1",
     "link": "^0.1.5",
@@ -37,12 +38,12 @@
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-select-multiple": "^2.1.0",
+    "react-native-unimodules": "~0.14.5",
     "react-native-web": "~0.13.12",
+    "toggle-switch-react-native": "^3.2.0",
     "tslib": "^2.3.0",
     "unimodules-permissions-interface": "~6.1.0",
-    "zlib": "^1.0.5",
-    "expo-splash-screen": "~0.11.2",
-    "react-native-unimodules": "~0.14.5"
+    "zlib": "^1.0.5"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
