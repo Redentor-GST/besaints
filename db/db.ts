@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { defaultTrigger } from '../utils/consts';
-import { Phrase, TimeTrigger } from '../utils/interfaces';
-import { compareTodayvsDate } from '../utils/utils';
-import { getDict } from './yearlyDicts';
+import { Phrase, SaintInfo, TimeTrigger } from '../utils/interfaces';
+import { compareTodayvsDate, getDateStr } from '../utils/utils';
+import { getDict, saints } from './yearlyDicts';
 
 export default class Database {
 
@@ -59,6 +59,11 @@ export default class Database {
         for (const phrase of phrases)
             if (compareTodayvsDate(phrase.date))
                 return phrase;
+    }
+
+    getDailySaints = () => {
+        const dateStr = getDateStr(new Date(), true);
+        return saints[dateStr];
     }
 
     clear = async (): Promise<void> =>

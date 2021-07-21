@@ -20,8 +20,6 @@ import { saintsEndpoint } from '../utils/consts';
 const db = new Database();
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
-const emptySaintInfo: SaintInfo = { info: '', saint: '', date: "" };
-
 const styles = StyleSheet.create({
     noMeLaContainer: {
         flex: 1,
@@ -61,23 +59,12 @@ function getTodaysVaticanLink(): string {
 
 
 export default function DailySaint() {
-    const [dailySaintObj, setdailySaintObj] = useState([emptySaintInfo]);
-    const [loaded, setloaded] = useState(false);
+    const [dailySaints, setdailySaints] = useState([]);
     const [isThereAnyInfo, setisThereAnyInfo] = useState(true);
 
     useEffect(() => {
-        db.getDailySaints()
-            .then(dailySaints => {
-                checkDataNotOutdated(dailySaints, saintsEndpoint)
-                    .then(res => {
-                        if (res.saints_data.length === 0)
-                            setisThereAnyInfo(false);
-                        else
-                            setdailySaintObj(res.saints_data);
-                    })
-                setloaded(true);
-            }
-            )
+        const dailySaints = db.getDailySaints()
+        dailySaints.length === 0 ? setisThereAnyInfo(false) : setdailySaints(dailySaints)
     }, []);
 
     const SaintView = ({ _saintObj }) => (
@@ -92,36 +79,23 @@ export default function DailySaint() {
         </View>
     )
 
-    try {
-        return loaded ?
-            isThereAnyInfo ?
-                (
-                    <SafeAreaView style={styles.noMeLaContainer}>
-                        <FlatList
-                            data={dailySaintObj}
-                            renderItem={({ item }) => <SaintView _saintObj={item} />}
-                            keyExtractor={(saint) => saint.saint}
-                            ListHeaderComponent={<SaintView _saintObj={dailySaintObj} />}
-                            ListFooterComponent={<Button title='Para leer mas sobre los santos del dia ingresa aquí'
-                                onPress={_ => Linking.openURL(getTodaysVaticanLink())}
-                            />}
-                        />
-                    </SafeAreaView>
-                ) :
-                (
-                    <SafeAreaView style={styles.noMeLaContainer}>
-                        <Text style={{ fontSize: 30, textAlign: 'center' }} > No hay nigun santo del dia para esta fecha :( </Text>
-                    </SafeAreaView>
-                )
-            :
-            (
-                <View style={{ alignContent: 'center', alignSelf: 'center' }}>
-                    <ActivityIndicator size="large" />
-                    <Text> Loaded: {loaded} </Text>
-                </View>
-            )
-    }
-    catch (e) {
-        console.error(e);
-    }
+    return isThereAnyInfo ?
+        (
+            <SafeAreaView style={styles.noMeLaContainer}>
+                <FlatList
+                    data={dailySaints}
+                    renderItem={({ item }) => <SaintView _saintObj={item} />}
+                    keyExtractor={(saint) => saint.saint}
+                    ListHeaderComponent={<SaintView _saintObj={dailySaints} />}
+                    ListFooterComponent={<Button title='Para leer mas sobre los santos del dia ingresa aquí'
+                        onPress={_ => Linking.openURL(getTodaysVaticanLink())}
+                    />}
+                />
+            </SafeAreaView>
+        ) :
+        (
+            <SafeAreaView style={styles.noMeLaContainer}>
+                <Text style={{ fontSize: 30, textAlign: 'center' }} > No hay nigun santo del dia para esta fecha :( </Text>
+            </SafeAreaView>
+        )
 }
