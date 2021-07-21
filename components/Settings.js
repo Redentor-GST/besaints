@@ -23,8 +23,6 @@ export default function Settings() {
     //const [selectedLanguage, setSelectedLanguage] = useState(userDefaultLanguage());
     const [ssnLoaded, setssnLoaded] = useState(false);
     const [notifDateTrigger, setnotifDateTrigger] = useState(new Date());
-    const [howMany, sethowMany] = useState(0);
-    const [howManyLoaded, sethowManyLoaded] = useState(false);
     const [loadingNotifications, setloadingNotifications] = useState(false);
 
     //!Potential bug here, app closes when you change the schedule
@@ -67,11 +65,6 @@ export default function Settings() {
                     now.getDate(), timeTrigger.hour, timeTrigger.minute)
                 setnotifDateTrigger(date);
             });
-        new NotificationsUtils().getAllScheduledNotifications()
-            .then(res => {
-                sethowMany(res.length);
-                sethowManyLoaded(true);
-            });
 
         /*
         db.getUserDefinedLanguage()
@@ -87,7 +80,7 @@ export default function Settings() {
         setssn(!_ssn);
     }
 
-    return ssnLoaded && howManyLoaded && !loadingNotifications ? (
+    return ssnLoaded && !loadingNotifications ? (
         <View>
             <ToggleSwitch
                 isOn={ssn}
@@ -116,8 +109,7 @@ export default function Settings() {
                 onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}>
                 Envianos un email! 📨
             </Text>
-            <Text> {howMany} </Text>
-            <Text> v0.9.2.5</Text>
+            <Text> v0.9.4</Text>
             {/**
             * DEBUG
             <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} />
