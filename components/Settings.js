@@ -12,6 +12,8 @@ import Database from '../db/db';
 //import { userDefaultLanguage } from '../utils/consts';
 import NotificationsUtils from '../utils/notifications';
 import ToggleSwitch from 'toggle-switch-react-native'
+import { FontAwesome } from '@expo/vector-icons';
+
 
 const db = new Database();
 
@@ -92,24 +94,29 @@ export default function Settings() {
                 onToggle={async _ => await changessn()}
                 animationSpeed={50}
             />
-            <Button onPress={showTimepicker} title="Definir horario de notificaciones" />
-            {show && (
-                <DateTimePicker
-                    testID="dateTimePicker"
-                    value={notifDateTrigger}
-                    mode={mode}
-                    is24Hour={true}
-                    display="spinner"
-                    onChange={onChange}
-                    minuteInterval={15}
-                    disabled={false}
-                />
-            )}
-            <Text style={{ color: 'blue', textAlign: 'center', fontSize: 19 }}
+            <View style={{ marginTop: 5 }}>
+                <FontAwesome.Button name="calendar" size={20} color="black" onPress={showTimepicker} backgroundColor={"transparent"} >
+                    <Text style={{ color: 'blue' }} > Definir Horario de Notificaciones </Text>
+
+                </FontAwesome.Button>
+                {show && (
+                    <DateTimePicker
+                        testID="dateTimePicker"
+                        value={notifDateTrigger}
+                        mode={mode}
+                        is24Hour={true}
+                        display="spinner"
+                        onChange={onChange}
+                        minuteInterval={15}
+                        disabled={false}
+                    />
+                )}
+            </View>
+            <Text style={{ color: 'blue', textAlign: 'left', fontSize: 19 }}
                 onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}>
                 Envianos un email! 📨
             </Text>
-            <Text> v0.9.4</Text>
+            <Text> v0.9.5 </Text>
             {/**
             * DEBUG
             <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} />
@@ -130,6 +137,7 @@ export default function Settings() {
                 padding: 20
             }}>
                 <ActivityIndicator size="large" color="#00ff00" />
+                <Text> Programando notificaciones para las {notifDateTrigger.toTimeString().slice(0, 5)} </Text>
             </View>
         )
 }
