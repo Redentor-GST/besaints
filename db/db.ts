@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { defaultTrigger } from '../utils/consts';
-import { Phrase, SaintInfo, TimeTrigger } from '../utils/interfaces';
+import { Phrase, TimeTrigger } from '../utils/interfaces';
 import { compareTodayvsDate, getDateStr } from '../utils/utils';
 import { getDict, saints } from './yearlyDicts';
 
@@ -47,7 +47,7 @@ export default class Database {
         await AsyncStorage.setItem("userDefinedLanguage", value);
     */
 
-    getAllPhrases = () => getDict();
+    getAllPhrases = (): Phrase[] => getDict();
 
     getDailyPhrase = (): Phrase => {
         const phrases: Phrase[] = getDict();
@@ -56,10 +56,7 @@ export default class Database {
                 return phrase;
     }
 
-    getDailySaints = () => {
-        const dateStr = getDateStr(new Date(), true);
-        return saints[dateStr];
-    }
+    getDailySaints = () => saints[getDateStr(new Date(), true)];
 
     clear = async (): Promise<void> =>
         await AsyncStorage.multiRemove(this.tables);

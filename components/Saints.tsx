@@ -6,16 +6,11 @@ import {
     StyleSheet,
     FlatList,
     Platform,
-    ScrollView,
     SafeAreaView,
-    ActivityIndicator,
     Button,
     Linking,
 } from 'react-native';
-import { SaintInfo } from "../utils/interfaces";
 import Database from "../db/db";
-import { checkDataNotOutdated } from '../utils/utils';
-import { saintsEndpoint } from '../utils/consts';
 
 const db = new Database();
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
