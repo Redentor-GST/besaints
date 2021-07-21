@@ -4,10 +4,7 @@ import { defineTask } from './BackgroundTasksUtils';
 
 export default class UpdateTask {
     updateAppTask = async () => {
-        //Cant update on emulators!
         if (!Constants.isDevice) return;
-        const now = new Date();
-        console.log(now.toTimeString() + " Update Task Running");
         try {
             const areThereUpdates = (await Updates.checkForUpdateAsync()).isAvailable;
             if (areThereUpdates) {

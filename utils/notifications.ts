@@ -11,7 +11,7 @@ import { Platform } from 'react-native';
 import Database from '../db/db';
 import { createDateTrigger } from './utils';
 import { Phrase } from './interfaces';
-import { defaultMinuteTrigger, defaultHourTrigger, daysSince1Jan } from './consts';
+import { defaultTrigger, daysSince1Jan } from './consts';
 
 
 Notifications.setNotificationHandler({
@@ -66,7 +66,6 @@ export default class NotificationsUtils {
 
   private notification = (triggerHour: number, triggerMinute: number, data: Phrase, instant: boolean) => {
     const dateTrigger = createDateTrigger(data.date, triggerHour, triggerMinute);
-    console.log("DateTrigger: ", dateTrigger, " : ", dateTrigger.toTimeString());
     return {
       content: {
         title: "Frase del dia",
@@ -88,36 +87,31 @@ export default class NotificationsUtils {
     }
   }
 
-  private async scheduleNotification(instant: boolean = false,
-    triggerHour: number, triggerMinute: number, data: Phrase) {
+  private async scheduleNotification(triggerHour: number, triggerMinute: number
+    , data: Phrase, instant: boolean = false) {
 
     if (!await this.db.getShouldSendNotifications()) return;
 
     try {
       const notification = this.notification(triggerHour, triggerMinute, data, instant);
       await Notifications.scheduleNotificationAsync(notification)
-      //.catch(e => console.error("Exception in schedule Notifications: " + e))
     }
     catch (e) {
-      console.error("Error where it has to " + e);
+      console.error("Exception in scheduleNotification(): " + e);
     }
   }
 
   async scheduleAllYearlyNotifications() {
     const phrases = this.db.getAllPhrases();
     const timeTrigger = await this.db.getTimeTrigger();
-    const hourTrigger = timeTrigger ? timeTrigger.hour : defaultHourTrigger;
-    const minuteTrigger = timeTrigger ? timeTrigger.minute : defaultMinuteTrigger;
+    const hourTrigger = timeTrigger ? timeTrigger.hour : defaultTrigger.hour;
+    const minuteTrigger = timeTrigger ? timeTrigger.minute : defaultTrigger.minute;
     const daysSinceYearsStarted = daysSince1Jan();
     const token = await this.registerForPushNotificationsAsync()
       .catch(e => console.error("Exception in registerNotifs: " + e))
     if (!token) return;
-    for (const phrase of phrases.slice(daysSinceYearsStarted)) {
-      console.log("Scheduling the notification at: ", phrase.date)
-      await this.scheduleNotification(false, hourTrigger, minuteTrigger, phrase);
-    }
-
-    console.log("Finished scheduling notifications")
+    for (const phrase of phrases.slice(daysSinceYearsStarted))
+      await this.scheduleNotification(hourTrigger, minuteTrigger, phrase);
   }
 }
 

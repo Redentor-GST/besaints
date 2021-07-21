@@ -16,6 +16,11 @@ function parseStrDate(date: string): [number, number] {
     return [month, day];
 }
 
+export function compareTodayvsDate(date: string) {
+    const now = new Date();
+    return getDateStr(now, true) === date;
+}
+
 export function getDateStr(date: Date, incrementMonth: Boolean) {
     const month = incrementMonth ? date.getMonth() + 1 : date.getMonth();
     const dat = date.getDate();
