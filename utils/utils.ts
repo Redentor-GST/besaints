@@ -47,7 +47,6 @@ export function compareTodayvsDate(date: string) {
 }
 
 export function getDateStr(date: Date, incrementMonth: Boolean) {
-    //Expected string "07-15"
     const month = incrementMonth ? date.getMonth() + 1 : date.getMonth();
     const dat = date.getDate();
     const fullStr = (month < 10 ? '0' + month.toString() : month.toString()) + '-' + dat.toString();
