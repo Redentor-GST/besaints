@@ -15,12 +15,12 @@ import * as React from 'react'
 import Phrase from './components/Phrase';
 import Settings from './components/Settings';
 import DailySaint from './components/Saints';
-import Database from './db/db';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import NotificationsUtils from './utils/notifications';
 import { initTasks } from './services/BackgroundTasks';
 import { isLeapYear } from './utils/utils';
 import { daysSince1Jan } from './utils/consts';
+import { FontAwesome } from '@expo/vector-icons';
+
 
 const styles = StyleSheet.create({
   view: {
@@ -54,7 +54,7 @@ const Stack = createStackNavigator();
 
 function homeScreen({ navigation }) {
 
-  return Platform.OS === 'android' ? (
+  return (
     <View style={styles.view}>
       <StatusBar
         backgroundColor="#2f4f4f"  //? Should we change this to white?
@@ -68,18 +68,10 @@ function homeScreen({ navigation }) {
         <Button title='Santos del día' onPress={_ => navigation.navigate('Santos del dia')} />
       </View>
       <View style={{ marginTop: 5 }}>
-        <Button title='Ajustes' onPress={_ => navigation.navigate('Ajustes')}></Button>
+        <FontAwesome name="gear" size={24} color="black" onPress={_ => navigation.navigate('Ajustes')} />
       </View>
     </View >
-  ) :
-    <SafeAreaView style={styles.view}>
-      <Text style={styles.logo}>Be Saints</Text>
-      <Button title="Frase del día" onPress={_ => navigation.navigate("Frase del dia")}></Button>
-      <View style={{ marginTop: 5 }}>
-        <Button title='Santos del día' onPress={_ => navigation.navigate('Santos del dia')} />
-      </View>
-      <Button title='Ajustes' onPress={_ => navigation.navigate('Ajustes')}></Button>
-    </SafeAreaView>
+  )
 }
 // :)
 export default function App() {
