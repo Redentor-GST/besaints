@@ -47,7 +47,14 @@ const styles = StyleSheet.create({
   }
 })
 
-function phraseView(data: Phrase) {
+export default function PhraseView() {
+  const [data, setData] = useState(emptyPhrase);
+  //TODO change the view when the user rotates the device
+  //const { isRotated } = useDeviceOrientation();
+  useEffect(() =>
+    setData(db.getDailyPhrase())
+    , []);
+
   return data.text.length + data.author.length <= maxText ? (
     <SafeAreaView style={{ flex: 1 }} >
       <ScrollView contentContainerStyle={styles.phraseView}>
@@ -56,23 +63,12 @@ function phraseView(data: Phrase) {
       </ScrollView>
     </SafeAreaView>
   ) :
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView style={{ marginHorizontal: 10 }}>
-        <Text style={styles.phrase}>{data.text}</Text>
-        <Text style={styles.author}> {data.author} </Text>
-      </ScrollView>
-    </SafeAreaView>
-}
-
-export default function PhraseView() {
-  const [data, setData] = useState(emptyPhrase);
-  //TODO change the view when the user rotates the device
-  //const { isRotated } = useDeviceOrientation();
-  useEffect(() => {
-    db.getDailyPhrase()
-      .then(phrase => setData(phrase))
-  }
-    , []);
-
-  return phraseView(data);
+    (
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView style={{ marginHorizontal: 10 }}>
+          <Text style={styles.phrase}>{data.text}</Text>
+          <Text style={styles.author}> {data.author} </Text>
+        </ScrollView>
+      </SafeAreaView>
+    )
 }
