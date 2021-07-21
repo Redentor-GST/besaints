@@ -104,7 +104,7 @@ export default class NotificationsUtils {
   }
 
   async scheduleAllYearlyNotifications() {
-    const phrases = await this.db.getAllPhrases();
+    const phrases = this.db.getAllPhrases();
     const timeTrigger = await this.db.getTimeTrigger();
     const hourTrigger = timeTrigger ? timeTrigger.hour : defaultHourTrigger;
     const minuteTrigger = timeTrigger ? timeTrigger.minute : defaultMinuteTrigger;

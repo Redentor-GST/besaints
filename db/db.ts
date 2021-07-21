@@ -8,11 +8,7 @@ export default class Database {
 
     timeTriggerName = "timeTrigger";
     ssnName = "shouldSendNotifications";
-    phrasesName = "phrases";
-    tables = [this.timeTriggerName, this.ssnName, this.phrasesName]
-
-    storeYearlyPhrases = async (): Promise<void> =>
-        await AsyncStorage.setItem(this.phrasesName, JSON.stringify(getDict()));
+    tables = [this.timeTriggerName, this.ssnName]
 
     getShouldSendNotifications = async (): Promise<boolean> => {
         const ssn = await AsyncStorage.getItem(this.ssnName);
@@ -51,11 +47,10 @@ export default class Database {
         await AsyncStorage.setItem("userDefinedLanguage", value);
     */
 
-    getAllPhrases = async (): Promise<Phrase[]> =>
-        JSON.parse(await AsyncStorage.getItem(this.phrasesName));
+    getAllPhrases = () => getDict();
 
-    getDailyPhrase = async (): Promise<Phrase> => {
-        const phrases = await this.getAllPhrases();
+    getDailyPhrase = (): Phrase => {
+        const phrases: Phrase[] = getDict();
         for (const phrase of phrases)
             if (compareTodayvsDate(phrase.date))
                 return phrase;
