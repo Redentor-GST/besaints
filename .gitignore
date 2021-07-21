@@ -78,3 +78,9 @@ buck-out/
 web-build/
 
 # @end expo-cli
+
+index.js
+metro.config.js
+ios/
+android/
+eas.json

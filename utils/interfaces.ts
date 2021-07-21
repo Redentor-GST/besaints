@@ -7,12 +7,6 @@ export interface Phrase extends Object {
 export interface SaintInfo extends Object {
     info: string;
     saint: string;
-    date: string;
-}
-
-export interface dbSaintInfo extends Object {
-    saints_data: [SaintInfo],
-    date: string
 }
 
 export interface TimeTrigger extends Object {
