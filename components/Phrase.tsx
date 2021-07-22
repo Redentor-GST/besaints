@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   Text,
-  StatusBar,
   StyleSheet,
   Platform,
   ScrollView,
@@ -13,9 +12,6 @@ import { Phrase } from '../utils/interfaces';
 const db = new Database();
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
-//Number of characters the screen can handle without scrolling (with font = 30)
-const maxText = 686;
-
 const emptyPhrase: Phrase = {
   text: "",
   author: "",
@@ -24,13 +20,9 @@ const emptyPhrase: Phrase = {
 
 const styles = StyleSheet.create({
   phraseView: {
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-    padding: 20
+    marginHorizontal: 10,
+    flexGrow: 1,
+    justifyContent: 'center'
   },
   phrase: {
     textAlign: 'center',
@@ -55,20 +47,12 @@ export default function PhraseView() {
     setData(db.getDailyPhrase())
     , []);
 
-  return data.text.length + data.author.length <= maxText ? (
-    <SafeAreaView style={{ flex: 1 }} >
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.phraseView}>
         <Text style={styles.phrase}>{data.text}</Text>
         <Text style={styles.author}> {data.author} </Text>
       </ScrollView>
     </SafeAreaView>
-  ) :
-    (
-      <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView style={{ marginHorizontal: 10 }}>
-          <Text style={styles.phrase}>{data.text}</Text>
-          <Text style={styles.author}> {data.author} </Text>
-        </ScrollView>
-      </SafeAreaView>
-    )
+  )
 }
