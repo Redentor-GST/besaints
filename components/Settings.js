@@ -5,7 +5,8 @@ import {
     Button,
     Platform,
     ActivityIndicator,
-    StatusBar
+    StatusBar,
+    Linking
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Database from '../db/db';
@@ -59,7 +60,7 @@ export default function Settings() {
 
         db.getShouldSendNotifications()
             .then(res => setssn(res))
-            .finally(_ => setssnLoaded(true))
+            .finally(() => setssnLoaded(true))
         db.getTimeTrigger()
             .then(timeTrigger => {
                 const now = new Date();
