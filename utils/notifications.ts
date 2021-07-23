@@ -112,7 +112,7 @@ export default class NotificationsUtils {
         repeats: false,
       }
     })
-
+    await this.db.setReminderNotificationID(id);
   }
 
   async scheduleAllYearlyNotifications() {
@@ -126,7 +126,7 @@ export default class NotificationsUtils {
     if (!token) return;
     for (const phrase of phrases.slice(Platform.OS === 'android' ? daysSinceYearsStarted : IOS_NOTIFICATIONS_LIMIT - 1))
       await this.scheduleNotification(hourTrigger, minuteTrigger, phrase);
-
+    await this.scheduleReminderNotification();
   }
 }
 

@@ -8,7 +8,8 @@ export default class Database {
 
     timeTriggerName = "timeTrigger";
     ssnName = "shouldSendNotifications";
-    tables = [this.timeTriggerName, this.ssnName]
+    reminderID = "reminderid";
+    tables = [this.timeTriggerName, this.ssnName, this.reminderID]
 
     getShouldSendNotifications = async (): Promise<boolean> => {
         const ssn = await AsyncStorage.getItem(this.ssnName);
@@ -57,6 +58,12 @@ export default class Database {
     }
 
     getDailySaints = () => saints[getDateStr(new Date(), true)];
+
+    getReminderNotificationID = async () =>
+        await AsyncStorage.getItem(this.reminderID);
+
+    setReminderNotificationID = async (id: string) =>
+        await AsyncStorage.setItem(this.reminderID, id);
 
     clear = async (): Promise<void> =>
         await AsyncStorage.multiRemove(this.tables);
