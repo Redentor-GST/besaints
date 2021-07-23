@@ -15,6 +15,14 @@ import NotificationsUtils from '../utils/notifications';
 import ToggleSwitch from 'toggle-switch-react-native'
 import { FontAwesome } from '@expo/vector-icons';
 
+async function findReminder() {
+    const notifs = await new NotificationsUtils().getAllScheduledNotifications();
+    const id = await db.getReminderNotificationID();
+    for (const notif of notifs) {
+        if (notif.identifier === id)
+            return notif;
+    }
+}
 
 const db = new Database();
 
@@ -84,7 +92,7 @@ export default function Settings() {
     }
 
     return ssnLoaded && !loadingNotifications ? (
-        <View>
+        <View style={{ marginTop: 5 }}>
             <ToggleSwitch
                 isOn={ssn}
                 onColor="green"
@@ -117,12 +125,18 @@ export default function Settings() {
                 onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}>
                 Envianos un email! 📨
             </Text>
+            <Button title='Log reminder' onPress={_ => findReminder().then(chosenNotif => console.log(chosenNotif))} />
+            <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
+            <Button title='How Many' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res.length))}></Button>
+            <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} />
+
             <Text> v0.9.5 </Text>
             {/**
             * DEBUG
-            <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} />
+            <Button title='Log reminder' onPress={_ => findReminder().then(chosenNotif => console.log(chosenNotif))} />
             <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
             <Button title='How Many' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res.length))}></Button>
+            <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} />
             <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />
             <Button title='Clear Database' onPress={_ => db.clear()} />
             */}

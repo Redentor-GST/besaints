@@ -1,10 +1,3 @@
-/*
-TODO schedule a yearly notification that reminds the people
-to open the app at the beginning of the year to load the 
-new phrases
-*/
-
-
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
@@ -65,12 +58,14 @@ export default class NotificationsUtils {
     return token;
   };
 
-  private notification = (triggerHour: number, triggerMinute: number, data: Phrase, instant: boolean) => {
-    const dateTrigger = createDateTrigger(data.date, triggerHour, triggerMinute);
+  private notification = (_title: string, _body: string, dateTrigger: Date, instant: boolean) => {
     return {
       content: {
-        title: "Frase del dia",
-        body: data.text + " " + data.author,
+        title: _title,
+        body: _body,
+        data: {
+          datetrigger: dateTrigger.toString()
+        }
       },
       trigger: instant ? null :
         {
@@ -88,7 +83,10 @@ export default class NotificationsUtils {
     if (!await this.db.getShouldSendNotifications()) return;
 
     try {
-      const notification = this.notification(triggerHour, triggerMinute, data, instant);
+      const title = "Frase del dia";
+      const body = data.text + " " + data.author;
+      const dateTrigger = createDateTrigger(data.date, triggerHour, triggerMinute);
+      const notification = this.notification(title, body, dateTrigger, instant);
       await Notifications.scheduleNotificationAsync(notification)
     }
     catch (e) {
@@ -98,20 +96,19 @@ export default class NotificationsUtils {
 
   async scheduleReminderNotification() {
     if (!await this.db.getShouldSendNotifications()) return;
+    if (Platform.OS === 'ios') {
+      const reminderID = await this.db.getReminderNotificationID();
+      if (reminderID)
+        await Notifications.cancelScheduledNotificationAsync(reminderID);
+    }
     const today = new Date();
+    const title = "Toca renovar frases!";
+    const body = "Por favor abra la aplicacion asi podemos seguir enviandole notificaciones durante todo el año!";
     const androidDate = new Date(today.getFullYear() + 1, 0, 1, 16, 30, 0);
     const IOSDate = new Date(today.getFullYear(), today.getMonth() + 2, today.getDate(), 16, 30, 0);
-    const id = await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Toca renovar frases!",
-        body: "Por favor abra la aplicacion asi podemos seguir enviandole notificaciones durante todo el año!"
-      },
-      trigger: {
-        date: Platform.OS === 'android' ? androidDate : IOSDate,
-        channelId: 'default',
-        repeats: false,
-      }
-    })
+    const dateTrigger = Platform.OS === 'android' ? androidDate : IOSDate;
+    const notification = this.notification(title, body, dateTrigger, false);
+    const id = await Notifications.scheduleNotificationAsync(notification);
     await this.db.setReminderNotificationID(id);
   }
 
@@ -124,7 +121,9 @@ export default class NotificationsUtils {
     const token = await this.registerForPushNotificationsAsync()
       .catch(e => console.error("Exception in registerNotifs: " + e))
     if (!token) return;
-    for (const phrase of phrases.slice(Platform.OS === 'android' ? daysSinceYearsStarted : IOS_NOTIFICATIONS_LIMIT - 1))
+    const phrasesAndroid = phrases.slice(daysSinceYearsStarted);
+    const phrasesIOS = phrases.slice(daysSinceYearsStarted, IOS_NOTIFICATIONS_LIMIT - 1);
+    for (const phrase of Platform.OS === 'android' ? phrasesAndroid : phrasesIOS)
       await this.scheduleNotification(hourTrigger, minuteTrigger, phrase);
     await this.scheduleReminderNotification();
   }
