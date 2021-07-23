@@ -84,19 +84,15 @@ export default function App() {
       const scheduledNotifs = await nu.getAllScheduledNotifications();
       const daysSinceYearStarted = daysSince1Jan();
       const leftingDays = isLeapYear() ? 366 - daysSinceYearStarted : 365 - daysSinceYearStarted;
-      /*
-      This will run ONLY  once a year, and in that case, notifs.length should be 0
-      But i set the other conditions for this debugging part
-      */
       if (scheduledNotifs.length === 0 || scheduledNotifs.length + 1 < leftingDays)
         await nu.scheduleAllYearlyNotifications();
+      else
+        await nu.scheduleReminderNotification();
+
+      await initTasks();
     }
-    if (!backgroundLoaded) {
-      initTasks()
-        .then(_ => { })
-      init()
-        .then(_ => setbackgroundLoaded(true))
-    }
+    if (!backgroundLoaded)
+      init().then(_ => setbackgroundLoaded(true))
   })
 
   return backgroundLoaded ?
