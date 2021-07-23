@@ -13,6 +13,7 @@ import { createDateTrigger } from './utils';
 import { Phrase } from './interfaces';
 import { defaultTrigger, daysSince1Jan } from './consts';
 
+const IOS_NOTIFICATIONS_LIMIT = 64;
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -70,18 +71,12 @@ export default class NotificationsUtils {
       content: {
         title: "Frase del dia",
         body: data.text + " " + data.author,
-        data: {
-          triggerDateStr: dateTrigger.toDateString() + " " + dateTrigger.toTimeString(),
-          hourTrig: triggerHour,
-          minuteTrig: triggerMinute,
-          text: data.text
-        }
       },
       trigger: instant ? null :
         {
           date: dateTrigger,
           channelId: 'default',
-          repeats: 'false',
+          repeats: false,
           type: 'calendar'
         }
     }
@@ -101,6 +96,25 @@ export default class NotificationsUtils {
     }
   }
 
+  async scheduleReminderNotification() {
+    if (!await this.db.getShouldSendNotifications()) return;
+    const today = new Date();
+    const androidDate = new Date(today.getFullYear() + 1, 0, 1, 16, 30, 0);
+    const IOSDate = new Date(today.getFullYear(), today.getMonth() + 2, today.getDate(), 16, 30, 0);
+    const id = await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Toca renovar frases!",
+        body: "Por favor abra la aplicacion asi podemos seguir enviandole notificaciones durante todo el año!"
+      },
+      trigger: {
+        date: Platform.OS === 'android' ? androidDate : IOSDate,
+        channelId: 'default',
+        repeats: false,
+      }
+    })
+
+  }
+
   async scheduleAllYearlyNotifications() {
     const phrases = this.db.getAllPhrases();
     const timeTrigger = await this.db.getTimeTrigger();
@@ -110,8 +124,9 @@ export default class NotificationsUtils {
     const token = await this.registerForPushNotificationsAsync()
       .catch(e => console.error("Exception in registerNotifs: " + e))
     if (!token) return;
-    for (const phrase of phrases.slice(daysSinceYearsStarted))
+    for (const phrase of phrases.slice(Platform.OS === 'android' ? daysSinceYearsStarted : IOS_NOTIFICATIONS_LIMIT - 1))
       await this.scheduleNotification(hourTrigger, minuteTrigger, phrase);
+
   }
 }
 
