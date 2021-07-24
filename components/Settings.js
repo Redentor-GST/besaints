@@ -15,7 +15,6 @@ import NotificationsUtils from '../utils/notifications';
 import ToggleSwitch from 'toggle-switch-react-native'
 import { FontAwesome } from '@expo/vector-icons';
 
-
 const db = new Database();
 
 export default function Settings() {
@@ -28,8 +27,6 @@ export default function Settings() {
     const [notifDateTrigger, setnotifDateTrigger] = useState(new Date());
     const [loadingNotifications, setloadingNotifications] = useState(false);
 
-    //!Potential bug here, app closes when you change the schedule
-    //?Dont really know why
     const onChange = async (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
@@ -84,7 +81,7 @@ export default function Settings() {
     }
 
     return ssnLoaded && !loadingNotifications ? (
-        <View>
+        <View style={{ marginTop: 5 }}>
             <ToggleSwitch
                 isOn={ssn}
                 onColor="green"
@@ -120,9 +117,10 @@ export default function Settings() {
             <Text> v0.9.5 </Text>
             {/**
             * DEBUG
-            <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} />
+            <Button title='Log reminder' onPress={_ => findReminder().then(chosenNotif => console.log(chosenNotif))} />
             <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
             <Button title='How Many' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res.length))}></Button>
+            <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} />
             <Button title='Instant Notification' onPress={_ => scheduleNotification(true)} />
             <Button title='Clear Database' onPress={_ => db.clear()} />
             */}

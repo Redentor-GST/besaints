@@ -9,7 +9,7 @@ export function defineTask(name: string, callback) {
     if (TaskManager.isTaskDefined(name)) return;
     TaskManager.defineTask(name, callback);
     const today = new Date();
-    console.log(today.toTimeString() + " Task " + name + " defined");
+    console.log(today.toTimeString().slice(0, 8) + " Task " + name + " defined");
 }
 
 export async function registerTask(name: string) {
@@ -20,5 +20,5 @@ export async function registerTask(name: string) {
     })
     await BackgroundFetch.setMinimumIntervalAsync(interval);
     const today = new Date();
-    console.log(today.toTimeString() + " Task " + name + " registered ");
+    console.log(today.toTimeString().slice(0, 8) + " Task " + name + " registered ");
 }
