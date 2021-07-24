@@ -86,8 +86,6 @@ export default function App() {
       const leftingDays = isLeapYear() ? 366 - daysSinceYearStarted : 365 - daysSinceYearStarted;
       if (scheduledNotifs.length === 0 || scheduledNotifs.length + 1 < leftingDays)
         await nu.scheduleAllYearlyNotifications();
-      else
-        await nu.scheduleReminderNotification();
 
       await initTasks();
     }
