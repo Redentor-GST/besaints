@@ -20,20 +20,12 @@ export default class Database {
         await AsyncStorage.setItem(this.ssnName, JSON.stringify(value))
 
     getTimeTrigger = async (): Promise<TimeTrigger> => {
-        try {
-            const datrig = await AsyncStorage.getItem(this.timeTriggerName)
-            if (datrig !== null) {
-                const parsed = JSON.parse(datrig);
-                return {
-                    hour: parseInt(parsed.hour),
-                    minute: parseInt(parsed.minute)
-                }
-            }
-            else return defaultTrigger;
-        }
-        catch (e) {
-            console.error(e);
-            return null;
+        const datrig = await AsyncStorage.getItem(this.timeTriggerName);
+        if (!datrig) return defaultTrigger;
+        const parsed = JSON.parse(datrig);
+        return {
+            hour: parseInt(parsed.hour),
+            minute: parseInt(parsed.minute)
         }
     }
 
