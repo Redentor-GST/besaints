@@ -7,12 +7,12 @@ const odd: Phrase[] = [
         "date": "01-01"
     },
     {
-        "text": "Pues sabemos que mientras no consume el calor natural los accidentes del pan, que está con nosotros el buen Jesús, que nos lleguemos a Él.",
-        "author": "Santa Teresa de Jesús",
+        "text": "Nosotros demostramos la santidad, estando siempre alegres.",
+        "author": "Santo Domingo Savio",
         "date": "01-02"
     },
     {
-        "text": "Dios es amor y alegría y El nos la comunica. Solo Dios basta. Fuera de El no hay felicidad posible.",
+        "text": "Dios es amor y alegría y Él nos la comunica. Solo Dios basta. Fuera de Él no hay felicidad posible.",
         "author": "Santa Teresa de los Andes",
         "date": "01-03"
     },
@@ -27,7 +27,7 @@ const odd: Phrase[] = [
         "date": "01-05"
     },
     {
-        "text": "“El que no tiene otra elección que renegar de Dios o afrontar el suplicio puede estar seguro de que ha sido precisamente Dios el que lo ha puesto en ese aprieto.”",
+        "text": "El que no tiene otra elección que renegar de Dios o afrontar el suplicio puede estar seguro de que ha sido precisamente Dios el que lo ha puesto en ese aprieto.",
         "author": "Santo Tomás Moro",
         "date": "01-06"
     },
@@ -42,7 +42,7 @@ const odd: Phrase[] = [
         "date": "01-08"
     },
     {
-        "text": "Este divino Corazón es pero dulzura, humildad y paciencia, por lo tanto, debemos esperar... El sabe cuando actuar.",
+        "text": "Este divino Corazón es pero dulzura, humildad y paciencia, por lo tanto, debemos esperar... Él sabe cuando actuar.",
         "author": "Santa Margarita Maria",
         "date": "01-09"
     },
@@ -62,17 +62,17 @@ const odd: Phrase[] = [
         "date": "01-12"
     },
     {
-        "text": "Hay que poner la castidad bajo el amparo de la caridad",
+        "text": "Hay que poner la castidad bajo el amparo de la caridad.",
         "author": "San Alberto Hurtado",
         "date": "01-13"
     },
     {
-        "text": "Si el Rey se disfraza, no parece se nos daría nada de conversar sin tantos miramientos y respetos con Él; parece está obligado a sufrirlo, pues se disfrazó.",
-        "author": "Santa Teresa de Jesús",
+        "text": "Las personas de carácter saben callar.",
+        "author": "Santo Domingo Savio",
         "date": "01-14"
     },
     {
-        "text": "Habéis de mostraros mansos en llevar con paciencia los desabrimientos, genialidades y molestias del prójimo, sin desazonarnos por las contrariedades que os ocasionen; al contrario, hacedle de buen grado los servicios que podáis, porque éste es el modo de granjear la amistad y gracia del Sagrado Corazón de Jesús.",
+        "text": "Habéis de mostraros mansos en llevar con paciencia los desabrimientos, genialidades y molestias del prójimo, sin desazonarnos por las contrariedades que os ocasionen.",
         "author": "Santa Margarita Maria",
         "date": "01-15"
     },
@@ -87,7 +87,7 @@ const odd: Phrase[] = [
         "date": "01-17"
     },
     {
-        "text": "La avaricia roba, hiere y chupa la sangre. ¡Maldito el avaro! Poseído por la codicia del dinero, esa plata miserable que encierra el genio del mal, el avaro husmea doquiera el olor de la ganancia, oprime al pobre y desangra al desgraciado. No tiene corazón en el pecho. No ve la angustia de las lágrimas. No siente piedad. Sus manos chorrean sangre: sangre de los pobres, viudas y huérfanos. Sus vestidos están tejidos de robos y rapiñas. Su opulencia es su condenación. Aplastad al ladrón infame bajo las piedras de la maldición.",
+        "text": "La avaricia roba, hiere y chupa la sangre. ¡Maldito el avaro! Poseído por la codicia del dinero, esa plata miserable que encierra el genio del mal, el avaro husmea doquiera el olor de la ganancia, oprime al pobre y desangra al desgraciado.",
         "author": "San Antonio de Padua",
         "date": "01-18"
     },
@@ -97,8 +97,8 @@ const odd: Phrase[] = [
         "date": "01-19"
     },
     {
-        "text": "¡Oh hermosura que excedéis A todas las hermosuras! Sin herir dolor hacéis, Y sin dolor deshacéis, el amor de las criaturas. ¡Oh nudo que así juntáis Dos cosas tan desiguales! No sé por qué os desatáis, Pues atado fuerza dais A tener por bien los males. Juntáis quien no tiene ser Con el ser que no se acaba: Sin acabar acabáis, Sin tener que amar amáis Engrandecéis nuestra nada.",
-        "author": "Santa Teresa de Avila",
+        "text": "Loado seas, Señor, que me has concedido vivir hasta la mañana de hoy.",
+        "author": "San Wenceslao",
         "date": "01-20"
     },
     {
@@ -107,7 +107,7 @@ const odd: Phrase[] = [
         "date": "01-21"
     },
     {
-        "text": "Entre la prácticas de la religión, el Santísimo Sacrificio es lo que el Sol entre los astros; pues es verdaderamente el alma de la religión cristiana. Es el misterio inefable que comprende la caridad divina, por la cual Dios, uniéndose realmente a nosotros, nos comunica con su magnificencia sus gracias y favores.",
+        "text": "Entre la prácticas de la religión, el Santísimo Sacrificio es lo que el Sol entre los astros; pues es verdaderamente el alma de la religión cristiana.",
         "author": "San Francisco de Sales",
         "date": "01-22"
     },
@@ -117,8 +117,8 @@ const odd: Phrase[] = [
         "date": "01-23"
     },
     {
-        "text": "Mi divino maestro, dice, me era asiduo compañero en los oficios que tenía que hacer a todas horas. En este tiempo recibí gracias tan extraordinarias, sobre todo en el misterio de la Pasión, que nunca las había sentido iguales; y esto causó en mí un tan grande amor a la Cruz, que no puedo vivir un instante sin padecer, pero en silencio, sin consuelo ni alivio, y morir con este Soberano de mi alma, abrumada por la cruz de toda clase de padecimientos; esto ha durado toda mi vida, la cual por su misericordia se ha pasado toda en este linaje de ejercicios, que son los del puro amor.",
-        "author": "Santa Margarita Maria",
+        "text": "¿De qué sirve ganar el mundo, si al final pierdes el alma?",
+        "author": "San Ignacio de Loyola",
         "date": "01-24"
     },
     {
@@ -132,7 +132,7 @@ const odd: Phrase[] = [
         "date": "01-26"
     },
     {
-        "text": "Es propio de la fe hacernos humildes en los sucesos felices e impasibles en los reveses.",
+        "text": "Es propio de la Fé hacernos humildes en los sucesos felices e impasibles en los reveses.",
         "author": "Santa Clara",
         "date": "01-27"
     },
@@ -147,27 +147,27 @@ const odd: Phrase[] = [
         "date": "01-29"
     },
     {
-        "text": "El gran momento de la gracia para un joven es aquel en que repara existencialmente que los ojos de Cristo se fijan en él, que lo llaman, que Cristo lo necesita. De ahí la importancia capital de reconocer ese llamamiento especial del Padre Dios. Esta debe ser la preocupación más grande del hombre durante toda su vida, pero especialmente del joven, en el momento de elegir su porvenir.",
+        "text": "El gran momento de la gracia para un joven es aquel en que repara existencialmente que los ojos de Cristo se fijan en él, que lo llaman, que Cristo lo necesita.",
         "author": "San Alberto Hurtado",
         "date": "01-30"
     },
     {
-        "text": "Hay que hacer todo por amor, no por la fuerza. San Francisco de Sales Hay que dejar que rodeen nuestro cerebro las espinas de las dificultades, y dejar traspasar nuestro corazón por la lanza de la contradicción; beber la hiel y tragar el vinagre, ya que eso es lo que Dios quiere.",
+        "text": "Hay que hacer todo por amor, no por la fuerza.",
         "author": "San Francisco de Sales",
         "date": "01-31"
     },
     {
-        "text": "aún cuando las apariencias sean contrarias. Pasarán por ingenuos: es el precio de la caridad.”",
+        "text": "Aún cuando las apariencias sean contrarias. Pasarán por ingenuos: es el precio de la caridad.”",
         "author": "Santo Tomás Moro",
         "date": "02-01"
     },
     {
-        "text": "Santos, santos, hombres chiflados por su ideal. Para los cuales Cristo es una realidad viviente, su Evangelio un código siempre actual, su mensaje algo perfectamente aplicable a su vida y que tratan de vivirlo...hombres que se esfuercen en amar y servir a sus hermanos, como Cristo los serviría; ésos son los conquistadores del mundo.",
+        "text": "Santos, santos, hombres chiflados por su ideal. Para los cuales Cristo es una realidad viviente, su Evangelio un código siempre actual, su mensaje algo perfectamente aplicable a su vida y que tratan de vivirlo...",
         "author": "San Alberto Hurtado",
         "date": "02-02"
     },
     {
-        "text": "“Si se ofrecen cada día oportunidades para ofender a mi Dios, me armo cada día para el combate con la recepción de la Eucaristía.”",
+        "text": "Si se ofrecen cada día oportunidades para ofender a mi Dios, me armo cada día para el combate con la recepción de la Eucaristía.",
         "author": "Santo Tomás Moro",
         "date": "02-03"
     },
@@ -177,12 +177,12 @@ const odd: Phrase[] = [
         "date": "02-04"
     },
     {
-        "text": "No pienses que el agradar a Dios esta tanto en obrar mucho como en obrarlo con buena voluntad, sin propiedad y respetos.",
+        "text": "No pienses que el agradar a Dios está tanto en obrar mucho como en obrarlo con buena voluntad, sin propiedad y respetos.",
         "author": "San Juan de la Cruz",
         "date": "02-05"
     },
     {
-        "text": "La gracia de Dios es como la lluvia, que a todos moja",
+        "text": "La gracia de Dios es como la lluvia, que a todos moja.",
         "author": "San José Gabriel del Rosario Brochero",
         "date": "02-06"
     },
@@ -197,12 +197,12 @@ const odd: Phrase[] = [
         "date": "02-08"
     },
     {
-        "text": "Mucho os ama el Creador pues os hace tantos beneficios; por eso debéis guardaros del pecado de la ingratitud y cuidar de alabar siempre a Dios",
+        "text": "Mucho nos ama el Creador pues nos hace tantos beneficios; por eso debemos alejarnos del pecado de la ingratitud y cuidar de alabar siempre a Dios",
         "author": "San Francisco de Asís",
         "date": "02-09"
     },
     {
-        "text": "“Felices los que son suficientemente inteligentes, como para no tomarse en serio, porque serán apreciados por quienes los rodean.”",
+        "text": "Felices los que son suficientemente inteligentes, como para no tomarse en serio, porque serán apreciados por quienes los rodean.",
         "author": "Santo Tomás Moro",
         "date": "02-10"
     },
@@ -222,18 +222,18 @@ const odd: Phrase[] = [
         "date": "02-13"
     },
     {
-        "text": "Procedamos más según el Evangelio, sin tanta complicación. El Evangelio es sustancioso, de una universalidad y flexibilidad tal, que se puede aplicar en todo momento en todas las situaciones y con todo acierto",
+        "text": "Procedamos más según el Evangelio, sin tanta complicación. El Evangelio es sustancioso, de una universalidad y flexibilidad tal, que se puede aplicar en todo momento en todas las situaciones y con todo acierto.",
         "author": "San Alberto Hurtado",
         "date": "02-14"
     },
     {
-        "text": "No hay cosa que purifique más el entendimiento de ignorancias, y la voluntad de afectos depravados que la oración",
+        "text": "No hay cosa que purifique más el entendimiento de ignorancias, y la voluntad de afectos depravados que la oración.",
         "author": "San Francisco de Sales",
         "date": "02-15"
     },
     {
-        "text": "De todas cuantas maneras quisiere comer el alma, hallará en el Santísimo Sacramento sabor y consolación",
-        "author": "Santa Teresa de Jesús",
+        "text": "Alcanza la excelencia y compártela.",
+        "author": "San Ignacio de Loyola",
         "date": "02-16"
     },
     {
@@ -242,7 +242,7 @@ const odd: Phrase[] = [
         "date": "02-17"
     },
     {
-        "text": "Para llorar como hombre, como puedo llorar yo. Para sufrir persecuciones como hombre, como puede sufrirlas cualquiera de ustedes. Para padecer hambre, sed, tristeza. Para experimentar los desprecios de la vanidad, la indiferencia del orgullo, las burlas de la impiedad… Para beber la hiel de la calumnia. Para apurar las heces de la maledicencia. Para sufrir en su persona… Todo cuanto debía padecer el hombre, a fin de que el hombre experimentase las riquezas de su misericordia y las dulzuras de su amor. Apareció, en fin, entre nosotros el Hijo de Dios hecho hombre para asimilarse perfectamente al hombre, a fin de que el hombre se hiciese Dios y pudiese participar de su infinito amor.",
+        "text": "Todo cuanto debía padecer el hombre, a fin de que el hombre experimentase las riquezas de su misericordia y las dulzuras de su amor. Apareció, en fin, entre nosotros el Hijo de Dios hecho hombre para asimilarse perfectamente al hombre, a fin de que el hombre se hiciese Dios y pudiese participar de su infinito amor.",
         "author": "San José Gabriel del Rosario Brochero",
         "date": "02-18"
     },
@@ -277,12 +277,12 @@ const odd: Phrase[] = [
         "date": "02-24"
     },
     {
-        "text": "“Felices los que saben escuchar y callar, porque aprenderán cosas nuevas.”",
+        "text": "Felices los que saben escuchar y callar, porque aprenderán cosas nuevas.",
         "author": "Santo Tomás Moro",
         "date": "02-25"
     },
     {
-        "text": "No puedo deciros más sino que el anonadamiento de vos mismo os elevará a la unión del Soberano Bien. Olvidándoos, lo poseeréis, y abandonándoos a Él, Él os poseerá.",
+        "text": "No puedo decirles más sino que el anonadamiento de ustedes mismos los elevará a la unión del Soberano Bien. Olvidándose, lo poseerán, y abandonándose a Él, Él los poseerá.",
         "author": "Santa Margarita Maria",
         "date": "02-26"
     },
@@ -332,18 +332,18 @@ const odd: Phrase[] = [
         "date": "03-07"
     },
     {
-        "text": "Estamos en las manos de Dios... Esa es la gran ciencia, estar a fondo en las manos de Dios...Ahora estoy enteramente en sus manos y por eso estoy feliz",
+        "text": "Estamos en las manos de Dios... Esa es la gran ciencia, estar a fondo en las manos de Dios... Ahora estoy enteramente en sus manos y por eso estoy feliz.",
         "author": "San Alberto Hurtado",
         "date": "03-08"
     },
     {
-        "text": "Jesús convida con un modo suavísimo, con palabras dulcísimas a seguirle y ponerse bajo su bandera. En la cruz está nuestra salud y nuestra vida, la fortaleza del corazón, el gozo del espíritu y la esperanza del cielo",
+        "text": "Jesús convida con un modo suavísimo, con palabras dulcísimas a seguirle y ponerse bajo su bandera. En la cruz está nuestra salud y nuestra vida, la fortaleza del corazón, el gozo del espíritu y la esperanza del cielo.",
         "author": "San José Gabriel del Rosario Brochero",
         "date": "03-09"
     },
     {
-        "text": "Mirad, pues, este camino humilde como el verdadero, trazado por Él, y el más indefectible para llegar a Él. ¿Qué teméis en un sendero tan seguro como el de las humillaciones, en donde la mejor de todas nos viene sin repararlo siquiera? Porque la humildades de tal naturaleza, que desaparece en el punto mismo que la echamos de ver en nosotros.",
-        "author": "Santa Margarita Maria",
+        "text": "Lo que se necesita para conseguir la felicidad, no es una vida cómoda, sino un corazón enamorado.",
+        "author": "San Josemaría Escrivá de Balaguer",
         "date": "03-10"
     },
     {
@@ -377,12 +377,12 @@ const odd: Phrase[] = [
         "date": "03-16"
     },
     {
-        "text": "Muchos aspiran al tiempo tranquilo, para pensar, leer, para preparar cosas grandes. Pero hay tareas que todos rechazan; que éstas sean de preferencia las mías. Nuestras acciones valen en función del peso del amor que ponemos en ellas",
+        "text": "Muchos aspiran al tiempo tranquilo, para pensar, leer, para preparar cosas grandes. Pero hay tareas que todos rechazan; que éstas sean de preferencia las mías. Nuestras acciones valen en función del peso del amor que ponemos en ellas.",
         "author": "San Alberto Hurtado",
         "date": "03-17"
     },
     {
-        "text": "Solo en el total desasimiento de vos mismo y de todo lo que no es Dios hallaréis la verdadera paz y dicha perfecta, porque no teniendo nada, lo hallaréis todo en el sagrado Corazón de Jesús.",
+        "text": "Solo en el total desasimiento de ustedes mismos y de todo lo que no es Dios hallarán la verdadera paz y dicha perfecta, porque no teniendo nada, lo hallarán todo en el sagrado Corazón de Jesús.",
         "author": "Santa Margarita Maria",
         "date": "03-18"
     },
@@ -397,7 +397,7 @@ const odd: Phrase[] = [
         "date": "03-20"
     },
     {
-        "text": "Puedo ver, tan claro como el día, que una vida que no tiene el amor de Jesucristo vive la mas grande miseria.",
+        "text": "Puedo ver, tan claro como el día, que una vida que no tiene el amor de Jesucristo vive la más grande miseria.",
         "author": "Santa Margarita Maria",
         "date": "03-21"
     },
@@ -412,13 +412,13 @@ const odd: Phrase[] = [
         "date": "03-23"
     },
     {
-        "text": "La ley de Cristo, que se cumple en el amor, nos obliga a procurar la salvación de las almas más que la del cuerpo",
+        "text": "La ley de Cristo, que se cumple en el amor, nos obliga a procurar la salvación de las almas más que la del cuerpo.",
         "author": "San Francisco de Asís",
         "date": "03-24"
     },
     {
-        "text": "No parece sino cumplimiento el llegarnos (al Santísimo Sacramento) y así nos luce tan poco.",
-        "author": "Santa Teresa de Jesús",
+        "text": "Nada es más precioso que la paz, que desarma a cada hostil terrestre y espiritual.",
+        "author": "San Ignacio de Antioquía",
         "date": "03-25"
     },
     {
@@ -427,7 +427,7 @@ const odd: Phrase[] = [
         "date": "03-26"
     },
     {
-        "text": "EL cielo es firme y no está sujeto a generación, y las almas que son de naturaleza celestial son firmes, no están sujetas a engendrar apetitos ni otra cualquier cosa, por que se parecen a Dios en su manera, que no se mueve para siempre.",
+        "text": "El cielo es firme y no está sujeto a generación, y las almas que son de naturaleza celestial son firmes, no están sujetas a engendrar apetitos ni otra cualquier cosa, por que se parecen a Dios en su manera, que no se mueve para siempre.",
         "author": "San Juan de la Cruz",
         "date": "03-27"
     },
