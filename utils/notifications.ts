@@ -122,9 +122,10 @@ export default class NotificationsUtils {
       .catch(e => console.error("Exception in registerNotifs: " + e))
     if (!token) return;
     const phrasesAndroid = phrases.slice(daysSinceYearsStarted);
-    const phrasesIOS = phrases.slice(daysSinceYearsStarted, IOS_NOTIFICATIONS_LIMIT - 1);
-    for (const phrase of Platform.OS === 'android' ? phrasesAndroid : phrasesIOS)
+    const phrasesIOS = phrasesAndroid.slice(0, IOS_NOTIFICATIONS_LIMIT);
+    for (const phrase of Platform.OS === 'android' ? phrasesAndroid : phrasesIOS) {
       await this.scheduleNotification(hourTrigger, minuteTrigger, phrase);
+    }
     await this.scheduleReminderNotification();
   }
 }
