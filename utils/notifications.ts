@@ -81,7 +81,7 @@ export default class NotificationsUtils {
     , data: Phrase, instant: boolean = false) {
 
     if (!await this.db.getShouldSendNotifications()) return;
-
+    //:)
     try {
       const title = "Frase del día";
       const body = data.text + " " + data.author;
