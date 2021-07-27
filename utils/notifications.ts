@@ -83,7 +83,7 @@ export default class NotificationsUtils {
     if (!await this.db.getShouldSendNotifications()) return;
 
     try {
-      const title = "Frase del dia";
+      const title = "Frase del día";
       const body = data.text + " " + data.author;
       const dateTrigger = createDateTrigger(data.date, triggerHour, triggerMinute);
       const notification = this.notification(title, body, dateTrigger, instant);
@@ -103,7 +103,7 @@ export default class NotificationsUtils {
     }
     const today = new Date();
     const title = "Toca renovar frases!";
-    const body = "Por favor abra la aplicacion asi podemos seguir enviandole notificaciones durante todo el año!";
+    const body = "Abre la aplicación así podemos seguir enviándote notificaciones con frases de Santos durante todo el año!";
     const androidDate = new Date(today.getFullYear() + 1, 0, 1, 16, 30, 0);
     const IOSDate = new Date(today.getFullYear(), today.getMonth() + 2, today.getDate(), 16, 30, 0);
     const dateTrigger = Platform.OS === 'android' ? androidDate : IOSDate;

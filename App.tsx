@@ -109,10 +109,10 @@ export default function App() {
         <View>
           <View style={styles.activityContainer}>
             <ActivityIndicator size="large" color="#00ff00" />
-            <Text> Por favor espera mientras terminamos de trabajar algunas cosas! </Text>
+            <Text> Por favor espera mientras terminamos de trabajar en algunas cosas! </Text>
             <Text> Este proceso toma solo unos segundos</Text>
-            <Text> Podes salir de la aplicacion mientras esto termina (pero no la cierres) </Text>
-            <Text> Este proceso se hace solo una vez al año </Text>
+            <Text> Podes salir de la aplicación mientras esto termina (pero por favor no la cierres) </Text>
+            <Text> Este proceso toma lugar sólo una vez al año </Text>
           </View>
         </View>
       )
