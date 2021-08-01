@@ -22,9 +22,19 @@ export function compareTodayvsDate(date: string) {
 }
 
 export function getDateStr(date: Date, incrementMonth: Boolean) {
-    const month = incrementMonth ? date.getMonth() + 1 : date.getMonth();
-    const dat = date.getDate();
-    const fullStr = (month < 10 ? '0' + month.toString() : month.toString()) + '-' + dat.toString();
+    var month = incrementMonth ? date.getMonth() + 1 : date.getMonth();
+    var month_str = month.toString();
+    var dt = date.getDate();
+    var dt_str = dt.toString();
+
+    if (dt < 10) {
+        dt_str = '0' + dt_str;
+    }
+    if (month < 10) {
+        month_str = '0' + month_str;
+    }
+
+    const fullStr = month_str + '-' + dt_str;
     return fullStr;
 }
 

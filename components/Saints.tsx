@@ -59,7 +59,7 @@ export default function DailySaint() {
 
     useEffect(() => {
         const dailySaints = db.getDailySaints()
-        dailySaints.length === 0 ? setisThereAnyInfo(false) : setdailySaints(dailySaints)
+        typeof dailySaints !== 'undefined' && dailySaints.length === 0 ? setisThereAnyInfo(false) : setdailySaints(dailySaints)
     }, []);
 
     const SaintView = ({ _saintObj }) => (
