@@ -151,11 +151,18 @@ export default function App() {
 
   return backgroundLoaded && fontsLoaded ? (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: { backgroundColor: '#024959' },
+          headerTintColor: 'white',
+        }}
+      >
         <Stack.Screen
           name='Home'
           component={homeScreen}
-          options={{ headerShown: false }}
+          options={{
+            headerShown: false,
+          }}
         />
         <Stack.Screen name='Frase del dia' component={Phrase} />
         <Stack.Screen name='Santos del dia' component={DailySaint} />
