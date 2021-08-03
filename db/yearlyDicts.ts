@@ -437,12 +437,12 @@ const odd: Phrase[] = [
         "date": "03-28"
     },
     {
-        "text": "Recuerda que la perfección consiste en conformar la vida y las acciones totalmente a las virtudes sagradas del Corazón de Jesús, especialmente su paciencia, su mansedumbre, su humildad y su caridad. Como resultado, nuestra vida interior y exterior llega a ser una imagen viva de El.",
+        "text": "Recuerda que la perfección consiste en conformar la vida y las acciones totalmente a las virtudes sagradas del Corazón de Jesús, especialmente su paciencia, su mansedumbre, su humildad y su caridad. Como resultado, nuestra vida interior y exterior llega a ser una imagen viva de Él.",
         "author": "Santa Margarita Maria",
         "date": "03-29"
     },
     {
-        "text": "Olvidáos de vos mismo y entregáos a Él, y Él tendrá cuenta y cuidado de vos.",
+        "text": "Olvídense de ustedes mismos y entréguense a Él, y Él tendrá cuenta y cuidado de ustedes.",
         "author": "Santa Margarita Maria",
         "date": "03-30"
     },
@@ -452,7 +452,7 @@ const odd: Phrase[] = [
         "date": "03-31"
     },
     {
-        "text": "Abrazaos humildemente con las cosas que más os humillen y anonaden, como medios muy al caso para hacer que triunfe el dulce y amable Corazón de Jesús, y reine el vuestro en el suyo.",
+        "text": "Abrácense humildemente con las cosas que más los humillen y anonaden, como medios muy al caso para hacer que triunfe el dulce y amable Corazón de Jesús, y reine su corazón en el suyo.",
         "author": "Santa Margarita Maria",
         "date": "04-01"
     },
@@ -462,7 +462,7 @@ const odd: Phrase[] = [
         "date": "04-02"
     },
     {
-        "text": "Es un cordial a propósito para dar la vida de la gracia a vuestra alma, y la del puro amor a vuestro corazón y a todas las buenas acciones. En fin, la virtud del Sagrado Corazón de Jesús abate hasta nosotros su grandeza, si nos halla anonadados en el amor de nuestra pequeñez, y cuidará de levantaros a su unión al paso de todo aquello que resplandece a los ojos de las criaturas. Con esto todo está dicho.",
+        "text": "Es un cordial a propósito para dar la vida de la gracia a su alma, y la del puro amor a su corazón y a todas las buenas acciones. En fin, la virtud del Sagrado Corazón de Jesús abate hasta nosotros su grandeza, si nos halla anonadados en el amor de nuestra pequeñez, y cuidará de levantarnos a su unión al paso de todo aquello que resplandece a los ojos de las criaturas.",
         "author": "Santa Margarita Maria",
         "date": "04-03"
     },
@@ -472,8 +472,8 @@ const odd: Phrase[] = [
         "date": "04-04"
     },
     {
-        "text": "Soy el alimento de los fuertes alimentaos de Mi; no seré yo quien me cambie en ti, sino tú quien se cambiará Mí.",
-        "author": "San Agustín",
+        "text": "Es mejor ser cristiano sin decirlo que proclamarlo sin serlo",
+        "author": "San Ignacio de Antioquía",
         "date": "04-05"
     },
     {
@@ -492,7 +492,7 @@ const odd: Phrase[] = [
         "date": "04-08"
     },
     {
-        "text": "Los santos sienten que Jesucristo Sacramentado se difunde y comunica totalmente a sus almas y a sus cuerpos. El todo lo repara, modifica y vivifica; ama en el corazón, escucha en la cabeza, ve en los ojos, habla en la lengua; hace todo en todo y entonces no vivimos nosotros, sino que el mismo Jesucristo quien vive en nosotros.",
+        "text": "Los santos sienten que Jesucristo Sacramentado se difunde y comunica totalmente a sus almas y a sus cuerpos. Él todo lo repara, modifica y vivifica; ama en el corazón, escucha en la cabeza, ve en los ojos, habla en la lengua; hace todo en todo y entonces no vivimos nosotros, sino que el mismo Jesucristo quien vive en nosotros.",
         "author": "San Francisco de Sales",
         "date": "04-09"
     },
@@ -502,7 +502,7 @@ const odd: Phrase[] = [
         "date": "04-10"
     },
     {
-        "text": "El nombre de Jesús es superior a todo nombre, porque delante de él se dobla toda rodilla. Si lo predicas, ablanda las voluntades más obstinadas. Si lo invocas, dulcifica las más ásperas tentaciones. Si piensas en él, se te ilumina la inteligencia. Si lo lees, te alimenta el corazón.",
+        "text": "El nombre de Jesús es superior a todo nombre, porque delante de él se dobla toda rodilla. Si lo predicas, ablanda las voluntades más obstinadas. Si lo invocas, dulcifica las más ásperas tentaciones. Si piensas en Él, se te ilumina la inteligencia. Si lo lees, te alimenta el corazón.",
         "author": "San Antonio de Padua",
         "date": "04-11"
     },
@@ -527,7 +527,7 @@ const odd: Phrase[] = [
         "date": "04-15"
     },
     {
-        "text": "Vuestro amor me previno desde la infancia, creció conmigo, y ahora es un abismo cuya profundidad me es imposible medir.",
+        "text": "Su amor me previno desde la infancia, creció conmigo, y ahora es un abismo cuya profundidad me es imposible medir.",
         "author": "Santa Teresa de Lisieux",
         "date": "04-16"
     },
@@ -542,12 +542,12 @@ const odd: Phrase[] = [
         "date": "04-18"
     },
     {
-        "text": "El árbol húmedo invadido por el fuego: primero humo, luego crepita; después llama; finalmente brasa.",
-        "author": "San Juan de la Cruz",
+        "text": "Dios salvará nuestras almas.",
+        "author": "San Bonifacio",
         "date": "04-19"
     },
     {
-        "text": "¿Qué hay que dudar que hará (el buen Jesús) milagros estando tan dentro de mí, si tenemos fe viva, y nos dará lo que le pidiéremos, pues está en nuestra casa?",
+        "text": "¿Qué hay que dudar que hará (el buen Jesús) milagros estando tan dentro de mí, si tenemos Fé viva, y nos dará lo que le pidiéremos, pues está en nuestra casa?",
         "author": "Santa Teresa de Jesús",
         "date": "04-20"
     },
@@ -567,7 +567,7 @@ const odd: Phrase[] = [
         "date": "04-23"
     },
     {
-        "text": "Nada te turbe, Nada te espante, Todo se pasa, Dios no se muda, La paciencia, Todo lo alcanza; Quien a Dios tiene Nada le falta: Solo Dios basta.",
+        "text": "Nada te turbe, nada te espante, todo se pasa, Dios no se muda, la paciencia, todo lo alcanza; quien a Dios tiene nada le falta: solo Dios basta.",
         "author": "Santa Teresa de Avila",
         "date": "04-24"
     },
@@ -577,7 +577,7 @@ const odd: Phrase[] = [
         "date": "04-25"
     },
     {
-        "text": "Mis amados: que Dios amó al hombre desde la eternidad es una verdad tan clara y tan demostrada que el solo pensar lo contrario es y sería el colmo de la locura… El amor eterno de Dios hacia el hombre está escrito en todas las maravillas de la creación… los prodigiosos fenómenos de la naturaleza que, a cada paso, nos asombran, publican por todas partes ese amor. Lo mismo hacen los luminosos astros que embellecen el firmamento. Igual cosa publican las refulgentes estrellas que tachonan y esmaltan la bóveda celeste. El cambio periódico de las estaciones, la riqueza del mundo vegetal y animal, y todo lo grande y sublime que presenciamos en el universo, predican que Dios amó al hombre desde la eternidad y que, en él, puso los ojos de su amor y de su predilección",
+        "text": "Mis amados: que Dios amó al hombre desde la eternidad es una verdad tan clara y tan demostrada que el solo pensar lo contrario es y sería el colmo de la locura... El amor eterno de Dios hacia el hombre está escrito en todas las maravillas de la creación... los prodigiosos fenómenos de la naturaleza que, a cada paso, nos asombran, publican por todas partes ese amor. Lo mismo hacen los luminosos astros que embellecen el firmamento. Igual cosa publican las refulgentes estrellas que tachonan y esmaltan la bóveda celeste. El cambio periódico de las estaciones, la riqueza del mundo vegetal y animal, y todo lo grande y sublime que presenciamos en el universo, predican que Dios amó al hombre desde la eternidad y que, en él, puso los ojos de su amor y de su predilección",
         "author": "San José Gabriel del Rosario Brochero",
         "date": "04-26"
     },
@@ -587,7 +587,7 @@ const odd: Phrase[] = [
         "date": "04-27"
     },
     {
-        "text": "Mire yo a mi Amado y mi Amado a mí; mire El por mis cosas y yo por las suyas.",
+        "text": "Mire yo a mi Amado y mi Amado a mí; mire Él por mis cosas y yo por las suyas.",
         "author": "Santa Teresa de Avila",
         "date": "04-28"
     },
@@ -627,12 +627,12 @@ const odd: Phrase[] = [
         "date": "05-05"
     },
     {
-        "text": "El alma que esta enamorada de Dios es una alma gentil, humilde y paciente.",
+        "text": "El alma que está enamorada de Dios es una alma gentil, humilde y paciente.",
         "author": "San Juan de la Cruz",
         "date": "05-06"
     },
     {
-        "text": "“Felices los que saben apreciar una sonrisa y olvidar un desprecio, porque su camino será pleno de sol.”",
+        "text": "Felices los que saben apreciar una sonrisa y olvidar un desprecio, porque su camino será pleno de sol.",
         "author": "Santo Tomás Moro",
         "date": "05-07"
     },
@@ -682,7 +682,7 @@ const odd: Phrase[] = [
         "date": "05-16"
     },
     {
-        "text": "“Felices los que saben distinguir una montaña de una piedrita, porque evitarán muchos inconvenientes.”",
+        "text": "Felices los que saben distinguir una montaña de una piedrita, porque evitarán muchos inconvenientes.",
         "author": "Santo Tomás Moro",
         "date": "05-17"
     },
@@ -692,17 +692,17 @@ const odd: Phrase[] = [
         "date": "05-18"
     },
     {
-        "text": "Besad de corazón frecuentemente las cruces que Nuestro Señor mismo pone sobre vuestros hombros; no miréis si son de madera preciosa o perfumada; ellas son más cruz cuanto sean de una madera más vil, abyecta y maloliente.",
+        "text": "Besen de corazón frecuentemente las cruces que Nuestro Señor mismo pone sobre sus hombros; no miren si son de madera preciosa o perfumada; ellas son más cruz cuanto sean de una madera más vil, abyecta y maloliente.",
         "author": "San Francisco de Sales",
         "date": "05-19"
     },
     {
-        "text": "Tú que eres fervoroso en el espíritu, estás inflamado por el fuego del amor. Haz que tu vida se queme en la oración a Dios. Una persona esta caliente, la otra está fría. Haz que la caliente dé calor a la fría.",
+        "text": "Tú que eres fervoroso en el espíritu, estás inflamado por el fuego del amor. Haz que tu vida se queme en la oración a Dios. Una persona está caliente, la otra está fría. Haz que la caliente dé calor a la fría.",
         "author": "San Agustín",
         "date": "05-20"
     },
     {
-        "text": "“Felices ustedes si saben callar y ojalá sonreír cuando se les quita la palabra, se los contradice o cuando les pisan los pies, porque el Evangelio comienza a penetrar en su corazón.”",
+        "text": "Felices ustedes si saben callar y ojalá sonreír cuando se les quita la palabra, se los contradice o cuando les pisan los pies, porque el Evangelio comienza a penetrar en su corazón.",
         "author": "Santo Tomás Moro",
         "date": "05-21"
     },
@@ -717,7 +717,7 @@ const odd: Phrase[] = [
         "date": "05-23"
     },
     {
-        "text": "Vaciaos de todo, y Él os henchirá.",
+        "text": "Vacíense de todo, y Él los henchirá.",
         "author": "Santa Margarita Maria",
         "date": "05-24"
     },
@@ -732,12 +732,12 @@ const odd: Phrase[] = [
         "date": "05-26"
     },
     {
-        "text": "La afición a nuestro menosprecio en el Corazón de Jesús, nos basta para honrar los misterios de su santa muerte y pasión; y Cristo desea que le honremos guardando este sagrado silencio, como Él, en todas las ocasiones de humillación y trabajo; porque os confieso que no hay cosa que tanto me contente, como la taciturnidad que guardó tan exactamente en el discurso de la pasión, A imitación suya, no abramos la boca sino para orar por los que nos afligen y maltratan.",
+        "text": "La afición a nuestro menosprecio en el Corazón de Jesús, nos basta para honrar los misterios de su santa muerte y pasión; y Cristo desea que le honremos guardando este sagrado silencio, como Él, en todas las ocasiones de humillación y trabajo; porque les confieso que no hay cosa que tanto me contente, como la taciturnidad que guardó tan exactamente en el discurso de la pasión. A imitación suya, no abramos la boca sino para orar por los que nos afligen y maltratan.",
         "author": "Santa Margarita Maria",
         "date": "05-27"
     },
     {
-        "text": "Acepta lo que te manda el Sagrado Corazón de Jesucristo para unirte a si.",
+        "text": "Acepta lo que te manda el Sagrado Corazón de Jesucristo para unirte a sí.",
         "author": "Santa Margarita Maria",
         "date": "05-28"
     },
@@ -747,12 +747,12 @@ const odd: Phrase[] = [
         "date": "05-29"
     },
     {
-        "text": "“Si alguien escapa cuando Dios le manda permanecer y afrontar el peligro con confianza, bien por razón de su propia salvación o por la de aquellos que le han sido encomendados a su cuidado, ese tal se comporta, sin ninguna duda, muy insensatamente. Pero, ¿y si lo hace para salvar la vida? También, porque, ¿qué puede ser más disparatado y necio que el preferir un breve tiempo de dolor y desgracia a una eternidad de felicidad?”",
+        "text": "Si alguien escapa cuando Dios le manda permanecer y afrontar el peligro con confianza, bien por razón de su propia salvación o por la de aquellos que le han sido encomendados a su cuidado, ese tal se comporta, sin ninguna duda, muy insensatamente. Pero, ¿y si lo hace para salvar la vida? También, porque, ¿qué puede ser más disparatado y necio que el preferir un breve tiempo de dolor y desgracia a una eternidad de felicidad?",
         "author": "Santo Tomás Moro",
         "date": "05-30"
     },
     {
-        "text": "“Felices los que saben mirar con seriedad las pequeñas cosas y tranquilidad las cosas grandes, porque irán lejos en la vida.”",
+        "text": "Felices los que saben mirar con seriedad las pequeñas cosas y tranquilidad las cosas grandes, porque irán lejos en la vida.",
         "author": "Santo Tomás Moro",
         "date": "05-31"
     },
@@ -762,7 +762,7 @@ const odd: Phrase[] = [
         "date": "06-01"
     },
     {
-        "text": "“¡Ah!, qué poco nos parecemos a Cristo aunque llevemos su nombre y nos llamemos cristianos. Nuestra conversación en las comidas no sólo es tonta y superficial (incluso por esta negligencia advirtió Cristo que deberemos rendir cuenta), sino que a menudo es también perniciosa, y una vez llenos de comida y bebida dejamos la mesa sin acordarnos de Dios y sin darle gracias por los bienes que nos ha otorgado.”",
+        "text": "¡Ah!, qué poco nos parecemos a Cristo aunque llevemos su nombre y nos llamemos cristianos. Nuestra conversación en las comidas no sólo es tonta y superficial (incluso por esta negligencia advirtió Cristo que deberemos rendir cuenta), sino que a menudo es también perniciosa, y una vez llenos de comida y bebida dejamos la mesa sin acordarnos de Dios y sin darle gracias por los bienes que nos ha otorgado.",
         "author": "Santo Tomás Moro",
         "date": "06-02"
     },
@@ -782,12 +782,12 @@ const odd: Phrase[] = [
         "date": "06-05"
     },
     {
-        "text": "“Si vencidos por el cansancio apenas tenemos ya fuerza para continuar, o si tanta es la pereza y blandenguería que estamos a punto de pararnos, pidamos a Dios que, por favor, nos arrastre aunque opongamos resistencia.”",
+        "text": "Si vencidos por el cansancio apenas tenemos ya fuerza para continuar, o si tanta es la pereza y blandenguería que estamos a punto de pararnos, pidamos a Dios que, por favor, nos arrastre aunque opongamos resistencia.",
         "author": "Santo Tomás Moro",
         "date": "06-06"
     },
     {
-        "text": "“Felices los que saben reírse de sí mismos, porque nunca terminarán de divertirse.”",
+        "text": "Felices los que saben reírse de sí mismos, porque nunca terminarán de divertirse.",
         "author": "Santo Tomás Moro",
         "date": "06-07"
     },
@@ -802,7 +802,7 @@ const odd: Phrase[] = [
         "date": "06-09"
     },
     {
-        "text": "“Nada puede pasarme que Dios no quiera. Y todo lo que El quiere, por muy malo que nos parezca, es en realidad lo mejor.”",
+        "text": "Nada puede pasarme que Dios no quiera. Y todo lo que El quiere, por muy malo que nos parezca, es en realidad lo mejor.",
         "author": "Santo Tomás Moro",
         "date": "06-10"
     },
@@ -812,7 +812,7 @@ const odd: Phrase[] = [
         "date": "06-11"
     },
     {
-        "text": "Como es posible que alguien que cree en Dios pueda amar algo fuera de Él.",
+        "text": "¿Cómo es posible que alguien que cree en Dios pueda amar algo fuera de Él?",
         "author": "San Felipe Neri",
         "date": "06-12"
     },
@@ -842,7 +842,7 @@ const odd: Phrase[] = [
         "date": "06-17"
     },
     {
-        "text": "Pues (el Señor) todo lo sufre y sufrirá por hallar sola un alma que le reciba y tenga en sí con amor, sea ésta la vuestra.",
+        "text": "Pues (el Señor) todo lo sufre y sufrirá por hallar sola un alma que le reciba y tenga en sí con amor, sea ésta la suya.",
         "author": "Santa Teresa de Jesús",
         "date": "06-18"
     },
@@ -852,7 +852,7 @@ const odd: Phrase[] = [
         "date": "06-19"
     },
     {
-        "text": "En sobreviniendo la humillación, regocijáos, porque entraréis muy adentro en el Corazón de Jesús.",
+        "text": "En sobreviniendo la humillación, regocíjense, porque entrarán muy adentro en el Corazón de Jesús.",
         "author": "Santa Margarita Maria",
         "date": "06-20"
     },
@@ -862,7 +862,7 @@ const odd: Phrase[] = [
         "date": "06-21"
     },
     {
-        "text": "Sed pobre de todo, y el Corazón de Jesús os enriquecerá.",
+        "text": "Sean pobres de todo, y el Corazón de Jesús los enriquecerá.",
         "author": "Santa Margarita Maria",
         "date": "06-22"
     },
@@ -902,13 +902,13 @@ const odd: Phrase[] = [
         "date": "06-29"
     },
     {
-        "text": "Obrando según lo que hablan y dándose a conocer por lo que hacen sin hablar",
+        "text": "Obrando según lo que hablan y dándose a conocer por lo que hacen sin hablar.",
         "author": "San Ignacio de Antioquia",
         "date": "06-30"
     },
     {
-        "text": "Hija mía, observa fielmente las palabras que te voy a decir: no valores demasiado ninguna cosa exterior, aunque te parezca muy preciosa. Olvídate de ti misma y permanece continuamente Conmigo. Confíame todo y no hagas nada por tu cuenta y tendrás siempre una gran libertad de espíritu; ninguna circunstancia ni acontecimiento llegará a perturbarte. No prestes mucha atención a lo que dice la gente, deja que cada uno te juzgue según le guste. No te justifiques eso no te causará daño. Dalo todo a la primera alusión de petición, aunque fueran las cosas mas necesarias; No pidas nada sin consultarme. Deja que te quiten incluso lo que te mereces; la estima, el buen nombre; que tu espíritu esté por encima de todo esto. Y así liberada de todo, descansa junto a Mi Corazón, no permitas que nada turbe tu paz. Discípula analiza las palabras que te he dicho.",
-        "author": "Santa Faustina",
+        "text": "Confío en Dios, mi creador, en todas las cosas; lo amo con todo mi corazón.",
+        "author": "Santa Juana de Arco",
         "date": "07-01"
     },
     {
@@ -917,7 +917,7 @@ const odd: Phrase[] = [
         "date": "07-02"
     },
     {
-        "text": "Jesucristo, ese loco de amor, me ha vuelto loca. Es martirio el que padezco al ver que corazones agradecidos a las criaturas no lo sean con aquel que lo sustenta, que les da la vida y los sostiene; que les da y ha dado todo, hasta darse el mismo.",
+        "text": "Jesucristo, ese loco de amor, me ha vuelto loca. Es martirio el que padezco al ver que corazones agradecidos a las criaturas no lo sean con aquel que lo sustenta, que les da la vida y los sostiene; que les da y ha dado todo, hasta darse Él mismo.",
         "author": "Santa Teresa de los Andes",
         "date": "07-03"
     },
@@ -927,7 +927,7 @@ const odd: Phrase[] = [
         "date": "07-04"
     },
     {
-        "text": "El grado mas perfecto de humildad es complacerse en los menosprecios y humillaciones. Vale mas delante de Dios un menosprecio sufrido pacientemente por su amor, que mil ayunos y mil disciplinas.",
+        "text": "El grado más perfecto de humildad es complacerse en los menosprecios y humillaciones. Vale más delante de Dios un menosprecio sufrido pacientemente por su amor, que mil ayunos y mil disciplinas.",
         "author": "San Francisco de Sales",
         "date": "07-05"
     },
@@ -937,7 +937,7 @@ const odd: Phrase[] = [
         "date": "07-06"
     },
     {
-        "text": "No solamente hay que aceptar que Dios nos hiera, sino que hay que aceptar que nos hiera donde le plazca; hay que dejar la elección a Dios, porque a El le pertenece.",
+        "text": "No solamente hay que aceptar que Dios nos hiera, sino que hay que aceptar que nos hiera donde le plazca; hay que dejar la elección a Dios, porque a Él le pertenece.",
         "author": "San Francisco de Sales",
         "date": "07-07"
     },
@@ -947,7 +947,7 @@ const odd: Phrase[] = [
         "date": "07-08"
     },
     {
-        "text": "¡Dios mío! ¡Que tesoro tan inmenso es el amor a la pequeñez y a nuestra propia abyección! ¡Qué no debiéramos hacer y padecer por alcanzarlo! El alma que tanto bien posee, esta segura y nada puede faltarle, porque el Todopoderoso en ella se complace y recrea.",
+        "text": "¡Dios mío! ¡Que tesoro tan inmenso es el amor a la pequeñez y a nuestra propia abyección! ¡Qué no debiéramos hacer y padecer por alcanzarlo! El alma que tanto bien posee, está segura y nada puede faltarle, porque el Todopoderoso en ella se complace y recrea.",
         "author": "Santa Margarita Maria",
         "date": "07-09"
     },
@@ -962,7 +962,7 @@ const odd: Phrase[] = [
         "date": "07-11"
     },
     {
-        "text": "Juzgo que os hace especial merced en daros a conocer y haciendo que améis vuestra abyección; porque no hay medio más eficaz que ése para penetrar y permanecer en la amistad del Sagrado Corazón de Jesús.",
+        "text": "Amen su propia abyección; porque no hay medio más eficaz que ése para penetrar y permanecer en la amistad del Sagrado Corazón de Jesús.",
         "author": "Santa Margarita Maria",
         "date": "07-12"
     },
@@ -982,12 +982,12 @@ const odd: Phrase[] = [
         "date": "07-15"
     },
     {
-        "text": "No se queda (el Señor) para otra cosa con nosotros sino para ayudarnos y animarnos y sustentarnos a hacer su voluntad.",
+        "text": "No se queda (el Señor) para otra cosa con nosotros sino para ayudarnos, animarnos y sustentarnos a hacer su voluntad.",
         "author": "Santa Teresa de Jesús",
         "date": "07-16"
     },
     {
-        "text": "Muerte: Recuerda que cuando abandones esta tierra, no podrás llevar contigo nada de lo que has recibido, solamente lo que has dado: un corazón enriquecido por el servicio honesto, el amor, el sacrificio y el valor.",
+        "text": "Recuerda que cuando abandones esta tierra, no podrás llevar contigo nada de lo que has recibido, solamente lo que has dado: un corazón enriquecido por el servicio honesto, el amor, el sacrificio y el valor.",
         "author": "San Francisco de Asís",
         "date": "07-17"
     },
@@ -997,7 +997,7 @@ const odd: Phrase[] = [
         "date": "07-18"
     },
     {
-        "text": "¡Oh, soy feliz! Pues puedo decir con verdad, que el único amor de mi corazón ha sido El.",
+        "text": "¡Oh, soy feliz! Pues puedo decir con verdad, que el único amor de mi corazón ha sido Él.",
         "author": "Santa Teresa de los Andes",
         "date": "07-19"
     },
@@ -1007,18 +1007,18 @@ const odd: Phrase[] = [
         "date": "07-20"
     },
     {
-        "text": "El Señor me dio la salud, él me la quita; bendita sea su santa voluntad. Debemos estar siempre conformes con los designios de Dios.”",
+        "text": "El Señor me dio la salud, él me la quita; bendita sea su santa voluntad. Debemos estar siempre conformes con los designios de Dios.",
         "author": "San José Gabriel del Rosario Brochero",
         "date": "07-21"
     },
     {
-        "text": "“Pienso que no andamos equivocados al sospechar que se avecina de nuevo un tiempo en que el Hijo del hombre, Cristo, será entregado en manos de los pecadores, cuando observamos un peligro inminente de que el Cuerpo místico de Cristo, la Iglesia de Cristo, esto es, el pueblo cristiano, es arrastrado a la ruina a manos de hombres perversos e impíos.”",
+        "text": "Pienso que no andamos equivocados al sospechar que se avecina de nuevo un tiempo en que el Hijo del hombre, Cristo, será entregado en manos de los pecadores, cuando observamos un peligro inminente de que el Cuerpo místico de Cristo, la Iglesia de Cristo, esto es, el pueblo cristiano, es arrastrado a la ruina a manos de hombres perversos e impíos.",
         "author": "Santo Tomás Moro",
         "date": "07-22"
     },
     {
-        "text": "Espinas son las riquezas. Y cuando pinchan hacen brotar la sangre. Bestias feroces son los pérfidos usureros, que roban y devoran. Raza maldita, se han desarrollado y esparcido por todas partes. No respetan ni al Señor ni a los hombres. A veces tienen la osadía e hipocresía de dar limosna que chorrea sangre de pobres.",
-        "author": "San Antonio de Padua",
+        "text": "Quien quiera vivir con dignidad y plenitud no tiene otro camino más que reconocer al otro y buscar su bien.",
+        "author": "San Juan Pablo II",
         "date": "07-23"
     },
     {
@@ -1032,8 +1032,8 @@ const odd: Phrase[] = [
         "date": "07-25"
     },
     {
-        "text": "Sólo Yo comprendo perfectamente cómo me inmolo todos los días sobre el altar por la salvación de los fieles, lo que no pueden comprender absolutamente ni los querubines ni ninguna potencia celestial.",
-        "author": "Santa Matilde",
+        "text": "Los pobres y los enfermos son el corazón de Dios. Al servirles a ellos, le servimos a nuestro señor Jesucristo.",
+        "author": "San Camilo de Lelis",
         "date": "07-26"
     },
     {
@@ -1072,13 +1072,13 @@ const odd: Phrase[] = [
         "date": "08-02"
     },
     {
-        "text": "La caridad es el centro que une a la comunidad con Dios y a todos sus miembros entre si; contribuye a la unión de los corazones y los vincula indisolublemente a Dios.",
+        "text": "La caridad es el centro que une a la comunidad con Dios y a todos sus miembros entre sí; contribuye a la unión de los corazones y los vincula indisolublemente a Dios.",
         "author": "San Vicente de Paul",
         "date": "08-03"
     },
     {
-        "text": "El Sagrado Corazón de nuestro Soberano Dueño es una fuente inagotable que anhela derramarse en los corazones humildes, vacíos y desprendidos de todo, y prontos a sacrificarse a su servicio por mucho que cueste a la naturaleza.",
-        "author": "Santa Margarita Maria",
+        "text": "La oración es la mejor arma que tenemos: es la llave que abre el corazón de Dios.",
+        "author": "San Padre Pío",
         "date": "08-04"
     },
     {
@@ -1092,7 +1092,7 @@ const odd: Phrase[] = [
         "date": "08-06"
     },
     {
-        "text": "La voluntad de Dios es un alimento espiritual que fortifica el alma que se entrega a El gustosa.",
+        "text": "La voluntad de Dios es un alimento espiritual que fortifica el alma que se entrega a Él gustosa.",
         "author": "Santa Teresa de los Andes",
         "date": "08-07"
     },
@@ -1127,13 +1127,13 @@ const odd: Phrase[] = [
         "date": "08-13"
     },
     {
-        "text": "El hombre no puede ser separado de Dios, ni la política de la moral",
+        "text": "El hombre no puede ser separado de Dios, ni la política de la moral.",
         "author": "Santo Tomás Moro",
         "date": "08-14"
     },
     {
-        "text": "Tened los sentidos interiores y exteriores en el Sagrado Corazón de nuestro Señor, imponiéndoles un profundo silencio: silencio interior, cercenando pensamientos inútiles y sutilezas del amor propio, para disponernos a oír al voz del esposo; silencio en todo lo que pueda seros a voz materia de alabanza y excusa, de censura y acusación a los otros; silencio en los ímpetus con que la naturaleza inmortificada pretenda mostrar alegría o descontento en cosas tristes..., y este silencio será para honrar el de Jesús solitario en el Santísimo Sacramento. Por este medio aprenderéis a conversar con su Sagrado Corazón y a amarle en silencio.",
-        "author": "Santa Margarita Maria",
+        "text": "No hay que hacerse ilusiones. Nadie puede ser excelente en las cosas grandes, si primero no lo es en las pequeñas.",
+        "author": "San Francisco Javier",
         "date": "08-15"
     },
     {
@@ -1147,7 +1147,7 @@ const odd: Phrase[] = [
         "date": "08-17"
     },
     {
-        "text": "Considero yo muchas veces, Cristo mío, cuán sabrosos y cuán deleitosos se muestran vuestros ojos a quien os ama, y Vos, Bien mío, queréis mirar con amor.",
+        "text": "Considero yo muchas veces, Cristo mío, cuán sabrosos y cuán deleitosos se muestran Tus ojos a quien te ama, y Tú, bien mío, querés mirar con amor.",
         "author": "Santa Teresa de Avila",
         "date": "08-18"
     },
@@ -1162,7 +1162,7 @@ const odd: Phrase[] = [
         "date": "08-20"
     },
     {
-        "text": "“Felices los que piensan antes de actuar y rezan antes de pensar, porque no se turbarán por lo imprevisible.”",
+        "text": "Felices los que piensan antes de actuar y rezan antes de pensar, porque no se turbarán por lo imprevisible.",
         "author": "Santo Tomás Moro",
         "date": "08-21"
     },
@@ -1187,7 +1187,7 @@ const odd: Phrase[] = [
         "date": "08-25"
     },
     {
-        "text": "En Cristo mi confianza, Y de El sólo mi asimiento, En sus cansancios mi aliento, Y en su imitación mi holganza. Aquí estriba mi firmeza, Aquí mi seguridad, La prueba de mi verdad, La muestra de mi firmeza.",
+        "text": "En Cristo mi confianza, Y de Él sólo mi asimiento, en sus cansancios mi aliento, y en su imitación mi holganza. Aquí estriba mi firmeza, aquí mi seguridad, la prueba de mi verdad, la muestra de mi firmeza.",
         "author": "Santa Teresa de Avila",
         "date": "08-26"
     },
@@ -1202,7 +1202,7 @@ const odd: Phrase[] = [
         "date": "08-28"
     },
     {
-        "text": "Porque entonces es cuando su Amor se acrece, se vigoriza, se agiganta, se rebalsa por todas partes, y se revienta, si puedo expresarme así, y hace entonces un milagro de amor: la Eucaristía",
+        "text": "Porque entonces es cuando su Amor se acrece, se vigoriza, se agiganta, se rebalsa por todas partes, y se revienta, si puedo expresarme así, y hace entonces un milagro de amor: la Eucaristía.",
         "author": "San José Gabriel del Rosario Brochero",
         "date": "08-29"
     },
@@ -1212,12 +1212,12 @@ const odd: Phrase[] = [
         "date": "08-30"
     },
     {
-        "text": "Yo estoy muy conforme con lo que Dios ha hecho conmigo relativamente a la vista y le doy muchas gracias por ello. Cuando yo pude servir a la humanidad me conservó íntegros y robustos mis sentidos. Hoy, que ya no puedo, me ha inutilizado uno de los sentidos del cuerpo. Es un grandísimo favor el que me ha hecho Dios nuestro Señor en desocuparme por completo de la vida activa y dejarme la ocupación de buscar mi fin y de orar por los hombres pasados, por los presentes y por los que han de venir hasta el fin del mundo.",
-        "author": "San José Gabriel del Rosario Brochero",
+        "text": "Conservar el buen humor en medio de las penas y enfermedades, es señal de alma recta y buena.",
+        "author": "San Felipe Neri",
         "date": "08-31"
     },
     {
-        "text": "Quien no amare al prójimo no os ama, Señor mío.",
+        "text": "Quien no ama al prójimo no te ama, Señor mío.",
         "author": "Santa Teresa de Avila",
         "date": "09-01"
     },
@@ -1242,8 +1242,8 @@ const odd: Phrase[] = [
         "date": "09-05"
     },
     {
-        "text": "Su Majestad nos le dio... este mantenimiento y maná de la Humanidad.",
-        "author": "Santa Teresa de Jesús",
+        "text": "Siempre encontramos que los que caminaban más cerca de Cristo fueron los que tuvieron que soportar las pruebas más grandes.",
+        "author": "Santa Teresa de Ávila",
         "date": "09-06"
     },
     {
@@ -1252,12 +1252,12 @@ const odd: Phrase[] = [
         "date": "09-07"
     },
     {
-        "text": "El nudo de la desobediencia de Eva fue desatado por la obediencia de María; lo que ato la virgen Eva por la incredulidad, la virgen María lo desato por la fe",
+        "text": "El nudo de la desobediencia de Eva fue desatado por la obediencia de María; lo que ató la virgen Eva por la incredulidad, la Virgen María lo desato por la Fé.",
         "author": "San Ireneo",
         "date": "09-08"
     },
     {
-        "text": "“Estamos a veces tan dormidos en los vicios que ni siquiera queremos despertarnos ante las llamadas y sacudidas de la misericordia divina, y regresar a la práctica de las virtudes. Nosotros mismos somos la causa de que Dios se aleje abandonándonos en nuestra vida viciosa.”",
+        "text": "Estamos a veces tan dormidos en los vicios que ni siquiera queremos despertarnos ante las llamadas y sacudidas de la misericordia divina, y regresar a la práctica de las virtudes. Nosotros mismos somos la causa de que Dios se aleje abandonándonos en nuestra vida viciosa.",
         "author": "Santo Tomás Moro",
         "date": "09-09"
     },
@@ -1277,22 +1277,22 @@ const odd: Phrase[] = [
         "date": "09-12"
     },
     {
-        "text": "Cuando no comulgareis, hijas, y oyereis misa, podéis comulgar espiritualmente, que es de grandísimo provecho.",
+        "text": "Cuando no comulguen, hijos, y oigan la misa, pueden comulgar espiritualmente, que es de grandísimo provecho.",
         "author": "Santa Teresa de Jesús",
         "date": "09-13"
     },
     {
-        "text": "Si vuestro ojo es simple todo vuestro cuerpo lo será.",
+        "text": "Si su ojo es simple todo su cuerpo lo será.",
         "author": "San Francisco de Sales",
         "date": "09-14"
     },
     {
-        "text": "“Lo primero que enseña Cristo Rey, y con su propio ejemplo, a quien quiera luchar por El es la virtud de la humildad, fundamento de las demás virtudes y que permite a uno remontarse hacia las más altas metas con paso seguro.”",
+        "text": "Lo primero que enseña Cristo Rey, y con su propio ejemplo, a quien quiera luchar por Él es la virtud de la humildad, fundamento de las demás virtudes y que permite a uno remontarse hacia las más altas metas con paso seguro.",
         "author": "Santo Tomás Moro",
         "date": "09-15"
     },
     {
-        "text": "Aplíquense ha amar y sufrir amando. Cuando adquirimos la perfecta sabiduría, entonces haremos todo lo que Dios desea de nosotros.",
+        "text": "Aplíquense a amar y sufrir amando. Cuando adquirimos la perfecta sabiduría, entonces haremos todo lo que Dios desea de nosotros.",
         "author": "Santa Margarita Maria",
         "date": "09-16"
     },
@@ -1307,12 +1307,12 @@ const odd: Phrase[] = [
         "date": "09-18"
     },
     {
-        "text": "Harta misericordia nos hace a todos los que quiere Su Majestad entendamos que es El, el que está en el Santísimo Sacramento. Mas que le vean descubiertamente y comunicar sus grandezas y dar de sus tesoros, no quiere sino a los que entiende que mucho desean, porque estos son sus verdaderos amigos.",
-        "author": "Santa Teresa de Avila",
+        "text": "Verdaderamente es venerable aquella ancianidad que no por las canas sino por los méritos blanquea.",
+        "author": "San Ambrosio",
         "date": "09-19"
     },
     {
-        "text": "Y ¿que mayor bien que no ser nada para el mundo ni para nosotros mismos, por ser poseídos de Dios y poseerle a El solo?",
+        "text": "Y ¿qué mayor bien que no ser nada para el mundo ni para nosotros mismos, por ser poseídos de Dios y poseerle a Él solo?",
         "author": "Santa Margarita Maria",
         "date": "09-20"
     },
@@ -1322,52 +1322,52 @@ const odd: Phrase[] = [
         "date": "09-21"
     },
     {
-        "text": "¿Como es posible tener corazón y no amar una tan infinita bondad?",
+        "text": "¿Cómo es posible tener corazón y no amar una tan infinita bondad?",
         "author": "San Francisco de Sales",
         "date": "09-22"
     },
     {
-        "text": "“Felices los que están atentos a las necesidades de los demás, sin sentirse indispensables, porque serán distribuidores de alegría.”",
+        "text": "Felices los que están atentos a las necesidades de los demás, sin sentirse indispensables, porque serán distribuidores de alegría.",
         "author": "Santo Tomás Moro",
         "date": "09-23"
     },
     {
-        "text": "Debemos amar al Santo de los Santos, para hacernos santos: quien nos puede impedir esto, si tenemos un corazón para amar y un corazón para sufrir.",
+        "text": "Debemos amar al Santo de los Santos, para hacernos santos: quién nos puede impedir esto? Si tenemos un corazón para amar y un corazón para sufrir.",
         "author": "Santa Margarita Maria",
         "date": "09-24"
     },
     {
-        "text": "La gracia de Dios es como la lluvia que a todos moja.",
-        "author": "San José Gabriel del Rosario Brochero",
+        "text": "El alma que está enamorada de Dios, es una alma gentil, humilde y paciente.",
+        "author": "San Juan de la Cruz",
         "date": "09-25"
     },
     {
-        "text": " (El Señor) quiere ahora no desampararnos, sino estarse aquí con nosotros.",
+        "text": "(El Señor) quiere ahora no desampararnos, sino estarse aquí con nosotros.",
         "author": "Santa Teresa de Jesús",
         "date": "09-26"
     },
     {
-        "text": "Pienso que si nos llegásemos al Santísimo Sacramento con gran fe y amor, que de una vez bastase para dejarnos ricas ¿cuánto más de tantas?",
-        "author": "Santa Teresa de Jesús",
+        "text": "Amemos a Dios con corazón sencillo y espíritu puro, eso es lo que busca Él por encima de todo.",
+        "author": "San Francisco de Asís",
         "date": "09-27"
     },
     {
-        "text": "Me preguntas por un método para alcanzar la perfección. Yo conozco el amor _ y solo el amor.",
+        "text": "Me preguntas por un método para alcanzar la perfección. Yo conozco el amor y solo el amor.",
         "author": "Santa Teresa de Lisieux",
         "date": "09-28"
     },
     {
-        "text": "“Dios mismo dispuso de modo admirable que su divinidad moderara el influjo en su humanidad de tal modo que pudiera admitir las pasiones de nuestra frágil naturaleza humana, y padecerlas con la intensidad que El quisiera.”",
+        "text": "Dios mismo dispuso de modo admirable que su divinidad moderara el influjo en su humanidad de tal modo que pudiera admitir las pasiones de nuestra frágil naturaleza humana, y padecerlas con la intensidad que El quisiera.",
         "author": "Santo Tomás Moro",
         "date": "09-29"
     },
     {
-        "text": "Procurad tener tal conciencia que os sea lícito gozar a menudo de este Bien.",
-        "author": "Santa Teresa de Jesús",
+        "text": "Entre todas las emociones, sentimientos y afectos del alma, el amor es el único con que la criatura puede corresponder a su creador.",
+        "author": "San Bernardo de Claraval",
         "date": "09-30"
     },
     {
-        "text": "Amemos a Dios y adorémosle con corazón sencillo y espíritu puro, que eso busca El por encima de todo.",
+        "text": "Amemos a Dios y adorémosle con corazón sencillo y espíritu puro, que eso busca Él por encima de todo.",
         "author": "San Francisco de Asís",
         "date": "10-01"
     },
@@ -1377,7 +1377,7 @@ const odd: Phrase[] = [
         "date": "10-02"
     },
     {
-        "text": "Guardad siempre vuestro interior en silencio, hablando poco con las criaturas y mucho con Dios, padeciendo y trabajando por su amor.",
+        "text": "Guarden siempre su interior en silencio, hablando poco con las criaturas y mucho con Dios, padeciendo y trabajando por su amor.",
         "author": "Santa Margarita Maria",
         "date": "10-03"
     },
@@ -1392,12 +1392,12 @@ const odd: Phrase[] = [
         "date": "10-05"
     },
     {
-        "text": "Buscar ocasión de contentarle con el ejercicio de la santa caridad, sintiendo y hablando bien de vuestros prójimos, asistiendo a los pobres cuando podáis, espiritual o corporalmente, mirando a Jesucristo en persona de ellos, y no haciéndoles cosa que no quisiéramos que con nosotros se hiciese.",
+        "text": "Buscar ocasión de contentarle con el ejercicio de la santa caridad, sintiendo y hablando bien del prójimo, asistiendo a los pobres cuando puedan, espiritual o corporalmente, mirando a Jesucristo en persona de ellos, y no haciéndoles cosa que no quisiéramos que con nosotros se hiciese.",
         "author": "Santa Margarita Maria",
         "date": "10-06"
     },
     {
-        "text": "“Si huimos cuando somos conscientes de que para la salvación de nuestra alma o de la de los que nos han sido confiados Dios nos orde­na mantenernos en nuestro lugar y confiar en su ayuda, cometeremos una tontería, incluso si lo hacemos para salvar nuestra vida. Sí, precisamente porque lo hacemos para salvar nuestra vida.”",
+        "text": "Si huimos cuando somos conscientes de que para la salvación de nuestra alma o de la de los que nos han sido confiados Dios nos orde­na mantenernos en nuestro lugar y confiar en su ayuda, cometeremos una tontería, incluso si lo hacemos para salvar nuestra vida. Sí, precisamente porque lo hacemos para salvar nuestra vida.",
         "author": "Santo Tomás Moro",
         "date": "10-07"
     },
@@ -1412,12 +1412,12 @@ const odd: Phrase[] = [
         "date": "10-09"
     },
     {
-        "text": "¡Oh piadosa pobreza a la que se digno abrazar con predilección el Señor Jesucristo, el que gobernaba y gobierna cielo y tierra y, lo que es más, lo dijo y todo fue hecho!",
+        "text": "¡Oh piadosa pobreza a la que se dignó abrazar con predilección el Señor Jesucristo, el que gobernaba y gobierna cielo y tierra y, lo que es más, lo dijo y todo fue hecho!",
         "author": "Santa Clara",
         "date": "10-10"
     },
     {
-        "text": "“Felices los que saben descansar y dormir sin buscar excusas, porque llegarán a ser sabios.”",
+        "text": "Felices los que saben descansar y dormir sin buscar excusas, porque llegarán a ser sabios.",
         "author": "Santo Tomás Moro",
         "date": "10-11"
     },
@@ -1447,7 +1447,7 @@ const odd: Phrase[] = [
         "date": "10-16"
     },
     {
-        "text": "Hermanos y hermanas, tened firmemente fe en lo que creéis: que Cristo volverá. ¿Que importa cuando? Preparaos para su venida. Vivid como si viniera hoy y no tendréis miedo de su venida.",
+        "text": "Hermanos y hermanas, tengan firmemente fe en lo que creen: que Cristo volverá. ¿Qué importa cuando? Prepárense para su venida. Vivan como si viniera hoy y no tendrán miedo de su venida.",
         "author": "San Agustín",
         "date": "10-17"
     },
@@ -1462,7 +1462,7 @@ const odd: Phrase[] = [
         "date": "10-19"
     },
     {
-        "text": "Tened con todos paciencia, para merecer que todos en particular los pobres, acudan a vosotros en sus necesidades. Tened a todo el mundo por amigo y a nadie por enemigo, en cuanto según Dios sea posible.",
+        "text": "Tengan con todos paciencia, para merecer que todos en particular los pobres, acudan a ustedes en sus necesidades. Tengan a todo el mundo por amigo y a nadie por enemigo, en cuanto según Dios sea posible.",
         "author": "Santa Margarita Maria",
         "date": "10-20"
     },
@@ -1497,7 +1497,7 @@ const odd: Phrase[] = [
         "date": "10-26"
     },
     {
-        "text": "Dios os salve, María, Madre de Dios. En Vos está y estuvo todo la plenitud de la gracia y todo bien.",
+        "text": "Dios te salve, María, Madre de Dios. En Vos está y estuvo todo la plenitud de la gracia y todo bien.",
         "author": "San Francisco de Asís",
         "date": "10-27"
     },
@@ -1512,7 +1512,7 @@ const odd: Phrase[] = [
         "date": "10-29"
     },
     {
-        "text": "“Felices sobretodo, ustedes, si saben reconocer al Señor en todos los que encuentran, entonces habrán hallado la paz y la verdadera sabiduría.”",
+        "text": "Felices sobretodo, ustedes, si saben reconocer al Señor en todos los que encuentran, entonces habrán hallado la paz y la verdadera sabiduría.",
         "author": "Santo Tomás Moro",
         "date": "10-30"
     },
@@ -1552,7 +1552,7 @@ const odd: Phrase[] = [
         "date": "11-06"
     },
     {
-        "text": "La fe y la esperanza son las dos alas del alma, con ellas se eleva de las cosas terrenas y asciende de lo visible a lo invisible.",
+        "text": "La Fé y la esperanza son las dos alas del alma, con ellas se eleva de las cosas terrenas y asciende de lo visible a lo invisible.",
         "author": "San Antonio de Padua",
         "date": "11-07"
     },
@@ -1562,12 +1562,12 @@ const odd: Phrase[] = [
         "date": "11-08"
     },
     {
-        "text": "Cuando se ama no se sufre y si se sufre hasta se ama el mismo sufrimiento",
+        "text": "Cuando se ama no se sufre y si se sufre hasta se ama el mismo sufrimiento.",
         "author": "San Agustín",
         "date": "11-09"
     },
     {
-        "text": "“Felices ustedes si son capaces de interpretar siempre con benevolencia las actitudes de los demás",
+        "text": "“Felices ustedes si son capaces de interpretar siempre con benevolencia las actitudes de los demás.",
         "author": "Santo Tomás Moro",
         "date": "11-10"
     },
@@ -1577,12 +1577,12 @@ const odd: Phrase[] = [
         "date": "11-11"
     },
     {
-        "text": "“Si tan amenazado estuviera alguien en el mal que no haya dejado de profesar la verdadera doctrina por miedo, sino que, como Arrio y otros como él , predica falsa doctrina bien por una sórdida ganancia o por una corrupta ambición, ese tal no duerme como Pedro, ni niega como Pedro, sino que permanece bien despierto como el miserable Judas y, como Judas, a Cristo persigue.”",
+        "text": "Si tan amenazado estuviera alguien en el mal que no haya dejado de profesar la verdadera doctrina por miedo, sino que, como Arrio y otros como él, predica falsa doctrina bien por una sórdida ganancia o por una corrupta ambición, ese tal no duerme como Pedro, ni niega como Pedro, sino que permanece bien despierto como el miserable Judas y, como Judas, a Cristo persigue.",
         "author": "Santo Tomás Moro",
         "date": "11-12"
     },
     {
-        "text": "Para ir a Dios hay muchos caminos quizás más excelentes que el que nosotros seguimos; reconozcamos su excelencia, pero pongamos todo nuestro empeño en progresar en el camino en que Dios nos puso, porque allí es donde El nos quiere.",
+        "text": "Para ir a Dios hay muchos caminos quizás más excelentes que el que nosotros seguimos; reconozcamos su excelencia, pero pongamos todo nuestro empeño en progresar en el camino en que Dios nos puso, porque allí es donde Él nos quiere.",
         "author": "San Francisco de Sales",
         "date": "11-13"
     },
@@ -1602,7 +1602,7 @@ const odd: Phrase[] = [
         "date": "11-16"
     },
     {
-        "text": "Me parecía que contemplaba el corazón de vuestro cuerpo sagrado con mis propios ojos, como si me lo abrierais y me dijerais que bebiera de él como una fuente , invitándome a saciarme de las aguas de la salvación en estos manantiales vuestros. Me invadieron ansias de que las aguas de la fe, esperanza y caridad fluyeran de vuestro corazón al mío.",
+        "text": "Me parecía que contemplaba el corazón de su cuerpo sagrado con mis propios ojos, como si me lo abriera y me dijera que bebiera de él como una fuente, invitándome a saciarme de las aguas de la salvación en estos manantiales suyos. Me invadieron ansias de que las aguas de la fe, esperanza y caridad fluyeran de su corazón al mío.",
         "author": "San Pedro Canisio",
         "date": "11-17"
     },
@@ -1637,7 +1637,7 @@ const odd: Phrase[] = [
         "date": "11-23"
     },
     {
-        "text": "“Deberíamos derramar sin cesar sobre Dios jaculatorias y oraciones, implorando con humildad que, si en algún momento, viniéramos a pedir algo que no nos es conveniente, impulsados por los atractivos de la carne, o seducidos por los espejuelos de los placeres, o atraídos por el anhelo de las cosas terrenales, o trastornados por las insidias y maquinaciones del diablo, se haga sordo a nuestra petición y aleje aquello por lo que rezamos, derramando sobre nosotros todo aquello que El sabe nos hará bien, aunque mucho le pidamos lo aparte de nuestra vida.”",
+        "text": "Deberíamos derramar sin cesar sobre Dios jaculatorias y oraciones, implorando con humildad que, si en algún momento, viniéramos a pedir algo que no nos es conveniente, impulsados por los atractivos de la carne, o seducidos por los espejuelos de los placeres, o atraídos por el anhelo de las cosas terrenales, o trastornados por las insidias y maquinaciones del diablo, se haga sordo a nuestra petición y aleje aquello por lo que rezamos, derramando sobre nosotros todo aquello que El sabe nos hará bien, aunque mucho le pidamos lo aparte de nuestra vida.",
         "author": "Santo Tomás Moro",
         "date": "11-24"
     },
@@ -1652,7 +1652,7 @@ const odd: Phrase[] = [
         "date": "11-26"
     },
     {
-        "text": "Por Jesús he preferido ser pobre y trabajar. Ya que El por mi amor se hizo pobre, yo por amor a El quiero serlo.",
+        "text": "Por Jesús he preferido ser pobre y trabajar. Ya que Él por mi amor se hizo pobre, yo por amor a Él quiero serlo.",
         "author": "Santa Teresa de los Andes",
         "date": "11-27"
     },
@@ -1662,7 +1662,7 @@ const odd: Phrase[] = [
         "date": "11-28"
     },
     {
-        "text": "Acabando de recibir al Señor, pués tenéis la misma persona delante, procurad cerrar los ojos del cuerpo y abrir los del alma, y miraros al corazón.",
+        "text": "Acabando de recibir al Señor, pues tienen la misma persona delante, procuren cerrar los ojos del cuerpo y abrir los del alma, y mirar el corazón.",
         "author": "Santa Teresa de Jesús",
         "date": "11-29"
     },
@@ -1672,12 +1672,12 @@ const odd: Phrase[] = [
         "date": "11-30"
     },
     {
-        "text": "“Cuando nos sintamos demasiado atrevidos, recordemos nuestra fragilidad; cuando nos sintamos demasiado desmayadizos, recordemos la fortaleza de Cristo.”",
+        "text": "Cuando nos sintamos demasiado atrevidos, recordemos nuestra fragilidad; cuando nos sintamos demasiado desmayadizos, recordemos la fortaleza de Cristo.",
         "author": "Santo Tomás Moro",
         "date": "12-01"
     },
     {
-        "text": "¡Oh Señor y verdadero Dios mío! Quien no os conoce, no os ama.",
+        "text": "¡Oh Señor y verdadero Dios mío! Quien no te conoce, no te ama.",
         "author": "Santa Teresa de Avila",
         "date": "12-02"
     },
@@ -1687,7 +1687,7 @@ const odd: Phrase[] = [
         "date": "12-03"
     },
     {
-        "text": "“Si los males y desgracias de aquellos que están lejos no nos llegaran a conmover y preocupar, muévanos, al menos, nuestro propio peligro. Pues razón de sobra tenemos para temer que la maldad destructora no tardará en acercarse adonde estamos, de la misma manera que sabemos por experiencia cuan grande e impetuosa es la fuerza devastadora de un incendio, o cuán terrible el contagio de una peste al extenderse. Sin la ayuda de Dios para que desvíe el mal, inútil es todo refugio humano.”",
+        "text": "Si los males y desgracias de aquellos que están lejos no nos llegaran a conmover y preocupar, muévanos, al menos, nuestro propio peligro. Pues razón de sobra tenemos para temer que la maldad destructora no tardará en acercarse adonde estamos, de la misma manera que sabemos por experiencia cuan grande e impetuosa es la fuerza devastadora de un incendio, o cuán terrible el contagio de una peste al extenderse. Sin la ayuda de Dios para que desvíe el mal, inútil es todo refugio humano.",
         "author": "Santo Tomás Moro",
         "date": "12-04"
     },
@@ -1697,7 +1697,7 @@ const odd: Phrase[] = [
         "date": "12-05"
     },
     {
-        "text": "Fe que no irradia, no tiene el espíritu de Cristo.",
+        "text": "Fé que no irradia, no tiene el espíritu de Cristo.",
         "author": "San Alberto Hurtado",
         "date": "12-06"
     },
@@ -1722,17 +1722,17 @@ const odd: Phrase[] = [
         "date": "12-10"
     },
     {
-        "text": "“Si necesito una luz especial y prudencia para desempeñar mis pesadas obligaciones, me acerco a mi Señor y busco Su consejo y luz.”",
+        "text": "Si necesito una luz especial y prudencia para desempeñar mis pesadas obligaciones, me acerco a mi Señor y busco Su consejo y luz.",
         "author": "Santo Tomás Moro",
         "date": "12-11"
     },
     {
-        "text": "“Cuando la razón se rebela contra la verdadera fe de Cristo y se hace adicta a la herejía, huye de Cristo y se convierte en esclava del hereje al que sigue, descarriada por el diablo y perdida en los vericuetos del error.”",
+        "text": "Cuando la razón se rebela contra la verdadera fe de Cristo y se hace adicta a la herejía, huye de Cristo y se convierte en esclava del hereje al que sigue, descarriada por el diablo y perdida en los vericuetos del error.",
         "author": "Santo Tomás Moro",
         "date": "12-12"
     },
     {
-        "text": "El amor de Jesucristo me quita el gusto para todo, las criaturas no tienen atractivo alguno para mi, ni los ángeles ni los arcángeles pueden colmar las ansias de mi corazón, los rayos del sol, cuando contemplo el resplandeciente rostro de mi Amado, me parecen densas tinieblas",
+        "text": "El amor de Jesucristo me quita el gusto para todo, las criaturas no tienen atractivo alguno para mí, ni los ángeles ni los arcángeles pueden colmar las ansias de mi corazón, los rayos del sol, cuando contemplo el resplandeciente rostro de mi Amado, me parecen densas tinieblas.",
         "author": "San Francisco de Asís",
         "date": "12-13"
     },
@@ -1742,7 +1742,7 @@ const odd: Phrase[] = [
         "date": "12-14"
     },
     {
-        "text": "María es como el arco-iris, señal de reconciliación entre Dios y los hombres. Es como un capullo de rosa que abre sus pétalos en pleno invierno; como un lirio que crece junto a la corriente de las aguas; como un incienso que esparce suaves aromas. Ella es un cáliz de oro cubierto de piedras preciosas, un olivo que jamás pierde su follaje, un ciprés que se eleva sobre todos los árboles del bosque.",
+        "text": "María es como el arcoiris, señal de reconciliación entre Dios y los hombres. Es como un capullo de rosa que abre sus pétalos en pleno invierno; como un lirio que crece junto a la corriente de las aguas; como un incienso que esparce suaves aromas. Ella es un cáliz de oro cubierto de piedras preciosas, un olivo que jamás pierde su follaje, un ciprés que se eleva sobre todos los árboles del bosque.",
         "author": "San Antonio de Padua",
         "date": "12-15"
     },
@@ -1802,7 +1802,7 @@ const odd: Phrase[] = [
         "date": "12-26"
     },
     {
-        "text": "“Si me distraigo, la Eucaristía me ayuda a recogerme.”",
+        "text": "Si me distraigo, la Eucaristía me ayuda a recogerme.",
         "author": "Santo Tomás Moro",
         "date": "12-27"
     },
