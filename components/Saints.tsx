@@ -9,8 +9,10 @@ import {
   SafeAreaView,
   Button,
   Linking,
+  ActivityIndicator,
 } from 'react-native'
 import Database from '../db/db'
+import { useFonts, Poppins_400Regular_Italic } from '@expo-google-fonts/poppins'
 
 const db = new Database()
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
@@ -28,13 +30,31 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     backgroundColor: '#024959',
   },
-  saint: {
+  saintView: {
     textAlign: 'left',
     justifyContent: 'flex-start',
   },
-  info: {
+  saintText: {
+    fontSize: 25,
+    color: 'white',
+    fontFamily: 'Poppins_400Regular_Italic',
+  },
+  infoView: {
     alignContent: 'center',
     justifyContent: 'center',
+  },
+  infoText: {
+    fontSize: 20,
+    color: 'white',
+    fontFamily: 'Poppins_400Regular_Italic',
+  },
+  activityContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    padding: 20,
   },
 })
 
@@ -54,6 +74,7 @@ function getTodaysVaticanLink(): string {
 export default function DailySaint() {
   const [dailySaints, setdailySaints] = useState([])
   const [isThereAnyInfo, setisThereAnyInfo] = useState(true)
+  const [fontsLoaded] = useFonts({ Poppins_400Regular_Italic })
 
   useEffect(() => {
     const dailySaints = db.getDailySaints()
@@ -64,15 +85,12 @@ export default function DailySaint() {
 
   const SaintView = ({ _saintObj }) => (
     <View>
-      <View style={styles.saint}>
-        <Text style={{ fontSize: 25, color: 'white' }}>
-          {' '}
-          {_saintObj.saint}{' '}
-        </Text>
+      <View style={styles.saintView}>
+        <Text style={styles.saintText}> {_saintObj.saint} </Text>
       </View>
 
-      <View style={styles.info}>
-        <Text style={{ fontSize: 20, color: 'white' }}>
+      <View style={styles.infoView}>
+        <Text style={styles.infoText}>
           {_saintObj.info}
           {'\n'}{' '}
         </Text>
@@ -81,20 +99,28 @@ export default function DailySaint() {
   )
 
   return isThereAnyInfo ? (
-    <SafeAreaView style={styles.noMeLaContainer}>
-      <FlatList
-        data={dailySaints}
-        renderItem={({ item }) => <SaintView _saintObj={item} />}
-        keyExtractor={saint => saint.saint}
-        ListHeaderComponent={<SaintView _saintObj={dailySaints} />}
-        ListFooterComponent={
-          <Button
-            title='Para leer mas sobre los santos del dia ingresa aquí'
-            onPress={_ => Linking.openURL(getTodaysVaticanLink())}
-          />
-        }
-      />
-    </SafeAreaView>
+    //https://www.youtube.com/watch?v=ZPC2070ZKWA
+    fontsLoaded ? (
+      <SafeAreaView style={styles.noMeLaContainer}>
+        <StatusBar backgroundColor='#024959' />
+        <FlatList
+          data={dailySaints}
+          renderItem={({ item }) => <SaintView _saintObj={item} />}
+          keyExtractor={saint => saint.saint}
+          ListHeaderComponent={<SaintView _saintObj={dailySaints} />}
+          ListFooterComponent={
+            <Button
+              title='Para leer mas sobre los santos del dia ingresa aquí'
+              onPress={_ => Linking.openURL(getTodaysVaticanLink())}
+            />
+          }
+        />
+      </SafeAreaView>
+    ) : (
+      <View style={styles.activityContainer}>
+        <ActivityIndicator size='large' color='#00ff00' />
+      </View>
+    )
   ) : (
     <SafeAreaView style={styles.noMeLaContainer}>
       <Text style={{ fontSize: 30, textAlign: 'center' }}>

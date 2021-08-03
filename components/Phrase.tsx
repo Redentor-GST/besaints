@@ -6,9 +6,12 @@ import {
   ScrollView,
   SafeAreaView,
   StatusBar,
+  ActivityIndicator,
+  View,
 } from 'react-native'
 import Database from '../db/db'
 import { Phrase } from '../utils/interfaces'
+import { useFonts, Poppins_400Regular_Italic } from '@expo-google-fonts/poppins'
 
 const db = new Database()
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
@@ -33,6 +36,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontStyle: 'italic',
     color: 'white',
+    fontFamily: 'Poppins_400Regular_Italic',
   },
   author: {
     alignSelf: 'flex-end',
@@ -40,16 +44,26 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     fontWeight: 'bold',
     color: 'white',
+    fontFamily: 'Poppins_400Regular_Italic',
+  },
+  activityContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    padding: 20,
   },
 })
 
 export default function PhraseView() {
   const [data, setData] = useState(emptyPhrase)
+  const [fontsLoaded] = useFonts({ Poppins_400Regular_Italic })
   //TODO change the view when the user rotates the device
   //const { isRotated } = useDeviceOrientation();
   useEffect(() => setData(db.getDailyPhrase()), [])
 
-  return (
+  return fontsLoaded ? (
     <SafeAreaView style={{ flex: 1 }}>
       {/*This was made by mistake by i actually kinda like it */}
       <StatusBar backgroundColor='#024959' />
@@ -60,5 +74,9 @@ export default function PhraseView() {
         <Text style={styles.author}> {data.author} </Text>
       </ScrollView>
     </SafeAreaView>
+  ) : (
+    <View style={styles.activityContainer}>
+      <ActivityIndicator size='large' color='#00ff00' />
+    </View>
   )
 }
