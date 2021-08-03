@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   ImageBackground,
   Image,
+  TouchableHighlight,
 } from 'react-native'
 import { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
@@ -22,6 +23,8 @@ import { initTasks } from './services/BackgroundTasks'
 import { isLeapYear } from './utils/utils'
 import { daysSince1Jan } from './utils/consts'
 import { FontAwesome } from '@expo/vector-icons'
+import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
+import About from './components/About'
 
 const styles = StyleSheet.create({
   view: {
@@ -54,6 +57,20 @@ const styles = StyleSheet.create({
     padding: 0,
     bottom: 0,
   },
+  buttons: {
+    width: 150,
+    height: 40,
+    backgroundColor: '#11263B',
+    justifyContent: 'center',
+    padding: 9,
+    borderRadius: 5,
+  },
+  buttonsText: {
+    color: 'white',
+    fontSize: 15,
+    fontFamily: 'Poppins_400Regular',
+    textAlign: 'center',
+  },
 })
 
 const Stack = createStackNavigator()
@@ -73,23 +90,35 @@ function homeScreen({ navigation }) {
         style={styles.backgroundImage}
       >
         <Image source={require('./assets/logo.png')} style={styles.logo} />
-        <Button
-          title='Frase del día'
+        <TouchableHighlight
           onPress={() => navigation.navigate('Frase del dia')}
-        />
+          style={styles.buttons}
+        >
+          <Text style={styles.buttonsText}> Frase del día </Text>
+        </TouchableHighlight>
         <View style={{ marginTop: 5 }}>
-          <Button
-            title='Santos del día'
-            onPress={_ => navigation.navigate('Santos del dia')}
-          />
+          <TouchableHighlight
+            onPress={() => navigation.navigate('Santos del dia')}
+            style={styles.buttons}
+          >
+            <Text style={styles.buttonsText}> Santos del día </Text>
+          </TouchableHighlight>
         </View>
         <View style={{ marginTop: 5 }}>
-          <FontAwesome
-            name='gear'
-            size={24}
-            color='black'
-            onPress={_ => navigation.navigate('Ajustes')}
-          />
+          <TouchableHighlight
+            onPress={() => navigation.navigate('Ajustes')}
+            style={styles.buttons}
+          >
+            <Text style={styles.buttonsText}> Ajustes </Text>
+          </TouchableHighlight>
+        </View>
+        <View style={{ marginTop: 5 }}>
+          <TouchableHighlight
+            onPress={() => navigation.navigate('¿Quienes Somos?')}
+            style={styles.buttons}
+          >
+            <Text style={styles.buttonsText}> ¿Quiénes Somos? </Text>
+          </TouchableHighlight>
         </View>
       </ImageBackground>
     </View>
@@ -98,6 +127,7 @@ function homeScreen({ navigation }) {
 // :)
 export default function App() {
   const [backgroundLoaded, setbackgroundLoaded] = useState(false)
+  const [fontsLoaded] = useFonts({ Poppins_400Regular })
 
   useEffect(() => {
     async function init() {
@@ -119,7 +149,7 @@ export default function App() {
     if (!backgroundLoaded) init().then(_ => setbackgroundLoaded(true))
   })
 
-  return backgroundLoaded ? (
+  return backgroundLoaded && fontsLoaded ? (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
@@ -130,6 +160,7 @@ export default function App() {
         <Stack.Screen name='Frase del dia' component={Phrase} />
         <Stack.Screen name='Santos del dia' component={DailySaint} />
         <Stack.Screen name='Ajustes' component={Settings} />
+        <Stack.Screen name='¿Quienes Somos?' component={About} />
       </Stack.Navigator>
     </NavigationContainer>
   ) : (
