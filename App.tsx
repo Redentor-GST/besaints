@@ -6,7 +6,8 @@ import {
   Platform,
   Button,
   SafeAreaView,
-  ActivityIndicator
+  ActivityIndicator,
+  ImageBackground
 } from 'react-native';
 import { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -38,7 +39,8 @@ const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: 'center',
     justifyContent: 'center',
-    color: 'black'
+    color: "black",
+    fontWeight: 'bold'
   },
   activityContainer: {
     justifyContent: 'center',
@@ -62,14 +64,26 @@ function homeScreen({ navigation }) {
         animated={true}
         translucent={true}
       />
-      <Text style={styles.logo}>Be Saints</Text>
-      <Button title='Frase del día' onPress={() => navigation.navigate('Frase del dia')} />
-      <View style={{ marginTop: 5 }}>
-        <Button title='Santos del día' onPress={_ => navigation.navigate('Santos del dia')} />
-      </View>
-      <View style={{ marginTop: 5 }}>
-        <FontAwesome name="gear" size={24} color="black" onPress={_ => navigation.navigate('Ajustes')} />
-      </View>
+      <ImageBackground source={require('./assets/background-original.jpg')}
+        resizeMode={'cover'}
+        style={{
+          width: "112%",
+          height: "112%",
+          alignItems: 'center',
+          justifyContent: 'center',
+          // position: "absolute",
+          padding: 0,
+          bottom: 0,
+        }}>
+        <Text style={styles.logo}>Be Saints</Text>
+        <Button title='Frase del día' onPress={() => navigation.navigate('Frase del dia')} />
+        <View style={{ marginTop: 5 }}>
+          <Button title='Santos del día' onPress={_ => navigation.navigate('Santos del dia')} />
+        </View>
+        <View style={{ marginTop: 5 }}>
+          <FontAwesome name="gear" size={24} color="black" onPress={_ => navigation.navigate('Ajustes')} />
+        </View>
+      </ImageBackground>
     </View >
   )
 }
