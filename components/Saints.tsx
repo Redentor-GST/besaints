@@ -10,6 +10,7 @@ import {
   Button,
   Linking,
   ActivityIndicator,
+  TouchableHighlight
 } from 'react-native'
 import Database from '../db/db'
 import { useFonts, Poppins_400Regular_Italic } from '@expo-google-fonts/poppins'
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: 'white',
     fontFamily: 'Poppins_400Regular_Italic',
+    paddingHorizontal: 20,
   },
   infoView: {
     alignContent: 'center',
@@ -47,6 +49,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     fontFamily: 'Poppins_400Regular_Italic',
+    paddingHorizontal: 20,
   },
   activityContainer: {
     justifyContent: 'center',
@@ -55,6 +58,20 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     padding: 20,
+  },
+  buttons: {
+    // width: 150,
+    // height: 40,
+    backgroundColor: '#11263B',
+    justifyContent: 'center',
+    padding: 9,
+    borderRadius: 5,
+  },
+  buttonsText: {
+    color: 'white',
+    fontSize: 15,
+    fontFamily: 'Poppins_400Regular',
+    textAlign: 'center',
   },
 })
 
@@ -109,10 +126,10 @@ export default function DailySaint() {
           keyExtractor={saint => saint.saint}
           ListHeaderComponent={<SaintView _saintObj={dailySaints} />}
           ListFooterComponent={
-            <Button
-              title='Para leer mas sobre los santos del dia ingresa aquí'
+            <TouchableHighlight
+              style={styles.buttons}
               onPress={_ => Linking.openURL(getTodaysVaticanLink())}
-            />
+            ><Text style={styles.buttonsText}>Para leer más sobre los santos del día ingresa aquí</Text></TouchableHighlight>
           }
         />
       </SafeAreaView>
