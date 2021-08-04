@@ -114,10 +114,10 @@ function homeScreen({ navigation }) {
         </View>
         <View style={{ marginTop: 5 }}>
           <TouchableHighlight
-            onPress={() => navigation.navigate('¿Quienes Somos?')}
+            onPress={() => navigation.navigate('¿Quiénes somos?')}
             style={styles.buttons}
           >
-            <Text style={styles.buttonsText}> ¿Quiénes Somos? </Text>
+            <Text style={styles.buttonsText}> ¿Quiénes somos? </Text>
           </TouchableHighlight>
         </View>
       </ImageBackground>
@@ -167,7 +167,7 @@ export default function App() {
         <Stack.Screen name='Frase del dia' component={Phrase} />
         <Stack.Screen name='Santos del dia' component={DailySaint} />
         <Stack.Screen name='Ajustes' component={Settings} />
-        <Stack.Screen name='¿Quienes Somos?' component={About} />
+        <Stack.Screen name='¿Quiénes somos?' component={About} />
       </Stack.Navigator>
     </NavigationContainer>
   ) : (
