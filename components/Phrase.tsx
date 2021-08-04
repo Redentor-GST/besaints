@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     fontFamily: 'Poppins_400Regular_Italic',
+    marginTop: 10,
   },
   activityContainer: {
     justifyContent: 'center',
@@ -68,9 +69,25 @@ export default function PhraseView() {
       {/*This was made by mistake by i actually kinda like it */}
       <StatusBar backgroundColor='#024959' />
       <ScrollView contentContainerStyle={styles.phraseView}>
+        <View
+          style={{
+            marginBottom: 20,
+            borderBottomColor: 'white',
+            borderBottomWidth: 3,
+            borderRadius: 2
+          }}
+        />
         <Text style={styles.phrase}>
-          {data.text} {'\n'}{' '}
+          {data.text} {' '}
         </Text>
+        <View
+          style={{
+            marginTop: 20,
+            borderBottomColor: 'white',
+            borderBottomWidth: 3,
+            borderRadius: 2
+          }}
+        />
         <Text style={styles.author}> {data.author} </Text>
       </ScrollView>
     </SafeAreaView>
