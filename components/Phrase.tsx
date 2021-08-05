@@ -26,7 +26,7 @@ const emptyPhrase: Phrase = {
 };
 
 const styles = StyleSheet.create({
-  phraseView: {
+  scrollView: {
     flexGrow: 1,
     justifyContent: 'center',
     backgroundColor: '#024959',
@@ -35,20 +35,29 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
   },
   phrase: {
-    textAlign: 'center',
-    fontSize: 30,
-    fontStyle: 'italic',
-    color: 'white',
     fontFamily: 'Poppins_400Regular_Italic',
+    fontSize: 30,
+    textAlign: 'center',
+    color: 'white',
+  },
+  phraseView: {
+    marginBottom: 20,
+    borderBottomColor: 'white',
+    borderBottomWidth: 3,
+    borderRadius: 2,
   },
   author: {
     alignSelf: 'flex-end',
     fontSize: 20,
-    fontStyle: 'italic',
-    fontWeight: 'bold',
     color: 'white',
     fontFamily: 'Poppins_400Regular_Italic',
     marginTop: 10,
+  },
+  authorView: {
+    marginTop: 20,
+    borderBottomColor: 'white',
+    borderBottomWidth: 3,
+    borderRadius: 2,
   },
   activityContainer: {
     justifyContent: 'center',
@@ -69,24 +78,10 @@ export default function PhraseView() {
 
   return fontsLoaded ? (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={styles.phraseView}>
-        <View
-          style={{
-            marginBottom: 20,
-            borderBottomColor: 'white',
-            borderBottomWidth: 3,
-            borderRadius: 2,
-          }}
-        />
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <View style={styles.phraseView} />
         <Text style={styles.phrase}>{data.text} </Text>
-        <View
-          style={{
-            marginTop: 20,
-            borderBottomColor: 'white',
-            borderBottomWidth: 3,
-            borderRadius: 2,
-          }}
-        />
+        <View style={styles.authorView} />
         <Text style={styles.author}> {data.author} </Text>
       </ScrollView>
     </SafeAreaView>

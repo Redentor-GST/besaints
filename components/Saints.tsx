@@ -16,6 +16,7 @@ import Database from '../db/db';
 import {
   useFonts,
   Poppins_400Regular_Italic,
+  Poppins_400Regular,
 } from '@expo-google-fonts/poppins';
 
 const db = new Database();
@@ -94,7 +95,10 @@ function getTodaysVaticanLink(): string {
 export default function DailySaint() {
   const [dailySaints, setdailySaints] = useState([]);
   const [isThereAnyInfo, setisThereAnyInfo] = useState(true);
-  const [fontsLoaded] = useFonts({ Poppins_400Regular_Italic });
+  const [fontsLoaded] = useFonts({
+    Poppins_400Regular_Italic,
+    Poppins_400Regular,
+  });
 
   useEffect(() => {
     const dailySaints = db.getDailySaints();
