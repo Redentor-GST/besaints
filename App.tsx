@@ -21,7 +21,7 @@ import DailySaint from './components/Saints';
 import NotificationsUtils from './utils/notifications';
 import { initTasks } from './services/BackgroundTasks';
 import { isLeapYear } from './utils/utils';
-import { daysSince1Jan } from './utils/consts';
+import { blue, daysSince1Jan, lightblue } from './utils/consts';
 import { FontAwesome } from '@expo/vector-icons';
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import About from './components/About';
@@ -148,7 +148,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerStyle: { backgroundColor: '#024959' },
+          headerStyle: { backgroundColor: blue },
           headerTintColor: 'white',
         }}>
         <Stack.Screen
@@ -167,7 +167,7 @@ export default function App() {
   ) : (
     <View>
       <View style={styles.activityContainer}>
-        <ActivityIndicator size='large' color='#00ff00' />
+        <ActivityIndicator size={60} color={lightblue} />
         <Text>
           {' '}
           Por favor espera mientras terminamos de trabajar en algunas cosas!{' '}

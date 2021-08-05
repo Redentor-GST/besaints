@@ -11,14 +11,13 @@ const IOS_NOTIFICATIONS_LIMIT = 64;
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
   }),
 });
 
 export default class NotificationsUtils {
-
-  constructor() { }
+  constructor() {}
 
   db = new Database();
 
@@ -28,13 +27,22 @@ export default class NotificationsUtils {
   cancelAllScheduledNotifications = async () =>
     await Notifications.cancelAllScheduledNotificationsAsync();
 
+  sendInstantNotification = async () =>
+    await this.scheduleNotification(
+      20,
+      11,
+      { text: '', author: '', date: '' },
+      true
+    );
+
   private async registerForPushNotificationsAsync() {
-    let token = "";
+    let token = '';
     if (!Constants.isDevice) {
       alert('Must use physical device for Push Notifications');
       return;
     }
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
     if (existingStatus !== 'granted') {
       const { status } = await Notifications.requestPermissionsAsync();
@@ -56,56 +64,76 @@ export default class NotificationsUtils {
 
     token = (await Notifications.getExpoPushTokenAsync()).data;
     return token;
-  };
+  }
 
-  private notification = (_title: string, _body: string, dateTrigger: Date, instant: boolean) => {
+  private notification = (
+    _title: string,
+    _body: string,
+    dateTrigger: Date,
+    instant: boolean
+  ) => {
     return {
       content: {
         title: _title,
         body: _body,
         data: {
-          datetrigger: dateTrigger.toString()
-        }
+          datetrigger: dateTrigger.toString(),
+        },
       },
-      trigger: instant ? null :
-        {
-          date: dateTrigger,
-          channelId: 'default',
-          repeats: false,
-          type: 'calendar'
-        }
-    }
-  }
+      trigger: instant
+        ? null
+        : {
+            date: dateTrigger,
+            channelId: 'default',
+            repeats: false,
+            type: 'calendar',
+          },
+    };
+  };
 
-  private async scheduleNotification(triggerHour: number, triggerMinute: number
-    , data: Phrase, instant: boolean = false) {
-
-    if (!await this.db.getShouldSendNotifications()) return;
+  private async scheduleNotification(
+    triggerHour: number,
+    triggerMinute: number,
+    data: Phrase,
+    instant: boolean = false
+  ) {
+    if (!(await this.db.getShouldSendNotifications())) return;
     //:)
     try {
-      const title = "Frase del día";
-      const body = data.text + " " + data.author;
-      const dateTrigger = createDateTrigger(data.date, triggerHour, triggerMinute);
+      const title = 'Frase del día';
+      const body = data.text + ' ' + data.author;
+      const dateTrigger = createDateTrigger(
+        data.date,
+        triggerHour,
+        triggerMinute
+      );
       const notification = this.notification(title, body, dateTrigger, instant);
-      await Notifications.scheduleNotificationAsync(notification)
-    }
-    catch (e) {
-      console.error("Exception in scheduleNotification(): " + e);
+      await Notifications.scheduleNotificationAsync(notification);
+    } catch (e) {
+      console.error('Exception in scheduleNotification(): ' + e);
     }
   }
 
   async scheduleReminderNotification() {
-    if (!await this.db.getShouldSendNotifications()) return;
+    if (!(await this.db.getShouldSendNotifications())) return;
     if (Platform.OS === 'ios') {
       const reminderID = await this.db.getReminderNotificationID();
       if (reminderID)
         await Notifications.cancelScheduledNotificationAsync(reminderID);
     }
     const today = new Date();
-    const title = "Toca renovar frases!";
-    const body = "Abre la aplicación así podemos seguir enviándote notificaciones con frases de Santos durante todo el año!";
+    const title = 'Toca renovar frases!';
+    const body =
+      'Abre la aplicación así podemos seguir enviándote notificaciones con frases de Santos durante todo el año!';
     const androidDate = new Date(today.getFullYear() + 1, 0, 1, 16, 30, 0);
-    const IOSDate = new Date(today.getFullYear(), today.getMonth() + 2, today.getDate(), 16, 30, 0);
+    const IOSDate = new Date(
+      today.getFullYear(),
+      today.getMonth() + 2,
+      today.getDate(),
+      16,
+      30,
+      0
+    );
     const dateTrigger = Platform.OS === 'android' ? androidDate : IOSDate;
     const notification = this.notification(title, body, dateTrigger, false);
     const id = await Notifications.scheduleNotificationAsync(notification);
@@ -116,17 +144,21 @@ export default class NotificationsUtils {
     const phrases = this.db.getAllPhrases();
     const timeTrigger = await this.db.getTimeTrigger();
     const hourTrigger = timeTrigger ? timeTrigger.hour : defaultTrigger.hour;
-    const minuteTrigger = timeTrigger ? timeTrigger.minute : defaultTrigger.minute;
+    const minuteTrigger = timeTrigger
+      ? timeTrigger.minute
+      : defaultTrigger.minute;
     const daysSinceYearsStarted = daysSince1Jan();
-    const token = await this.registerForPushNotificationsAsync()
-      .catch(e => console.error("Exception in registerNotifs: " + e))
+    const token = await this.registerForPushNotificationsAsync().catch(e =>
+      console.error('Exception in registerNotifs: ' + e)
+    );
     if (!token) return;
     const phrasesAndroid = phrases.slice(daysSinceYearsStarted);
     const phrasesIOS = phrasesAndroid.slice(0, IOS_NOTIFICATIONS_LIMIT);
-    for (const phrase of Platform.OS === 'android' ? phrasesAndroid : phrasesIOS) {
+    for (const phrase of Platform.OS === 'android'
+      ? phrasesAndroid
+      : phrasesIOS) {
       await this.scheduleNotification(hourTrigger, minuteTrigger, phrase);
     }
     await this.scheduleReminderNotification();
   }
 }
-

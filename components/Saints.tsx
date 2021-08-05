@@ -18,6 +18,7 @@ import {
   Poppins_400Regular_Italic,
   Poppins_400Regular,
 } from '@expo-google-fonts/poppins';
+import { lightblue } from '../utils/consts';
 
 const db = new Database();
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
@@ -144,7 +145,7 @@ export default function DailySaint() {
       </SafeAreaView>
     ) : (
       <View style={styles.activityContainer}>
-        <ActivityIndicator size='large' color='#00ff00' />
+        <ActivityIndicator size={60} color={lightblue} />
       </View>
     )
   ) : (
