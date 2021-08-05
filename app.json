@@ -4,7 +4,7 @@
     "slug": "besaints",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/bs-icon.png",
+    "icon": "./assets/icon1024.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -13,32 +13,18 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "plugins": [
-      [
-        "expo-notifications",
-        {
-          "icon": "./assets/bs-icon.png"
-        }
-      ]
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {},
       "bundleIdentifier": "be.saints.client"
     },
+    "notification": {
+      "icon": "./assets/notiflogo.png"
+    },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/bs-icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
       "googleServicesFile": "./google-services.json",
       "package": "be.saints.client"
-    },
-    "web": {
-      "favicon": "./assets/bs-icon.png"
     }
   }
 }
