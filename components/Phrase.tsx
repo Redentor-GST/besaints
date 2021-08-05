@@ -15,6 +15,7 @@ import {
   useFonts,
   Poppins_400Regular_Italic,
 } from '@expo-google-fonts/poppins';
+import { blue, lightblue } from '../utils/consts';
 
 const db = new Database();
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
   scrollView: {
     flexGrow: 1,
     justifyContent: 'center',
-    backgroundColor: '#024959',
+    backgroundColor: blue,
     width: '100%',
     height: '100%',
     paddingHorizontal: 25,
@@ -87,7 +88,7 @@ export default function PhraseView() {
     </SafeAreaView>
   ) : (
     <View style={styles.activityContainer}>
-      <ActivityIndicator size='large' color='#00ff00' />
+      <ActivityIndicator size={60} color={lightblue} />
     </View>
   );
 }

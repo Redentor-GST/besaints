@@ -8,17 +8,21 @@ import {
   StatusBar,
   ActivityIndicator,
   View,
+  Linking,
+  TouchableHighlight,
 } from 'react-native';
 import {
   useFonts,
   Poppins_400Regular_Italic,
+  Poppins_400Regular,
 } from '@expo-google-fonts/poppins';
+import { blue, crossblue, lightblue } from '../utils/consts';
 
 const styles = StyleSheet.create({
   phraseView: {
     flexGrow: 1,
     justifyContent: 'center',
-    backgroundColor: '#024959',
+    backgroundColor: blue,
     width: '100%',
     height: '100%',
     paddingHorizontal: 25,
@@ -26,15 +30,16 @@ const styles = StyleSheet.create({
   phrase: {
     textAlign: 'center',
     fontSize: 20,
-    fontStyle: 'italic',
     color: 'white',
     fontFamily: 'Poppins_400Regular_Italic',
   },
+  footnoteView: {
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
   footnote: {
-    alignSelf: 'flex-end',
     fontSize: 10,
-    fontStyle: 'italic',
-    fontWeight: 'bold',
     color: 'white',
     fontFamily: 'Poppins_400Regular_Italic',
   },
@@ -46,10 +51,30 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     padding: 20,
   },
+  buttonView: {
+    alignItems: 'center',
+    paddingTop: 20,
+  },
+  buttons: {
+    width: 150,
+    height: 40,
+    backgroundColor: crossblue,
+    padding: 9,
+    borderRadius: 5,
+  },
+  buttonsText: {
+    color: 'white',
+    fontSize: 15,
+    fontFamily: 'Poppins_400Regular',
+    textAlign: 'center',
+  },
 });
 
 export default function About() {
-  const [fontsLoaded] = useFonts({ Poppins_400Regular_Italic });
+  const [fontsLoaded] = useFonts({
+    Poppins_400Regular_Italic,
+    Poppins_400Regular,
+  });
 
   return fontsLoaded ? (
     <SafeAreaView style={{ flex: 1 }}>
@@ -66,14 +91,24 @@ export default function About() {
           de la virtud arda en tu corazón.
           {'\n\n'}
         </Text>
-        <Text style={styles.footnote}>
-          Redentor 2021 ©. Todos los derechos reservados.
-        </Text>
+        <View style={styles.buttonView}>
+          <TouchableHighlight
+            onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}
+            style={styles.buttons}>
+            <Text style={styles.buttonsText}> Escribinos! </Text>
+          </TouchableHighlight>
+        </View>
+        <View style={styles.footnoteView}>
+          <Text style={styles.footnote}>
+            {'\n\n'}
+            Redentor 2021 ©. Todos los derechos reservados.
+          </Text>
+        </View>
       </ScrollView>
     </SafeAreaView>
   ) : (
     <View style={styles.activityContainer}>
-      <ActivityIndicator size='large' color='#00ff00' />
+      <ActivityIndicator size={60} color={lightblue} />
     </View>
   );
 }
