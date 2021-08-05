@@ -10,21 +10,21 @@ import {
   ImageBackground,
   Image,
   TouchableHighlight,
-} from 'react-native'
-import { useEffect, useState } from 'react'
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
-import * as React from 'react'
-import Phrase from './components/Phrase'
-import Settings from './components/Settings'
-import DailySaint from './components/Saints'
-import NotificationsUtils from './utils/notifications'
-import { initTasks } from './services/BackgroundTasks'
-import { isLeapYear } from './utils/utils'
-import { daysSince1Jan } from './utils/consts'
-import { FontAwesome } from '@expo/vector-icons'
-import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
-import About from './components/About'
+} from 'react-native';
+import { useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import * as React from 'react';
+import Phrase from './components/Phrase';
+import Settings from './components/Settings';
+import DailySaint from './components/Saints';
+import NotificationsUtils from './utils/notifications';
+import { initTasks } from './services/BackgroundTasks';
+import { isLeapYear } from './utils/utils';
+import { daysSince1Jan } from './utils/consts';
+import { FontAwesome } from '@expo/vector-icons';
+import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import About from './components/About';
 
 const styles = StyleSheet.create({
   view: {
@@ -71,9 +71,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_400Regular',
     textAlign: 'center',
   },
-})
+});
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator();
 
 function homeScreen({ navigation }) {
   return (
@@ -87,67 +87,62 @@ function homeScreen({ navigation }) {
       <ImageBackground
         source={require('./assets/background-original.jpg')}
         resizeMode={'cover'}
-        style={styles.backgroundImage}
-      >
+        style={styles.backgroundImage}>
         <Image source={require('./assets/logo.png')} style={styles.logo} />
         <TouchableHighlight
           onPress={() => navigation.navigate('Frase del dia')}
-          style={styles.buttons}
-        >
+          style={styles.buttons}>
           <Text style={styles.buttonsText}> Frase del día </Text>
         </TouchableHighlight>
         <View style={{ marginTop: 5 }}>
           <TouchableHighlight
             onPress={() => navigation.navigate('Santos del dia')}
-            style={styles.buttons}
-          >
+            style={styles.buttons}>
             <Text style={styles.buttonsText}> Santos del día </Text>
           </TouchableHighlight>
         </View>
         <View style={{ marginTop: 5 }}>
           <TouchableHighlight
             onPress={() => navigation.navigate('Ajustes')}
-            style={styles.buttons}
-          >
+            style={styles.buttons}>
             <Text style={styles.buttonsText}> Ajustes </Text>
           </TouchableHighlight>
         </View>
         <View style={{ marginTop: 5 }}>
           <TouchableHighlight
             onPress={() => navigation.navigate('¿Quiénes somos?')}
-            style={styles.buttons}
-          >
+            style={styles.buttons}>
             <Text style={styles.buttonsText}> ¿Quiénes somos? </Text>
           </TouchableHighlight>
         </View>
       </ImageBackground>
     </View>
-  )
+  );
 }
 // :)
 export default function App() {
-  const [backgroundLoaded, setbackgroundLoaded] = useState(false)
-  const [fontsLoaded] = useFonts({ Poppins_400Regular })
+  const [backgroundLoaded, setbackgroundLoaded] = useState(false);
+  const [fontsLoaded] = useFonts({ Poppins_400Regular });
 
   useEffect(() => {
     async function init() {
-      const nu = new NotificationsUtils()
+      const nu = new NotificationsUtils();
 
-      const scheduledNotifs = await nu.getAllScheduledNotifications()
-      const daysSinceYearStarted = daysSince1Jan()
+      const scheduledNotifs = await nu.getAllScheduledNotifications();
+      const daysSinceYearStarted = daysSince1Jan();
       const leftingDays = isLeapYear()
         ? 366 - daysSinceYearStarted
-        : 365 - daysSinceYearStarted
+        : 365 - daysSinceYearStarted;
       if (
         scheduledNotifs.length === 0 ||
         scheduledNotifs.length + 1 < leftingDays
       )
-        await nu.scheduleAllYearlyNotifications()
+        await nu.scheduleAllYearlyNotifications();
 
-      await initTasks()
+      await initTasks();
     }
-    if (!backgroundLoaded) init().then(_ => setbackgroundLoaded(true))
-  })
+    if (!backgroundLoaded) init().then(_ => setbackgroundLoaded(true));
+  });
 
   return backgroundLoaded && fontsLoaded ? (
     <NavigationContainer>
@@ -155,8 +150,7 @@ export default function App() {
         screenOptions={{
           headerStyle: { backgroundColor: '#024959' },
           headerTintColor: 'white',
-        }}
-      >
+        }}>
         <Stack.Screen
           name='Home'
           component={homeScreen}
@@ -179,13 +173,10 @@ export default function App() {
           Por favor espera mientras terminamos de trabajar en algunas cosas!{' '}
         </Text>
         <Text> Este proceso toma solo unos segundos</Text>
-        <Text>
-          {' '}
-          Podes salir de la aplicación mientras esto termina (pero por favor no
-          la cierres){' '}
-        </Text>
+        <Text> Podes salir de la aplicación mientras esto termina</Text>
+        <Text>(pero por favor no la cierres) </Text>
         <Text> Este proceso toma lugar sólo una vez al año </Text>
       </View>
     </View>
-  )
+  );
 }
