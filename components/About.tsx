@@ -9,9 +9,10 @@ import {
   ActivityIndicator,
   View,
 } from 'react-native';
-import { useFonts, Poppins_400Regular_Italic } from '@expo-google-fonts/poppins';
-
-
+import {
+  useFonts,
+  Poppins_400Regular_Italic,
+} from '@expo-google-fonts/poppins';
 
 const styles = StyleSheet.create({
   phraseView: {
@@ -45,30 +46,34 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     padding: 20,
   },
-})
+});
 
 export default function About() {
-  const [fontsLoaded] = useFonts({ Poppins_400Regular_Italic })
+  const [fontsLoaded] = useFonts({ Poppins_400Regular_Italic });
 
   return fontsLoaded ? (
     <SafeAreaView style={{ flex: 1 }}>
-      {/*This was made by mistake by i actually kinda like it */}
-      <StatusBar backgroundColor='#024959' />
       <ScrollView contentContainerStyle={styles.phraseView}>
         <Text style={styles.phrase}>
-          Redentor es una organización cuyo objetivo es transmitir el mensaje de Jesús a través de la vida de los Santos a la mayor cantidad de personas posible.
+          Redentor es una organización cuyo objetivo es transmitir el mensaje de
+          Jesús a través de la vida de los Santos a la mayor cantidad de
+          personas posible.
           {'\n\n'}
-          BeSaints es nuestra primera aplicación, disponible tanto para iOS como en Android.
+          BeSaints es nuestra primera aplicación, disponible tanto para iOS como
+          en Android.
           {'\n\n'}
-          Esperamos que te podamos inspirar con nuestras frases y que la llama de la virtud arda en tu corazón.
+          Esperamos que te podamos inspirar con nuestras frases y que la llama
+          de la virtud arda en tu corazón.
           {'\n\n'}
         </Text>
-        <Text style={styles.footnote}>Redentor 2021 ©. Todos los derechos reservados.</Text>
+        <Text style={styles.footnote}>
+          Redentor 2021 ©. Todos los derechos reservados.
+        </Text>
       </ScrollView>
     </SafeAreaView>
   ) : (
     <View style={styles.activityContainer}>
       <ActivityIndicator size='large' color='#00ff00' />
     </View>
-  )
+  );
 }
