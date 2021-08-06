@@ -23,7 +23,12 @@
     },
     "android": {
       "googleServicesFile": "./google-services.json",
-      "package": "be.saints.client"
+      "package": "be.saints.client",
+      "adaptiveIcon": {
+        "backgroundImage": "./assets/applogo.png",
+        "foregroundImage": "./assets/applogo.png",
+        "backgroundColor": "#ffffff00"
+      }
     }
   }
 }
