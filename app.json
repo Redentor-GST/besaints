@@ -4,11 +4,10 @@
     "slug": "besaints",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon1024.png",
+    "icon": "./assets/applogo.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "contain"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
