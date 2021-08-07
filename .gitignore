@@ -84,3 +84,6 @@ metro.config.js
 ios/
 android/
 eas.json
+android
+ios
+google-services.json

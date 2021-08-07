@@ -4,41 +4,31 @@
     "slug": "besaints",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/bs-icon.png",
+    "icon": "./assets/applogo.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "contain"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "plugins": [
-      [
-        "expo-notifications",
-        {
-          "icon": "./assets/bs-icon.png"
-        }
-      ]
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {},
       "bundleIdentifier": "be.saints.client"
     },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/bs-icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "googleServicesFile": "./google-services.json",
-      "package": "be.saints.client"
+    "notification": {
+      "icon": "./assets/notiflogo.png"
     },
-    "web": {
-      "favicon": "./assets/bs-icon.png"
+    "android": {
+      "googleServicesFile": "./google-services.json",
+      "package": "be.saints.client",
+      "adaptiveIcon": {
+        "backgroundImage": "./assets/applogo.png",
+        "foregroundImage": "./assets/applogo.png",
+        "backgroundColor": "#ffffff00"
+      }
     }
   }
 }

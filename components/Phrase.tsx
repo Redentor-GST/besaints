@@ -4,55 +4,91 @@ import {
   StyleSheet,
   Platform,
   ScrollView,
-  SafeAreaView
+  SafeAreaView,
+  StatusBar,
+  ActivityIndicator,
+  View,
 } from 'react-native';
 import Database from '../db/db';
 import { Phrase } from '../utils/interfaces';
+import {
+  useFonts,
+  Poppins_400Regular_Italic,
+} from '@expo-google-fonts/poppins';
+import { blue, lightblue } from '../utils/consts';
 
 const db = new Database();
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
 const emptyPhrase: Phrase = {
-  text: "",
-  author: "",
-  date: ""
-}
+  text: '',
+  author: '',
+  date: '',
+};
 
 const styles = StyleSheet.create({
-  phraseView: {
-    marginHorizontal: 10,
+  scrollView: {
     flexGrow: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: blue,
+    width: '100%',
+    height: '100%',
+    paddingHorizontal: 25,
   },
   phrase: {
-    textAlign: 'center',
+    fontFamily: 'Poppins_400Regular_Italic',
     fontSize: 30,
-    fontStyle: 'italic',
-    color: 'black',
+    textAlign: 'center',
+    color: 'white',
+  },
+  phraseView: {
+    marginBottom: 20,
+    borderBottomColor: 'white',
+    borderBottomWidth: 3,
+    borderRadius: 2,
   },
   author: {
-    textAlign: 'right',
-    justifyContent: 'flex-end',
     alignSelf: 'flex-end',
     fontSize: 20,
-    fontStyle: 'italic'
-  }
-})
+    color: 'white',
+    fontFamily: 'Poppins_400Regular_Italic',
+    marginTop: 10,
+  },
+  authorView: {
+    marginTop: 20,
+    borderBottomColor: 'white',
+    borderBottomWidth: 3,
+    borderRadius: 2,
+  },
+  activityContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    padding: 20,
+  },
+});
 
 export default function PhraseView() {
   const [data, setData] = useState(emptyPhrase);
+  const [fontsLoaded] = useFonts({ Poppins_400Regular_Italic });
   //TODO change the view when the user rotates the device
   //const { isRotated } = useDeviceOrientation();
-  useEffect(() =>
-    setData(db.getDailyPhrase())
-    , []);
+  useEffect(() => setData(db.getDailyPhrase()), []);
 
-  return (
+  return fontsLoaded ? (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={styles.phraseView}>
-        <Text style={styles.phrase}>{data.text}</Text>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <View style={styles.phraseView} />
+        <Text style={styles.phrase}>{data.text} </Text>
+        <View style={styles.authorView} />
         <Text style={styles.author}> {data.author} </Text>
       </ScrollView>
     </SafeAreaView>
-  )
+  ) : (
+    <View style={styles.activityContainer}>
+      <ActivityIndicator size={60} color={lightblue} />
+    </View>
+  );
 }
