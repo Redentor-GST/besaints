@@ -107,8 +107,13 @@ export default class NotificationsUtils {
         triggerHour,
         triggerMinute
       );
-      const notification = this.notification(title, body, dateTrigger, instant);
-      await Notifications.scheduleNotificationAsync(notification);
+      const today = new Date();
+
+      if (today <= dateTrigger) {
+        const notification = this.notification(title, body, dateTrigger, instant);
+        await Notifications.scheduleNotificationAsync(notification);
+
+      }
     } catch (e) {
       console.error('Exception in scheduleNotification(): ' + e);
     }
