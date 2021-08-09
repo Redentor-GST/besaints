@@ -14,7 +14,8 @@ import Database from '../db/db';
 import NotificationsUtils from '../utils/notifications';
 import ToggleSwitch from 'toggle-switch-react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { lightblue } from '../utils/consts';
+import { blue, lightblue } from '../utils/consts';
+import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 
 const db = new Database();
 
@@ -27,10 +28,24 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     padding: 20,
   },
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  containers: {
+    backgroundColor: '#D3D3D3',
+    width: '100%',
+    height: 30,
+    justifyContent: 'center',
+  },
+  label: {
+    fontFamily: 'Poppins_400Regular',
+    color: 'black',
+    fontWeight: '900',
+  },
 });
 
 export default function Settings() {
-  const [date, setDate] = useState(new Date(1598051730000));
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [ssn, setssn] = useState(true);
@@ -38,11 +53,13 @@ export default function Settings() {
   const [ssnLoaded, setssnLoaded] = useState(false);
   const [notifDateTrigger, setnotifDateTrigger] = useState(new Date());
   const [loadingNotifications, setloadingNotifications] = useState(false);
+  const [fontsLoaded] = useFonts({ Poppins_400Regular });
 
   const onChange = async (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+    const currentDate = selectedDate || notifDateTrigger;
+    //If the user didn't change the time, do nothing
     setShow(Platform.OS === 'ios');
-    setDate(currentDate);
+    if (currentDate.getTime() === notifDateTrigger.getTime()) return;
     setnotifDateTrigger(currentDate);
     const nu = new NotificationsUtils();
     await nu.cancelAllScheduledNotifications();
@@ -95,32 +112,28 @@ export default function Settings() {
     setssn(!_ssn);
   }
 
-  return ssnLoaded && !loadingNotifications ? (
-    <View style={{ marginTop: 5 }}>
-      <View
-        style={{
-          flex: 1,
-          marginTop: 5,
-        }}>
+  return ssnLoaded && !loadingNotifications && fontsLoaded ? (
+    <View style={styles.container}>
+      <View style={styles.containers}>
         <ToggleSwitch
           isOn={ssn}
           onColor='green'
           offColor='red'
           label='Enviar Notificaciones'
-          labelStyle={{ color: 'black', fontWeight: '900' }}
+          labelStyle={styles.label}
           size='small'
           onToggle={async _ => await changessn()}
           animationSpeed={50}
         />
       </View>
-      <View style={{ marginTop: 5 }}>
+      <View style={[styles.containers, { marginTop: 10 }]}>
         <Ionicons.Button
           name='alarm'
           size={20}
           color='black'
           onPress={showTimepicker}
           backgroundColor={'transparent'}>
-          <Text style={{ color: 'blue' }}>
+          <Text style={{ color: 'black', fontFamily: 'Poppins_400Regular' }}>
             {' '}
             Definir Horario de Notificaciones{' '}
           </Text>
@@ -138,21 +151,6 @@ export default function Settings() {
           />
         )}
       </View>
-      <Text> v0.9.9 </Text>
-      {/**
-            * DEBUG
-            <Button title='Log reminder' onPress={_ => findReminder().then(chosenNotif => console.log(chosenNotif))} />
-            <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
-            <Button title='How Many' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res.length))}></Button>
-            <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} />
-            <Button
-              title='Instant Notification'
-              onPress={async () =>
-                await new NotificationsUtils().sendInstantNotification()
-              }
-            />
-            <Button title='Clear Database' onPress={_ => db.clear()} />
-            */}
     </View>
   ) : (
     <View style={styles.activityIndicatorView}>
@@ -165,4 +163,17 @@ export default function Settings() {
     </View>
   );
 }
-//:)
+/**
+  * DEBUG
+  <Button title='Log reminder' onPress={_ => findReminder().then(chosenNotif => console.log(chosenNotif))} />
+  <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
+  <Button title='How Many' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res.length))}></Button>
+  <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} />
+  <Button
+    title='Instant Notification'
+    onPress={async () =>
+      await new NotificationsUtils().sendInstantNotification()
+    }
+  />
+  <Button title='Clear Database' onPress={_ => db.clear()} />
+*/
