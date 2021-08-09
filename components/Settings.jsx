@@ -61,6 +61,7 @@ export default function Settings() {
     setShow(Platform.OS === 'ios');
     if (currentDate.getTime() === notifDateTrigger.getTime()) return;
     setnotifDateTrigger(currentDate);
+    setloadingNotifications(true);
     const nu = new NotificationsUtils();
     await nu.cancelAllScheduledNotifications();
     const timeTrigger = {
@@ -68,7 +69,6 @@ export default function Settings() {
       minute: currentDate.getMinutes(),
     };
     await db.setTimeTrigger(timeTrigger);
-    setloadingNotifications(true);
     await nu.scheduleAllYearlyNotifications();
     setloadingNotifications(false);
   };
