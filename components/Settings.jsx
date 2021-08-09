@@ -29,19 +29,30 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   container: {
+    marginTop: 15,
     flex: 1,
     flexDirection: 'column',
+    alignItems: 'center',
   },
-  containers: {
-    backgroundColor: '#D3D3D3',
-    width: '100%',
-    height: 30,
+  button: {
+    width: 170,
+    height: 40,
+    backgroundColor: blue,
     justifyContent: 'center',
+    padding: 9,
+    borderRadius: 5,
   },
   label: {
     fontFamily: 'Poppins_400Regular',
     color: 'black',
     fontWeight: '900',
+  },
+  notifsText: {
+    color: 'white',
+    fontFamily: 'Poppins_400Regular',
+    textAlign: 'center',
+    //!MMMMMMMMM
+    paddingRight: 20,
   },
 });
 
@@ -114,7 +125,7 @@ export default function Settings() {
 
   return ssnLoaded && !loadingNotifications && fontsLoaded ? (
     <View style={styles.container}>
-      <View style={styles.containers}>
+      <View style={{ alignItems: 'center' }}>
         <ToggleSwitch
           isOn={ssn}
           onColor='green'
@@ -126,16 +137,15 @@ export default function Settings() {
           animationSpeed={50}
         />
       </View>
-      <View style={[styles.containers, { marginTop: 10 }]}>
+      <View style={[styles.button, { marginTop: 10 }]}>
         <Ionicons.Button
           name='alarm'
           size={20}
-          color='black'
+          color='white'
           onPress={showTimepicker}
           backgroundColor={'transparent'}>
-          <Text style={{ color: 'black', fontFamily: 'Poppins_400Regular' }}>
-            {' '}
-            Definir Horario de Notificaciones{' '}
+          <Text style={styles.notifsText}>
+            Definir Horario de Notificaciones
           </Text>
         </Ionicons.Button>
         {show && (
