@@ -24,12 +24,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: blue,
     width: '100%',
-    height: '100%',
     paddingHorizontal: 25,
   },
   phrase: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 25,
     color: 'white',
     fontFamily: 'Poppins_400Regular_Italic',
   },
