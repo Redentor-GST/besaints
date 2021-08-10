@@ -35,12 +35,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    width: 170,
+    width: 175,
     height: 40,
+    marginLeft: 5,
     backgroundColor: blue,
     justifyContent: 'center',
     padding: 9,
     borderRadius: 5,
+    marginTop: 10,
   },
   label: {
     fontFamily: 'Poppins_400Regular',
@@ -137,7 +139,7 @@ export default function Settings() {
           animationSpeed={50}
         />
       </View>
-      <View style={[styles.button, { marginTop: 10 }]}>
+      <View style={styles.button}>
         <Ionicons.Button
           name='alarm'
           size={20}
