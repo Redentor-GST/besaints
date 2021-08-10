@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: blue,
     width: '100%',
-    height: '100%',
     paddingHorizontal: 25,
   },
   phrase: {
@@ -43,8 +42,8 @@ const styles = StyleSheet.create({
   },
   phraseView: {
     marginBottom: 20,
-    borderBottomColor: 'white',
-    borderBottomWidth: 3,
+    borderTopColor: 'white',
+    borderTopWidth: 3,
     borderRadius: 2,
   },
   author: {
@@ -78,14 +77,23 @@ export default function PhraseView() {
   useEffect(() => setData(db.getDailyPhrase()), []);
 
   return fontsLoaded ? (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View
+      style={{ flex: 1, backgroundColor: 'white', width: '100%', height: 1 }}>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <View style={styles.phraseView} />
-        <Text style={styles.phrase}>{data.text} </Text>
-        <View style={styles.authorView} />
-        <Text style={styles.author}> {data.author} </Text>
+        <View style={styles.phraseView}>
+          <Text style={styles.phrase}>
+            {' '}
+            {'\n'} {data.text}{' '}
+          </Text>
+        </View>
+        <View style={styles.authorView}>
+          <Text style={styles.author}>
+            {' '}
+            {data.author} {'\n'}{' '}
+          </Text>
+        </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   ) : (
     <View style={styles.activityContainer}>
       <ActivityIndicator size={60} color={lightblue} />
