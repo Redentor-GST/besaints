@@ -35,14 +35,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    width: 175,
-    height: 40,
-    marginLeft: 5,
     backgroundColor: blue,
     justifyContent: 'center',
     padding: 9,
     borderRadius: 5,
     marginTop: 10,
+    width: '40%',
+    height: '6%',
   },
   label: {
     fontFamily: 'Poppins_400Regular',
