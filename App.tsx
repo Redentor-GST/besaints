@@ -168,14 +168,15 @@ export default function App() {
     <View>
       <View style={styles.activityContainer}>
         <ActivityIndicator size={60} color={lightblue} />
-        <Text>
+        <Text style={{ textAlign: 'center' }}>
           {' '}
-          Por favor espera mientras terminamos de trabajar en algunas cosas!{' '}
+          Por favor espera mientras terminamos de trabajar en algunas cosas!
+          {'\n'}
+          Este proceso toma solo unos segundos {'\n'}
+          Podes salir de la aplicación mientras esto termina {'\n'}
+          (pero por favor no la cierres) {'\n'}
+          Este proceso toma lugar sólo una vez al año {'\n'}
         </Text>
-        <Text> Este proceso toma solo unos segundos</Text>
-        <Text> Podes salir de la aplicación mientras esto termina</Text>
-        <Text>(pero por favor no la cierres) </Text>
-        <Text> Este proceso toma lugar sólo una vez al año </Text>
       </View>
     </View>
   );
