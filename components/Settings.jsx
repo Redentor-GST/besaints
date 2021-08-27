@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_400Regular',
     textAlign: 'center',
     //!MMMMMMMMM
-    paddingRight: 20,
+    paddingRight: 25,
+    fontSize: 11,
   },
 });
 
@@ -145,7 +146,7 @@ export default function Settings() {
           color='white'
           onPress={showTimepicker}
           backgroundColor={'transparent'}>
-          <Text style={styles.notifsText}>
+          <Text allowFontScaling={false} style={styles.notifsText}>
             Definir Horario de Notificaciones
           </Text>
         </Ionicons.Button>
