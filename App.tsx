@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
   },
   logo: {
     //If you want to resize the logo just change the width, dont touch the height
-    width: 350,
-    height: 150,
+    width: '90%',
+    height: '22%',
   },
   activityContainer: {
     justifyContent: 'center',
@@ -58,16 +58,16 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   buttons: {
-    width: 150,
-    height: 40,
+    width: '35%',
+    height: '4%',
     backgroundColor: '#11263B',
     justifyContent: 'center',
-    padding: 9,
+    padding: '4%',
     borderRadius: 5,
   },
   buttonsText: {
     color: 'white',
-    fontSize: 15,
+    fontSize: 14,
     fontFamily: 'Poppins_400Regular',
     textAlign: 'center',
   },
@@ -92,27 +92,39 @@ function homeScreen({ navigation }) {
         <TouchableHighlight
           onPress={() => navigation.navigate('Frase del dia')}
           style={styles.buttons}>
-          <Text style={styles.buttonsText}> Frase del día </Text>
+          <Text allowFontScaling={false} style={styles.buttonsText}>
+            {' '}
+            Frase del día{' '}
+          </Text>
         </TouchableHighlight>
         <View style={{ marginTop: 5 }}>
           <TouchableHighlight
             onPress={() => navigation.navigate('Santos del dia')}
             style={styles.buttons}>
-            <Text style={styles.buttonsText}> Santos del día </Text>
+            <Text allowFontScaling={false} style={styles.buttonsText}>
+              {'    '}
+              Santos del día{'    '}
+            </Text>
           </TouchableHighlight>
         </View>
         <View style={{ marginTop: 5 }}>
           <TouchableHighlight
             onPress={() => navigation.navigate('Ajustes')}
             style={styles.buttons}>
-            <Text style={styles.buttonsText}> Ajustes </Text>
+            <Text allowFontScaling={false} style={styles.buttonsText}>
+              {'           '}
+              Ajustes{'         '}
+            </Text>
           </TouchableHighlight>
         </View>
         <View style={{ marginTop: 5 }}>
           <TouchableHighlight
             onPress={() => navigation.navigate('¿Quiénes somos?')}
             style={styles.buttons}>
-            <Text style={styles.buttonsText}> ¿Quiénes somos? </Text>
+            <Text allowFontScaling={false} style={styles.buttonsText}>
+              {' '}
+              ¿Quiénes somos?{' '}
+            </Text>
           </TouchableHighlight>
         </View>
       </ImageBackground>
