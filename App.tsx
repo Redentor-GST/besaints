@@ -4,8 +4,6 @@ import {
   StatusBar,
   StyleSheet,
   Platform,
-  Button,
-  SafeAreaView,
   ActivityIndicator,
   ImageBackground,
   Image,
@@ -22,7 +20,6 @@ import NotificationsUtils from './utils/notifications';
 import { initTasks } from './services/BackgroundTasks';
 import { isLeapYear } from './utils/utils';
 import { blue, daysSince1Jan, lightblue } from './utils/consts';
-import { FontAwesome } from '@expo/vector-icons';
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import About from './components/About';
 
@@ -38,7 +35,7 @@ const styles = StyleSheet.create({
   logo: {
     //If you want to resize the logo just change the width, dont touch the height
     width: '90%',
-    height: '22%',
+    height: '20%',
   },
   activityContainer: {
     justifyContent: 'center',
@@ -67,7 +64,7 @@ const styles = StyleSheet.create({
   },
   buttonsText: {
     color: 'white',
-    fontSize: 14,
+    fontSize: 13,
     fontFamily: 'Poppins_400Regular',
     textAlign: 'center',
   },
@@ -75,84 +72,73 @@ const styles = StyleSheet.create({
 
 const Stack = createStackNavigator();
 
-function homeScreen({ navigation }) {
-  return (
-    <View style={styles.view}>
-      <StatusBar
-        backgroundColor='#4a868c' //? Should we change this to white?
-        barStyle='dark-content'
-        animated={true}
-        translucent={true}
+const HomeButton = ({ navigation, text }) => (
+  <TouchableHighlight
+    onPress={() => navigation.navigate(text.trim())}
+    style={styles.buttons}>
+    <Text allowFontScaling={false} style={styles.buttonsText}>
+      {text}
+    </Text>
+  </TouchableHighlight>
+);
+
+const HomeButtonWithPadding = ({ _navigation, _text }) => (
+  <View style={{ marginTop: 5 }}>
+    <HomeButton navigation={_navigation} text={_text} />
+  </View>
+);
+
+const homeScreen = ({ navigation }) => (
+  <View style={styles.view}>
+    <StatusBar
+      backgroundColor='#4a868c' //? Should we change this to white?
+      barStyle='dark-content'
+      animated={true}
+      translucent={true}
+    />
+    <ImageBackground
+      source={require('./assets/background-original.jpg')}
+      resizeMode={'cover'}
+      style={styles.backgroundImage}>
+      <Image source={require('./assets/logo.png')} style={styles.logo} />
+      <HomeButton navigation={navigation} text=' Frase del día ' />
+      <HomeButtonWithPadding
+        _navigation={navigation}
+        _text='     Santos del día      '
       />
-      <ImageBackground
-        source={require('./assets/background-original.jpg')}
-        resizeMode={'cover'}
-        style={styles.backgroundImage}>
-        <Image source={require('./assets/logo.png')} style={styles.logo} />
-        <TouchableHighlight
-          onPress={() => navigation.navigate('Frase del dia')}
-          style={styles.buttons}>
-          <Text allowFontScaling={false} style={styles.buttonsText}>
-            {' '}
-            Frase del día{' '}
-          </Text>
-        </TouchableHighlight>
-        <View style={{ marginTop: 5 }}>
-          <TouchableHighlight
-            onPress={() => navigation.navigate('Santos del dia')}
-            style={styles.buttons}>
-            <Text allowFontScaling={false} style={styles.buttonsText}>
-              {'    '}
-              Santos del día{'    '}
-            </Text>
-          </TouchableHighlight>
-        </View>
-        <View style={{ marginTop: 5 }}>
-          <TouchableHighlight
-            onPress={() => navigation.navigate('Ajustes')}
-            style={styles.buttons}>
-            <Text allowFontScaling={false} style={styles.buttonsText}>
-              {'           '}
-              Ajustes{'         '}
-            </Text>
-          </TouchableHighlight>
-        </View>
-        <View style={{ marginTop: 5 }}>
-          <TouchableHighlight
-            onPress={() => navigation.navigate('¿Quiénes somos?')}
-            style={styles.buttons}>
-            <Text allowFontScaling={false} style={styles.buttonsText}>
-              {' '}
-              ¿Quiénes somos?{' '}
-            </Text>
-          </TouchableHighlight>
-        </View>
-      </ImageBackground>
-    </View>
-  );
-}
+      <HomeButtonWithPadding
+        _navigation={navigation}
+        _text='            Ajustes            '
+      />
+      <HomeButtonWithPadding
+        _navigation={navigation}
+        _text='  ¿Quiénes Somos?  '
+      />
+    </ImageBackground>
+  </View>
+);
+
 // :)
+
+async function init() {
+  const nu = new NotificationsUtils();
+
+  const scheduledNotifs = await nu.getAllScheduledNotifications();
+  const daysSinceYearStarted = daysSince1Jan();
+  const leftingDays = isLeapYear()
+    ? 366 - daysSinceYearStarted
+    : 365 - daysSinceYearStarted;
+  if (scheduledNotifs.length === 0 || scheduledNotifs.length + 1 < leftingDays)
+    await nu.scheduleAllYearlyNotifications();
+
+  await initTasks();
+}
+
 export default function App() {
   const [backgroundLoaded, setbackgroundLoaded] = useState(false);
   const [fontsLoaded] = useFonts({ Poppins_400Regular });
 
   useEffect(() => {
-    async function init() {
-      const nu = new NotificationsUtils();
-
-      const scheduledNotifs = await nu.getAllScheduledNotifications();
-      const daysSinceYearStarted = daysSince1Jan();
-      const leftingDays = isLeapYear()
-        ? 366 - daysSinceYearStarted
-        : 365 - daysSinceYearStarted;
-      if (
-        scheduledNotifs.length === 0 ||
-        scheduledNotifs.length + 1 < leftingDays
-      )
-        await nu.scheduleAllYearlyNotifications();
-
-      await initTasks();
-    }
     if (!backgroundLoaded) init().then(_ => setbackgroundLoaded(true));
   });
 
@@ -170,10 +156,10 @@ export default function App() {
             headerShown: false,
           }}
         />
-        <Stack.Screen name='Frase del dia' component={Phrase} />
-        <Stack.Screen name='Santos del dia' component={DailySaint} />
+        <Stack.Screen name='Frase del día' component={Phrase} />
+        <Stack.Screen name='Santos del día' component={DailySaint} />
         <Stack.Screen name='Ajustes' component={Settings} />
-        <Stack.Screen name='¿Quiénes somos?' component={About} />
+        <Stack.Screen name='¿Quiénes Somos?' component={About} />
       </Stack.Navigator>
     </NavigationContainer>
   ) : (
