@@ -83,8 +83,8 @@ export default function About() {
           Jesús a través de la vida de los Santos a la mayor cantidad de
           personas posible.
           {'\n\n'}
-          BeSaints es nuestra primera aplicación, disponible tanto para iOS como
-          en Android.
+          Be Saints es nuestra primera aplicación, disponible tanto para iOS
+          como para Android.
           {'\n\n'}
           Esperamos que te podamos inspirar con nuestras frases y que la llama
           de la virtud arda en tu corazón.
