@@ -49,12 +49,12 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   notifsText: {
-    color: 'white',
+    color: 'black',
     fontFamily: 'Poppins_400Regular',
     textAlign: 'center',
     //!MMMMMMMMM
     paddingRight: 25,
-    fontSize: 11,
+    fontSize: 13,
   },
 });
 
@@ -127,18 +127,22 @@ export default function Settings() {
 
   return ssnLoaded && !loadingNotifications && fontsLoaded ? (
     <View style={styles.container}>
+      {/* <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} /> */}
       <View style={{ alignItems: 'center' }}>
         <ToggleSwitch
           isOn={ssn}
           onColor='green'
           offColor='red'
-          label='Enviar Notificaciones'
+          label='Enviar notificaciones'
           labelStyle={styles.label}
           size='small'
           onToggle={async _ => await changessn()}
           animationSpeed={50}
         />
       </View>
+      <Text allowFontScaling={false} style={styles.notifsText}>
+        Definir horario de notificaciones
+      </Text>
       <View style={styles.button}>
         <Ionicons.Button
           name='alarm'
@@ -146,9 +150,6 @@ export default function Settings() {
           color='white'
           onPress={showTimepicker}
           backgroundColor={'transparent'}>
-          <Text allowFontScaling={false} style={styles.notifsText}>
-            Definir Horario de Notificaciones
-          </Text>
         </Ionicons.Button>
         {show && (
           <DateTimePicker
@@ -180,7 +181,6 @@ export default function Settings() {
   <Button title='Log reminder' onPress={_ => findReminder().then(chosenNotif => console.log(chosenNotif))} />
   <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
   <Button title='How Many' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res.length))}></Button>
-  <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} />
   <Button
     title='Instant Notification'
     onPress={async () =>
