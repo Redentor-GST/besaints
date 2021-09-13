@@ -37,11 +37,11 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: blue,
     justifyContent: 'center',
-    padding: 9,
+    // padding: 9,
     borderRadius: 5,
     marginTop: 10,
-    width: '40%',
-    height: '6%',
+    // width: '40%',
+    // height: '6%',
   },
   label: {
     fontFamily: 'Poppins_400Regular',
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   notifsText: {
-    color: 'black',
+    color: 'white',
     fontFamily: 'Poppins_400Regular',
     textAlign: 'center',
     //!MMMMMMMMM
@@ -128,25 +128,6 @@ export default function Settings() {
   return ssnLoaded && !loadingNotifications && fontsLoaded ? (
     <View style={styles.container}>
       {/* <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} /> */}
-      <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
-      <Button
-        title='Notification in 1 minute'
-        onPress={async _ => await nu.sendAlmostInstantNotification(1)}
-      />
-      <Button
-        title='Notification in 3 minute'
-        onPress={async _ => await nu.sendAlmostInstantNotification(3)}
-      />
-      <Button
-        title='Notification in 5 minutes'
-        onPress={async _ => await nu.sendAlmostInstantNotification(5)}
-      />
-      <Button
-        title='Instant Notification'
-        onPress={async _ =>
-          new NotificationsUtils().sendInstantNotification().then(res => console.log(res))
-        }
-      />
       <View style={{ alignItems: 'center' }}>
         <ToggleSwitch
           isOn={ssn}
@@ -159,16 +140,18 @@ export default function Settings() {
           animationSpeed={50}
         />
       </View>
-      <Text allowFontScaling={false} style={styles.notifsText}>
-        Definir horario de notificaciones
-      </Text>
-      <View style={styles.button}>
-        <Ionicons.Button
+      <View>
+        <Ionicons.Button style={styles.button}
           name='alarm'
           size={20}
           color='white'
           onPress={showTimepicker}
-          backgroundColor={'transparent'}>
+          backgroundColor={'transparent'}
+        >
+          <Text style={styles.notifsText}>
+            Definir horario de notificaciones
+          </Text>
+
         </Ionicons.Button>
         {show && (
           <DateTimePicker
@@ -183,7 +166,8 @@ export default function Settings() {
           />
         )}
       </View>
-    </View>
+
+    </View >
   ) : (
     <View style={styles.activityIndicatorView}>
       <ActivityIndicator size={60} color={lightblue} />
@@ -196,7 +180,26 @@ export default function Settings() {
   );
 }
 /**
-  * DEBUG
-  <Button title='Log reminder' onPress={_ => findReminder().then(chosenNotif => console.log(chosenNotif))} />
-  <Button title='Clear Database' onPress={_ => db.clear()} />
-*/
+ * DEBUG
+ <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
+ <Button
+   title='Notification in 1 minute'
+   onPress={async _ => await nu.sendAlmostInstantNotification(1)}
+ />
+ <Button
+   title='Notification in 3 minute'
+   onPress={async _ => await nu.sendAlmostInstantNotification(3)}
+ />
+ <Button
+   title='Notification in 5 minutes'
+   onPress={async _ => await nu.sendAlmostInstantNotification(5)}
+ />
+ <Button
+   title='Instant Notification'
+   onPress={async _ =>
+     new NotificationsUtils().sendInstantNotification().then(res => console.log(res))
+   }
+ />
+ <Button title='Log reminder' onPress={_ => findReminder().then(chosenNotif => console.log(chosenNotif))} />
+ <Button title='Clear Database' onPress={_ => db.clear()} />
+ */
