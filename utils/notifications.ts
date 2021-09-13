@@ -1,12 +1,12 @@
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
-import { Platform } from 'react-native';
+import { ClippingRectangle, Platform } from 'react-native';
 import Database from '../db/db';
 import { createDateTrigger } from './utils';
 import { Phrase } from './interfaces';
 import { defaultTrigger, daysSince1Jan } from './consts';
 
-const IOS_NOTIFICATIONS_LIMIT = 64;
+const IOS_NOTIFICATIONS_LIMIT = 63;
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -17,7 +17,7 @@ Notifications.setNotificationHandler({
 });
 
 export default class NotificationsUtils {
-  constructor() {}
+  constructor() { }
 
   db = new Database();
 
@@ -29,12 +29,21 @@ export default class NotificationsUtils {
 
   sendInstantNotification = async () =>
     await this.scheduleNotification(
-      20,
-      11,
-      { text: '', author: '', date: '' },
+      19,
+      54,
+      { text: 'hello', author: 'goodbye', date: '??' },
       true
     );
 
+  sendAlmostInstantNotification = async (minutes: number) => {
+    const today = new Date();
+    await this.scheduleNotification(
+      today.getHours(),
+      today.getMinutes() + minutes,
+      { text: 'hello', author: 'goodbye', date: '09-13' },
+      false
+    );
+  };
   private async registerForPushNotificationsAsync() {
     let token = '';
     if (!Constants.isDevice) {
@@ -83,11 +92,11 @@ export default class NotificationsUtils {
       trigger: instant
         ? null
         : {
-            date: dateTrigger,
-            channelId: 'default',
-            repeats: false,
-            type: 'calendar',
-          },
+          date: dateTrigger,
+          channelId: 'default',
+          repeats: false,
+          type: 'calendar',
+        },
     };
   };
 
@@ -108,8 +117,7 @@ export default class NotificationsUtils {
         triggerMinute
       );
       const today = new Date();
-
-      if (today <= dateTrigger) {
+      if (today <= dateTrigger || instant) {
         const notification = this.notification(title, body, dateTrigger, instant);
         await Notifications.scheduleNotificationAsync(notification);
 

@@ -55,11 +55,11 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   buttons: {
-    width: '35%',
-    height: '4%',
+    width: 200,
+    height: 50,
     backgroundColor: '#11263B',
     justifyContent: 'center',
-    padding: '4%',
+    padding: '2%',
     borderRadius: 5,
   },
   buttonsText: {
@@ -101,18 +101,18 @@ const homeScreen = ({ navigation }) => (
       resizeMode={'cover'}
       style={styles.backgroundImage}>
       <Image source={require('./assets/logo.png')} style={styles.logo} />
-      <HomeButton navigation={navigation} text=' Frase del día ' />
+      <HomeButton navigation={navigation} text='Frase del día' />
       <HomeButtonWithPadding
         _navigation={navigation}
-        _text='     Santos del día      '
+        _text='Santos del día'
       />
       <HomeButtonWithPadding
         _navigation={navigation}
-        _text='            Ajustes            '
+        _text='Ajustes'
       />
       <HomeButtonWithPadding
         _navigation={navigation}
-        _text='  ¿Quiénes Somos?  '
+        _text='¿Quiénes Somos?'
       />
     </ImageBackground>
   </View>

@@ -37,11 +37,11 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: blue,
     justifyContent: 'center',
-    padding: 9,
+    // padding: 9,
     borderRadius: 5,
     marginTop: 10,
-    width: '40%',
-    height: '6%',
+    // width: '40%',
+    // height: '6%',
   },
   label: {
     fontFamily: 'Poppins_400Regular',
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     //!MMMMMMMMM
     paddingRight: 25,
-    fontSize: 11,
+    fontSize: 13,
   },
 });
 
@@ -124,31 +124,34 @@ export default function Settings() {
     await db.setShouldSendNotifications(!_ssn);
     setssn(!_ssn);
   }
-
+  const nu = new NotificationsUtils();
   return ssnLoaded && !loadingNotifications && fontsLoaded ? (
     <View style={styles.container}>
+      {/* <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} /> */}
       <View style={{ alignItems: 'center' }}>
         <ToggleSwitch
           isOn={ssn}
           onColor='green'
           offColor='red'
-          label='Enviar Notificaciones'
+          label='Enviar notificaciones'
           labelStyle={styles.label}
           size='small'
           onToggle={async _ => await changessn()}
           animationSpeed={50}
         />
       </View>
-      <View style={styles.button}>
-        <Ionicons.Button
+      <View>
+        <Ionicons.Button style={styles.button}
           name='alarm'
           size={20}
           color='white'
           onPress={showTimepicker}
-          backgroundColor={'transparent'}>
-          <Text allowFontScaling={false} style={styles.notifsText}>
-            Definir Horario de Notificaciones
+          backgroundColor={'transparent'}
+        >
+          <Text style={styles.notifsText}>
+            Definir horario de notificaciones
           </Text>
+
         </Ionicons.Button>
         {show && (
           <DateTimePicker
@@ -158,12 +161,13 @@ export default function Settings() {
             is24Hour={true}
             display='spinner'
             onChange={onChange}
-            minuteInterval={15}
+            minuteInterval={2}
             disabled={false}
           />
         )}
       </View>
-    </View>
+
+    </View >
   ) : (
     <View style={styles.activityIndicatorView}>
       <ActivityIndicator size={60} color={lightblue} />
@@ -176,16 +180,26 @@ export default function Settings() {
   );
 }
 /**
-  * DEBUG
-  <Button title='Log reminder' onPress={_ => findReminder().then(chosenNotif => console.log(chosenNotif))} />
-  <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
-  <Button title='How Many' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res.length))}></Button>
-  <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} />
-  <Button
-    title='Instant Notification'
-    onPress={async () =>
-      await new NotificationsUtils().sendInstantNotification()
-    }
-  />
-  <Button title='Clear Database' onPress={_ => db.clear()} />
-*/
+ * DEBUG
+ <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
+ <Button
+   title='Notification in 1 minute'
+   onPress={async _ => await nu.sendAlmostInstantNotification(1)}
+ />
+ <Button
+   title='Notification in 3 minute'
+   onPress={async _ => await nu.sendAlmostInstantNotification(3)}
+ />
+ <Button
+   title='Notification in 5 minutes'
+   onPress={async _ => await nu.sendAlmostInstantNotification(5)}
+ />
+ <Button
+   title='Instant Notification'
+   onPress={async _ =>
+     new NotificationsUtils().sendInstantNotification().then(res => console.log(res))
+   }
+ />
+ <Button title='Log reminder' onPress={_ => findReminder().then(chosenNotif => console.log(chosenNotif))} />
+ <Button title='Clear Database' onPress={_ => db.clear()} />
+ */
