@@ -1,6 +1,6 @@
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
-import { Platform } from 'react-native';
+import { ClippingRectangle, Platform } from 'react-native';
 import Database from '../db/db';
 import { createDateTrigger } from './utils';
 import { Phrase } from './interfaces';
@@ -17,7 +17,7 @@ Notifications.setNotificationHandler({
 });
 
 export default class NotificationsUtils {
-  constructor() {}
+  constructor() { }
 
   db = new Database();
 
@@ -29,9 +29,9 @@ export default class NotificationsUtils {
 
   sendInstantNotification = async () =>
     await this.scheduleNotification(
-      20,
-      11,
-      { text: '', author: '', date: '' },
+      19,
+      54,
+      { text: 'hello', author: 'goodbye', date: '??' },
       true
     );
 
@@ -83,11 +83,11 @@ export default class NotificationsUtils {
       trigger: instant
         ? null
         : {
-            date: dateTrigger,
-            channelId: 'default',
-            repeats: false,
-            type: 'calendar',
-          },
+          date: dateTrigger,
+          channelId: 'default',
+          repeats: false,
+          type: 'calendar',
+        },
     };
   };
 
@@ -108,8 +108,7 @@ export default class NotificationsUtils {
         triggerMinute
       );
       const today = new Date();
-
-      if (today <= dateTrigger) {
+      if (today <= dateTrigger || instant) {
         const notification = this.notification(title, body, dateTrigger, instant);
         await Notifications.scheduleNotificationAsync(notification);
 
