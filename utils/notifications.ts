@@ -6,7 +6,7 @@ import { createDateTrigger } from './utils';
 import { Phrase } from './interfaces';
 import { defaultTrigger, daysSince1Jan } from './consts';
 
-const IOS_NOTIFICATIONS_LIMIT = 64;
+const IOS_NOTIFICATIONS_LIMIT = 63;
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -35,6 +35,15 @@ export default class NotificationsUtils {
       true
     );
 
+  sendAlmostInstantNotification = async (minutes: number) => {
+    const today = new Date();
+    await this.scheduleNotification(
+      today.getHours(),
+      today.getMinutes() + minutes,
+      { text: 'hello', author: 'goodbye', date: '09-13' },
+      false
+    );
+  };
   private async registerForPushNotificationsAsync() {
     let token = '';
     if (!Constants.isDevice) {

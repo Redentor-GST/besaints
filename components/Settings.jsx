@@ -124,13 +124,23 @@ export default function Settings() {
     await db.setShouldSendNotifications(!_ssn);
     setssn(!_ssn);
   }
-
+  const nu = new NotificationsUtils();
   return ssnLoaded && !loadingNotifications && fontsLoaded ? (
     <View style={styles.container}>
       {/* <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} /> */}
       <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
-      <Button title='How Many' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res.length))}></Button>
-      <Button title='Log all notifs' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res[0]))}></Button>
+      <Button
+        title='Notification in 1 minute'
+        onPress={async _ => await nu.sendAlmostInstantNotification(1)}
+      />
+      <Button
+        title='Notification in 3 minute'
+        onPress={async _ => await nu.sendAlmostInstantNotification(3)}
+      />
+      <Button
+        title='Notification in 5 minutes'
+        onPress={async _ => await nu.sendAlmostInstantNotification(5)}
+      />
       <Button
         title='Instant Notification'
         onPress={async _ =>
@@ -168,7 +178,7 @@ export default function Settings() {
             is24Hour={true}
             display='spinner'
             onChange={onChange}
-            minuteInterval={15}
+            minuteInterval={2}
             disabled={false}
           />
         )}
