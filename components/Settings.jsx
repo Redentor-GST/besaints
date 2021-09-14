@@ -161,7 +161,7 @@ export default function Settings() {
             is24Hour={true}
             display='spinner'
             onChange={onChange}
-            minuteInterval={2}
+            minuteInterval={15}
             disabled={false}
           />
         )}
