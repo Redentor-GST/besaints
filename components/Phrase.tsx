@@ -101,9 +101,8 @@ export default function PhraseView() {
       message:
         '"' +
         data.text +
-        ' ' +
+        '" ' +
         data.author +
-        '"' +
         '\nDescubre mas frases de santos en la aplicación Be Saints https://linktr.ee/besaintsapp',
     }).catch(e => console.error(e.message));
   };
