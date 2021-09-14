@@ -1,13 +1,14 @@
+//Phrase (Frase del dia) view component
 import React, { useEffect, useState } from 'react';
 import {
   Text,
   StyleSheet,
   Platform,
   ScrollView,
-  SafeAreaView,
   StatusBar,
   ActivityIndicator,
   View,
+  Share,
 } from 'react-native';
 import Database from '../db/db';
 import { Phrase } from '../utils/interfaces';
@@ -16,6 +17,7 @@ import {
   Poppins_400Regular_Italic,
 } from '@expo-google-fonts/poppins';
 import { blue, lightblue } from '../utils/consts';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 const db = new Database();
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
@@ -67,6 +69,24 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     padding: 20,
   },
+  buttonView: {
+    alignItems: 'center',
+    marginTop: '5%',
+  },
+  button: {
+    // width: 150,
+    // height: 40,
+    backgroundColor: '#11263B',
+    justifyContent: 'center',
+    borderRadius: 5,
+    padding: '3%',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 15,
+    fontFamily: 'Poppins_400Regular',
+    textAlign: 'center',
+  },
 });
 
 export default function PhraseView() {
@@ -75,6 +95,18 @@ export default function PhraseView() {
   //TODO change the view when the user rotates the device
   //const { isRotated } = useDeviceOrientation();
   useEffect(() => setData(db.getDailyPhrase()), []);
+
+  const onShare = async () => {
+    await Share.share({
+      message:
+        '"' +
+        data.text +
+        ' ' +
+        data.author +
+        '"' +
+        '\nDescubre mas frases de santos en la aplicación Be Saints https://linktr.ee/besaintsapp',
+    }).catch(e => console.error(e.message));
+  };
 
   return fontsLoaded ? (
     <View
@@ -91,6 +123,11 @@ export default function PhraseView() {
             {' '}
             {data.author} {'\n'}{' '}
           </Text>
+        </View>
+        <View style={styles.buttonView}>
+          <TouchableHighlight style={styles.button} onPress={onShare}>
+            <Text style={styles.buttonText}> Compartir </Text>
+          </TouchableHighlight>
         </View>
       </ScrollView>
     </View>
