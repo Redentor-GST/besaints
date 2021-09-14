@@ -6,5 +6,5 @@
 </p>
 
 An app available for IOS and Android that shows a saint phrase a day and the saints of the day.  
-[Download for android](https://play.google.com/store/apps/details?id=be.saints.client)
+[Download for android](https://play.google.com/store/apps/details?id=be.saints.client)  
 [Download for IOS](https://apps.apple.com/es/app/be-saints/id1585489631)
