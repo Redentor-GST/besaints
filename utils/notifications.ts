@@ -1,13 +1,14 @@
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
-import { ClippingRectangle, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import Database from '../db/db';
 import { createDateTrigger } from './utils';
 import { Phrase } from './interfaces';
 import { defaultTrigger, daysSince1Jan } from './consts';
 
-const IOS_NOTIFICATIONS_LIMIT = 63;
+const IOS_NOTIFICATIONS_LIMIT = 64;
 
+//?Dont know if this is neccesary
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -17,7 +18,7 @@ Notifications.setNotificationHandler({
 });
 
 export default class NotificationsUtils {
-  constructor() { }
+  constructor() {}
 
   db = new Database();
 
@@ -27,6 +28,7 @@ export default class NotificationsUtils {
   cancelAllScheduledNotifications = async () =>
     await Notifications.cancelAllScheduledNotificationsAsync();
 
+  //Debug function
   sendInstantNotification = async () =>
     await this.scheduleNotification(
       19,
@@ -35,6 +37,7 @@ export default class NotificationsUtils {
       true
     );
 
+  //Debug function
   sendAlmostInstantNotification = async (minutes: number) => {
     const today = new Date();
     await this.scheduleNotification(
@@ -44,6 +47,7 @@ export default class NotificationsUtils {
       false
     );
   };
+
   private async registerForPushNotificationsAsync() {
     let token = '';
     if (!Constants.isDevice) {
@@ -75,6 +79,13 @@ export default class NotificationsUtils {
     return token;
   }
 
+  /**
+   * @param _title The title of the notification
+   * @param _body  The body of the notification
+   * @param dateTrigger The specific date (as a Date object) when the notification will trigger
+   * @param instant Is an instant notification?
+   * @returns a notification
+   */
   private notification = (
     _title: string,
     _body: string,
@@ -92,11 +103,11 @@ export default class NotificationsUtils {
       trigger: instant
         ? null
         : {
-          date: dateTrigger,
-          channelId: 'default',
-          repeats: false,
-          type: 'calendar',
-        },
+            date: dateTrigger,
+            channelId: 'default',
+            repeats: false,
+            type: 'calendar',
+          },
     };
   };
 
@@ -118,9 +129,13 @@ export default class NotificationsUtils {
       );
       const today = new Date();
       if (today <= dateTrigger || instant) {
-        const notification = this.notification(title, body, dateTrigger, instant);
+        const notification = this.notification(
+          title,
+          body,
+          dateTrigger,
+          instant
+        );
         await Notifications.scheduleNotificationAsync(notification);
-
       }
     } catch (e) {
       console.error('Exception in scheduleNotification(): ' + e);
@@ -166,7 +181,7 @@ export default class NotificationsUtils {
     );
     if (!token) return;
     const phrasesAndroid = phrases.slice(daysSinceYearsStarted);
-    const phrasesIOS = phrasesAndroid.slice(0, IOS_NOTIFICATIONS_LIMIT);
+    const phrasesIOS = phrasesAndroid.slice(0, IOS_NOTIFICATIONS_LIMIT - 1);
     for (const phrase of Platform.OS === 'android'
       ? phrasesAndroid
       : phrasesIOS) {

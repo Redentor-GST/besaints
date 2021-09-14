@@ -1,3 +1,4 @@
+//Settings (Ajustes) component view
 import React, { useState, useEffect } from 'react';
 import {
   Text,
@@ -68,6 +69,7 @@ export default function Settings() {
   const [loadingNotifications, setloadingNotifications] = useState(false);
   const [fontsLoaded] = useFonts({ Poppins_400Regular });
 
+  /*===DateTimePicker Functions===*/
   const onChange = async (event, selectedDate) => {
     const currentDate = selectedDate || notifDateTrigger;
     //If the user didn't change the time, do nothing
@@ -124,10 +126,9 @@ export default function Settings() {
     await db.setShouldSendNotifications(!_ssn);
     setssn(!_ssn);
   }
-  const nu = new NotificationsUtils();
+
   return ssnLoaded && !loadingNotifications && fontsLoaded ? (
     <View style={styles.container}>
-      {/* <Button title='Log all notifications' onPress={async _ => new NotificationsUtils().getAllScheduledNotifications().then(res => console.log(res))} /> */}
       <View style={{ alignItems: 'center' }}>
         <ToggleSwitch
           isOn={ssn}
@@ -141,17 +142,16 @@ export default function Settings() {
         />
       </View>
       <View>
-        <Ionicons.Button style={styles.button}
+        <Ionicons.Button
+          style={styles.button}
           name='alarm'
           size={20}
           color='white'
           onPress={showTimepicker}
-          backgroundColor={'transparent'}
-        >
+          backgroundColor={'transparent'}>
           <Text style={styles.notifsText}>
             Definir horario de notificaciones
           </Text>
-
         </Ionicons.Button>
         {show && (
           <DateTimePicker
@@ -166,8 +166,7 @@ export default function Settings() {
           />
         )}
       </View>
-
-    </View >
+    </View>
   ) : (
     <View style={styles.activityIndicatorView}>
       <ActivityIndicator size={60} color={lightblue} />

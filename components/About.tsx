@@ -1,3 +1,4 @@
+//About (¿Quienes somos?) component view
 import React from 'react';
 import {
   Text,

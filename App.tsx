@@ -17,7 +17,6 @@ import Phrase from './components/Phrase';
 import Settings from './components/Settings';
 import DailySaint from './components/Saints';
 import NotificationsUtils from './utils/notifications';
-import { initTasks } from './services/BackgroundTasks';
 import { isLeapYear } from './utils/utils';
 import { blue, daysSince1Jan, lightblue } from './utils/consts';
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
@@ -102,18 +101,9 @@ const homeScreen = ({ navigation }) => (
       style={styles.backgroundImage}>
       <Image source={require('./assets/logo.png')} style={styles.logo} />
       <HomeButton navigation={navigation} text='Frase del día' />
-      <HomeButtonWithPadding
-        _navigation={navigation}
-        _text='Santos del día'
-      />
-      <HomeButtonWithPadding
-        _navigation={navigation}
-        _text='Ajustes'
-      />
-      <HomeButtonWithPadding
-        _navigation={navigation}
-        _text='¿Quiénes Somos?'
-      />
+      <HomeButtonWithPadding _navigation={navigation} _text='Santos del día' />
+      <HomeButtonWithPadding _navigation={navigation} _text='Ajustes' />
+      <HomeButtonWithPadding _navigation={navigation} _text='¿Quiénes Somos?' />
     </ImageBackground>
   </View>
 );
@@ -130,8 +120,6 @@ async function init() {
     : 365 - daysSinceYearStarted;
   if (scheduledNotifs.length === 0 || scheduledNotifs.length + 1 < leftingDays)
     await nu.scheduleAllYearlyNotifications();
-
-  await initTasks();
 }
 
 export default function App() {

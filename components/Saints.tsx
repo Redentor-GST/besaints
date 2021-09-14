@@ -1,3 +1,4 @@
+//Saints (Santo del dia) component view
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -80,6 +81,9 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * @returns The URL of the saint of the day in the vatican web page
+ */
 function getTodaysVaticanLink(): string {
   const today = new Date();
   let month = today.getMonth() + 1;
