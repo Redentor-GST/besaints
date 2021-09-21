@@ -17,7 +17,6 @@
     "@react-navigation/stack": "^5.14.4",
     "dependencies": "^0.0.1",
     "expo": "^42.0.1",
-    "expo-background-fetch": "~9.2.2",
     "expo-constants": "~11.0.1",
     "expo-notifications": "~0.12.3",
     "expo-permissions": "~12.1.1",
