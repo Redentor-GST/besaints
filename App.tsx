@@ -109,8 +109,10 @@ const homeScreen = ({ navigation }) => (
 );
 
 // :)
-
+let first = true;
 async function init() {
+  if (first) first = false;
+  else return false;
   const nu = new NotificationsUtils();
 
   const scheduledNotifs = await nu.getAllScheduledNotifications();
@@ -120,6 +122,8 @@ async function init() {
     : 365 - daysSinceYearStarted;
   if (scheduledNotifs.length === 0 || scheduledNotifs.length + 1 < leftingDays)
     await nu.scheduleAllYearlyNotifications();
+
+  return true;
 }
 
 export default function App() {
@@ -127,7 +131,10 @@ export default function App() {
   const [fontsLoaded] = useFonts({ Poppins_400Regular });
 
   useEffect(() => {
-    if (!backgroundLoaded) init().then(_ => setbackgroundLoaded(true));
+    if (!backgroundLoaded)
+      init().then(res => {
+        if (res) setbackgroundLoaded(true);
+      });
   });
 
   return backgroundLoaded && fontsLoaded ? (
