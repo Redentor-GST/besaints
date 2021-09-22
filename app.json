@@ -24,7 +24,7 @@
     "android": {
       "googleServicesFile": "./google-services.json",
       "package": "be.saints.client",
-      "versionCode": 7,
+      "versionCode": 8,
       "adaptiveIcon": {
         "backgroundImage": "./assets/applogo.png",
         "foregroundImage": "./assets/applogo.png",
