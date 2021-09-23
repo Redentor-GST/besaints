@@ -18,7 +18,7 @@ Notifications.setNotificationHandler({
 });
 
 export default class NotificationsUtils {
-  constructor() {}
+  constructor() { }
 
   db = new Database();
 
@@ -103,11 +103,11 @@ export default class NotificationsUtils {
       trigger: instant
         ? null
         : {
-            date: dateTrigger,
-            channelId: 'default',
-            repeats: false,
-            type: 'calendar',
-          },
+          date: dateTrigger,
+          channelId: 'default',
+          repeats: false,
+          type: 'calendar',
+        },
     };
   };
 
@@ -121,7 +121,7 @@ export default class NotificationsUtils {
     //:)
     try {
       const title = 'Frase del día';
-      const body = data.text + ' ' + data.author;
+      const body = data.text + ' ' + data.author + '.';
       const dateTrigger = createDateTrigger(
         data.date,
         triggerHour,
