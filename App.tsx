@@ -116,12 +116,7 @@ async function init() {
   const nu = new NotificationsUtils();
 
   const scheduledNotifs = await nu.getAllScheduledNotifications();
-  const daysSinceYearStarted = daysSince1Jan();
-  const leftingDays = isLeapYear()
-    ? 366 - daysSinceYearStarted
-    : 365 - daysSinceYearStarted;
-  if (scheduledNotifs.length === 0 || scheduledNotifs.length + 1 < leftingDays)
-    await nu.scheduleAllYearlyNotifications();
+  if (scheduledNotifs.length === 0) await nu.scheduleAllYearlyNotifications();
 
   return true;
 }

@@ -127,6 +127,8 @@ export default function Settings() {
     setssn(!_ssn);
   }
 
+  const nu = new NotificationsUtils();
+
   return ssnLoaded && !loadingNotifications && fontsLoaded ? (
     <View style={styles.container}>
       <View style={{ alignItems: 'center' }}>
@@ -139,6 +141,14 @@ export default function Settings() {
           size='small'
           onToggle={async _ => await changessn()}
           animationSpeed={50}
+        />
+        <Button
+          title='How Many'
+          onPress={async _ =>
+            await nu
+              .getAllScheduledNotifications()
+              .then(n => console.log(n.length))
+          }
         />
       </View>
       <View>
