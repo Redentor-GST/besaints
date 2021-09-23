@@ -142,14 +142,6 @@ export default function Settings() {
           onToggle={async _ => await changessn()}
           animationSpeed={50}
         />
-        <Button
-          title='How Many'
-          onPress={async _ =>
-            await nu
-              .getAllScheduledNotifications()
-              .then(n => console.log(n.length))
-          }
-        />
       </View>
       <View>
         <Ionicons.Button
@@ -171,7 +163,7 @@ export default function Settings() {
             is24Hour={true}
             display='spinner'
             onChange={onChange}
-            minuteInterval={15}
+            minuteInterval={5}
             disabled={false}
           />
         )}
@@ -190,10 +182,18 @@ export default function Settings() {
 }
 /**
  * DEBUG
+ <Button
+   title='How Many'
+   onPress={async _ =>
+     await nu
+       .getAllScheduledNotifications()
+       .then(n => console.log(n.length))
+   }
+ />
  <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
  <Button
-   title='Notification in 1 minute'
-   onPress={async _ => await nu.sendAlmostInstantNotification(1)}
+ title='Notification in 1 minute'
+ onPress={async _ => await nu.sendAlmostInstantNotification(1)}
  />
  <Button
    title='Notification in 3 minute'
