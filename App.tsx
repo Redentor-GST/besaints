@@ -136,7 +136,6 @@ export default function App() {
         if (res) setbackgroundLoaded(true);
       });
   });
-  console.log(ExamsList);
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   return /*backgroundLoaded &&*/ fontsLoaded ? (
     <NavigationContainer>
@@ -158,7 +157,9 @@ export default function App() {
         <Stack.Screen name='¿Quiénes Somos?' component={About} />
         <Stack.Screen name='Examen de conciencia' component={Examination} />
         {/*How can i add exams automatically?*/}
-        <Stack.Screen name={ExamsNames[0]} component={ExamsList[0].component} />
+        <Stack.Screen name={ExamsNames[0]}>
+          {props => ExamsList[0].component}
+        </Stack.Screen>
         {/*
         <Stack.Screen name={ExamsNames[1]} component={ExamsList[1].component} />
         <Stack.Screen name={ExamsNames[2]} component={ExamsList[2].component} />

@@ -16,7 +16,7 @@ export interface TimeTrigger extends Object {
 
 export interface Exams extends Object {
   title: string;
-  component(): JSX.Element;
+  component: JSX.Element;
 }
 
 export interface DBExams extends Object {

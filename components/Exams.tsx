@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    fontSize: 14,
+    fontSize: 20,
     fontFamily: 'Poppins_400Regular',
   },
 });
@@ -42,12 +42,12 @@ const Exam = ({ text }) => {
 
 function generateExams(): Exams[] {
   let res: Exams[] = [];
-  for (const exam of exams)
+  exams.forEach(exam =>
     res.push({
       title: exam.title,
-      component: () => <Exam text={exam.content} />,
-    });
-  console.log('RES: ', res);
+      component: <Exam text={exam.content} />,
+    })
+  );
   return res;
 }
 
