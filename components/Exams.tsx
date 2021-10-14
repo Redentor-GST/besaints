@@ -27,18 +27,13 @@ const styles = StyleSheet.create({
   },
 });
 
-function adaptText(text: string) {
-  //!Not working, dont know how to put spaces between questions
-  return text.replace('-', '\n\n -');
-}
-
 const Exam = ({ text }) => {
   const [fontsLoaded] = useFonts({ Poppins_400Regular });
 
   return fontsLoaded ? (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <Text style={styles.text}>{adaptText(text)}</Text>
+        <Text style={styles.text}>{text}</Text>
       </ScrollView>
     </View>
   ) : (
