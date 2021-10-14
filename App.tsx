@@ -17,10 +17,11 @@ import Phrase from './components/Phrase';
 import Settings from './components/Settings';
 import DailySaint from './components/Saints';
 import NotificationsUtils from './utils/notifications';
-import { isLeapYear } from './utils/utils';
-import { blue, daysSince1Jan, lightblue } from './utils/consts';
+import { blue, lightblue } from './utils/consts';
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import About from './components/About';
+import Examination from './components/Examination';
+import { ExamsList, ExamsNames } from './components/Exams';
 
 const styles = StyleSheet.create({
   view: {
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Stack = createStackNavigator();
+export const Stack = createStackNavigator();
 
 const HomeButton = ({ navigation, text }) => (
   <TouchableHighlight
@@ -104,6 +105,10 @@ const homeScreen = ({ navigation }) => (
       <HomeButtonWithPadding _navigation={navigation} _text='Santos del día' />
       <HomeButtonWithPadding _navigation={navigation} _text='Ajustes' />
       <HomeButtonWithPadding _navigation={navigation} _text='¿Quiénes Somos?' />
+      <HomeButtonWithPadding
+        _navigation={navigation}
+        _text='Examen de conciencia'
+      />
     </ImageBackground>
   </View>
 );
@@ -131,8 +136,9 @@ export default function App() {
         if (res) setbackgroundLoaded(true);
       });
   });
-
-  return backgroundLoaded && fontsLoaded ? (
+  console.log(ExamsList);
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  return /*backgroundLoaded &&*/ fontsLoaded ? (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
@@ -150,6 +156,13 @@ export default function App() {
         <Stack.Screen name='Santos del día' component={DailySaint} />
         <Stack.Screen name='Ajustes' component={Settings} />
         <Stack.Screen name='¿Quiénes Somos?' component={About} />
+        <Stack.Screen name='Examen de conciencia' component={Examination} />
+        {/*How can i add exams automatically?*/}
+        <Stack.Screen name={ExamsNames[0]} component={ExamsList[0].component} />
+        {/*
+        <Stack.Screen name={ExamsNames[1]} component={ExamsList[1].component} />
+        <Stack.Screen name={ExamsNames[2]} component={ExamsList[2].component} />
+        */}
       </Stack.Navigator>
     </NavigationContainer>
   ) : (

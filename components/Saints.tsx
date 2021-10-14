@@ -19,7 +19,8 @@ import {
   Poppins_400Regular_Italic,
   Poppins_400Regular,
 } from '@expo-google-fonts/poppins';
-import { lightblue } from '../utils/consts';
+import { blue, crossblue, lightblue } from '../utils/consts';
+import DefaultLoadingScreen from '../utils/componentsUtils';
 
 const db = new Database();
 //import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
@@ -27,15 +28,11 @@ const db = new Database();
 const styles = StyleSheet.create({
   noMeLaContainer: {
     flex: 1,
-    textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
-    height: '100%',
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     paddingHorizontal: 20,
-    paddingBottom: 15,
-    backgroundColor: '#024959',
+    backgroundColor: blue,
   },
   saintView: {
     textAlign: 'left',
@@ -68,7 +65,7 @@ const styles = StyleSheet.create({
   buttons: {
     // width: 150,
     // height: 40,
-    backgroundColor: '#11263B',
+    backgroundColor: crossblue,
     justifyContent: 'center',
     padding: 9,
     borderRadius: 5,
@@ -78,6 +75,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: 'Poppins_400Regular',
     textAlign: 'center',
+  },
+  flatListStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexGrow: 1,
+    //!mmmmmmm
+    paddingBottom: '20%',
   },
 });
 
@@ -145,12 +149,11 @@ export default function DailySaint() {
               </Text>
             </TouchableHighlight>
           }
+          contentContainerStyle={styles.flatListStyle}
         />
       </SafeAreaView>
     ) : (
-      <View style={styles.activityContainer}>
-        <ActivityIndicator size={60} color={lightblue} />
-      </View>
+      <DefaultLoadingScreen />
     )
   ) : (
     <SafeAreaView style={styles.noMeLaContainer}>

@@ -5,9 +5,9 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "ba" : "expo build:android",
-    "pub" : "expo publish",
-    "prod" : "expo build:android --app-bundle"
+    "ba": "expo build:android",
+    "pub": "expo publish",
+    "prod": "expo build:android --app-bundle"
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.2.0",
