@@ -137,7 +137,7 @@ export default function App() {
       });
   });
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  return /*backgroundLoaded &&*/ fontsLoaded ? (
+  return backgroundLoaded && fontsLoaded ? (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
