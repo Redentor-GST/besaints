@@ -77,7 +77,7 @@ export default function Settings() {
     if (currentDate.getTime() === notifDateTrigger.getTime()) return;
     setnotifDateTrigger(currentDate);
     setloadingNotifications(true);
-    const nu = new NotificationsUtils();
+    const nu = nu;
     await nu.cancelAllScheduledNotifications();
     const timeTrigger = {
       hour: currentDate.getHours(),
@@ -127,7 +127,47 @@ export default function Settings() {
     setssn(!_ssn);
   }
 
-  const nu = new NotificationsUtils();
+  const DebuggingSection = ({debugging}) => {
+    const nu = new NotificationsUtils();
+    return debugging ?
+    (<View>
+      <Button
+        title='How Many'
+        onPress={async _ =>
+          await nu
+            .getAllScheduledNotifications()
+            .then(n => console.log(n.length))
+        }
+      />
+      <Button title='Kill all notifications' onPress={async _ => 
+        nu.cancelAllScheduledNotifications()
+          .then(_ => console.log("deleted!"))} 
+      />
+      <Button
+      title='Notification in 1 minute'
+      onPress={async _ => await nu.sendAlmostInstantNotification(1)}
+      />
+      <Button
+        title='Notification in 3 minute'
+        onPress={async _ => await nu.sendAlmostInstantNotification(3)}
+      />
+      <Button
+        title='Notification in 5 minutes'
+        onPress={async _ => await nu.sendAlmostInstantNotification(5)}
+      />
+      <Button
+        title='Instant Notification'
+        onPress={async _ => {
+          await nu.sendInstantNotification()
+          .catch(e => console.error(e));
+        }}
+      />
+      <Button title='Log reminder' onPress={_ => findReminder().then(chosenNotif => console.log(chosenNotif))} />
+      <Button title='Clear Database' onPress={_ => db.clear()} />
+    </View>)
+    :
+    (<View></View>)
+  }
 
   return ssnLoaded && !loadingNotifications && fontsLoaded ? (
     <View style={styles.container}>
@@ -168,6 +208,7 @@ export default function Settings() {
           />
         )}
       </View>
+      <DebuggingSection debugging={true} />
     </View>
   ) : (
     <View style={styles.activityIndicatorView}>
@@ -182,33 +223,6 @@ export default function Settings() {
 }
 /**
  * DEBUG
- <Button
-   title='How Many'
-   onPress={async _ =>
-     await nu
-       .getAllScheduledNotifications()
-       .then(n => console.log(n.length))
-   }
- />
- <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
- <Button
- title='Notification in 1 minute'
- onPress={async _ => await nu.sendAlmostInstantNotification(1)}
- />
- <Button
-   title='Notification in 3 minute'
-   onPress={async _ => await nu.sendAlmostInstantNotification(3)}
- />
- <Button
-   title='Notification in 5 minutes'
-   onPress={async _ => await nu.sendAlmostInstantNotification(5)}
- />
- <Button
-   title='Instant Notification'
-   onPress={async _ =>
-     new NotificationsUtils().sendInstantNotification().then(res => console.log(res))
-   }
- />
- <Button title='Log reminder' onPress={_ => findReminder().then(chosenNotif => console.log(chosenNotif))} />
- <Button title='Clear Database' onPress={_ => db.clear()} />
+ 
  */
+
