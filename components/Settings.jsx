@@ -59,6 +59,49 @@ const styles = StyleSheet.create({
   },
 });
 
+const DebugView = ({ debug }) => {
+  const nu = new NotificationsUtils();
+  return debug ? (
+    <View>
+      <Button
+        title="How Many"
+        onPress={async _ =>
+          nu.getAllScheduledNotifications().then(n => console.log(n.length))
+        }
+      />
+      <Button
+        title="Kill all notifications"
+        onPress={async _ => await nu.cancelAllScheduledNotifications()}
+      />
+      <Button
+        title="Notification in 1 minute"
+        onPress={async _ => await nu.sendAlmostInstantNotification(1)}
+      />
+      <Button
+        title="Notification in 3 minute"
+        onPress={async _ => await nu.sendAlmostInstantNotification(3)}
+      />
+      <Button
+        title="Notification in 5 minutes"
+        onPress={async _ => await nu.sendAlmostInstantNotification(5)}
+      />
+      <Button
+        title="Instant Notification"
+        onPress={async _ => await nu.sendInstantNotification()}
+      />
+      <Button
+        title="Log reminder"
+        onPress={_ =>
+          findReminder().then(chosenNotif => console.log(chosenNotif))
+        }
+      />
+      <Button title="Clear Database" onPress={_ => db.clear()} />
+    </View>
+  ) : (
+    <View />
+  );
+};
+
 export default function Settings() {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
@@ -114,11 +157,12 @@ export default function Settings() {
     });
 
     /*
-        db.getUserDefinedLanguage()
-            .then(userDefinedLanguage => {
-                if (userDefinedLanguage)
-                    setSelectedLanguage(userDefinedLanguage);
-            })*/
+    db.getUserDefinedLanguage()
+        .then(userDefinedLanguage => {
+            if (userDefinedLanguage)
+                setSelectedLanguage(userDefinedLanguage);
+        })
+    */
   }, [ssn]);
 
   async function changessn() {
@@ -127,18 +171,16 @@ export default function Settings() {
     setssn(!_ssn);
   }
 
-  const nu = new NotificationsUtils();
-
   return ssnLoaded && !loadingNotifications && fontsLoaded ? (
     <View style={styles.container}>
       <View style={{ alignItems: 'center' }}>
         <ToggleSwitch
           isOn={ssn}
-          onColor='green'
-          offColor='red'
-          label='Enviar notificaciones'
+          onColor="green"
+          offColor="red"
+          label="Enviar notificaciones"
           labelStyle={styles.label}
-          size='small'
+          size="small"
           onToggle={async _ => await changessn()}
           animationSpeed={50}
         />
@@ -146,28 +188,31 @@ export default function Settings() {
       <View>
         <Ionicons.Button
           style={styles.button}
-          name='alarm'
+          name="alarm"
           size={20}
-          color='white'
+          color="white"
           onPress={showTimepicker}
-          backgroundColor={'transparent'}>
+          backgroundColor={'transparent'}
+        >
           <Text style={styles.notifsText}>
             Definir horario de notificaciones
           </Text>
         </Ionicons.Button>
         {show && (
           <DateTimePicker
-            testID='dateTimePicker'
+            testID="dateTimePicker"
             value={notifDateTrigger}
             mode={mode}
             is24Hour={true}
-            display='spinner'
+            display="spinner"
             onChange={onChange}
             minuteInterval={5}
             disabled={false}
           />
         )}
       </View>
+      {/*Don't forget to put debug to false when uploading to app stores*/}
+      <DebugView debug={false} />
     </View>
   ) : (
     <View style={styles.activityIndicatorView}>
@@ -180,35 +225,3 @@ export default function Settings() {
     </View>
   );
 }
-/**
- * DEBUG
- <Button
-   title='How Many'
-   onPress={async _ =>
-     await nu
-       .getAllScheduledNotifications()
-       .then(n => console.log(n.length))
-   }
- />
- <Button title='Kill all notifications' onPress={async _ => new NotificationsUtils().cancelAllScheduledNotifications().then(_ => console.log("deleted!"))} />
- <Button
- title='Notification in 1 minute'
- onPress={async _ => await nu.sendAlmostInstantNotification(1)}
- />
- <Button
-   title='Notification in 3 minute'
-   onPress={async _ => await nu.sendAlmostInstantNotification(3)}
- />
- <Button
-   title='Notification in 5 minutes'
-   onPress={async _ => await nu.sendAlmostInstantNotification(5)}
- />
- <Button
-   title='Instant Notification'
-   onPress={async _ =>
-     new NotificationsUtils().sendInstantNotification().then(res => console.log(res))
-   }
- />
- <Button title='Log reminder' onPress={_ => findReminder().then(chosenNotif => console.log(chosenNotif))} />
- <Button title='Clear Database' onPress={_ => db.clear()} />
- */
