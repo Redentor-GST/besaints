@@ -1,4 +1,3 @@
-//Settings (Ajustes) component view
 import React, { useState, useEffect } from 'react';
 import {
   Text,
@@ -11,7 +10,6 @@ import {
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Database from '../db/db';
-//import { userDefaultLanguage } from '../utils/consts';
 import NotificationsUtils from '../utils/notifications';
 import ToggleSwitch from 'toggle-switch-react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -92,7 +90,8 @@ const DebugView = ({ debug }) => {
       <Button
         title="Log reminder"
         onPress={_ =>
-          findReminder().then(chosenNotif => console.log(chosenNotif))
+          // findReminder().then(chosenNotif => console.log(chosenNotif))
+          false
         }
       />
       <Button title="Clear Database" onPress={_ => db.clear()} />
@@ -106,16 +105,13 @@ export default function Settings() {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [ssn, setssn] = useState(true);
-  //const [selectedLanguage, setSelectedLanguage] = useState(userDefaultLanguage());
   const [ssnLoaded, setssnLoaded] = useState(false);
   const [notifDateTrigger, setnotifDateTrigger] = useState(new Date());
   const [loadingNotifications, setloadingNotifications] = useState(false);
   const [fontsLoaded] = useFonts({ Poppins_400Regular });
 
-  /*===DateTimePicker Functions===*/
   const onChange = async (event, selectedDate) => {
     const currentDate = selectedDate || notifDateTrigger;
-    //If the user didn't change the time, do nothing
     setShow(Platform.OS === 'ios');
     if (currentDate.getTime() === notifDateTrigger.getTime()) return;
     setnotifDateTrigger(currentDate);
@@ -155,14 +151,6 @@ export default function Settings() {
       );
       setnotifDateTrigger(date);
     });
-
-    /*
-    db.getUserDefinedLanguage()
-        .then(userDefinedLanguage => {
-            if (userDefinedLanguage)
-                setSelectedLanguage(userDefinedLanguage);
-        })
-    */
   }, [ssn]);
 
   async function changessn() {
@@ -202,7 +190,7 @@ export default function Settings() {
           <DateTimePicker
             testID="dateTimePicker"
             value={notifDateTrigger}
-            mode={mode}
+            mode={mode as any}
             is24Hour={true}
             display="spinner"
             onChange={onChange}

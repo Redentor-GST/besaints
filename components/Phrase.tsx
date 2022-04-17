@@ -1,4 +1,3 @@
-//Phrase (Frase del dia) view component
 import React, { useEffect, useState } from 'react';
 import {
   Text,
@@ -20,7 +19,6 @@ import { blue, lightblue } from '../utils/consts';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
 const db = new Database();
-//import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
 const emptyPhrase: Phrase = {
   text: '',
@@ -92,8 +90,6 @@ const styles = StyleSheet.create({
 export default function PhraseView() {
   const [data, setData] = useState(emptyPhrase);
   const [fontsLoaded] = useFonts({ Poppins_400Regular_Italic });
-  //TODO change the view when the user rotates the device
-  //const { isRotated } = useDeviceOrientation();
   useEffect(() => setData(db.getDailyPhrase()), []);
 
   const onShare = async () => {
@@ -109,7 +105,8 @@ export default function PhraseView() {
 
   return fontsLoaded ? (
     <View
-      style={{ flex: 1, backgroundColor: 'white', width: '100%', height: 1 }}>
+      style={{ flex: 1, backgroundColor: 'white', width: '100%', height: 1 }}
+    >
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.phraseView}>
           <Text style={styles.phrase}>

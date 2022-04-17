@@ -22,7 +22,6 @@ import {
 import { lightblue } from '../utils/consts';
 
 const db = new Database();
-//import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
 const styles = StyleSheet.create({
   noMeLaContainer: {
@@ -128,7 +127,6 @@ export default function DailySaint() {
   );
 
   return isThereAnyInfo ? (
-    //https://www.youtube.com/watch?v=ZPC2070ZKWA
     fontsLoaded ? (
       <SafeAreaView style={styles.noMeLaContainer}>
         <FlatList
@@ -139,7 +137,8 @@ export default function DailySaint() {
           ListFooterComponent={
             <TouchableHighlight
               style={styles.buttons}
-              onPress={_ => Linking.openURL(getTodaysVaticanLink())}>
+              onPress={_ => Linking.openURL(getTodaysVaticanLink())}
+            >
               <Text style={styles.buttonsText}>
                 Para leer más sobre los santos del día ingresa aquí
               </Text>

@@ -1,4 +1,3 @@
-//Database getters and setters
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { defaultTrigger } from '../utils/consts';
 import { Phrase, TimeTrigger } from '../utils/interfaces';
@@ -31,14 +30,6 @@ export default class Database {
 
   setTimeTrigger = async (value: TimeTrigger): Promise<void> =>
     await AsyncStorage.setItem(this.timeTriggerName, JSON.stringify(value));
-
-  /*
-    getUserDefinedLanguage = async (): Promise<string> =>
-        await AsyncStorage.getItem();
-
-    setUserDefinedLanguage = async (value: 'en' | 'es'): Promise<void> =>
-        await AsyncStorage.setItem("userDefinedLanguage", value);
-    */
 
   getAllPhrases = (): Phrase[] => getDict();
 

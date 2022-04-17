@@ -18,8 +18,6 @@ Notifications.setNotificationHandler({
 });
 
 export default class NotificationsUtils {
-  constructor() { }
-
   db = new Database();
 
   getAllScheduledNotifications = async () =>
@@ -27,26 +25,6 @@ export default class NotificationsUtils {
 
   cancelAllScheduledNotifications = async () =>
     await Notifications.cancelAllScheduledNotificationsAsync();
-
-  //Debug function
-  sendInstantNotification = async () =>
-    await this.scheduleNotification(
-      19,
-      54,
-      { text: 'hello', author: 'goodbye', date: '??' },
-      true
-    );
-
-  //Debug function
-  sendAlmostInstantNotification = async (minutes: number) => {
-    const today = new Date();
-    await this.scheduleNotification(
-      today.getHours(),
-      today.getMinutes() + minutes,
-      { text: 'hello', author: 'goodbye', date: '09-13' },
-      false
-    );
-  };
 
   private async registerForPushNotificationsAsync() {
     let token = '';
@@ -79,23 +57,16 @@ export default class NotificationsUtils {
     return token;
   }
 
-  /**
-   * @param _title The title of the notification
-   * @param _body  The body of the notification
-   * @param dateTrigger The specific date (as a Date object) when the notification will trigger
-   * @param instant Is an instant notification?
-   * @returns a notification
-   */
   private notification = (
-    _title: string,
-    _body: string,
+    title: string,
+    body: string,
     dateTrigger: Date,
     instant: boolean
   ) => {
     return {
       content: {
-        title: _title,
-        body: _body,
+        title: title,
+        body: body,
         data: {
           datetrigger: dateTrigger.toString(),
         },
@@ -103,11 +74,10 @@ export default class NotificationsUtils {
       trigger: instant
         ? null
         : {
-          date: dateTrigger,
-          channelId: 'default',
-          repeats: false,
-          type: 'calendar',
-        },
+            date: dateTrigger,
+            repeats: false,
+            type: 'calendar',
+          },
     };
   };
 
@@ -118,7 +88,6 @@ export default class NotificationsUtils {
     instant: boolean = false
   ) {
     if (!(await this.db.getShouldSendNotifications())) return;
-    //:)
     try {
       const title = 'Frase del día';
       const body = data.text + ' ' + data.author + '.';
