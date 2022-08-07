@@ -1,5 +1,4 @@
-//Settings (Ajustes) component view
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import {
   Text,
   View,
@@ -8,17 +7,16 @@ import {
   StatusBar,
   Button,
   StyleSheet,
-} from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import Database from '../db/db';
-//import { userDefaultLanguage } from '../utils/consts';
-import NotificationsUtils from '../utils/notifications';
-import ToggleSwitch from 'toggle-switch-react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { blue, lightblue } from '../utils/consts';
-import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
+} from 'react-native'
+import DateTimePicker from '@react-native-community/datetimepicker'
+import Database from '../db/db'
+import NotificationsUtils from '../utils/notifications'
+import ToggleSwitch from 'toggle-switch-react-native'
+import { Ionicons } from '@expo/vector-icons'
+import { blue, lightblue } from '../utils/consts'
+import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
 
-const db = new Database();
+const db = new Database()
 
 const styles = StyleSheet.create({
   activityIndicatorView: {
@@ -38,11 +36,8 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: blue,
     justifyContent: 'center',
-    // padding: 9,
     borderRadius: 5,
     marginTop: 10,
-    // width: '40%',
-    // height: '6%',
   },
   label: {
     fontFamily: 'Poppins_400Regular',
@@ -53,14 +48,13 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'Poppins_400Regular',
     textAlign: 'center',
-    //!MMMMMMMMM
     paddingRight: 25,
     fontSize: 13,
   },
-});
+})
 
 const DebugView = ({ debug }) => {
-  const nu = new NotificationsUtils();
+  const nu = new NotificationsUtils()
   return debug ? (
     <View>
       <Button
@@ -89,86 +83,67 @@ const DebugView = ({ debug }) => {
         title="Instant Notification"
         onPress={async _ => await nu.sendInstantNotification()}
       />
-      <Button
-        title="Log reminder"
-        onPress={_ =>
-          findReminder().then(chosenNotif => console.log(chosenNotif))
-        }
-      />
       <Button title="Clear Database" onPress={_ => db.clear()} />
     </View>
   ) : (
     <View />
-  );
-};
+  )
+}
 
 export default function Settings() {
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-  const [ssn, setssn] = useState(true);
-  //const [selectedLanguage, setSelectedLanguage] = useState(userDefaultLanguage());
-  const [ssnLoaded, setssnLoaded] = useState(false);
-  const [notifDateTrigger, setnotifDateTrigger] = useState(new Date());
-  const [loadingNotifications, setloadingNotifications] = useState(false);
-  const [fontsLoaded] = useFonts({ Poppins_400Regular });
+  const [mode, setMode] = useState('date')
+  const [show, setShow] = useState(false)
+  const [ssn, setssn] = useState(true)
+  const [ssnLoaded, setssnLoaded] = useState(false)
+  const [notifDateTrigger, setnotifDateTrigger] = useState(new Date())
+  const [loadingNotifications, setloadingNotifications] = useState(false)
+  const [fontsLoaded] = useFonts({ Poppins_400Regular })
 
-  /*===DateTimePicker Functions===*/
   const onChange = async (event, selectedDate) => {
-    const currentDate = selectedDate || notifDateTrigger;
-    //If the user didn't change the time, do nothing
-    setShow(Platform.OS === 'ios');
-    if (currentDate.getTime() === notifDateTrigger.getTime()) return;
-    setnotifDateTrigger(currentDate);
-    setloadingNotifications(true);
-    const nu = new NotificationsUtils();
-    await nu.cancelAllScheduledNotifications();
+    const currentDate = selectedDate || notifDateTrigger
+    setShow(Platform.OS === 'ios')
+    if (currentDate.getTime() === notifDateTrigger.getTime()) return
+    setnotifDateTrigger(currentDate)
+    setloadingNotifications(true)
+    const nu = new NotificationsUtils()
+    await nu.cancelAllScheduledNotifications()
     const timeTrigger = {
       hour: currentDate.getHours(),
       minute: currentDate.getMinutes(),
-    };
-    await db.setTimeTrigger(timeTrigger);
-    await nu.scheduleAllYearlyNotifications();
-    setloadingNotifications(false);
-  };
+    }
+    await db.setTimeTrigger(timeTrigger)
+    await nu.scheduleAllYearlyNotifications()
+    setloadingNotifications(false)
+  }
 
-  const showMode = currentMode => {
-    setShow(true);
-    setMode(currentMode);
-  };
+  const showMode = (currentMode: string) => {
+    setShow(true)
+    setMode(currentMode)
+  }
 
-  const showTimepicker = () => {
-    showMode('time');
-  };
+  const showTimepicker = () => showMode('time')
 
   useEffect(() => {
     db.getShouldSendNotifications()
       .then(res => setssn(res))
-      .finally(() => setssnLoaded(true));
+      .finally(() => setssnLoaded(true))
     db.getTimeTrigger().then(timeTrigger => {
-      const now = new Date();
+      const now = new Date()
       const date = new Date(
         now.getFullYear(),
         now.getMonth() - 1,
         now.getDate(),
         timeTrigger.hour,
         timeTrigger.minute
-      );
-      setnotifDateTrigger(date);
-    });
-
-    /*
-    db.getUserDefinedLanguage()
-        .then(userDefinedLanguage => {
-            if (userDefinedLanguage)
-                setSelectedLanguage(userDefinedLanguage);
-        })
-    */
-  }, [ssn]);
+      )
+      setnotifDateTrigger(date)
+    })
+  }, [ssn])
 
   async function changessn() {
-    const _ssn = await db.getShouldSendNotifications();
-    await db.setShouldSendNotifications(!_ssn);
-    setssn(!_ssn);
+    const _ssn = await db.getShouldSendNotifications()
+    await db.setShouldSendNotifications(!_ssn)
+    setssn(!_ssn)
   }
 
   return ssnLoaded && !loadingNotifications && fontsLoaded ? (
@@ -202,7 +177,7 @@ export default function Settings() {
           <DateTimePicker
             testID="dateTimePicker"
             value={notifDateTrigger}
-            mode={mode}
+            mode={mode as any}
             is24Hour={true}
             display="spinner"
             onChange={onChange}
@@ -223,5 +198,5 @@ export default function Settings() {
         {notifDateTrigger.toTimeString().slice(0, 5)}{' '}
       </Text>
     </View>
-  );
+  )
 }

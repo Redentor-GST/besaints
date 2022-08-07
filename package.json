@@ -7,7 +7,8 @@
     "eject": "expo eject",
     "ba": "expo build:android",
     "pub": "expo publish",
-    "prod": "expo build:android --app-bundle"
+    "prod": "expo build:android --app-bundle",
+    "test": "jest"
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.2.0",
@@ -23,6 +24,7 @@
     "expo-constants": "~11.0.1",
     "expo-notifications": "~0.12.3",
     "expo-status-bar": "~1.0.4",
+    "jest": "^28.1.3",
     "moment": "^2.29.1",
     "react": "16.13.1",
     "react-native": "~0.63.4",
@@ -35,6 +37,7 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
+    "@types/jest": "^28.1.6",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
     "babel-preset-es2015": "^6.24.1",

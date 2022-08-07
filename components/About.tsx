@@ -1,5 +1,5 @@
 //About (¿Quienes somos?) component view
-import React from 'react';
+import React from 'react'
 import {
   Text,
   StyleSheet,
@@ -11,13 +11,13 @@ import {
   View,
   Linking,
   TouchableHighlight,
-} from 'react-native';
+} from 'react-native'
 import {
   useFonts,
   Poppins_400Regular_Italic,
   Poppins_400Regular,
-} from '@expo-google-fonts/poppins';
-import { blue, crossblue, lightblue } from '../utils/consts';
+} from '@expo-google-fonts/poppins'
+import { blue, crossblue, lightblue } from '../utils/consts'
 
 const styles = StyleSheet.create({
   phraseView: {
@@ -68,13 +68,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_400Regular',
     textAlign: 'center',
   },
-});
+})
 
 export default function About() {
   const [fontsLoaded] = useFonts({
     Poppins_400Regular_Italic,
     Poppins_400Regular,
-  });
+  })
 
   return fontsLoaded ? (
     <SafeAreaView style={{ flex: 1 }}>
@@ -94,7 +94,8 @@ export default function About() {
         <View style={styles.buttonView}>
           <TouchableHighlight
             onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}
-            style={styles.buttons}>
+            style={styles.buttons}
+          >
             <Text style={styles.buttonsText}> Escribinos! </Text>
           </TouchableHighlight>
         </View>
@@ -110,5 +111,5 @@ export default function About() {
     <View style={styles.activityContainer}>
       <ActivityIndicator size={60} color={lightblue} />
     </View>
-  );
+  )
 }

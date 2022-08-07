@@ -17,8 +17,7 @@ import Phrase from './components/Phrase';
 import Settings from './components/Settings';
 import DailySaint from './components/Saints';
 import NotificationsUtils from './utils/notifications';
-import { isLeapYear } from './utils/utils';
-import { blue, daysSince1Jan, lightblue } from './utils/consts';
+import { blue, lightblue } from './utils/consts';
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import About from './components/About';
 
@@ -74,7 +73,8 @@ const Stack = createStackNavigator();
 const HomeButton = ({ navigation, text }) => (
   <TouchableHighlight
     onPress={() => navigation.navigate(text.trim())}
-    style={styles.buttons}>
+    style={styles.buttons}
+  >
     <Text allowFontScaling={false} style={styles.buttonsText}>
       {text}
     </Text>
@@ -90,20 +90,21 @@ const HomeButtonWithPadding = ({ _navigation, _text }) => (
 const homeScreen = ({ navigation }) => (
   <View style={styles.view}>
     <StatusBar
-      backgroundColor='#4a868c' //? Should we change this to white?
-      barStyle='dark-content'
+      backgroundColor="#4a868c" //? Should we change this to white?
+      barStyle="dark-content"
       animated={true}
       translucent={true}
     />
     <ImageBackground
       source={require('./assets/background-original.jpg')}
       resizeMode={'cover'}
-      style={styles.backgroundImage}>
+      style={styles.backgroundImage}
+    >
       <Image source={require('./assets/logo.png')} style={styles.logo} />
-      <HomeButton navigation={navigation} text='Frase del día' />
-      <HomeButtonWithPadding _navigation={navigation} _text='Santos del día' />
-      <HomeButtonWithPadding _navigation={navigation} _text='Ajustes' />
-      <HomeButtonWithPadding _navigation={navigation} _text='¿Quiénes Somos?' />
+      <HomeButton navigation={navigation} text="Frase del día" />
+      <HomeButtonWithPadding _navigation={navigation} _text="Santos del día" />
+      <HomeButtonWithPadding _navigation={navigation} _text="Ajustes" />
+      <HomeButtonWithPadding _navigation={navigation} _text="¿Quiénes Somos?" />
     </ImageBackground>
   </View>
 );
@@ -138,18 +139,19 @@ export default function App() {
         screenOptions={{
           headerStyle: { backgroundColor: blue },
           headerTintColor: 'white',
-        }}>
+        }}
+      >
         <Stack.Screen
-          name='Home'
+          name="Home"
           component={homeScreen}
           options={{
             headerShown: false,
           }}
         />
-        <Stack.Screen name='Frase del día' component={Phrase} />
-        <Stack.Screen name='Santos del día' component={DailySaint} />
-        <Stack.Screen name='Ajustes' component={Settings} />
-        <Stack.Screen name='¿Quiénes Somos?' component={About} />
+        <Stack.Screen name="Frase del día" component={Phrase} />
+        <Stack.Screen name="Santos del día" component={DailySaint} />
+        <Stack.Screen name="Ajustes" component={Settings} />
+        <Stack.Screen name="¿Quiénes Somos?" component={About} />
       </Stack.Navigator>
     </NavigationContainer>
   ) : (

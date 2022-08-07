@@ -1,5 +1,4 @@
-//Saints (Santo del dia) component view
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import {
   View,
   Text,
@@ -8,21 +7,19 @@ import {
   FlatList,
   Platform,
   SafeAreaView,
-  Button,
   Linking,
   ActivityIndicator,
   TouchableHighlight,
-} from 'react-native';
-import Database from '../db/db';
+} from 'react-native'
+import Database from '../db/db'
 import {
   useFonts,
   Poppins_400Regular_Italic,
   Poppins_400Regular,
-} from '@expo-google-fonts/poppins';
-import { lightblue } from '../utils/consts';
+} from '@expo-google-fonts/poppins'
+import { lightblue } from '../utils/consts'
 
-const db = new Database();
-//import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
+const db = new Database()
 
 const styles = StyleSheet.create({
   noMeLaContainer: {
@@ -79,38 +76,35 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_400Regular',
     textAlign: 'center',
   },
-});
+})
 
-/**
- * @returns The URL of the saint of the day in the vatican web page
- */
 function getTodaysVaticanLink(): string {
-  const today = new Date();
-  let month = today.getMonth() + 1;
-  let day = today.getDate();
-  let monthStr = month.toString();
-  let dayStr = day.toString();
-  if (month < 10) monthStr = '0' + monthStr;
-  if (day < 10) dayStr = '0' + dayStr;
+  const today = new Date()
+  let month = today.getMonth() + 1
+  let day = today.getDate()
+  let monthStr = month.toString()
+  let dayStr = day.toString()
+  if (month < 10) monthStr = '0' + monthStr
+  if (day < 10) dayStr = '0' + dayStr
   const link =
-    'https://www.vaticannews.va/es/santos/' + monthStr + '/' + dayStr + '.html';
-  return link;
+    'https://www.vaticannews.va/es/santos/' + monthStr + '/' + dayStr + '.html'
+  return link
 }
 
 export default function DailySaint() {
-  const [dailySaints, setdailySaints] = useState([]);
-  const [isThereAnyInfo, setisThereAnyInfo] = useState(true);
+  const [dailySaints, setdailySaints] = useState([])
+  const [isThereAnyInfo, setisThereAnyInfo] = useState(true)
   const [fontsLoaded] = useFonts({
     Poppins_400Regular_Italic,
     Poppins_400Regular,
-  });
+  })
 
   useEffect(() => {
-    const dailySaints = db.getDailySaints();
+    const dailySaints = db.getDailySaints()
     typeof dailySaints !== 'undefined' && dailySaints.length === 0
       ? setisThereAnyInfo(false)
-      : setdailySaints(dailySaints);
-  }, []);
+      : setdailySaints(dailySaints)
+  }, [])
 
   const SaintView = ({ _saintObj }) => (
     <View>
@@ -125,10 +119,9 @@ export default function DailySaint() {
         </Text>
       </View>
     </View>
-  );
+  )
 
   return isThereAnyInfo ? (
-    //https://www.youtube.com/watch?v=ZPC2070ZKWA
     fontsLoaded ? (
       <SafeAreaView style={styles.noMeLaContainer}>
         <FlatList
@@ -139,7 +132,8 @@ export default function DailySaint() {
           ListFooterComponent={
             <TouchableHighlight
               style={styles.buttons}
-              onPress={_ => Linking.openURL(getTodaysVaticanLink())}>
+              onPress={_ => Linking.openURL(getTodaysVaticanLink())}
+            >
               <Text style={styles.buttonsText}>
                 Para leer más sobre los santos del día ingresa aquí
               </Text>
@@ -159,5 +153,5 @@ export default function DailySaint() {
         No hay nigun santo del dia para esta fecha :({' '}
       </Text>
     </SafeAreaView>
-  );
+  )
 }

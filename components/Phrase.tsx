@@ -1,5 +1,4 @@
-//Phrase (Frase del dia) view component
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import {
   Text,
   StyleSheet,
@@ -9,24 +8,20 @@ import {
   ActivityIndicator,
   View,
   Share,
-} from 'react-native';
-import Database from '../db/db';
-import { Phrase } from '../utils/interfaces';
-import {
-  useFonts,
-  Poppins_400Regular_Italic,
-} from '@expo-google-fonts/poppins';
-import { blue, lightblue } from '../utils/consts';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+} from 'react-native'
+import Database from '../db/db'
+import { Phrase } from '../utils/interfaces'
+import { useFonts, Poppins_400Regular_Italic } from '@expo-google-fonts/poppins'
+import { blue, lightblue } from '../utils/consts'
+import { TouchableHighlight } from 'react-native-gesture-handler'
 
-const db = new Database();
-//import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
+const db = new Database()
 
 const emptyPhrase: Phrase = {
   text: '',
   author: '',
   date: '',
-};
+}
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -74,8 +69,6 @@ const styles = StyleSheet.create({
     marginTop: '5%',
   },
   button: {
-    // width: 150,
-    // height: 40,
     backgroundColor: '#11263B',
     justifyContent: 'center',
     borderRadius: 5,
@@ -87,14 +80,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_400Regular',
     textAlign: 'center',
   },
-});
+})
 
 export default function PhraseView() {
-  const [data, setData] = useState(emptyPhrase);
-  const [fontsLoaded] = useFonts({ Poppins_400Regular_Italic });
-  //TODO change the view when the user rotates the device
-  //const { isRotated } = useDeviceOrientation();
-  useEffect(() => setData(db.getDailyPhrase()), []);
+  const [data, setData] = useState(emptyPhrase)
+  const [fontsLoaded] = useFonts({ Poppins_400Regular_Italic })
+  useEffect(() => setData(db.getDailyPhrase()), [])
 
   const onShare = async () => {
     await Share.share({
@@ -104,12 +95,13 @@ export default function PhraseView() {
         '" ' +
         data.author +
         '\nDescubre mas frases de santos en la aplicación Be Saints https://linktr.ee/besaintsapp',
-    }).catch(e => console.error(e.message));
-  };
+    }).catch(e => console.error(e.message))
+  }
 
   return fontsLoaded ? (
     <View
-      style={{ flex: 1, backgroundColor: 'white', width: '100%', height: 1 }}>
+      style={{ flex: 1, backgroundColor: 'white', width: '100%', height: 1 }}
+    >
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.phraseView}>
           <Text style={styles.phrase}>
@@ -134,5 +126,5 @@ export default function PhraseView() {
     <View style={styles.activityContainer}>
       <ActivityIndicator size={60} color={lightblue} />
     </View>
-  );
+  )
 }
