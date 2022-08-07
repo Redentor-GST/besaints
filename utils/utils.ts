@@ -12,7 +12,7 @@ export function createDateTrigger(
   return dateTrigger
 }
 
-function parseStrDate(date: string): [number, number] {
+export function parseStrDate(date: string): [number, number] {
   //Expected string "07-15"
   const split = date.split('-')
   const month = parseInt(split[0])
@@ -26,19 +26,14 @@ export function compareTodayvsDate(date: string) {
 }
 
 export function getDateStr(date: Date, incrementMonth: boolean) {
-  var month = incrementMonth ? date.getMonth() + 1 : date.getMonth()
-  var month_str = month.toString()
-  var dt = date.getDate()
-  var dt_str = dt.toString()
+  let month: any = incrementMonth ? date.getMonth() + 1 : date.getMonth()
+  let day: any = date.getDate()
 
-  if (dt < 10) {
-    dt_str = '0' + dt_str
-  }
-  if (month < 10) {
-    month_str = '0' + month_str
-  }
+  if (day < 10) day = `0${day}`
+  if (month < 10) month = `0${month}`
+  console.log(`sending ${month}-${day}`)
 
-  return `${month_str}-${dt_str}`
+  return `${month}-${day}`
 }
 
 export const isLeapYear = () => {
