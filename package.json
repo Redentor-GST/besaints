@@ -8,7 +8,8 @@
     "ba": "expo build:android",
     "pub": "expo publish",
     "prod": "expo build:android --app-bundle",
-    "test": "jest --verbose --silent=false"
+    "test": "jest --verbose --silent=false",
+    "cov": "jest --verbose --silent=false --coverage"
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.2.0",
@@ -51,6 +52,14 @@
     "preset": "jest-expo",
     "transformIgnorePatterns": [
       "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{ts,tsx}",
+      "!**/coverage/**",
+      "!**/node_modules/**",
+      "!**/babel.config.js",
+      "!**/jest.setup.ts"
     ]
   },
   "private": true,

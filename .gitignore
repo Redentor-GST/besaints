@@ -89,3 +89,4 @@ ios
 google-services.json
 test.js
 connect.sh
+coverage
