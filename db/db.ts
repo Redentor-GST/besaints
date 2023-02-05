@@ -10,7 +10,7 @@ export default class Database {
   reminderID = 'reminderid';
   tables = [this.timeTriggerName, this.ssnName, this.reminderID];
 
-  getShouldSendNotifications = async (): Promise<boolean> => {
+  shouldSendNotifications = async (): Promise<boolean> => {
     const ssn = await AsyncStorage.getItem(this.ssnName);
     return ssn ? JSON.parse(ssn) : true;
   };

@@ -8,18 +8,20 @@ import {
   ImageBackground,
   Image,
   TouchableHighlight,
-} from 'react-native';
-import { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
-import Phrase from './components/Phrase';
-import Settings from './components/Settings';
-import DailySaint from './components/Saints';
-import NotificationsUtils from './utils/notifications';
-import { blue, lightblue } from './utils/consts';
-import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
-import About from './components/About';
+} from 'react-native'
+import { useEffect, useState } from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import * as React from 'react'
+import Phrase from './components/Phrase'
+import Settings from './components/Settings'
+import DailySaint from './components/Saints'
+import NotificationsUtils from './utils/notifications'
+import { blue, lightblue, SHARE_CATEGORY } from './utils/consts'
+import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
+import About from './components/About'
+import * as Notifications from 'expo-notifications'
+import { sharePhrase } from './utils/utils'
 
 const styles = StyleSheet.create({
   view: {
@@ -66,9 +68,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_400Regular',
     textAlign: 'center',
   },
-});
+})
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator()
 
 const HomeButton = ({ navigation, text }) => (
   <TouchableHighlight
@@ -79,13 +81,13 @@ const HomeButton = ({ navigation, text }) => (
       {text}
     </Text>
   </TouchableHighlight>
-);
+)
 
 const HomeButtonWithPadding = ({ _navigation, _text }) => (
   <View style={{ marginTop: 5 }}>
     <HomeButton navigation={_navigation} text={_text} />
   </View>
-);
+)
 
 const homeScreen = ({ navigation }) => (
   <View style={styles.view}>
@@ -107,31 +109,35 @@ const homeScreen = ({ navigation }) => (
       <HomeButtonWithPadding _navigation={navigation} _text="¿Quiénes Somos?" />
     </ImageBackground>
   </View>
-);
+)
 
 // :)
-let first = true;
+let first = true
 async function init() {
-  if (first) first = false;
-  else return false;
-  const nu = new NotificationsUtils();
+  if (first) first = false
+  else return false
+  const nu = new NotificationsUtils()
 
-  const scheduledNotifs = await nu.getAllScheduledNotifications();
-  if (scheduledNotifs.length === 0) await nu.scheduleAllYearlyNotifications();
+  const scheduledNotifs = await nu.getAllScheduledNotifications()
+  if (scheduledNotifs.length === 0) await nu.scheduleAllYearlyNotifications()
 
-  return true;
+  return true
 }
 
 export default function App() {
-  const [backgroundLoaded, setbackgroundLoaded] = useState(false);
-  const [fontsLoaded] = useFonts({ Poppins_400Regular });
+  const [backgroundLoaded, setbackgroundLoaded] = useState(false)
+  const [fontsLoaded] = useFonts({ Poppins_400Regular })
 
   useEffect(() => {
     if (!backgroundLoaded)
       init().then(res => {
-        if (res) setbackgroundLoaded(true);
-      });
-  });
+        if (res) setbackgroundLoaded(true)
+      })
+    Notifications.addNotificationResponseReceivedListener(notification => {
+      if (notification.actionIdentifier == SHARE_CATEGORY)
+        sharePhrase(notification.notification.request.content.body)
+    })
+  })
 
   return backgroundLoaded && fontsLoaded ? (
     <NavigationContainer>
@@ -168,5 +174,5 @@ export default function App() {
         </Text>
       </View>
     </View>
-  );
+  )
 }

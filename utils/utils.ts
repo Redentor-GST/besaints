@@ -1,3 +1,6 @@
+import { Share } from 'react-native'
+import { Phrase } from './interfaces'
+
 export function createDateTrigger(
   date: string,
   hourTrigger: number,
@@ -39,4 +42,12 @@ export const isLeapYear = () => {
   const now = new Date()
   const year = now.getFullYear()
   return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
+}
+
+export const sharePhrase = async (phrase: string) => {
+  await Share.share({
+    message:
+      `"${phrase} "` +
+      '\nDescubre mas frases de santos en la aplicación Be Saints https://linktr.ee/besaintsapp',
+  })
 }
