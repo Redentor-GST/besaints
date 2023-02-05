@@ -1,5 +1,4 @@
 import { Share } from 'react-native'
-import { Phrase } from './interfaces'
 
 export function createDateTrigger(
   date: string,

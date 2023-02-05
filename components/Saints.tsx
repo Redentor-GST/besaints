@@ -27,9 +27,7 @@ function getTodaysVaticanLink(): string {
   let dayStr = day.toString()
   if (month < 10) monthStr = '0' + monthStr
   if (day < 10) dayStr = '0' + dayStr
-  const link =
-    'https://www.vaticannews.va/es/santos/' + monthStr + '/' + dayStr + '.html'
-  return link
+  return `https://www.vaticannews.va/es/santos/'${monthStr}/${dayStr}'.html`
 }
 
 export default function DailySaint() {
