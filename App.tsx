@@ -129,14 +129,15 @@ export default function App() {
   const [fontsLoaded] = useFonts({ Poppins_400Regular })
 
   useEffect(() => {
-    if (!backgroundLoaded)
-      init().then(res => {
-        if (res) setbackgroundLoaded(true)
-      })
     Notifications.addNotificationResponseReceivedListener(notification => {
       if (notification.actionIdentifier == SHARE_CATEGORY)
         sharePhrase(notification.notification.request.content.body)
     })
+
+    if (!backgroundLoaded)
+      init().then(res => {
+        if (res) setbackgroundLoaded(true)
+      })
   })
 
   return backgroundLoaded && fontsLoaded ? (

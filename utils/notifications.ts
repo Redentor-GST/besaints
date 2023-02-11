@@ -93,6 +93,26 @@ export default class NotificationsUtils {
     }
   }
 
+  private reminderNotification = (): Notifications.NotificationRequestInput => {
+    const today = new Date()
+    const title = 'Toca renovar frases!'
+    const body =
+      'Abre la aplicación así podemos seguir enviándote notificaciones con frases de Santos durante todo el año!'
+    const androidDate = new Date(today.getFullYear() + 1, 0, 1, 16, 30, 0)
+    const IOSDate = new Date(
+      today.getFullYear(),
+      today.getMonth() + 2,
+      today.getDate(),
+      16,
+      30,
+      0
+    )
+    const dateTrigger = Platform.OS === 'android' ? androidDate : IOSDate
+    const notification = this.notification(title, body, dateTrigger, false)
+    delete notification.content.categoryIdentifier
+    return notification
+  }
+
   private async scheduleNotification(
     triggerHour: number,
     triggerMinute: number,
@@ -100,7 +120,6 @@ export default class NotificationsUtils {
     instant: boolean = false
   ) {
     if (!(await this.db.shouldSendNotifications())) return
-    //:)
     const title = 'Frase del día'
     const body = `${data.text} ${data.author}.`
     const dateTrigger = createDateTrigger(data.date, triggerHour, triggerMinute)
@@ -118,21 +137,8 @@ export default class NotificationsUtils {
       if (reminderID)
         await Notifications.cancelScheduledNotificationAsync(reminderID)
     }
-    const today = new Date()
-    const title = 'Toca renovar frases!'
-    const body =
-      'Abre la aplicación así podemos seguir enviándote notificaciones con frases de Santos durante todo el año!'
-    const androidDate = new Date(today.getFullYear() + 1, 0, 1, 16, 30, 0)
-    const IOSDate = new Date(
-      today.getFullYear(),
-      today.getMonth() + 2,
-      today.getDate(),
-      16,
-      30,
-      0
-    )
-    const dateTrigger = Platform.OS === 'android' ? androidDate : IOSDate
-    const notification = this.notification(title, body, dateTrigger, false)
+
+    const notification = this.reminderNotification()
     const id = await Notifications.scheduleNotificationAsync(notification)
     await this.db.setReminderNotificationID(id)
   }
@@ -145,12 +151,10 @@ export default class NotificationsUtils {
       ? timeTrigger.minute
       : defaultTrigger.minute
     const daysSinceYearsStarted = daysSince1Jan()
-    const token = await this.registerForPushNotificationsAsync().catch(e =>
-      console.error('Exception in registerNotifs: ' + e)
-    )
-    if (!token) return
+    await this.registerForPushNotificationsAsync()
     const phrasesAndroid = phrases.slice(daysSinceYearsStarted)
     const phrasesIOS = phrasesAndroid.slice(0, IOS_NOTIFICATIONS_LIMIT - 1)
+    await this.setShareNotificationCategory()
     for (const phrase of Platform.OS === 'android'
       ? phrasesAndroid
       : phrasesIOS) {
