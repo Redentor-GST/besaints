@@ -133,6 +133,7 @@ export default function Settings() {
             onChange={onChange}
             minuteInterval={5}
             disabled={false}
+            textColor="black"
           />
         )}
       </View>
