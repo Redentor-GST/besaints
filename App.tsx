@@ -112,16 +112,11 @@ const homeScreen = ({ navigation }) => (
 )
 
 // :)
-let first = true
 async function init() {
-  if (first) first = false
-  else return false
   const nu = new NotificationsUtils()
 
   const scheduledNotifs = await nu.getAllScheduledNotifications()
   if (scheduledNotifs.length === 0) await nu.scheduleAllYearlyNotifications()
-
-  return true
 }
 
 export default function App() {
@@ -134,11 +129,8 @@ export default function App() {
         sharePhrase(notification.notification.request.content.body)
     })
 
-    if (!backgroundLoaded)
-      init().then(res => {
-        if (res) setbackgroundLoaded(true)
-      })
-  })
+    if (!backgroundLoaded) init().then(_ => setbackgroundLoaded(true))
+  }, [])
 
   return backgroundLoaded && fontsLoaded ? (
     <NavigationContainer>
