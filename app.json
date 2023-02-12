@@ -12,7 +12,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {},
@@ -30,7 +32,14 @@
         "foregroundImage": "./assets/applogo.png",
         "backgroundColor": "#ffffff00"
       },
-      "permissions": ["NOTIFICATIONS"]
+      "permissions": [
+        "NOTIFICATIONS"
+      ]
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e2c393dd-4281-4ff5-bd2a-02e324132779"
+      }
     }
   }
 }
