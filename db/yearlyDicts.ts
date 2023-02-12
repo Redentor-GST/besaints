@@ -1107,7 +1107,7 @@ const odd: Phrase[] = [
     date: '08-09',
   },
   {
-    text: 'La dulzura en el hablar, en el obrar y en reprender, lo gana todo y a todos',
+    text: 'La dulzura en el hablar, en el obrar y en reprender, lo gana todo y a todos.',
     author: 'San Juan Bosco',
     date: '08-10',
   },
@@ -1412,7 +1412,7 @@ const odd: Phrase[] = [
     date: '10-09',
   },
   {
-    text: 'La fe y la esperanza son las dos alas del alma, con ellas se eleva de las cosas terrenas y asciende de lo visible a lo invisible',
+    text: 'La fe y la esperanza son las dos alas del alma, con ellas se eleva de las cosas terrenas y asciende de lo visible a lo invisible.',
     author: 'San Antonio de Padua',
     date: '10-10',
   },
@@ -1682,8 +1682,8 @@ const odd: Phrase[] = [
     date: '12-02',
   },
   {
-    text: '...el porvenir de un hombre depende de dos o tres sí, dos o tres no, que da un joven entre los quince y los veinte años.',
-    author: 'San Alberto Hurtado',
+    text: 'Comienza haciendo lo que es necesario, después lo que es posible y de repente estarás haciendo lo imposible.',
+    author: 'San Francisco de Asís',
     date: '12-03',
   },
   {
