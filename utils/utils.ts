@@ -47,6 +47,6 @@ export const sharePhrase = async (phrase: string) => {
   await Share.share({
     message:
       `"${phrase} "` +
-      '\nDescubre mas frases de santos en la aplicación Be Saints https://linktr.ee/besaintsapp',
+      '\nDescubre más frases de santos en la aplicación Be Saints! https://linktr.ee/besaintsapp',
   })
 }
