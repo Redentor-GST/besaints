@@ -13,6 +13,7 @@ const db = new Database()
 
 const DebugView = ({ debug }: { debug: boolean }) => {
   const nu = new NotificationsUtils()
+  debug = false
   return debug ? (
     <View>
       <Button
