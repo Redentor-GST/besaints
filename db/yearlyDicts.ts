@@ -242,8 +242,8 @@ const odd: Phrase[] = [
     date: '02-17',
   },
   {
-    text: 'Todo cuanto debía padecer el hombre, a fin de que el hombre experimentase las riquezas de su misericordia y las dulzuras de su amor. Apareció, en fin, entre nosotros el Hijo de Dios hecho hombre para asimilarse perfectamente al hombre, a fin de que el hombre se hiciese Dios y pudiese participar de su infinito amor.',
-    author: 'San José Gabriel del Rosario Brochero',
+    text: 'Conócete. Acéptate. Supérate',
+    author: 'San Agustín',
     date: '02-18',
   },
   {
@@ -462,8 +462,8 @@ const odd: Phrase[] = [
     date: '04-02',
   },
   {
-    text: 'Es un cordial a propósito para dar la vida de la gracia a su alma, y la del puro amor a su corazón y a todas las buenas acciones. En fin, la virtud del Sagrado Corazón de Jesús abate hasta nosotros su grandeza, si nos halla anonadados en el amor de nuestra pequeñez, y cuidará de levantarnos a su unión al paso de todo aquello que resplandece a los ojos de las criaturas.',
-    author: 'Santa Margarita Maria',
+    text: 'Oh Señor, que yo no busque tanto ser consolado, cuanto consolar, ser comprendido, cuanto comprender, ser amado, cuanto amar.',
+    author: 'San Francisco de Asís',
     date: '04-03',
   },
   {
@@ -492,7 +492,7 @@ const odd: Phrase[] = [
     date: '04-08',
   },
   {
-    text: 'Los santos sienten que Jesucristo Sacramentado se difunde y comunica totalmente a sus almas y a sus cuerpos. Él todo lo repara, modifica y vivifica; ama en el corazón, escucha en la cabeza, ve en los ojos, habla en la lengua; hace todo en todo y entonces no vivimos nosotros, sino que el mismo Jesucristo quien vive en nosotros.',
+    text: 'Él todo lo repara, modifica y vivifica; ama en el corazón, escucha en la cabeza, ve en los ojos, habla en la lengua; hace todo en todo y entonces no vivimos nosotros, sino que el mismo Jesucristo quien vive en nosotros.',
     author: 'San Francisco de Sales',
     date: '04-09',
   },
@@ -762,8 +762,8 @@ const odd: Phrase[] = [
     date: '06-01',
   },
   {
-    text: '¡Ah!, qué poco nos parecemos a Cristo aunque llevemos su nombre y nos llamemos cristianos. Nuestra conversación en las comidas no sólo es tonta y superficial (incluso por esta negligencia advirtió Cristo que deberemos rendir cuenta), sino que a menudo es también perniciosa, y una vez llenos de comida y bebida dejamos la mesa sin acordarnos de Dios y sin darle gracias por los bienes que nos ha otorgado.',
-    author: 'Santo Tomás Moro',
+    text: 'Santifícate a ti mismo y santificarás a la sociedad.',
+    author: 'San Francisco de Asís',
     date: '06-02',
   },
   {
@@ -872,8 +872,8 @@ const odd: Phrase[] = [
     date: '06-23',
   },
   {
-    text: 'En fin, mi amigo, yo, usted y todos los hombres somos de Dios en el cuerpo y en el alma. Él es el que nos conserva los 5 sentidos del cuerpo y las 3 potencias del alma, y el mismo Dios es quien inutiliza algunos o todos los sentidos del cuerpo y lo mismo hace con las potencias del alma. Yo estoy muy conforme con lo que ha hecho conmigo relativamente a la vista y le doy muchas gracias por ello. Cuando yo pude servir a la humanidad, me conservó íntegros y robustos mis sentidos. Hoy, que ya no puedo, me ha inutilizado uno de los sentidos del cuerpo. En este mundo, no hay gloria cumplida, y estamos llenos de miserias.',
-    author: 'San José Gabriel del Rosario Brochero',
+    text: 'Voy a pasar mi cielo haciendo el bien en la tierra.',
+    author: 'Santa Teresa del Niño Jesús',
     date: '06-24',
   },
   {
@@ -1012,8 +1012,8 @@ const odd: Phrase[] = [
     date: '07-21',
   },
   {
-    text: 'Pienso que no andamos equivocados al sospechar que se avecina de nuevo un tiempo en que el Hijo del hombre, Cristo, será entregado en manos de los pecadores, cuando observamos un peligro inminente de que el Cuerpo místico de Cristo, la Iglesia de Cristo, esto es, el pueblo cristiano, es arrastrado a la ruina a manos de hombres perversos e impíos.',
-    author: 'Santo Tomás Moro',
+    text: 'La santidad consiste en la disposición del corazón.',
+    author: 'Santa Teresa del Niño Jesús',
     date: '07-22',
   },
   {
@@ -1397,8 +1397,8 @@ const odd: Phrase[] = [
     date: '10-06',
   },
   {
-    text: 'Si huimos cuando somos conscientes de que para la salvación de nuestra alma o de la de los que nos han sido confiados Dios nos orde­na mantenernos en nuestro lugar y confiar en su ayuda, cometeremos una tontería, incluso si lo hacemos para salvar nuestra vida. Sí, precisamente porque lo hacemos para salvar nuestra vida.',
-    author: 'Santo Tomás Moro',
+    text: 'Yo nunca aconsejo nada a nadie sin haberme encomendado a la Virgen Santísima. Ella es la que hace que las palabras que digo tengan eficacia en los que las escuchan.',
+    author: 'Santa Teresa del Niño Jesús',
     date: '10-07',
   },
   {
@@ -1527,7 +1527,7 @@ const odd: Phrase[] = [
     date: '11-01',
   },
   {
-    text: '¡Oh Corazones, verdaderamente dignos de poseer todos los corazones, de reinar sobre todos los corazones de los ángeles y de los hombres! Vosotros seréis, de aquí en adelante, la regla de mi conducta, y en todas las ocasiones trataré de inspirarme en vuestros sentimientos. Quiero que mi corazón no esté, en adelante, sino en el de Jesús y el de María, o que el de Jesús y María estén en el mío, para que ellos le comuniquen sus movimientos; y que el mío no se agite ni se mueva, sino conforme a la impresión que de ellos reciba.',
+    text: 'Quiero que mi corazón no esté, en adelante, sino en el de Jesús y el de María, o que el de Jesús y María estén en el mío, para que ellos le comuniquen sus movimientos; y que el mío no se agite ni se mueva, sino conforme a la impresión que de ellos reciba.',
     author: 'San Claudio de la Colombiere',
     date: '11-02',
   },
@@ -1577,8 +1577,8 @@ const odd: Phrase[] = [
     date: '11-11',
   },
   {
-    text: 'Si tan amenazado estuviera alguien en el mal que no haya dejado de profesar la verdadera doctrina por miedo, sino que, como Arrio y otros como él, predica falsa doctrina bien por una sórdida ganancia o por una corrupta ambición, ese tal no duerme como Pedro, ni niega como Pedro, sino que permanece bien despierto como el miserable Judas y, como Judas, a Cristo persigue.',
-    author: 'Santo Tomás Moro',
+    text: '¡Qué grande es el poder de la oración! Se diría que es una reina que en todo momento tiene acceso directo al rey y puede conseguir todo lo que le pide.',
+    author: 'Santa Teresa del Niño Jesús',
     date: '11-12',
   },
   {
@@ -1602,8 +1602,8 @@ const odd: Phrase[] = [
     date: '11-16',
   },
   {
-    text: 'Me parecía que contemplaba el corazón de su cuerpo sagrado con mis propios ojos, como si me lo abriera y me dijera que bebiera de él como una fuente, invitándome a saciarme de las aguas de la salvación en estos manantiales suyos. Me invadieron ansias de que las aguas de la fe, esperanza y caridad fluyeran de su corazón al mío.',
-    author: 'San Pedro Canisio',
+    text: 'La puerta del cielo es baja, y quien quiere entrar debe necesariamente inclinarse. Nos lo enseñó el propio Jesús, quien al morir, inclinó la cabeza.',
+    author: 'San Antonio de Padua',
     date: '11-17',
   },
   {
@@ -1637,8 +1637,8 @@ const odd: Phrase[] = [
     date: '11-23',
   },
   {
-    text: 'Deberíamos derramar sin cesar sobre Dios jaculatorias y oraciones, implorando con humildad que, si en algún momento, viniéramos a pedir algo que no nos es conveniente, impulsados por los atractivos de la carne, o seducidos por los espejuelos de los placeres, o atraídos por el anhelo de las cosas terrenales, o trastornados por las insidias y maquinaciones del diablo, se haga sordo a nuestra petición y aleje aquello por lo que rezamos, derramando sobre nosotros todo aquello que El sabe nos hará bien, aunque mucho le pidamos lo aparte de nuestra vida.',
-    author: 'Santo Tomás Moro',
+    text: 'En todo amar y servir.',
+    author: 'San Ignacio de Loyola',
     date: '11-24',
   },
   {
@@ -1687,8 +1687,8 @@ const odd: Phrase[] = [
     date: '12-03',
   },
   {
-    text: 'Si los males y desgracias de aquellos que están lejos no nos llegaran a conmover y preocupar, muévanos, al menos, nuestro propio peligro. Pues razón de sobra tenemos para temer que la maldad destructora no tardará en acercarse adonde estamos, de la misma manera que sabemos por experiencia cuan grande e impetuosa es la fuerza devastadora de un incendio, o cuán terrible el contagio de una peste al extenderse. Sin la ayuda de Dios para que desvíe el mal, inútil es todo refugio humano.',
-    author: 'Santo Tomás Moro',
+    text: 'Quien evita la tentación evita el pecado.',
+    author: 'San Ignacio de Loyola',
     date: '12-04',
   },
   {
@@ -1742,7 +1742,7 @@ const odd: Phrase[] = [
     date: '12-14',
   },
   {
-    text: 'María es como el arcoiris, señal de reconciliación entre Dios y los hombres. Es como un capullo de rosa que abre sus pétalos en pleno invierno; como un lirio que crece junto a la corriente de las aguas; como un incienso que esparce suaves aromas. Ella es un cáliz de oro cubierto de piedras preciosas, un olivo que jamás pierde su follaje, un ciprés que se eleva sobre todos los árboles del bosque.',
+    text: 'María es como el arcoiris, señal de reconciliación entre Dios y los hombres.',
     author: 'San Antonio de Padua',
     date: '12-15',
   },
