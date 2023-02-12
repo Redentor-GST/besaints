@@ -13,7 +13,6 @@ const db = new Database()
 
 const DebugView = ({ debug }: { debug: boolean }) => {
   const nu = new NotificationsUtils()
-  debug = false
   return debug ? (
     <View>
       <Button
@@ -139,7 +138,7 @@ export default function Settings() {
         )}
       </View>
       {/*Don't forget to put debug to false when uploading to app stores*/}
-      <DebugView debug={true} />
+      <DebugView debug={false} />
     </View>
   ) : (
     <View style={styles.activityIndicatorView}>
