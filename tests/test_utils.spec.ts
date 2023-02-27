@@ -31,7 +31,6 @@ describe('dates', () => {
     let day: any = today.getDate()
     if (day < 10) day = `0${day}`
     if (month < 10) month = `0${month}`
-    console.log(`expecting ${month}-${day}`)
     expect(utils.compareTodayvsDate(`${month}-${day}`)).toBe(true)
   })
 })

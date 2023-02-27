@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {
   View,
   Text,
-  StatusBar,
-  StyleSheet,
   FlatList,
-  Platform,
   SafeAreaView,
   Linking,
   ActivityIndicator,
@@ -18,65 +15,9 @@ import {
   Poppins_400Regular,
 } from '@expo-google-fonts/poppins'
 import { lightblue } from '../utils/consts'
+import styles from '../styles/saints'
 
 const db = new Database()
-
-const styles = StyleSheet.create({
-  noMeLaContainer: {
-    flex: 1,
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-    paddingHorizontal: 20,
-    paddingBottom: 15,
-    backgroundColor: '#024959',
-  },
-  saintView: {
-    textAlign: 'left',
-    justifyContent: 'flex-start',
-  },
-  saintText: {
-    fontSize: 25,
-    color: 'white',
-    fontFamily: 'Poppins_400Regular_Italic',
-    paddingHorizontal: 20,
-  },
-  infoView: {
-    alignContent: 'center',
-    justifyContent: 'center',
-  },
-  infoText: {
-    fontSize: 20,
-    color: 'white',
-    fontFamily: 'Poppins_400Regular_Italic',
-    paddingHorizontal: 20,
-  },
-  activityContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-    padding: 20,
-  },
-  buttons: {
-    // width: 150,
-    // height: 40,
-    backgroundColor: '#11263B',
-    justifyContent: 'center',
-    padding: 9,
-    borderRadius: 5,
-  },
-  buttonsText: {
-    color: 'white',
-    fontSize: 15,
-    fontFamily: 'Poppins_400Regular',
-    textAlign: 'center',
-  },
-})
 
 function getTodaysVaticanLink(): string {
   const today = new Date()
@@ -86,9 +27,7 @@ function getTodaysVaticanLink(): string {
   let dayStr = day.toString()
   if (month < 10) monthStr = '0' + monthStr
   if (day < 10) dayStr = '0' + dayStr
-  const link =
-    'https://www.vaticannews.va/es/santos/' + monthStr + '/' + dayStr + '.html'
-  return link
+  return `https://www.vaticannews.va/es/santos/${monthStr}/${dayStr}.html`
 }
 
 export default function DailySaint() {

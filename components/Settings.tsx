@@ -1,59 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Text,
-  View,
-  Platform,
-  ActivityIndicator,
-  StatusBar,
-  Button,
-  StyleSheet,
-} from 'react-native'
+import { Text, View, Platform, ActivityIndicator, Button } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import Database from '../db/db'
 import NotificationsUtils from '../utils/notifications'
 import ToggleSwitch from 'toggle-switch-react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { blue, lightblue } from '../utils/consts'
+import { lightblue } from '../utils/consts'
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
+import styles from '../styles/settings'
 
 const db = new Database()
 
-const styles = StyleSheet.create({
-  activityIndicatorView: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-    padding: 20,
-  },
-  container: {
-    marginTop: 15,
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  button: {
-    backgroundColor: blue,
-    justifyContent: 'center',
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  label: {
-    fontFamily: 'Poppins_400Regular',
-    color: 'black',
-    fontWeight: '900',
-  },
-  notifsText: {
-    color: 'white',
-    fontFamily: 'Poppins_400Regular',
-    textAlign: 'center',
-    paddingRight: 25,
-    fontSize: 13,
-  },
-})
-
-const DebugView = ({ debug }) => {
+const DebugView = ({ debug }: { debug: boolean }) => {
   const nu = new NotificationsUtils()
   return debug ? (
     <View>
@@ -68,16 +26,8 @@ const DebugView = ({ debug }) => {
         onPress={async _ => await nu.cancelAllScheduledNotifications()}
       />
       <Button
-        title="Notification in 1 minute"
-        onPress={async _ => await nu.sendAlmostInstantNotification(1)}
-      />
-      <Button
-        title="Notification in 3 minute"
-        onPress={async _ => await nu.sendAlmostInstantNotification(3)}
-      />
-      <Button
-        title="Notification in 5 minutes"
-        onPress={async _ => await nu.sendAlmostInstantNotification(5)}
+        title="Set category"
+        onPress={async _ => await nu.setShareNotificationCategory()}
       />
       <Button
         title="Instant Notification"
@@ -124,7 +74,7 @@ export default function Settings() {
   const showTimepicker = () => showMode('time')
 
   useEffect(() => {
-    db.getShouldSendNotifications()
+    db.shouldSendNotifications()
       .then(res => setssn(res))
       .finally(() => setssnLoaded(true))
     db.getTimeTrigger().then(timeTrigger => {
@@ -141,7 +91,7 @@ export default function Settings() {
   }, [ssn])
 
   async function changessn() {
-    const _ssn = await db.getShouldSendNotifications()
+    const _ssn = await db.shouldSendNotifications()
     await db.setShouldSendNotifications(!_ssn)
     setssn(!_ssn)
   }
@@ -156,7 +106,7 @@ export default function Settings() {
           label="Enviar notificaciones"
           labelStyle={styles.label}
           size="small"
-          onToggle={async _ => await changessn()}
+          onToggle={async (_: any) => await changessn()}
           animationSpeed={50}
         />
       </View>
@@ -183,6 +133,7 @@ export default function Settings() {
             onChange={onChange}
             minuteInterval={5}
             disabled={false}
+            textColor="black"
           />
         )}
       </View>

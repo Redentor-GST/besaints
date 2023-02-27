@@ -1,3 +1,5 @@
+import { Share } from 'react-native'
+
 export function createDateTrigger(
   date: string,
   hourTrigger: number,
@@ -31,7 +33,6 @@ export function getDateStr(date: Date, incrementMonth: boolean) {
 
   if (day < 10) day = `0${day}`
   if (month < 10) month = `0${month}`
-  console.log(`sending ${month}-${day}`)
 
   return `${month}-${day}`
 }
@@ -40,4 +41,12 @@ export const isLeapYear = () => {
   const now = new Date()
   const year = now.getFullYear()
   return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
+}
+
+export const sharePhrase = async (phrase: string) => {
+  await Share.share({
+    message:
+      `"${phrase} "` +
+      '\nDescubre más frases de santos en la aplicación Be Saints! https://linktr.ee/besaintsapp',
+  })
 }

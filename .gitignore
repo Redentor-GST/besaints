@@ -88,3 +88,6 @@ android
 ios
 google-services.json
 test.js
+connect.sh
+.yarn
+.env

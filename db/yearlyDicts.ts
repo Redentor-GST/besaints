@@ -52,7 +52,7 @@ const odd: Phrase[] = [
     date: '01-10',
   },
   {
-    text: 'Dios es como los piojos, está en todas partes, pero prefiere a los pobres',
+    text: 'Dios es como los piojos, está en todas partes, pero prefiere a los pobres.',
     author: 'San José Gabriel del Rosario Brochero',
     date: '01-11',
   },
@@ -157,7 +157,7 @@ const odd: Phrase[] = [
     date: '01-31',
   },
   {
-    text: 'Aún cuando las apariencias sean contrarias. Pasarán por ingenuos: es el precio de la caridad.”',
+    text: 'Aún cuando las apariencias sean contrarias. Pasarán por ingenuos: es el precio de la caridad.',
     author: 'Santo Tomás Moro',
     date: '02-01',
   },
@@ -197,7 +197,7 @@ const odd: Phrase[] = [
     date: '02-08',
   },
   {
-    text: 'Mucho nos ama el Creador pues nos hace tantos beneficios; por eso debemos alejarnos del pecado de la ingratitud y cuidar de alabar siempre a Dios',
+    text: 'Mucho nos ama el Creador pues nos hace tantos beneficios; por eso debemos alejarnos del pecado de la ingratitud y cuidar de alabar siempre a Dios.',
     author: 'San Francisco de Asís',
     date: '02-09',
   },
@@ -242,8 +242,8 @@ const odd: Phrase[] = [
     date: '02-17',
   },
   {
-    text: 'Todo cuanto debía padecer el hombre, a fin de que el hombre experimentase las riquezas de su misericordia y las dulzuras de su amor. Apareció, en fin, entre nosotros el Hijo de Dios hecho hombre para asimilarse perfectamente al hombre, a fin de que el hombre se hiciese Dios y pudiese participar de su infinito amor.',
-    author: 'San José Gabriel del Rosario Brochero',
+    text: 'Conócete. Acéptate. Supérate',
+    author: 'San Agustín',
     date: '02-18',
   },
   {
@@ -357,7 +357,7 @@ const odd: Phrase[] = [
     date: '03-12',
   },
   {
-    text: '¡Oh démonos a El! ¿Qué son cincuenta años y aún cien de vida, comparados con la eternidad? Sacrificio aquí en el destierro, gloria sin fin en la patria. Y ¿qué es el sacrificio, qué es la cruz sino cielo cuando en ella está Jesucristo?',
+    text: '¡Oh démonos a Él! ¿Qué son cincuenta años y aún cien de vida, comparados con la eternidad?',
     author: 'Santa Teresa de los Andes',
     date: '03-13',
   },
@@ -462,8 +462,8 @@ const odd: Phrase[] = [
     date: '04-02',
   },
   {
-    text: 'Es un cordial a propósito para dar la vida de la gracia a su alma, y la del puro amor a su corazón y a todas las buenas acciones. En fin, la virtud del Sagrado Corazón de Jesús abate hasta nosotros su grandeza, si nos halla anonadados en el amor de nuestra pequeñez, y cuidará de levantarnos a su unión al paso de todo aquello que resplandece a los ojos de las criaturas.',
-    author: 'Santa Margarita Maria',
+    text: 'Oh Señor, que yo no busque tanto ser consolado, cuanto consolar, ser comprendido, cuanto comprender, ser amado, cuanto amar.',
+    author: 'San Francisco de Asís',
     date: '04-03',
   },
   {
@@ -472,7 +472,7 @@ const odd: Phrase[] = [
     date: '04-04',
   },
   {
-    text: 'Es mejor ser cristiano sin decirlo que proclamarlo sin serlo',
+    text: 'Es mejor ser cristiano sin decirlo que proclamarlo sin serlo.',
     author: 'San Ignacio de Antioquía',
     date: '04-05',
   },
@@ -492,7 +492,7 @@ const odd: Phrase[] = [
     date: '04-08',
   },
   {
-    text: 'Los santos sienten que Jesucristo Sacramentado se difunde y comunica totalmente a sus almas y a sus cuerpos. Él todo lo repara, modifica y vivifica; ama en el corazón, escucha en la cabeza, ve en los ojos, habla en la lengua; hace todo en todo y entonces no vivimos nosotros, sino que el mismo Jesucristo quien vive en nosotros.',
+    text: 'Él todo lo repara, modifica y vivifica; ama en el corazón, escucha en la cabeza, ve en los ojos, habla en la lengua; hace todo en todo y entonces no vivimos nosotros, sino que el mismo Jesucristo quien vive en nosotros.',
     author: 'San Francisco de Sales',
     date: '04-09',
   },
@@ -577,7 +577,7 @@ const odd: Phrase[] = [
     date: '04-25',
   },
   {
-    text: 'Mis amados: que Dios amó al hombre desde la eternidad es una verdad tan clara y tan demostrada que el solo pensar lo contrario es y sería el colmo de la locura... El amor eterno de Dios hacia el hombre está escrito en todas las maravillas de la creación... los prodigiosos fenómenos de la naturaleza que, a cada paso, nos asombran, publican por todas partes ese amor. Lo mismo hacen los luminosos astros que embellecen el firmamento. Igual cosa publican las refulgentes estrellas que tachonan y esmaltan la bóveda celeste. El cambio periódico de las estaciones, la riqueza del mundo vegetal y animal, y todo lo grande y sublime que presenciamos en el universo, predican que Dios amó al hombre desde la eternidad y que, en él, puso los ojos de su amor y de su predilección',
+    text: 'Mis amados: que Dios amó al hombre desde la eternidad es una verdad tan clara y tan demostrada que el solo pensar lo contrario es y sería el colmo de la locura... El amor eterno de Dios hacia el hombre está escrito en todas las maravillas de la creación.',
     author: 'San José Gabriel del Rosario Brochero',
     date: '04-26',
   },
@@ -622,8 +622,8 @@ const odd: Phrase[] = [
     date: '05-04',
   },
   {
-    text: 'Sobre la oración: “Una vez que se ha empezado con atención, nunca después puede ser interrumpida de tal modo que la virtud de la primera intención no permanezca de modo continuo, actual o habitualmente. Y esto es así siempre que no se renuncie a aquella intención inicial decidiendo abandonar la oración, o bien cortándola bruscamente por el pecado mortal.”',
-    author: 'Santo Tomás Moro',
+    text: 'Reza como si todo dependiera de Dios. Trabaja como si todo dependiera de ti.',
+    author: 'San Ignacio de Loyola',
     date: '05-05',
   },
   {
@@ -747,8 +747,8 @@ const odd: Phrase[] = [
     date: '05-29',
   },
   {
-    text: 'Si alguien escapa cuando Dios le manda permanecer y afrontar el peligro con confianza, bien por razón de su propia salvación o por la de aquellos que le han sido encomendados a su cuidado, ese tal se comporta, sin ninguna duda, muy insensatamente. Pero, ¿y si lo hace para salvar la vida? También, porque, ¿qué puede ser más disparatado y necio que el preferir un breve tiempo de dolor y desgracia a una eternidad de felicidad?',
-    author: 'Santo Tomás Moro',
+    text: 'El examen de conciencia es siempre el mejor medio para cuidar bien el alma.',
+    author: 'San Ignacio de Loyola',
     date: '05-30',
   },
   {
@@ -762,8 +762,8 @@ const odd: Phrase[] = [
     date: '06-01',
   },
   {
-    text: '¡Ah!, qué poco nos parecemos a Cristo aunque llevemos su nombre y nos llamemos cristianos. Nuestra conversación en las comidas no sólo es tonta y superficial (incluso por esta negligencia advirtió Cristo que deberemos rendir cuenta), sino que a menudo es también perniciosa, y una vez llenos de comida y bebida dejamos la mesa sin acordarnos de Dios y sin darle gracias por los bienes que nos ha otorgado.',
-    author: 'Santo Tomás Moro',
+    text: 'Santifícate a ti mismo y santificarás a la sociedad.',
+    author: 'San Francisco de Asís',
     date: '06-02',
   },
   {
@@ -827,7 +827,7 @@ const odd: Phrase[] = [
     date: '06-14',
   },
   {
-    text: 'El amor no consiste en grandes cosas, sino en tener grande desnudez y padecer por el Amado',
+    text: 'El amor no consiste en grandes cosas, sino en tener grande desnudez y padecer por el Amado.',
     author: 'San Juan de la Cruz',
     date: '06-15',
   },
@@ -872,8 +872,8 @@ const odd: Phrase[] = [
     date: '06-23',
   },
   {
-    text: 'En fin, mi amigo, yo, usted y todos los hombres somos de Dios en el cuerpo y en el alma. Él es el que nos conserva los 5 sentidos del cuerpo y las 3 potencias del alma, y el mismo Dios es quien inutiliza algunos o todos los sentidos del cuerpo y lo mismo hace con las potencias del alma. Yo estoy muy conforme con lo que ha hecho conmigo relativamente a la vista y le doy muchas gracias por ello. Cuando yo pude servir a la humanidad, me conservó íntegros y robustos mis sentidos. Hoy, que ya no puedo, me ha inutilizado uno de los sentidos del cuerpo. En este mundo, no hay gloria cumplida, y estamos llenos de miserias.',
-    author: 'San José Gabriel del Rosario Brochero',
+    text: 'Voy a pasar mi cielo haciendo el bien en la tierra.',
+    author: 'Santa Teresa del Niño Jesús',
     date: '06-24',
   },
   {
@@ -1012,8 +1012,8 @@ const odd: Phrase[] = [
     date: '07-21',
   },
   {
-    text: 'Pienso que no andamos equivocados al sospechar que se avecina de nuevo un tiempo en que el Hijo del hombre, Cristo, será entregado en manos de los pecadores, cuando observamos un peligro inminente de que el Cuerpo místico de Cristo, la Iglesia de Cristo, esto es, el pueblo cristiano, es arrastrado a la ruina a manos de hombres perversos e impíos.',
-    author: 'Santo Tomás Moro',
+    text: 'La santidad consiste en la disposición del corazón.',
+    author: 'Santa Teresa del Niño Jesús',
     date: '07-22',
   },
   {
@@ -1107,8 +1107,8 @@ const odd: Phrase[] = [
     date: '08-09',
   },
   {
-    text: 'Oh Dios mío! Hermanas mías, ¿en qué otra cosa debemos complacernos sino en hablar de Dios, de la eternidad, de la dicha de nuestra vocación, del amor y fidelidad que debemos de tener para adquirir con perfección el espíritu de nuestro Instituto y orara consérvale cuidadosamente?',
-    author: 'Santa Juana de Chantal',
+    text: 'La dulzura en el hablar, en el obrar y en reprender, lo gana todo y a todos.',
+    author: 'San Juan Bosco',
     date: '08-10',
   },
   {
@@ -1142,7 +1142,7 @@ const odd: Phrase[] = [
     date: '08-16',
   },
   {
-    text: 'A los sacerdotes: “Cuanto sean más pecadores o más rudos o más inciviles mis feligreses, los han de tratar con más dulzura y amabilidad en el confesionario, en el púlpito y aún en el trato familiar”',
+    text: 'A los sacerdotes: "Cuanto sean más pecadores o más rudos o más inciviles mis feligreses, los han de tratar con más dulzura y amabilidad en el confesionario, en el púlpito y aún en el trato familiar"',
     author: 'San José Gabriel del Rosario Brochero',
     date: '08-17',
   },
@@ -1257,7 +1257,7 @@ const odd: Phrase[] = [
     date: '09-08',
   },
   {
-    text: 'Estamos a veces tan dormidos en los vicios que ni siquiera queremos despertarnos ante las llamadas y sacudidas de la misericordia divina, y regresar a la práctica de las virtudes. Nosotros mismos somos la causa de que Dios se aleje abandonándonos en nuestra vida viciosa.',
+    text: 'Estamos a veces tan dormidos en los vicios que ni siquiera queremos despertarnos ante las llamadas y sacudidas de la misericordia divina, y regresar a la práctica de las virtudes.',
     author: 'Santo Tomás Moro',
     date: '09-09',
   },
@@ -1397,8 +1397,8 @@ const odd: Phrase[] = [
     date: '10-06',
   },
   {
-    text: 'Si huimos cuando somos conscientes de que para la salvación de nuestra alma o de la de los que nos han sido confiados Dios nos orde­na mantenernos en nuestro lugar y confiar en su ayuda, cometeremos una tontería, incluso si lo hacemos para salvar nuestra vida. Sí, precisamente porque lo hacemos para salvar nuestra vida.',
-    author: 'Santo Tomás Moro',
+    text: 'Yo nunca aconsejo nada a nadie sin haberme encomendado a la Virgen Santísima. Ella es la que hace que las palabras que digo tengan eficacia en los que las escuchan.',
+    author: 'Santa Teresa del Niño Jesús',
     date: '10-07',
   },
   {
@@ -1412,8 +1412,8 @@ const odd: Phrase[] = [
     date: '10-09',
   },
   {
-    text: '¡Oh piadosa pobreza a la que se dignó abrazar con predilección el Señor Jesucristo, el que gobernaba y gobierna cielo y tierra y, lo que es más, lo dijo y todo fue hecho!',
-    author: 'Santa Clara',
+    text: 'La fe y la esperanza son las dos alas del alma, con ellas se eleva de las cosas terrenas y asciende de lo visible a lo invisible.',
+    author: 'San Antonio de Padua',
     date: '10-10',
   },
   {
@@ -1427,7 +1427,7 @@ const odd: Phrase[] = [
     date: '10-12',
   },
   {
-    text: 'Los que hacen profesión de pertenecer a Cristo se distinguen por sus obras',
+    text: 'Los que hacen profesión de pertenecer a Cristo se distinguen por sus obras.',
     author: 'San Ignacio de Antioquia',
     date: '10-13',
   },
@@ -1482,8 +1482,8 @@ const odd: Phrase[] = [
     date: '10-23',
   },
   {
-    text: 'Acerca de su ordenación de sacerdote: “Sentí mucho miedo. Apenas soy un pobre pecador, tan lleno de límites y miserias. Y me preguntaba: ‘¿Podré ser fiel a la vocación? ¿En qué enredo me metí?’ Pero en seguida una sensación inmensa de paz invadió todo mi ser. Porque si el Señor me había llamado, Él sería fiel y sostendría mi fidelidad; además, Jesús, el Buen Pastor, jamás niega sus dones a quienes lo siguen y son ‘otros Jesús’ como su Hijo muy amado.”',
-    author: 'San José Gabriel del Rosario Brochero',
+    text: 'El examen de conciencia es siempre el mejor medio para cuidar bien el alma.',
+    author: 'San Ignacio de Loyola',
     date: '10-24',
   },
   {
@@ -1517,7 +1517,7 @@ const odd: Phrase[] = [
     date: '10-30',
   },
   {
-    text: 'Quien quiera algo que no sea Cristo, no sabe lo que quiere; quien pida algo que no sea Cristo, no sabe lo que pide; quien no trabaje por Cristo, no sabe lo que hace',
+    text: 'Quien quiera algo que no sea Cristo, no sabe lo que quiere; quien pida algo que no sea Cristo, no sabe lo que pide; quien no trabaje por Cristo, no sabe lo que hace.',
     author: 'San Felipe Neri',
     date: '10-31',
   },
@@ -1527,7 +1527,7 @@ const odd: Phrase[] = [
     date: '11-01',
   },
   {
-    text: '¡Oh Corazones, verdaderamente dignos de poseer todos los corazones, de reinar sobre todos los corazones de los ángeles y de los hombres! Vosotros seréis, de aquí en adelante, la regla de mi conducta, y en todas las ocasiones trataré de inspirarme en vuestros sentimientos. Quiero que mi corazón no esté, en adelante, sino en el de Jesús y el de María, o que el de Jesús y María estén en el mío, para que ellos le comuniquen sus movimientos; y que el mío no se agite ni se mueva, sino conforme a la impresión que de ellos reciba.',
+    text: 'Quiero que mi corazón no esté, en adelante, sino en el de Jesús y el de María, o que el de Jesús y María estén en el mío, para que ellos le comuniquen sus movimientos; y que el mío no se agite ni se mueva, sino conforme a la impresión que de ellos reciba.',
     author: 'San Claudio de la Colombiere',
     date: '11-02',
   },
@@ -1577,8 +1577,8 @@ const odd: Phrase[] = [
     date: '11-11',
   },
   {
-    text: 'Si tan amenazado estuviera alguien en el mal que no haya dejado de profesar la verdadera doctrina por miedo, sino que, como Arrio y otros como él, predica falsa doctrina bien por una sórdida ganancia o por una corrupta ambición, ese tal no duerme como Pedro, ni niega como Pedro, sino que permanece bien despierto como el miserable Judas y, como Judas, a Cristo persigue.',
-    author: 'Santo Tomás Moro',
+    text: '¡Qué grande es el poder de la oración! Se diría que es una reina que en todo momento tiene acceso directo al rey y puede conseguir todo lo que le pide.',
+    author: 'Santa Teresa del Niño Jesús',
     date: '11-12',
   },
   {
@@ -1602,8 +1602,8 @@ const odd: Phrase[] = [
     date: '11-16',
   },
   {
-    text: 'Me parecía que contemplaba el corazón de su cuerpo sagrado con mis propios ojos, como si me lo abriera y me dijera que bebiera de él como una fuente, invitándome a saciarme de las aguas de la salvación en estos manantiales suyos. Me invadieron ansias de que las aguas de la fe, esperanza y caridad fluyeran de su corazón al mío.',
-    author: 'San Pedro Canisio',
+    text: 'La puerta del cielo es baja, y quien quiere entrar debe necesariamente inclinarse. Nos lo enseñó el propio Jesús, quien al morir, inclinó la cabeza.',
+    author: 'San Antonio de Padua',
     date: '11-17',
   },
   {
@@ -1612,7 +1612,7 @@ const odd: Phrase[] = [
     date: '11-18',
   },
   {
-    text: 'La hostia consagrada es un milagro de amor, es un prodigio de amor, es una maravilla de amor, es un complemento de amor, y es la prueba más acabada de su amor infinito hacia mí, hacia ustedes, hacia el hombre',
+    text: 'La hostia consagrada es un milagro de amor, es un prodigio de amor, es una maravilla de amor, es un complemento de amor, y es la prueba más acabada de su amor infinito hacia mí, hacia ustedes, hacia el hombre.',
     author: 'San José Gabriel del Rosario Brochero',
     date: '11-19',
   },
@@ -1637,8 +1637,8 @@ const odd: Phrase[] = [
     date: '11-23',
   },
   {
-    text: 'Deberíamos derramar sin cesar sobre Dios jaculatorias y oraciones, implorando con humildad que, si en algún momento, viniéramos a pedir algo que no nos es conveniente, impulsados por los atractivos de la carne, o seducidos por los espejuelos de los placeres, o atraídos por el anhelo de las cosas terrenales, o trastornados por las insidias y maquinaciones del diablo, se haga sordo a nuestra petición y aleje aquello por lo que rezamos, derramando sobre nosotros todo aquello que El sabe nos hará bien, aunque mucho le pidamos lo aparte de nuestra vida.',
-    author: 'Santo Tomás Moro',
+    text: 'En todo amar y servir.',
+    author: 'San Ignacio de Loyola',
     date: '11-24',
   },
   {
@@ -1657,8 +1657,8 @@ const odd: Phrase[] = [
     date: '11-27',
   },
   {
-    text: "Jesucristo impone a sus soldados leyes al parecer muy duras: 'Niégate a ti mismo, carga con tu cruz y sígueme', porque el negarse a sí mismo, importa una renuncia completa de todos los placeres del sentido, un abandono de las riquezas superfluas, y un desprecio de los vanos honores. Tomar la cruz, es la preparación del ánimo, para tolerar las cosas contrarias al genio de la naturaleza; tales son, la penitencia, la mortificación del cuerpo, la pobreza de espíritu y la humildad de corazón: cosas todas que se oponen directamente a los tres genios de apetitos que sugiere Lucifer",
-    author: 'San José Gabriel del Rosario Brochero',
+    text: "Donde hay caridad y sabiduría, no hay temor ni ignorancia.",
+    author: 'San Francisco de Asís',
     date: '11-28',
   },
   {
@@ -1682,13 +1682,13 @@ const odd: Phrase[] = [
     date: '12-02',
   },
   {
-    text: '...el porvenir de un hombre depende de dos o tres sí, dos o tres no, que da un joven entre los quince y los veinte años.',
-    author: 'San Alberto Hurtado',
+    text: 'Comienza haciendo lo que es necesario, después lo que es posible y de repente estarás haciendo lo imposible.',
+    author: 'San Francisco de Asís',
     date: '12-03',
   },
   {
-    text: 'Si los males y desgracias de aquellos que están lejos no nos llegaran a conmover y preocupar, muévanos, al menos, nuestro propio peligro. Pues razón de sobra tenemos para temer que la maldad destructora no tardará en acercarse adonde estamos, de la misma manera que sabemos por experiencia cuan grande e impetuosa es la fuerza devastadora de un incendio, o cuán terrible el contagio de una peste al extenderse. Sin la ayuda de Dios para que desvíe el mal, inútil es todo refugio humano.',
-    author: 'Santo Tomás Moro',
+    text: 'Quien evita la tentación evita el pecado.',
+    author: 'San Ignacio de Loyola',
     date: '12-04',
   },
   {
@@ -1702,7 +1702,7 @@ const odd: Phrase[] = [
     date: '12-06',
   },
   {
-    text: 'Al conocer lo que Dios nos ha dado, encontraremos muchísimas cosas por las que dar gracias continuamente',
+    text: 'Al conocer lo que Dios nos ha dado, encontraremos muchísimas cosas por las que dar gracias continuamente.',
     author: 'San Bernardo',
     date: '12-07',
   },
@@ -1717,8 +1717,8 @@ const odd: Phrase[] = [
     date: '12-09',
   },
   {
-    text: 'El Eterno se enamoró de vuestra incomparable hermosura, con tanta fuerza, que se hizo como desprenderse del seno del Padre y escoger esas virginales entrañas para hacerse Hijo vuestro. ¿Y yo, gusanillo de la tierra, no he de amaros? Sí, dulcísima Madre mía, quiero arder en vuestro amor y propongo exhortar a otros a que os amen también',
-    author: 'San Alfonso María de Ligorio',
+    text: 'La medida del amor es amar sin medida.',
+    author: 'San Bernardo de Clavaral',
     date: '12-10',
   },
   {
@@ -1742,7 +1742,7 @@ const odd: Phrase[] = [
     date: '12-14',
   },
   {
-    text: 'María es como el arcoiris, señal de reconciliación entre Dios y los hombres. Es como un capullo de rosa que abre sus pétalos en pleno invierno; como un lirio que crece junto a la corriente de las aguas; como un incienso que esparce suaves aromas. Ella es un cáliz de oro cubierto de piedras preciosas, un olivo que jamás pierde su follaje, un ciprés que se eleva sobre todos los árboles del bosque.',
+    text: 'María es como el arcoiris, señal de reconciliación entre Dios y los hombres.',
     author: 'San Antonio de Padua',
     date: '12-15',
   },
@@ -1812,18 +1812,18 @@ const odd: Phrase[] = [
     date: '12-28',
   },
   {
-    text: 'Dios en los santos Ejercicios me ha enseñado a mí y a ustedes que el hombre debe primero perder su honor, sus bienes o riquezas y su vida misma, antes que perder a Dios, o sea, su salvación',
+    text: 'Dios en los santos Ejercicios me ha enseñado a mí y a ustedes que el hombre debe primero perder su honor, sus bienes o riquezas y su vida misma, antes que perder a Dios, o sea, su salvación.',
     author: 'San José Gabriel del Rosario Brochero',
     date: '12-29',
   },
   {
-    text: 'Cristo sabía que muchos, por su propia debilidad física, se sentirían aterrorizados ante la idea del suplicio, y quiso llevarles consuelo al espíritu con el ejemplo de su dolor, de su tristeza, de su angustia, de su miedo.”',
+    text: 'Cristo sabía que muchos, por su propia debilidad física, se sentirían aterrorizados ante la idea del suplicio, y quiso llevarles consuelo al espíritu con el ejemplo de su dolor, de su tristeza, de su angustia, de su miedo.',
     author: 'Santo Tomás Moro',
     date: '12-30',
   },
   {
-    text: 'Es mantenimiento aun para estos cuerpos este santísimo manjar, y gran medicina aun para los males corporales.',
-    author: 'Santa Teresa de Jesús',
+    text: 'La paciencia es la compañera de la sabiduría.',
+    author: 'San Agustín',
     date: '12-31',
   },
 ];

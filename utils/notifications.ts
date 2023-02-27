@@ -1,10 +1,15 @@
 import * as Notifications from 'expo-notifications'
-import Constants from 'expo-constants'
+import { isDevice } from 'expo-device'
 import { Platform } from 'react-native'
 import Database from '../db/db'
 import { createDateTrigger } from './utils'
 import { Phrase } from './interfaces'
-import { defaultTrigger, daysSince1Jan } from './consts'
+import {
+  defaultTrigger,
+  daysSince1Jan,
+  SHARE_CATEGORY,
+  SHARE_ACTION,
+} from './consts'
 
 const IOS_NOTIFICATIONS_LIMIT = 64
 
@@ -35,20 +40,8 @@ export default class NotificationsUtils {
       true
     )
 
-  //Debug function
-  sendAlmostInstantNotification = async (minutes: number) => {
-    const today = new Date()
-    await this.scheduleNotification(
-      today.getHours(),
-      today.getMinutes() + minutes,
-      { text: 'hello', author: 'goodbye', date: '09-13' },
-      false
-    )
-  }
-
   private async registerForPushNotificationsAsync() {
-    let token = ''
-    if (!Constants.isDevice) return
+    if (!isDevice) return
     const { status: existingStatus } = await Notifications.getPermissionsAsync()
     let finalStatus = existingStatus
     if (existingStatus !== 'granted') {
@@ -69,21 +62,26 @@ export default class NotificationsUtils {
       })
     }
 
-    token = (await Notifications.getExpoPushTokenAsync()).data
-    return token
+    return (await Notifications.getExpoPushTokenAsync()).data
   }
+
+  setShareNotificationCategory = async () =>
+    await Notifications.setNotificationCategoryAsync(SHARE_CATEGORY, [
+      SHARE_ACTION,
+    ])
 
   private notification = (
     title: string,
     body: string,
     dateTrigger: Date,
     instant: boolean
-  ) => {
+  ): Notifications.NotificationRequestInput => {
     return {
       content: {
         title: title,
         body: body,
         data: { datetrigger: dateTrigger.toString() },
+        categoryIdentifier: SHARE_CATEGORY,
       },
       trigger: instant
         ? null
@@ -91,36 +89,11 @@ export default class NotificationsUtils {
             date: dateTrigger,
             channelId: 'default',
             repeats: false,
-            type: 'calendar',
           },
     }
   }
 
-  private async scheduleNotification(
-    triggerHour: number,
-    triggerMinute: number,
-    data: Phrase,
-    instant: boolean = false
-  ) {
-    if (!(await this.db.getShouldSendNotifications())) return
-    //:)
-    const title = 'Frase del día'
-    const body = `${data.text} ${data.author}.`
-    const dateTrigger = createDateTrigger(data.date, triggerHour, triggerMinute)
-    const today = new Date()
-    if (today <= dateTrigger || instant) {
-      const notification = this.notification(title, body, dateTrigger, instant)
-      await Notifications.scheduleNotificationAsync(notification)
-    }
-  }
-
-  async scheduleReminderNotification() {
-    if (!(await this.db.getShouldSendNotifications())) return
-    if (Platform.OS === 'ios') {
-      const reminderID = await this.db.getReminderNotificationID()
-      if (reminderID)
-        await Notifications.cancelScheduledNotificationAsync(reminderID)
-    }
+  private reminderNotification = (): Notifications.NotificationRequestInput => {
     const today = new Date()
     const title = 'Toca renovar frases!'
     const body =
@@ -136,6 +109,36 @@ export default class NotificationsUtils {
     )
     const dateTrigger = Platform.OS === 'android' ? androidDate : IOSDate
     const notification = this.notification(title, body, dateTrigger, false)
+    delete notification.content.categoryIdentifier
+    return notification
+  }
+
+  private async scheduleNotification(
+    triggerHour: number,
+    triggerMinute: number,
+    data: Phrase,
+    instant: boolean = false
+  ) {
+    if (!(await this.db.shouldSendNotifications())) return
+    const title = 'Frase del día'
+    const body = `${data.text} ${data.author}.`
+    const dateTrigger = createDateTrigger(data.date, triggerHour, triggerMinute)
+    const today = new Date()
+    if (today <= dateTrigger || instant) {
+      const notification = this.notification(title, body, dateTrigger, instant)
+      await Notifications.scheduleNotificationAsync(notification)
+    }
+  }
+
+  async scheduleReminderNotification() {
+    if (!(await this.db.shouldSendNotifications())) return
+    if (Platform.OS === 'ios') {
+      const reminderID = await this.db.getReminderNotificationID()
+      if (reminderID)
+        await Notifications.cancelScheduledNotificationAsync(reminderID)
+    }
+
+    const notification = this.reminderNotification()
     const id = await Notifications.scheduleNotificationAsync(notification)
     await this.db.setReminderNotificationID(id)
   }
@@ -148,12 +151,10 @@ export default class NotificationsUtils {
       ? timeTrigger.minute
       : defaultTrigger.minute
     const daysSinceYearsStarted = daysSince1Jan()
-    const token = await this.registerForPushNotificationsAsync().catch(e =>
-      console.error('Exception in registerNotifs: ' + e)
-    )
-    if (!token) return
+    await this.registerForPushNotificationsAsync()
     const phrasesAndroid = phrases.slice(daysSinceYearsStarted)
     const phrasesIOS = phrasesAndroid.slice(0, IOS_NOTIFICATIONS_LIMIT - 1)
+    await this.setShareNotificationCategory()
     for (const phrase of Platform.OS === 'android'
       ? phrasesAndroid
       : phrasesIOS) {
