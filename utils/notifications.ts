@@ -143,23 +143,33 @@ export default class NotificationsUtils {
     await this.db.setReminderNotificationID(id)
   }
 
-  async scheduleAllYearlyNotifications() {
-    const phrases = this.db.getAllPhrases()
+  async getTimeTrigger() {
     const timeTrigger = await this.db.getTimeTrigger()
     const hourTrigger = timeTrigger ? timeTrigger.hour : defaultTrigger.hour
     const minuteTrigger = timeTrigger
       ? timeTrigger.minute
       : defaultTrigger.minute
+    return { hourTrigger, minuteTrigger }
+  }
+
+  getPhrasesToSchedule() {
+    const DBPhrases = this.db.getAllPhrases()
     const daysSinceYearsStarted = daysSince1Jan()
-    await this.registerForPushNotificationsAsync()
-    const phrasesAndroid = phrases.slice(daysSinceYearsStarted)
+    const phrasesAndroid = DBPhrases.slice(daysSinceYearsStarted)
     const phrasesIOS = phrasesAndroid.slice(0, IOS_NOTIFICATIONS_LIMIT - 1)
+    return Platform.OS === 'android' ? phrasesAndroid : phrasesIOS
+  }
+
+  async scheduleAllYearlyNotifications() {
+    const { hourTrigger, minuteTrigger } = await this.getTimeTrigger()
+    const phrasesToSchedule = this.getPhrasesToSchedule()
+    await this.registerForPushNotificationsAsync()
     await this.setShareNotificationCategory()
-    for (const phrase of Platform.OS === 'android'
-      ? phrasesAndroid
-      : phrasesIOS) {
-      await this.scheduleNotification(hourTrigger, minuteTrigger, phrase)
-    }
+    await Promise.all(
+      phrasesToSchedule.map(phrase =>
+        this.scheduleNotification(hourTrigger, minuteTrigger, phrase)
+      )
+    )
     await this.scheduleReminderNotification()
   }
 }
