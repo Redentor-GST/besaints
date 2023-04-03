@@ -21,7 +21,7 @@ export default function PhraseView() {
   const [fontsLoaded] = useFonts({ Poppins_400Regular_Italic })
   useEffect(() => setPhrase(db.getDailyPhrase()), [])
 
-  const onShare = async () => sharePhrase(`${phrase.text} ${phrase.author}`)
+  const onShare = async () => sharePhrase(`${phrase.text}\n${phrase.author}`)
 
   return fontsLoaded ? (
     <View
