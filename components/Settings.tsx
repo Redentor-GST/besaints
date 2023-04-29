@@ -136,7 +136,7 @@ export default function Settings() {
         )}
       </View>
       {/*Don't forget to put debug to false when uploading to app stores*/}
-      <DebugView debug={true} />
+      <DebugView debug={false} />
     </View>
   ) : (
     <View style={styles.activityIndicatorView}>
