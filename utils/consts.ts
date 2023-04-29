@@ -27,5 +27,3 @@ export const SHARE_ACTION: NotificationAction = {
     isDestructive: true,
   },
 }
-
-//?Maybe db = new Databse() should be here

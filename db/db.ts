@@ -1,52 +1,63 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { defaultTrigger } from '../utils/consts';
-import { Phrase, TimeTrigger } from '../utils/interfaces';
-import { compareTodayvsDate, getDateStr } from '../utils/utils';
-import { getDict, saints } from './yearlyDicts';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { defaultTrigger } from '../utils/consts'
+import { Phrase, TimeTrigger } from '../utils/interfaces'
+import { compareTodayvsDate, getDateStr } from '../utils/utils'
+import { getDict, saints } from './yearlyDicts'
 
-export default class Database {
-  timeTriggerName = 'timeTrigger';
-  ssnName = 'shouldSendNotifications';
-  reminderID = 'reminderid';
-  tables = [this.timeTriggerName, this.ssnName, this.reminderID];
+const timeTriggerName = 'timeTrigger'
+const ssnName = 'shouldSendNotifications'
+const reminderID = 'reminderid'
+const tables = [timeTriggerName, ssnName, reminderID]
 
-  shouldSendNotifications = async (): Promise<boolean> => {
-    const ssn = await AsyncStorage.getItem(this.ssnName);
-    return ssn ? JSON.parse(ssn) : true;
-  };
+const shouldSendNotifications = async (): Promise<boolean> => {
+  const shouldSendNotifications = await AsyncStorage.getItem(ssnName)
+  return shouldSendNotifications ? JSON.parse(shouldSendNotifications) : true
+}
 
-  setShouldSendNotifications = async (value: boolean | number): Promise<void> =>
-    await AsyncStorage.setItem(this.ssnName, JSON.stringify(value));
+const setShouldSendNotifications = async (
+  value: boolean | number
+): Promise<void> => await AsyncStorage.setItem(ssnName, JSON.stringify(value))
 
-  getTimeTrigger = async (): Promise<TimeTrigger> => {
-    const datrig = await AsyncStorage.getItem(this.timeTriggerName);
-    if (!datrig) return defaultTrigger;
-    const parsed = JSON.parse(datrig);
-    return {
-      hour: parseInt(parsed.hour),
-      minute: parseInt(parsed.minute),
-    };
-  };
+const getTimeTrigger = async (): Promise<TimeTrigger> => {
+  const datrig = await AsyncStorage.getItem(timeTriggerName)
+  if (!datrig) return defaultTrigger
+  const parsed = JSON.parse(datrig)
+  return {
+    hour: parseInt(parsed.hour),
+    minute: parseInt(parsed.minute),
+  }
+}
 
-  setTimeTrigger = async (value: TimeTrigger): Promise<void> =>
-    await AsyncStorage.setItem(this.timeTriggerName, JSON.stringify(value));
+const setTimeTrigger = async (value: TimeTrigger): Promise<void> =>
+  await AsyncStorage.setItem(timeTriggerName, JSON.stringify(value))
 
-  getAllPhrases = (): Phrase[] => getDict();
+const getAllPhrases = (): Phrase[] => getDict()
 
-  getDailyPhrase = (): Phrase => {
-    const phrases: Phrase[] = getDict();
-    for (const phrase of phrases)
-      if (compareTodayvsDate(phrase.date)) return phrase;
-  };
+const getDailyPhrase = (): Phrase => {
+  const phrases: Phrase[] = getDict()
+  for (const phrase of phrases)
+    if (compareTodayvsDate(phrase.date)) return phrase
+}
 
-  getDailySaints = () => saints[getDateStr(new Date(), true)];
+const getDailySaints = () => saints[getDateStr(new Date(), true)]
 
-  getReminderNotificationID = async () =>
-    await AsyncStorage.getItem(this.reminderID);
+const getReminderNotificationID = async () =>
+  await AsyncStorage.getItem(reminderID)
 
-  setReminderNotificationID = async (id: string) =>
-    await AsyncStorage.setItem(this.reminderID, id);
+const setReminderNotificationID = async (id: string) =>
+  await AsyncStorage.setItem(reminderID, id)
 
-  clear = async (): Promise<void> =>
-    await AsyncStorage.multiRemove(this.tables);
+const clear = async (): Promise<void> => await AsyncStorage.multiRemove(tables)
+
+export default {
+  shouldSendNotifications,
+  setShouldSendNotifications,
+  getTimeTrigger,
+  setTimeTrigger,
+  getAllPhrases,
+  getDailyPhrase,
+  getDailySaints,
+  getReminderNotificationID,
+  setReminderNotificationID,
+  clear,
 }

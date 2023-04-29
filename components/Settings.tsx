@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Text, View, Platform, ActivityIndicator, Button } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
-import Database from '../db/db'
+import db from '../db/db'
 import NotificationsUtils from '../utils/notifications'
 import ToggleSwitch from 'toggle-switch-react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { lightblue } from '../utils/consts'
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
 import styles from '../styles/settings'
-
-const db = new Database()
 
 const DebugView = ({ debug }: { debug: boolean }) => {
   const nu = new NotificationsUtils()
@@ -138,7 +136,7 @@ export default function Settings() {
         )}
       </View>
       {/*Don't forget to put debug to false when uploading to app stores*/}
-      <DebugView debug={false} />
+      <DebugView debug={true} />
     </View>
   ) : (
     <View style={styles.activityIndicatorView}>

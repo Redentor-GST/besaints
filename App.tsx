@@ -4,7 +4,6 @@ import {
   StatusBar,
   StyleSheet,
   Platform,
-  ActivityIndicator,
   ImageBackground,
   Image,
   TouchableHighlight,
@@ -17,11 +16,12 @@ import Phrase from './components/Phrase'
 import Settings from './components/Settings'
 import DailySaint from './components/Saints'
 import NotificationsUtils from './utils/notifications'
-import { blue, lightblue, SHARE_CATEGORY } from './utils/consts'
+import { blue, SHARE_CATEGORY } from './utils/consts'
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
 import About from './components/About'
 import * as Notifications from 'expo-notifications'
 import { sharePhrase } from './utils/utils'
+import { Loading } from './components/Loading'
 
 const styles = StyleSheet.create({
   view: {
@@ -36,14 +36,6 @@ const styles = StyleSheet.create({
     //If you want to resize the logo just change the width, dont touch the height
     width: '90%',
     height: '20%',
-  },
-  activityContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-    padding: 20,
   },
   backgroundImage: {
     width: '112%',
@@ -92,7 +84,7 @@ const HomeButtonWithPadding = ({ _navigation, _text }) => (
 const homeScreen = ({ navigation }) => (
   <View style={styles.view}>
     <StatusBar
-      backgroundColor="#4a868c" //? Should we change this to white?
+      backgroundColor="#4a868c"
       barStyle="dark-content"
       animated={true}
       translucent={true}
@@ -154,18 +146,6 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
   ) : (
-    <View>
-      <View style={styles.activityContainer}>
-        <ActivityIndicator size={60} color={lightblue} />
-        <Text style={{ textAlign: 'center' }}>
-          {' '}
-          Por favor espera mientras terminamos de configurar la aplicación.
-          {'\n'}
-          Este proceso toma sólo unos segundos {'\n'}
-          Podés salir de la aplicación mientras esto termina {'\n'}
-          (pero por favor no la cierres). {'\n'}
-        </Text>
-      </View>
-    </View>
+    <Loading />
   )
 }

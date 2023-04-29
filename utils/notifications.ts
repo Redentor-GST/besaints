@@ -1,7 +1,7 @@
 import * as Notifications from 'expo-notifications'
 import { isDevice } from 'expo-device'
 import { Platform } from 'react-native'
-import Database from '../db/db'
+import db from '../db/db'
 import { createDateTrigger } from './utils'
 import { Phrase } from './interfaces'
 import {
@@ -23,8 +23,6 @@ Notifications.setNotificationHandler({
 })
 
 export default class NotificationsUtils {
-  db = new Database()
-
   getAllScheduledNotifications = async () =>
     await Notifications.getAllScheduledNotificationsAsync()
 
@@ -78,8 +76,8 @@ export default class NotificationsUtils {
   ): Notifications.NotificationRequestInput => {
     return {
       content: {
-        title: title,
-        body: body,
+        title,
+        body,
         data: { datetrigger: dateTrigger.toString() },
         categoryIdentifier: SHARE_CATEGORY,
       },
@@ -119,7 +117,7 @@ export default class NotificationsUtils {
     data: Phrase,
     instant: boolean = false
   ) {
-    if (!(await this.db.shouldSendNotifications())) return
+    if (!(await db.shouldSendNotifications())) return
     const title = 'Frase del día'
     const body = `${data.text} ${data.author}.`
     const dateTrigger = createDateTrigger(data.date, triggerHour, triggerMinute)
@@ -131,20 +129,20 @@ export default class NotificationsUtils {
   }
 
   async scheduleReminderNotification() {
-    if (!(await this.db.shouldSendNotifications())) return
+    if (!(await db.shouldSendNotifications())) return
     if (Platform.OS === 'ios') {
-      const reminderID = await this.db.getReminderNotificationID()
+      const reminderID = await db.getReminderNotificationID()
       if (reminderID)
         await Notifications.cancelScheduledNotificationAsync(reminderID)
     }
 
     const notification = this.reminderNotification()
     const id = await Notifications.scheduleNotificationAsync(notification)
-    await this.db.setReminderNotificationID(id)
+    await db.setReminderNotificationID(id)
   }
 
   async getTimeTrigger() {
-    const timeTrigger = await this.db.getTimeTrigger()
+    const timeTrigger = await db.getTimeTrigger()
     const hourTrigger = timeTrigger ? timeTrigger.hour : defaultTrigger.hour
     const minuteTrigger = timeTrigger
       ? timeTrigger.minute
@@ -153,7 +151,7 @@ export default class NotificationsUtils {
   }
 
   getPhrasesToSchedule() {
-    const DBPhrases = this.db.getAllPhrases()
+    const DBPhrases = db.getAllPhrases()
     const daysSinceYearsStarted = daysSince1Jan()
     const phrasesAndroid = DBPhrases.slice(daysSinceYearsStarted)
     const phrasesIOS = phrasesAndroid.slice(0, IOS_NOTIFICATIONS_LIMIT - 1)

@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   TouchableHighlight,
 } from 'react-native'
-import Database from '../db/db'
+import db from '../db/db'
 import {
   useFonts,
   Poppins_400Regular_Italic,
@@ -16,8 +16,6 @@ import {
 } from '@expo-google-fonts/poppins'
 import { lightblue } from '../utils/consts'
 import styles from '../styles/saints'
-
-const db = new Database()
 
 function getTodaysVaticanLink(): string {
   const today = new Date()
