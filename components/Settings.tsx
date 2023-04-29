@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, Platform, ActivityIndicator, Button } from 'react-native'
+import { Text, View, Platform, ActivityIndicator } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import db from '../db/db'
 import NotificationsUtils from '../utils/notifications'
@@ -8,35 +8,6 @@ import { Ionicons } from '@expo/vector-icons'
 import { lightblue } from '../utils/consts'
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
 import styles from '../styles/settings'
-
-const DebugView = ({ debug }: { debug: boolean }) => {
-  const nu = new NotificationsUtils()
-  return debug ? (
-    <View>
-      <Button
-        title="How Many"
-        onPress={async _ =>
-          nu.getAllScheduledNotifications().then(n => console.log(n.length))
-        }
-      />
-      <Button
-        title="Kill all notifications"
-        onPress={async _ => await nu.cancelAllScheduledNotifications()}
-      />
-      <Button
-        title="Set category"
-        onPress={async _ => await nu.setShareNotificationCategory()}
-      />
-      <Button
-        title="Instant Notification"
-        onPress={async _ => await nu.sendInstantNotification()}
-      />
-      <Button title="Clear Database" onPress={_ => db.clear()} />
-    </View>
-  ) : (
-    <View />
-  )
-}
 
 export default function Settings() {
   const [mode, setMode] = useState('date')
@@ -135,8 +106,6 @@ export default function Settings() {
           />
         )}
       </View>
-      {/*Don't forget to put debug to false when uploading to app stores*/}
-      <DebugView debug={false} />
     </View>
   ) : (
     <View style={styles.activityIndicatorView}>
