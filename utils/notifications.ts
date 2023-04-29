@@ -1,7 +1,7 @@
 import * as Notifications from 'expo-notifications'
 import { isDevice } from 'expo-device'
 import { Platform } from 'react-native'
-import db from '../db/db'
+import db from '../db/phrases'
 import { createDateTrigger } from './utils'
 import { Phrase } from './interfaces'
 import {

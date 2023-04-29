@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Text, ScrollView, ActivityIndicator, View } from 'react-native'
-import db from '../db/db'
+import db from '../db/phrases'
 import { Phrase } from '../utils/interfaces'
 import { useFonts, Poppins_400Regular_Italic } from '@expo-google-fonts/poppins'
 import { lightblue } from '../utils/consts'

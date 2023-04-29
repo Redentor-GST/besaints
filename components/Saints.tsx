@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   TouchableHighlight,
 } from 'react-native'
-import db from '../db/db'
+import db from '../db/phrases'
 import {
   useFonts,
   Poppins_400Regular_Italic,

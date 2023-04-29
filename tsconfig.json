@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "jsx": "react"
+    "jsx": "react",
+    "target": "ES2015",
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true
   },
   "extends": "expo/tsconfig.base"
 }

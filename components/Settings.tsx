@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Text, View, Platform, ActivityIndicator } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
-import db from '../db/db'
+import db from '../db/phrases'
 import NotificationsUtils from '../utils/notifications'
 import ToggleSwitch from 'toggle-switch-react-native'
 import { Ionicons } from '@expo/vector-icons'
