@@ -1,5 +1,3 @@
-import { DocumentData } from 'firebase-admin/firestore'
-
 export interface Phrase extends Object {
   text: string
   author: string

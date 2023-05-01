@@ -22,6 +22,7 @@ import About from './components/About'
 import * as Notifications from 'expo-notifications'
 import { sharePhrase } from './utils/utils'
 import { Loading } from './components/Loading'
+import Users from './db/users'
 
 const styles = StyleSheet.create({
   view: {
@@ -105,6 +106,9 @@ const homeScreen = ({ navigation }) => (
 
 // :)
 async function init() {
+  let user = await Users.getUser()
+  if (user) return
+  user = await Users.createUser()
   const nu = new NotificationsUtils()
 
   const scheduledNotifs = await nu.getAllScheduledNotifications()

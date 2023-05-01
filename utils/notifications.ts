@@ -23,20 +23,9 @@ Notifications.setNotificationHandler({
 })
 
 export default class NotificationsUtils {
-  getAllScheduledNotifications = async () =>
-    await Notifications.getAllScheduledNotificationsAsync()
+  getAllScheduledNotifications = async () => await db.getAllPhrases()
 
-  cancelAllScheduledNotifications = async () =>
-    await Notifications.cancelAllScheduledNotificationsAsync()
-
-  //Debug function
-  sendInstantNotification = async () =>
-    await this.scheduleNotification(
-      19,
-      54,
-      { text: 'hello', author: 'goodbye', date: '??' },
-      true
-    )
+  cancelAllScheduledNotifications = async () => {}
 
   private async registerForPushNotificationsAsync() {
     if (!isDevice) return

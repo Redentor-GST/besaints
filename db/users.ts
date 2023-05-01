@@ -8,7 +8,8 @@ initializeApp()
 const db = getFirestore()
 const users = db.collection('users')
 
-const getUser = async (id: string): Promise<User> => {
+const getUser = async (id?: string): Promise<User> => {
+  if (!id) id = await AsyncStorage.getItem('user_id')
   const user = await users.doc(id).get()
   const user_data = user.data()
   if (!user_data) return null
@@ -19,13 +20,20 @@ const getUser = async (id: string): Promise<User> => {
   }
 }
 
-const createUser = async () => {
+const createUser = async (): Promise<User> => {
   const user = await users.add({
     shouldSendNotifications: true,
-    timeTrigger: defaultTrigger,
+    timeTrigger: {
+      ...defaultTrigger,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    },
   })
   await AsyncStorage.setItem('user_id', user.id)
-  return user.id
+  return {
+    id: user.id,
+    shouldSendNotifications: true,
+    timeTrigger: defaultTrigger,
+  }
 }
 
 const modifyUser = async (id: string, data: UserUpdateRequest) => {
