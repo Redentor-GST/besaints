@@ -1,3 +1,5 @@
+import { ExpoPushToken } from 'expo-notifications'
+
 export interface Phrase extends Object {
   text: string
   author: string

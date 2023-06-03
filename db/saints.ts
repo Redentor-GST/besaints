@@ -4,5 +4,5 @@ import { getDateStr } from '../utils/utils'
 const getDailySaints = () => saints[getDateStr(new Date(), true)]
 
 export default {
-  getDailySaints,
+    getDailySaints,
 }
