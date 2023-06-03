@@ -22,6 +22,9 @@ import * as Notifications from 'expo-notifications'
 import { sharePhrase } from './utils/utils'
 import { Loading } from './components/Loading'
 import Users from './db/users'
+import { Logs } from 'expo'
+
+Logs.enableExpoCliLogging()
 
 const styles = StyleSheet.create({
     view: {
@@ -113,6 +116,7 @@ const homeScreen = ({ navigation }) => (
 async function init() {
     console.log('init')
     let user = await Users.getUser()
+    console.log(user)
     if (!user) user = await Users.createUser()
 }
 
@@ -121,6 +125,7 @@ export default function App() {
     const [fontsLoaded] = useFonts({ Poppins_400Regular })
 
     useEffect(() => {
+        console.log('use')
         Notifications.addNotificationResponseReceivedListener(notification => {
             if (notification.actionIdentifier == SHARE_CATEGORY)
                 sharePhrase(notification.notification.request.content.body)

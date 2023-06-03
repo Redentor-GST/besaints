@@ -1,27 +1,25 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { defaultTrigger } from '../utils/consts'
 import { User, UserUpdateRequest } from '../utils/interfaces'
-import firestore from '@react-native-firebase/firestore'
 import NotificationsUtils from '../utils/notifications'
-
-const db = firestore()
-const users = db.collection('users')
+import { db } from '../firebaseConfig'
+import { doc } from 'firebase/firestore'
 
 const getUser = async (id?: string): Promise<User> => {
     if (!id) id = await AsyncStorage.getItem('user_id')
-    const user = await users.doc(id).get()
-    const user_data = user.data()
-    if (!user_data) return null
+    const user = doc(db, `users/${id}`) as any
+    console.log(user)
+    if (!user) return null
     return {
         id: user.id,
-        shouldSendNotifications: user_data.shouldSendNotifications,
-        timeTrigger: user_data.timeTrigger,
+        shouldSendNotifications: user.shouldSendNotifications,
+        timeTrigger: user.timeTrigger,
     }
 }
 
 const createUser = async (): Promise<User> => {
     const devicePushToken =
-    await NotificationsUtils.registerForPushNotificationsAsync()
+        await NotificationsUtils.registerForPushNotificationsAsync()
     const user = await users.add({
         shouldSendNotifications: true,
         timeTrigger: {
@@ -43,7 +41,7 @@ const modifyUser = async (id: string, data: UserUpdateRequest) => {
 }
 
 const deleteUser = async (id: string) => {
-    await users.doc(id).delete()
+    doc(db, `users/${id}`)
 }
 
 export default {
