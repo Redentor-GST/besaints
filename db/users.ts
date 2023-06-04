@@ -3,28 +3,38 @@ import { defaultTrigger } from '../utils/consts'
 import { User, UserUpdateRequest } from '../utils/interfaces'
 import NotificationsUtils from '../utils/notifications'
 import { db } from '../firebaseConfig'
-import { doc } from 'firebase/firestore'
+import { timezone } from 'expo-localization'
+import {
+    deleteDoc,
+    doc,
+    addDoc,
+    collection,
+    updateDoc,
+    getDoc,
+} from 'firebase/firestore/lite'
 
 const getUser = async (id?: string): Promise<User> => {
     if (!id) id = await AsyncStorage.getItem('user_id')
-    const user = doc(db, `users/${id}`) as any
-    console.log(user)
-    if (!user) return null
+    const userDoc = doc(db, `users/${id}`)
+    const user = await getDoc(userDoc)
+    const userData = user.data()
+    if (!userData) return null
     return {
-        id: user.id,
-        shouldSendNotifications: user.shouldSendNotifications,
-        timeTrigger: user.timeTrigger,
+        id: userData.id,
+        shouldSendNotifications: userData.shouldSendNotifications,
+        timeTrigger: userData.timeTrigger,
     }
 }
 
 const createUser = async (): Promise<User> => {
     const devicePushToken =
         await NotificationsUtils.registerForPushNotificationsAsync()
-    const user = await users.add({
+    const usersCollection = collection(db, 'users')
+    const user = await addDoc(usersCollection, {
         shouldSendNotifications: true,
         timeTrigger: {
             ...defaultTrigger,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            timezone,
         },
         devicePushToken,
     })
@@ -36,12 +46,16 @@ const createUser = async (): Promise<User> => {
     }
 }
 
-const modifyUser = async (id: string, data: UserUpdateRequest) => {
-    await users.doc(id).update(data as any)
+const modifyUser = async (data: UserUpdateRequest) => {
+    const id = await AsyncStorage.getItem('user_id')
+    const user = doc(db, `users/${id}`)
+    await updateDoc(user, data as any)
 }
 
-const deleteUser = async (id: string) => {
-    doc(db, `users/${id}`)
+const deleteUser = async () => {
+    const id = await AsyncStorage.getItem('user_id')
+    const user = doc(db, `users/${id}`)
+    await deleteDoc(user)
 }
 
 export default {

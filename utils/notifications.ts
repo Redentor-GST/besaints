@@ -15,7 +15,8 @@ Notifications.setNotificationHandler({
 export default class NotificationsUtils {
     static async registerForPushNotificationsAsync() {
         if (!isDevice) return
-        const { status: existingStatus } = await Notifications.getPermissionsAsync()
+        const { status: existingStatus } =
+            await Notifications.getPermissionsAsync()
         let finalStatus = existingStatus
         if (existingStatus !== 'granted') {
             const { status } = await Notifications.requestPermissionsAsync()
@@ -58,11 +59,7 @@ export default class NotificationsUtils {
             },
             trigger: instant
                 ? null
-                : {
-                    date: dateTrigger,
-                    channelId: 'default',
-                    repeats: false,
-                },
+                : { date: dateTrigger, channelId: 'default', repeats: false },
         }
     }
 }

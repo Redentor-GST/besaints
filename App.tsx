@@ -114,9 +114,7 @@ const homeScreen = ({ navigation }) => (
 
 // :)
 async function init() {
-    console.log('init')
     let user = await Users.getUser()
-    console.log(user)
     if (!user) user = await Users.createUser()
 }
 
@@ -125,13 +123,12 @@ export default function App() {
     const [fontsLoaded] = useFonts({ Poppins_400Regular })
 
     useEffect(() => {
-        console.log('use')
         Notifications.addNotificationResponseReceivedListener(notification => {
             if (notification.actionIdentifier == SHARE_CATEGORY)
                 sharePhrase(notification.notification.request.content.body)
         })
 
-        if (!backgroundLoaded) init().then(_ => setbackgroundLoaded(true))
+        if (!backgroundLoaded) init().then(() => setbackgroundLoaded(true))
     }, [])
 
     return backgroundLoaded && fontsLoaded ? (

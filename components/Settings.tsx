@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Text, View, Platform, ActivityIndicator } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
-import db from '../db/phrases'
-import NotificationsUtils from '../utils/notifications'
 import ToggleSwitch from 'toggle-switch-react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { lightblue } from '../utils/consts'
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
 import styles from '../styles/settings'
+import users from '../db/users'
 
 export default function Settings() {
     const [mode, setMode] = useState('date')
@@ -15,24 +14,17 @@ export default function Settings() {
     const [ssn, setssn] = useState(true)
     const [ssnLoaded, setssnLoaded] = useState(false)
     const [notifDateTrigger, setnotifDateTrigger] = useState(new Date())
-    const [loadingNotifications, setloadingNotifications] = useState(false)
     const [fontsLoaded] = useFonts({ Poppins_400Regular })
 
     const onChange = async (event, selectedDate) => {
         const currentDate = selectedDate || notifDateTrigger
         setShow(Platform.OS === 'ios')
         if (currentDate.getTime() === notifDateTrigger.getTime()) return
-        setnotifDateTrigger(currentDate)
-        setloadingNotifications(true)
-        const nu = new NotificationsUtils()
-        await nu.cancelAllScheduledNotifications()
         const timeTrigger = {
             hour: currentDate.getHours(),
             minute: currentDate.getMinutes(),
         }
-        await db.setTimeTrigger(timeTrigger)
-        await nu.scheduleAllYearlyNotifications()
-        setloadingNotifications(false)
+        users.modifyUser({ timeTrigger })
     }
 
     const showMode = (currentMode: string) => {
@@ -89,7 +81,7 @@ export default function Settings() {
                     backgroundColor={'transparent'}
                 >
                     <Text style={styles.notifsText}>
-            Definir horario de notificaciones
+                        Definir horario de notificaciones
                     </Text>
                 </Ionicons.Button>
                 {show && (
@@ -112,7 +104,7 @@ export default function Settings() {
             <ActivityIndicator size={60} color={lightblue} />
             <Text>
                 {' '}
-        Programando notificaciones para las{' '}
+                Programando notificaciones para las{' '}
                 {notifDateTrigger.toTimeString().slice(0, 5)}{' '}
             </Text>
         </View>

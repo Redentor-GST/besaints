@@ -1,6 +1,5 @@
 import { initializeApp } from 'firebase/app'
 import service from './google-services.json'
-import { admin } from 'firebase-admin'
 import { getFunctions } from 'firebase/functions'
 import { getFirestore } from 'firebase/firestore'
 
@@ -12,7 +11,8 @@ import { getFirestore } from 'firebase/firestore'
 // Initialize Firebase
 
 const app = initializeApp({
-    credential: admin.credential.cert(service),
+    apiKey: service.private_key_id,
+    projectId: service.project_id,
 })
 export const functions = getFunctions(app)
 export const db = getFirestore(app)

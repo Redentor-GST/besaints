@@ -1,9 +1,5 @@
-import { Phrase } from '../utils/interfaces'
+/* import { Phrase } from '../utils/interfaces'
 import { getDateStr } from '../utils/utils'
-import firestore from '@react-native-firebase/firestore'
-
-const db = firestore()
-const phrases = db.collection('phrases')
 
 const getAllPhrases = async (): Promise<Pick<Phrase, 'author' | 'text'>[]> => {
     const dbPhrases = (await phrases.get()) as unknown as Phrase[]
@@ -27,3 +23,4 @@ export default {
     getAllPhrases,
     getDailyPhrase,
 }
+ */
