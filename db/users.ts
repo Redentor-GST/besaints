@@ -11,7 +11,7 @@ import {
     collection,
     updateDoc,
     getDoc,
-} from 'firebase/firestore/lite'
+} from 'firebase/firestore'
 
 const getUser = async (id?: string): Promise<User> => {
     if (!id) id = await AsyncStorage.getItem('user_id')
@@ -29,6 +29,7 @@ const getUser = async (id?: string): Promise<User> => {
 const createUser = async (): Promise<User> => {
     const devicePushToken =
         await NotificationsUtils.registerForPushNotificationsAsync()
+    console.log(db)
     const usersCollection = collection(db, 'users')
     const user = await addDoc(usersCollection, {
         shouldSendNotifications: true,

@@ -1,7 +1,6 @@
 export interface Phrase extends Object {
     text: string
     author: string
-    date: string
 }
 
 export interface SaintInfo extends Object {

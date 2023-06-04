@@ -26,11 +26,12 @@ export const Loading = () => (
             <ActivityIndicator size={60} color={lightblue} />
             <Text style={{ textAlign: 'center' }}>
                 {' '}
-        Por favor espera mientras terminamos de configurar la aplicación.
+                Por favor espera mientras terminamos de configurar la
+                aplicación.
                 {'\n'}
-        Este proceso toma sólo unos segundos {'\n'}
-        Podés salir de la aplicación mientras esto termina {'\n'}
-        (pero por favor no la cierres). {'\n'}
+                Este proceso toma sólo unos segundos {'\n'}
+                Podés salir de la aplicación mientras esto termina {'\n'}
+                (pero por favor no la cierres). {'\n'}
             </Text>
         </View>
     </View>

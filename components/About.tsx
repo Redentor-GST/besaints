@@ -27,20 +27,22 @@ export default function About() {
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView contentContainerStyle={styles.phraseView}>
                 <Text style={styles.phrase}>
-          Redentor es una organización cuyo objetivo es transmitir el mensaje de
-          Jesús a través de la vida de los Santos a la mayor cantidad de
-          personas posible.
+                    Redentor es una organización cuyo objetivo es transmitir el
+                    mensaje de Jesús a través de la vida de los Santos a la
+                    mayor cantidad de personas posible.
                     {'\n\n'}
-          Be Saints es nuestra primera aplicación, disponible tanto para iOS
-          como para Android.
+                    Be Saints es nuestra primera aplicación, disponible tanto
+                    para iOS como para Android.
                     {'\n\n'}
-          Esperamos que te podamos inspirar con nuestras frases y que la llama
-          de la virtud arda en tu corazón.
+                    Esperamos que te podamos inspirar con nuestras frases y que
+                    la llama de la virtud arda en tu corazón.
                     {'\n\n'}
                 </Text>
                 <View style={styles.buttonView}>
                     <TouchableHighlight
-                        onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}
+                        onPress={() =>
+                            Linking.openURL('mailto:besaintsapp@gmail.com')
+                        }
                         style={styles.buttons}
                     >
                         <Text style={styles.buttonsText}> Escribinos! </Text>
@@ -49,7 +51,7 @@ export default function About() {
                 <View style={styles.footnoteView}>
                     <Text style={styles.footnote}>
                         {'\n\n'}
-            Redentor 2021 ©. Todos los derechos reservados.
+                        Redentor 2021 ©. Todos los derechos reservados.
                     </Text>
                 </View>
             </ScrollView>

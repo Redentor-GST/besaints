@@ -8,22 +8,23 @@ import { TouchableHighlight } from 'react-native-gesture-handler'
 import styles from '../styles/phrase'
 import { sharePhrase } from '../utils/utils'
 
-const emptyPhrase: Phrase = {
-    text: '',
-    author: '',
-    date: '',
-}
-
 export default function PhraseView() {
-    const [phrase, setPhrase] = useState(emptyPhrase)
+    const [phrase, setPhrase] = useState<Phrase | null>(null)
     const [fontsLoaded] = useFonts({ Poppins_400Regular_Italic })
-    useEffect(() => setPhrase(db.getDailyPhrase()), [])
+    useEffect(() => {
+        db.getDailyPhrase().then(phrase => setPhrase(phrase))
+    }, [])
 
     const onShare = async () => sharePhrase(`${phrase.text}\n${phrase.author}`)
 
-    return fontsLoaded ? (
+    return fontsLoaded && phrase ? (
         <View
-            style={{ flex: 1, backgroundColor: 'white', width: '100%', height: 1 }}
+            style={{
+                flex: 1,
+                backgroundColor: 'white',
+                width: '100%',
+                height: 1,
+            }}
         >
             <ScrollView contentContainerStyle={styles.scrollView}>
                 <View style={styles.phraseView}>

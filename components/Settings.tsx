@@ -7,6 +7,7 @@ import { lightblue } from '../utils/consts'
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
 import styles from '../styles/settings'
 import users from '../db/users'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function Settings() {
     const [mode, setMode] = useState('date')
@@ -25,6 +26,7 @@ export default function Settings() {
             minute: currentDate.getMinutes(),
         }
         users.modifyUser({ timeTrigger })
+        setnotifDateTrigger(currentDate)
     }
 
     const showMode = (currentMode: string) => {
@@ -35,10 +37,12 @@ export default function Settings() {
     const showTimepicker = () => showMode('time')
 
     useEffect(() => {
-        db.shouldSendNotifications()
-            .then(res => setssn(res))
-            .finally(() => setssnLoaded(true))
-        db.getTimeTrigger().then(timeTrigger => {
+        AsyncStorage.getItem('shouldSendNotifications', (err, res) => {
+            setssn(res === 'true')
+            setssnLoaded(true)
+        })
+        AsyncStorage.getItem('timeTrigger').then(timeTriggerStr => {
+            const timeTrigger = JSON.parse(timeTriggerStr)
             const now = new Date()
             const date = new Date(
                 now.getFullYear(),
@@ -51,13 +55,14 @@ export default function Settings() {
         })
     }, [ssn])
 
-    async function changessn() {
-        const _ssn = await db.shouldSendNotifications()
-        await db.setShouldSendNotifications(!_ssn)
-        setssn(!_ssn)
+    function changessn() {
+        const _ssn = !ssn
+        setssn(_ssn)
+        users.modifyUser({ shouldSendNotifications: _ssn })
+        AsyncStorage.setItem('shouldSendNotifications', _ssn.toString())
     }
 
-    return ssnLoaded && !loadingNotifications && fontsLoaded ? (
+    return ssnLoaded && fontsLoaded ? (
         <View style={styles.container}>
             <View style={{ alignItems: 'center' }}>
                 <ToggleSwitch
@@ -67,7 +72,7 @@ export default function Settings() {
                     label="Enviar notificaciones"
                     labelStyle={styles.label}
                     size="small"
-                    onToggle={async (_: any) => await changessn()}
+                    onToggle={changessn}
                     animationSpeed={50}
                 />
             </View>

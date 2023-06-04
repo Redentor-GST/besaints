@@ -8,7 +8,7 @@ import {
     ActivityIndicator,
     TouchableHighlight,
 } from 'react-native'
-import db from '../db/phrases'
+import { getDailySaints } from '../db/saints'
 import {
     useFonts,
     Poppins_400Regular_Italic,
@@ -30,17 +30,15 @@ function getTodaysVaticanLink(): string {
 
 export default function DailySaint() {
     const [dailySaints, setdailySaints] = useState([])
-    const [isThereAnyInfo, setisThereAnyInfo] = useState(true)
     const [fontsLoaded] = useFonts({
         Poppins_400Regular_Italic,
         Poppins_400Regular,
     })
 
     useEffect(() => {
-        const dailySaints = db.getDailySaints()
-        typeof dailySaints !== 'undefined' && dailySaints.length === 0
-            ? setisThereAnyInfo(false)
-            : setdailySaints(dailySaints)
+        getDailySaints().then(dailySaints => {
+            setdailySaints(dailySaints)
+        })
     }, [])
 
     const SaintView = ({ _saintObj }) => (
@@ -58,7 +56,7 @@ export default function DailySaint() {
         </View>
     )
 
-    return isThereAnyInfo ? (
+    return dailySaints ? (
         fontsLoaded ? (
             <SafeAreaView style={styles.noMeLaContainer}>
                 <FlatList
@@ -69,10 +67,13 @@ export default function DailySaint() {
                     ListFooterComponent={
                         <TouchableHighlight
                             style={styles.buttons}
-                            onPress={_ => Linking.openURL(getTodaysVaticanLink())}
+                            onPress={() =>
+                                Linking.openURL(getTodaysVaticanLink())
+                            }
                         >
                             <Text style={styles.buttonsText}>
-                Para leer más sobre los santos del día ingresa aquí
+                                Para leer más sobre los santos del día ingresa
+                                aquí
                             </Text>
                         </TouchableHighlight>
                     }
@@ -85,9 +86,9 @@ export default function DailySaint() {
         )
     ) : (
         <SafeAreaView style={styles.noMeLaContainer}>
-            <Text style={{ fontSize: 30, textAlign: 'center' }}>
+            <Text style={{ fontSize: 30, textAlign: 'center', color: 'white' }}>
                 {' '}
-        No hay nigun santo del dia para esta fecha :({' '}
+                No hay nigun santo del dia para esta fecha :({' '}
             </Text>
         </SafeAreaView>
     )

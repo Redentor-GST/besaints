@@ -23,6 +23,7 @@ import { sharePhrase } from './utils/utils'
 import { Loading } from './components/Loading'
 import Users from './db/users'
 import { Logs } from 'expo'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 Logs.enableExpoCliLogging()
 
@@ -115,7 +116,15 @@ const homeScreen = ({ navigation }) => (
 // :)
 async function init() {
     let user = await Users.getUser()
+    console.log('user', user)
     if (!user) user = await Users.createUser()
+    else {
+        AsyncStorage.setItem(
+            'shouldSendNotifications',
+            user.shouldSendNotifications.toString()
+        )
+        AsyncStorage.setItem('timeTrigger', JSON.stringify(user.timeTrigger))
+    }
 }
 
 export default function App() {
