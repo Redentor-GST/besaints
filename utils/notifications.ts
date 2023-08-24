@@ -39,18 +39,6 @@ export default class NotificationsUtils {
     )
 
   private async registerForPushNotificationsAsync() {
-    if (!isDevice) return
-    const { status: existingStatus } = await Notifications.getPermissionsAsync()
-    let finalStatus = existingStatus
-    if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync()
-      finalStatus = status
-    }
-    if (finalStatus !== 'granted') {
-      console.log('Failed to get push token for push notification!')
-      return
-    }
-
     if (Platform.OS === 'android') {
       await Notifications.setNotificationChannelAsync('default', {
         name: 'default',
@@ -60,7 +48,20 @@ export default class NotificationsUtils {
       })
     }
 
-    return (await Notifications.getExpoPushTokenAsync()).data
+    if (isDevice) {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync()
+      let finalStatus = existingStatus
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync()
+        finalStatus = status
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!')
+        return
+      }
+      return (await Notifications.getExpoPushTokenAsync()).data
+    } else alert('Must use physical device for Push Notifications')
   }
 
   setShareNotificationCategory = async () =>
@@ -74,6 +75,8 @@ export default class NotificationsUtils {
     dateTrigger: Date,
     instant: boolean
   ): Notifications.NotificationRequestInput => {
+    const trigger = instant ? null : { date: dateTrigger }
+
     return {
       content: {
         title,
@@ -81,13 +84,7 @@ export default class NotificationsUtils {
         data: { datetrigger: dateTrigger.toString() },
         categoryIdentifier: SHARE_CATEGORY,
       },
-      trigger: instant
-        ? null
-        : {
-            date: dateTrigger,
-            channelId: 'default',
-            repeats: false,
-          },
+      trigger,
     }
   }
 
@@ -161,13 +158,14 @@ export default class NotificationsUtils {
   async scheduleAllYearlyNotifications() {
     const { hourTrigger, minuteTrigger } = await this.getTimeTrigger()
     const phrasesToSchedule = this.getPhrasesToSchedule()
-    await this.registerForPushNotificationsAsync()
+    this.registerForPushNotificationsAsync().catch(e => console.error(e))
     await this.setShareNotificationCategory()
-    await Promise.all(
+    await Promise.allSettled(
       phrasesToSchedule.map(phrase =>
         this.scheduleNotification(hourTrigger, minuteTrigger, phrase)
       )
     )
+
     await this.scheduleReminderNotification()
   }
 }

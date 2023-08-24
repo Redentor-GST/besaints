@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "expo start",
+    "start": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
@@ -22,7 +22,7 @@
     "dependencies": "^0.0.1",
     "expo": "~47.0.14",
     "expo-constants": "~14.0.2",
-    "expo-device": "^5.0.0",
+    "expo-device": "~5.0.0",
     "expo-notifications": "~0.17.0",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
