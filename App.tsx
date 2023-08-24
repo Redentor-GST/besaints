@@ -100,7 +100,7 @@ const homeScreen = ({ navigation }) => (
       <HomeButtonWithPadding _navigation={navigation} _text="Santos del día" />
       <HomeButtonWithPadding _navigation={navigation} _text="Ajustes" />
       <HomeButtonWithPadding _navigation={navigation} _text="¿Quiénes Somos?" />
-      <HomeButtonWithPadding _navigation={navigation} _text="Debug" />
+      {/* <HomeButtonWithPadding _navigation={navigation} _text="Debug" /> */}
     </ImageBackground>
   </View>
 )
@@ -145,7 +145,7 @@ export default function App() {
         <Stack.Screen name="Santos del día" component={DailySaint} />
         <Stack.Screen name="Ajustes" component={Settings} />
         <Stack.Screen name="¿Quiénes Somos?" component={About} />
-        <Stack.Screen name="Debug" component={Debug} />
+        {/* <Stack.Screen name="Debug" component={Debug} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   ) : (
