@@ -16,6 +16,7 @@ import {
 } from '@expo-google-fonts/poppins'
 import { lightblue } from '../utils/consts'
 import styles from '../styles/saints'
+import { Saint } from '../utils/interfaces'
 
 function getTodaysVaticanLink(): string {
   const today = new Date()
@@ -28,8 +29,19 @@ function getTodaysVaticanLink(): string {
   return `https://www.vaticannews.va/es/santos/${monthStr}/${dayStr}.html`
 }
 
+const SaintView = ({ saintObj }: { saintObj: Saint }) => (
+  <View>
+    <Text style={styles.saintText}> {saintObj.saint} </Text>
+
+    <Text style={styles.infoText}>
+      {saintObj.info}
+      {'\n'}{' '}
+    </Text>
+  </View>
+)
+
 export default function DailySaint() {
-  const [dailySaints, setdailySaints] = useState([])
+  const [dailySaints, setdailySaints] = useState<Saint[]>([])
   const [isThereAnyInfo, setisThereAnyInfo] = useState(true)
   const [fontsLoaded] = useFonts({
     Poppins_400Regular_Italic,
@@ -38,24 +50,24 @@ export default function DailySaint() {
 
   useEffect(() => {
     const dailySaints = db.getDailySaints()
-    typeof dailySaints !== 'undefined' && dailySaints.length === 0
+    dailySaints.length === 0
       ? setisThereAnyInfo(false)
       : setdailySaints(dailySaints)
   }, [])
 
-  const SaintView = ({ _saintObj }) => (
-    <View>
-      <View style={styles.saintView}>
-        <Text style={styles.saintText}> {_saintObj.saint} </Text>
-      </View>
-
-      <View style={styles.infoView}>
-        <Text style={styles.infoText}>
-          {_saintObj.info}
-          {'\n'}{' '}
-        </Text>
-      </View>
+  const Loading = () => (
+    <View style={styles.activityContainer}>
+      <ActivityIndicator size={60} color={lightblue} />
     </View>
+  )
+
+  const NoInfoView = () => (
+    <SafeAreaView style={styles.noMeLaContainer}>
+      <Text style={{ fontSize: 30, textAlign: 'center' }}>
+        {' '}
+        No hay nigun santo del dia para esta fecha :({' '}
+      </Text>
+    </SafeAreaView>
   )
 
   return isThereAnyInfo ? (
@@ -63,9 +75,8 @@ export default function DailySaint() {
       <SafeAreaView style={styles.noMeLaContainer}>
         <FlatList
           data={dailySaints}
-          renderItem={({ item }) => <SaintView _saintObj={item} />}
+          renderItem={({ item }) => <SaintView saintObj={item} />}
           keyExtractor={saint => saint.saint}
-          ListHeaderComponent={<SaintView _saintObj={dailySaints} />}
           ListFooterComponent={
             <TouchableHighlight
               style={styles.buttons}
@@ -79,16 +90,9 @@ export default function DailySaint() {
         />
       </SafeAreaView>
     ) : (
-      <View style={styles.activityContainer}>
-        <ActivityIndicator size={60} color={lightblue} />
-      </View>
+      <Loading />
     )
   ) : (
-    <SafeAreaView style={styles.noMeLaContainer}>
-      <Text style={{ fontSize: 30, textAlign: 'center' }}>
-        {' '}
-        No hay nigun santo del dia para esta fecha :({' '}
-      </Text>
-    </SafeAreaView>
+    <NoInfoView />
   )
 }
