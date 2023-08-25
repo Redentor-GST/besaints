@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Text, View, Platform, ActivityIndicator } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import db from '../db/db'
-import NotificationsUtils from '../utils/notifications'
+import {
+  cancelAllScheduledNotifications,
+  scheduleAllYearlyNotifications,
+} from '../utils/notifications'
 import ToggleSwitch from 'toggle-switch-react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { lightblue } from '../utils/consts'
@@ -24,14 +27,13 @@ export default function Settings() {
     if (currentDate.getTime() === notifDateTrigger.getTime()) return
     setnotifDateTrigger(currentDate)
     setloadingNotifications(true)
-    const nu = new NotificationsUtils()
-    await nu.cancelAllScheduledNotifications()
+    await cancelAllScheduledNotifications()
     const timeTrigger = {
       hour: currentDate.getHours(),
       minute: currentDate.getMinutes(),
     }
     await db.setTimeTrigger(timeTrigger)
-    await nu.scheduleAllYearlyNotifications()
+    await scheduleAllYearlyNotifications()
     setloadingNotifications(false)
   }
 

@@ -19,7 +19,6 @@
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.4",
-    "dependencies": "^0.0.1",
     "expo": "^49.0.8",
     "expo-constants": "^14.4.2",
     "expo-device": "^5.4.0",
