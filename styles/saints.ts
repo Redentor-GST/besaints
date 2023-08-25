@@ -11,6 +11,7 @@ export default StyleSheet.create({
     color: 'white',
     fontFamily: 'Poppins_400Regular_Italic',
     paddingHorizontal: 20,
+    fontWeight: 'bold',
   },
   infoText: {
     fontSize: 20,
