@@ -13,7 +13,6 @@ import {
 
 const IOS_NOTIFICATIONS_LIMIT = 64
 
-//?Dont know if this is neccesary
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -23,14 +22,14 @@ Notifications.setNotificationHandler({
 })
 
 const getAllScheduledNotifications = async () =>
-  await Notifications.getAllScheduledNotificationsAsync()
+  Notifications.getAllScheduledNotificationsAsync()
 
 const cancelAllScheduledNotifications = async () =>
-  await Notifications.cancelAllScheduledNotificationsAsync()
+  Notifications.cancelAllScheduledNotificationsAsync()
 
 //Debug function
 const sendInstantNotification = async () =>
-  await scheduleNotification(
+  scheduleNotification(
     19,
     54,
     { text: 'hello', author: 'goodbye', date: '??' },
@@ -63,9 +62,7 @@ async function registerForPushNotificationsAsync() {
 }
 
 const setShareNotificationCategory = async () =>
-  await Notifications.setNotificationCategoryAsync(SHARE_CATEGORY, [
-    SHARE_ACTION,
-  ])
+  Notifications.setNotificationCategoryAsync(SHARE_CATEGORY, [SHARE_ACTION])
 
 function notification(
   title: string,
