@@ -3,7 +3,6 @@ import {
   Text,
   StatusBar,
   StyleSheet,
-  Platform,
   ImageBackground,
   Image,
   TouchableHighlight,
@@ -26,15 +25,10 @@ import Debug from './components/Debug'
 
 const styles = StyleSheet.create({
   view: {
-    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   logo: {
-    //If you want to resize the logo just change the width, dont touch the height
     width: '90%',
     height: '20%',
   },
@@ -43,9 +37,6 @@ const styles = StyleSheet.create({
     height: '112%',
     alignItems: 'center',
     justifyContent: 'center',
-    // position: "absolute",
-    padding: 0,
-    bottom: 0,
   },
   buttons: {
     width: 200,
