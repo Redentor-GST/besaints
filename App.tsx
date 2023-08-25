@@ -14,7 +14,10 @@ import * as React from 'react'
 import Phrase from './components/Phrase'
 import Settings from './components/Settings'
 import DailySaint from './components/Saints'
-import NotificationsUtils from './utils/notifications'
+import {
+  scheduleAllYearlyNotifications,
+  getAllScheduledNotifications,
+} from './utils/notifications'
 import { blue, SHARE_CATEGORY } from './utils/consts'
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
 import About from './components/About'
@@ -98,10 +101,8 @@ const homeScreen = ({ navigation }) => (
 
 // :)
 async function init() {
-  const nu = new NotificationsUtils()
-
-  const scheduledNotifs = await nu.getAllScheduledNotifications()
-  if (scheduledNotifs.length === 0) await nu.scheduleAllYearlyNotifications()
+  const scheduledNotifs = await getAllScheduledNotifications()
+  if (scheduledNotifs.length === 0) await scheduleAllYearlyNotifications()
 }
 
 export default function App() {
