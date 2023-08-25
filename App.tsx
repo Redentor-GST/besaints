@@ -126,7 +126,7 @@ export default function App() {
     if (!backgroundLoaded) init().then(_ => setbackgroundLoaded(true))
   }, [])
 
-  return !(backgroundLoaded && fontsLoaded) ? (
+  return backgroundLoaded && fontsLoaded ? (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
