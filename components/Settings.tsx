@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Text, View, Platform, ActivityIndicator } from 'react-native'
-import DateTimePicker from '@react-native-community/datetimepicker'
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from '@react-native-community/datetimepicker'
 import db from '../db/db'
 import {
   cancelAllScheduledNotifications,
@@ -21,7 +23,7 @@ export default function Settings() {
   const [loadingNotifications, setloadingNotifications] = useState(false)
   const [fontsLoaded] = useFonts({ Poppins_400Regular })
 
-  const onChange = async (event, selectedDate) => {
+  const onChange = async (_event: DateTimePickerEvent, selectedDate: Date) => {
     const currentDate = selectedDate || notifDateTrigger
     setShow(Platform.OS === 'ios')
     if (currentDate.getTime() === notifDateTrigger.getTime()) return
