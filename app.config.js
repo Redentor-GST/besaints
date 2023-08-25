@@ -23,7 +23,7 @@ export default {
       icon: './assets/notiflogo.png',
     },
     android: {
-      googleServicesFile: './google-services.json',
+      googleServicesFile: process.env.GOOGLE_SERVICES_FILE,
       package: 'be.saints.client',
       versionCode: 33,
       adaptiveIcon: {
