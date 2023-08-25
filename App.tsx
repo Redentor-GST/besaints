@@ -3,7 +3,6 @@ import {
   Text,
   StatusBar,
   StyleSheet,
-  Platform,
   ImageBackground,
   Image,
   TouchableHighlight,
@@ -15,25 +14,24 @@ import * as React from 'react'
 import Phrase from './components/Phrase'
 import Settings from './components/Settings'
 import DailySaint from './components/Saints'
-import NotificationsUtils from './utils/notifications'
+import {
+  scheduleAllYearlyNotifications,
+  getAllScheduledNotifications,
+} from './utils/notifications'
 import { blue, SHARE_CATEGORY } from './utils/consts'
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
 import About from './components/About'
 import * as Notifications from 'expo-notifications'
 import { sharePhrase } from './utils/utils'
 import { Loading } from './components/Loading'
+import Debug from './components/Debug'
 
 const styles = StyleSheet.create({
   view: {
-    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   logo: {
-    //If you want to resize the logo just change the width, dont touch the height
     width: '90%',
     height: '20%',
   },
@@ -42,9 +40,6 @@ const styles = StyleSheet.create({
     height: '112%',
     alignItems: 'center',
     justifyContent: 'center',
-    // position: "absolute",
-    padding: 0,
-    bottom: 0,
   },
   buttons: {
     width: 200,
@@ -99,16 +94,15 @@ const homeScreen = ({ navigation }) => (
       <HomeButtonWithPadding _navigation={navigation} _text="Santos del día" />
       <HomeButtonWithPadding _navigation={navigation} _text="Ajustes" />
       <HomeButtonWithPadding _navigation={navigation} _text="¿Quiénes Somos?" />
+      {/* <HomeButtonWithPadding _navigation={navigation} _text="Debug" /> */}
     </ImageBackground>
   </View>
 )
 
 // :)
 async function init() {
-  const nu = new NotificationsUtils()
-
-  const scheduledNotifs = await nu.getAllScheduledNotifications()
-  if (scheduledNotifs.length === 0) await nu.scheduleAllYearlyNotifications()
+  const scheduledNotifs = await getAllScheduledNotifications()
+  if (scheduledNotifs.length === 0) await scheduleAllYearlyNotifications()
 }
 
 export default function App() {
@@ -143,6 +137,7 @@ export default function App() {
         <Stack.Screen name="Santos del día" component={DailySaint} />
         <Stack.Screen name="Ajustes" component={Settings} />
         <Stack.Screen name="¿Quiénes Somos?" component={About} />
+        {/* <Stack.Screen name="Debug" component={Debug} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   ) : (

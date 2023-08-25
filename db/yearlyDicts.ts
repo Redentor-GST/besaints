@@ -1,4 +1,4 @@
-import { Phrase } from '../utils/interfaces';
+import { Phrase, Saints } from '../utils/interfaces'
 
 const odd: Phrase[] = [
   {
@@ -1657,7 +1657,7 @@ const odd: Phrase[] = [
     date: '11-27',
   },
   {
-    text: "Donde hay caridad y sabiduría, no hay temor ni ignorancia.",
+    text: 'Donde hay caridad y sabiduría, no hay temor ni ignorancia.',
     author: 'San Francisco de Asís',
     date: '11-28',
   },
@@ -1826,12 +1826,12 @@ const odd: Phrase[] = [
     author: 'San Agustín',
     date: '12-31',
   },
-];
+]
 
 //TODO fill with phrases
-const even: Phrase[] = [];
+const even: Phrase[] = []
 
-export const saints = {
+export const saints: Saints = {
   '01-01': [
     {
       saint: 'Solemnidad de la Virgen María',
@@ -5469,11 +5469,11 @@ export const saints = {
       info: 'Melania, llamada "la Joven", pertenecía a la noble familia Valeria. Se mudó a Jerusalén con su marido Piniano y fundó una especie de comunidad monástica basada en el modelo de las comunidades orientales del siglo V. Allí Murió en el 440 después de haber compartido sus bienes con los pobres.',
     },
   ],
-};
+}
 
 export function getDict() {
-  const today = new Date();
-  const year = today.getFullYear();
-  if (even.length === 0) return odd;
-  return year % 2 === 0 ? even : odd;
+  const today = new Date()
+  const year = today.getFullYear()
+  if (even.length === 0) return odd
+  return year % 2 === 0 ? even : odd
 }

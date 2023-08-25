@@ -2,7 +2,7 @@ export default {
   expo: {
     name: 'Be Saints',
     slug: 'besaints',
-    version: '0.0.4.1',
+    version: '0.0.5.0',
     orientation: 'portrait',
     icon: './assets/applogo.png',
     splash: {
@@ -24,7 +24,7 @@ export default {
     android: {
       googleServicesFile: process.env.GOOGLE_SERVICES_FILE,
       package: 'be.saints.client',
-      versionCode: 30,
+      versionCode: 32,
       adaptiveIcon: {
         backgroundImage: './assets/applogo.png',
         foregroundImage: './assets/applogo.png',

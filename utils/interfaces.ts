@@ -13,3 +13,10 @@ export interface TimeTrigger extends Object {
   hour: number
   minute: number
 }
+
+export type Saint = {
+  saint: string
+  info: string
+}
+
+export type Saints = Record<string, Saint[]>
