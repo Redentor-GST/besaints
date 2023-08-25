@@ -1,4 +1,3 @@
-//About (¿Quienes somos?) component view
 import React from 'react'
 import {
   Text,
@@ -23,8 +22,34 @@ export default function About() {
     Poppins_400Regular,
   })
 
+  const LoadingView = () => (
+    <View style={styles.activityContainer}>
+      <ActivityIndicator size={60} color={lightblue} />
+    </View>
+  )
+
+  const FootNote = () => (
+    <View style={styles.footnoteView}>
+      <Text style={styles.footnote}>
+        {'\n\n'}
+        Redentor 2021 ©. Todos los derechos reservados.
+      </Text>
+    </View>
+  )
+
+  const ContactUs = () => (
+    <View style={styles.buttonView}>
+      <TouchableHighlight
+        onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}
+        style={styles.buttons}
+      >
+        <Text style={styles.buttonsText}> Escribinos! </Text>
+      </TouchableHighlight>
+    </View>
+  )
+
   return fontsLoaded ? (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView>
       <ScrollView contentContainerStyle={styles.phraseView}>
         <Text style={styles.phrase}>
           Redentor es una organización cuyo objetivo es transmitir el mensaje de
@@ -38,25 +63,11 @@ export default function About() {
           de la virtud arda en tu corazón.
           {'\n\n'}
         </Text>
-        <View style={styles.buttonView}>
-          <TouchableHighlight
-            onPress={() => Linking.openURL('mailto:besaintsapp@gmail.com')}
-            style={styles.buttons}
-          >
-            <Text style={styles.buttonsText}> Escribinos! </Text>
-          </TouchableHighlight>
-        </View>
-        <View style={styles.footnoteView}>
-          <Text style={styles.footnote}>
-            {'\n\n'}
-            Redentor 2021 ©. Todos los derechos reservados.
-          </Text>
-        </View>
+        <ContactUs />
+        <FootNote />
       </ScrollView>
     </SafeAreaView>
   ) : (
-    <View style={styles.activityContainer}>
-      <ActivityIndicator size={60} color={lightblue} />
-    </View>
+    <LoadingView />
   )
 }
