@@ -2,6 +2,7 @@ export default {
   expo: {
     name: 'Be Saints',
     slug: 'besaints',
+    package: 'be.saints.client',
     version: '0.0.5.0',
     orientation: 'portrait',
     icon: './assets/applogo.png',
@@ -22,7 +23,7 @@ export default {
       icon: './assets/notiflogo.png',
     },
     android: {
-      googleServicesFile: process.env.GOOGLE_SERVICES_FILE,
+      googleServicesFile: './google-services.json',
       package: 'be.saints.client',
       versionCode: 32,
       adaptiveIcon: {

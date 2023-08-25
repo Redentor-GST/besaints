@@ -76,7 +76,7 @@ const HomeButtonWithPadding = ({ _navigation, _text }) => (
   </View>
 )
 
-const homeScreen = ({ navigation }) => (
+const HomeScreen = ({ navigation }) => (
   <View style={styles.view}>
     <StatusBar
       backgroundColor="#4a868c"
@@ -128,7 +128,7 @@ export default function App() {
       >
         <Stack.Screen
           name="Home"
-          component={homeScreen}
+          component={HomeScreen}
           options={{
             headerShown: false,
           }}
