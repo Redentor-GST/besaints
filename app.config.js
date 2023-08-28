@@ -2,7 +2,6 @@ export default {
   expo: {
     name: 'Be Saints',
     slug: 'besaints',
-    package: 'be.saints.client',
     version: '0.0.5.1',
     orientation: 'portrait',
     icon: './assets/applogo.png',
