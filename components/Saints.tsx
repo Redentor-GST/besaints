@@ -16,6 +16,7 @@ import {
 } from '@expo-google-fonts/poppins'
 import { lightblue } from '../utils/consts'
 import styles from '../styles/saints'
+import { SaintInfo } from '../utils/interfaces'
 
 function getTodaysVaticanLink(): string {
     const today = new Date()
@@ -29,16 +30,14 @@ function getTodaysVaticanLink(): string {
 }
 
 export default function DailySaint() {
-    const [dailySaints, setdailySaints] = useState([])
+    const [dailySaints, setdailySaints] = useState<SaintInfo[]>([])
     const [fontsLoaded] = useFonts({
         Poppins_400Regular_Italic,
         Poppins_400Regular,
     })
 
     useEffect(() => {
-        getDailySaints().then(dailySaints => {
-            setdailySaints(dailySaints)
-        })
+        getDailySaints().then(setdailySaints)
     }, [])
 
     const SaintView = ({ _saintObj }) => (
