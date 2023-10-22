@@ -89,3 +89,4 @@ test.js
 connect.sh
 .yarn
 .env
+googleservices.json
