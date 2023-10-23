@@ -1,23 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { defaultTrigger } from '../utils/consts'
 import { User, UserUpdateRequest } from '../utils/interfaces'
-import NotificationsUtils from '../utils/notifications'
-import { db } from '../firebaseConfig'
-import { timezone } from 'expo-localization'
-import {
-    deleteDoc,
-    doc,
-    addDoc,
-    collection,
-    updateDoc,
-    getDoc,
-} from 'firebase/firestore'
+import { getCalendars } from 'expo-localization'
+import firestore from '@react-native-firebase/firestore'
+
+import { registerForPushNotificationsAsync } from '../utils/notifications'
+
+const fs = firestore()
 
 const getUser = async (id?: string): Promise<User> => {
     if (!id) id = await AsyncStorage.getItem('user_id')
-    const userDoc = doc(db, `users/${id}`)
-    const user = await getDoc(userDoc)
-    const userData = user.data()
+    const userDoc = await fs.collection('users').doc(id).get()
+    const userData = userDoc.data()
     if (!userData) return null
     return {
         id: userData.id,
@@ -27,15 +21,15 @@ const getUser = async (id?: string): Promise<User> => {
 }
 
 const createUser = async (): Promise<User> => {
-    const devicePushToken =
-        await NotificationsUtils.registerForPushNotificationsAsync()
-    console.log(db)
-    const usersCollection = collection(db, 'users')
-    const user = await addDoc(usersCollection, {
+    const devicePushToken = await registerForPushNotificationsAsync()
+    const usersCollection = fs.collection('users')
+    const calendar = getCalendars()[0]
+    const user = usersCollection.doc()
+    await user.set({
         shouldSendNotifications: true,
         timeTrigger: {
             ...defaultTrigger,
-            timezone,
+            timezone: calendar.timeZone,
         },
         devicePushToken,
     })
@@ -49,14 +43,12 @@ const createUser = async (): Promise<User> => {
 
 const modifyUser = async (data: UserUpdateRequest) => {
     const id = await AsyncStorage.getItem('user_id')
-    const user = doc(db, `users/${id}`)
-    await updateDoc(user, data as any)
+    await fs.collection('users').doc(id).update(data)
 }
 
 const deleteUser = async () => {
     const id = await AsyncStorage.getItem('user_id')
-    const user = doc(db, `users/${id}`)
-    await deleteDoc(user)
+    await fs.collection('users').doc(id).delete()
 }
 
 export default {
