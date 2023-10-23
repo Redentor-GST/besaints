@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Text, View, Platform, ActivityIndicator } from 'react-native'
-import DateTimePicker, {
-    DateTimePickerEvent,
-} from '@react-native-community/datetimepicker'
-import db from '../db/db'
-import {
-    cancelAllScheduledNotifications,
-    scheduleAllYearlyNotifications,
-} from '../utils/notifications'
+import DateTimePicker from '@react-native-community/datetimepicker'
 import ToggleSwitch from 'toggle-switch-react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { lightblue } from '../utils/consts'
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
 import styles from '../styles/settings'
+import users from '../db/users'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function Settings() {
     const [mode, setMode] = useState('date')
@@ -20,26 +15,18 @@ export default function Settings() {
     const [ssn, setssn] = useState(true)
     const [ssnLoaded, setssnLoaded] = useState(false)
     const [notifDateTrigger, setnotifDateTrigger] = useState(new Date())
-    const [loadingNotifications, setloadingNotifications] = useState(false)
     const [fontsLoaded] = useFonts({ Poppins_400Regular })
 
-    const onChange = async (
-        _event: DateTimePickerEvent,
-        selectedDate: Date,
-    ) => {
+    const onChange = async (event, selectedDate) => {
         const currentDate = selectedDate || notifDateTrigger
         setShow(Platform.OS === 'ios')
         if (currentDate.getTime() === notifDateTrigger.getTime()) return
-        setnotifDateTrigger(currentDate)
-        setloadingNotifications(true)
-        await cancelAllScheduledNotifications()
         const timeTrigger = {
             hour: currentDate.getHours(),
             minute: currentDate.getMinutes(),
         }
-        await db.setTimeTrigger(timeTrigger)
-        await scheduleAllYearlyNotifications()
-        setloadingNotifications(false)
+        users.modifyUser({ timeTrigger })
+        setnotifDateTrigger(currentDate)
     }
 
     const showMode = (currentMode: string) => {
@@ -50,29 +37,32 @@ export default function Settings() {
     const showTimepicker = () => showMode('time')
 
     useEffect(() => {
-        db.shouldSendNotifications()
-            .then(res => setssn(res))
-            .finally(() => setssnLoaded(true))
-        db.getTimeTrigger().then(timeTrigger => {
+        AsyncStorage.getItem('shouldSendNotifications', (err, res) => {
+            setssn(res === 'true')
+            setssnLoaded(true)
+        })
+        AsyncStorage.getItem('timeTrigger').then(timeTriggerStr => {
+            const timeTrigger = JSON.parse(timeTriggerStr)
             const now = new Date()
             const date = new Date(
                 now.getFullYear(),
                 now.getMonth() - 1,
                 now.getDate(),
                 timeTrigger.hour,
-                timeTrigger.minute,
+                timeTrigger.minute
             )
             setnotifDateTrigger(date)
         })
     }, [ssn])
 
-    async function changessn() {
-        const _ssn = await db.shouldSendNotifications()
-        await db.setShouldSendNotifications(!_ssn)
-        setssn(!_ssn)
+    function changessn() {
+        const _ssn = !ssn
+        setssn(_ssn)
+        users.modifyUser({ shouldSendNotifications: _ssn })
+        AsyncStorage.setItem('shouldSendNotifications', _ssn.toString())
     }
 
-    return ssnLoaded && !loadingNotifications && fontsLoaded ? (
+    return ssnLoaded && fontsLoaded ? (
         <View style={styles.container}>
             <View style={{ alignItems: 'center' }}>
                 <ToggleSwitch
@@ -82,7 +72,7 @@ export default function Settings() {
                     label="Enviar notificaciones"
                     labelStyle={styles.label}
                     size="small"
-                    onToggle={async (_: any) => await changessn()}
+                    onToggle={changessn}
                     animationSpeed={50}
                 />
             </View>

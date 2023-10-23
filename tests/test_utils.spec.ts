@@ -8,7 +8,7 @@ describe('dates', () => {
         const dateTrigger = utils.createDateTrigger(
             date,
             hourTrigger,
-            minuteTrigger,
+            minuteTrigger
         )
         const year = new Date().getFullYear()
         const expected = new Date(year, 6, 15, 12, 0, 0)

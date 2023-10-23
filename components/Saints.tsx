@@ -8,7 +8,7 @@ import {
     ActivityIndicator,
     TouchableHighlight,
 } from 'react-native'
-import db from '../db/db'
+import { getDailySaints } from '../db/saints'
 import {
     useFonts,
     Poppins_400Regular_Italic,
@@ -20,8 +20,8 @@ import { Saint } from '../utils/interfaces'
 
 function getTodaysVaticanLink(): string {
     const today = new Date()
-    let month = today.getMonth() + 1
-    let day = today.getDate()
+    const month = today.getMonth() + 1
+    const day = today.getDate()
     let monthStr = month.toString()
     let dayStr = day.toString()
     if (month < 10) monthStr = '0' + monthStr
@@ -42,35 +42,16 @@ const SaintView = ({ saintObj }: { saintObj: Saint }) => (
 
 export default function DailySaint() {
     const [dailySaints, setdailySaints] = useState<Saint[]>([])
-    const [isThereAnyInfo, setisThereAnyInfo] = useState(true)
     const [fontsLoaded] = useFonts({
         Poppins_400Regular_Italic,
         Poppins_400Regular,
     })
 
     useEffect(() => {
-        const dailySaints = db.getDailySaints()
-        dailySaints.length === 0
-            ? setisThereAnyInfo(false)
-            : setdailySaints(dailySaints)
+        getDailySaints().then(setdailySaints)
     }, [])
 
-    const Loading = () => (
-        <View style={styles.activityContainer}>
-            <ActivityIndicator size={60} color={lightblue} />
-        </View>
-    )
-
-    const NoInfoView = () => (
-        <SafeAreaView style={styles.noMeLaContainer}>
-            <Text style={{ fontSize: 30, textAlign: 'center' }}>
-                {' '}
-                No hay nigun santo del dia para esta fecha :({' '}
-            </Text>
-        </SafeAreaView>
-    )
-
-    return isThereAnyInfo ? (
+    return dailySaints ? (
         fontsLoaded ? (
             <SafeAreaView style={styles.noMeLaContainer}>
                 <FlatList
@@ -80,7 +61,7 @@ export default function DailySaint() {
                     ListFooterComponent={
                         <TouchableHighlight
                             style={styles.buttons}
-                            onPress={_ =>
+                            onPress={() =>
                                 Linking.openURL(getTodaysVaticanLink())
                             }
                         >
@@ -93,9 +74,16 @@ export default function DailySaint() {
                 />
             </SafeAreaView>
         ) : (
-            <Loading />
+            <View style={styles.activityContainer}>
+                <ActivityIndicator size={60} color={lightblue} />
+            </View>
         )
     ) : (
-        <NoInfoView />
+        <SafeAreaView style={styles.noMeLaContainer}>
+            <Text style={{ fontSize: 30, textAlign: 'center', color: 'white' }}>
+                {' '}
+                No hay nigun santo del dia para esta fecha :({' '}
+            </Text>
+        </SafeAreaView>
     )
 }

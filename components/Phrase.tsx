@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Text, ScrollView, ActivityIndicator, View } from 'react-native'
-import db from '../db/db'
+import db from '../db/phrases'
 import { Phrase } from '../utils/interfaces'
 import { useFonts, Poppins_400Regular_Italic } from '@expo-google-fonts/poppins'
 import { lightblue } from '../utils/consts'
@@ -8,20 +8,18 @@ import { TouchableHighlight } from 'react-native-gesture-handler'
 import styles from '../styles/phrase'
 import { sharePhrase } from '../utils/utils'
 
-const emptyPhrase: Phrase = {
-    text: '',
-    author: '',
-    date: '',
-}
-
 export default function PhraseView() {
-    const [phrase, setPhrase] = useState(emptyPhrase)
+    const [phrase, setPhrase] = useState<Phrase | null>(null)
     const [fontsLoaded] = useFonts({ Poppins_400Regular_Italic })
-    useEffect(() => setPhrase(db.getDailyPhrase()), [])
+    useEffect(() => {
+        db.getDailyPhrase().then(phrase => setPhrase(phrase))
+    }, [])
 
-    const onShare = async () => sharePhrase(`${phrase.text}\n${phrase.author}`)
+    const onShare = () => {
+        if (phrase) sharePhrase(`${phrase.text}\n${phrase.author}`)
+    }
 
-    return fontsLoaded ? (
+    return fontsLoaded && phrase ? (
         <View
             style={{
                 flex: 1,

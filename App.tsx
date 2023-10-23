@@ -2,7 +2,6 @@ import {
     View,
     Text,
     StatusBar,
-    StyleSheet,
     ImageBackground,
     Image,
     TouchableHighlight,
@@ -14,48 +13,18 @@ import * as React from 'react'
 import Phrase from './components/Phrase'
 import Settings from './components/Settings'
 import DailySaint from './components/Saints'
-import {
-    scheduleAllYearlyNotifications,
-    getAllScheduledNotifications,
-} from './utils/notifications'
 import { blue, SHARE_CATEGORY } from './utils/consts'
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
 import About from './components/About'
 import * as Notifications from 'expo-notifications'
 import { sharePhrase } from './utils/utils'
 import { Loading } from './components/Loading'
-import Debug from './components/Debug'
+import Users from './db/users'
+import { Logs } from 'expo'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import styles from './styles/app'
 
-const styles = StyleSheet.create({
-    view: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    logo: {
-        width: '90%',
-        height: '20%',
-    },
-    backgroundImage: {
-        width: '112%',
-        height: '112%',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    buttons: {
-        width: 200,
-        height: 50,
-        backgroundColor: '#11263B',
-        justifyContent: 'center',
-        padding: '2%',
-        borderRadius: 5,
-    },
-    buttonsText: {
-        color: 'white',
-        fontSize: 13,
-        fontFamily: 'Poppins_400Regular',
-        textAlign: 'center',
-    },
-})
+Logs.enableExpoCliLogging()
 
 const Stack = createStackNavigator()
 
@@ -76,7 +45,7 @@ const HomeButtonWithPadding = ({ _navigation, _text }) => (
     </View>
 )
 
-const HomeScreen = ({ navigation }) => (
+const homeScreen = ({ navigation }) => (
     <View style={styles.view}>
         <StatusBar
             backgroundColor="#4a868c"
@@ -100,15 +69,22 @@ const HomeScreen = ({ navigation }) => (
                 _navigation={navigation}
                 _text="¿Quiénes Somos?"
             />
-            {/* <HomeButtonWithPadding _navigation={navigation} _text="Debug" /> */}
         </ImageBackground>
     </View>
 )
 
 // :)
 async function init() {
-    const scheduledNotifs = await getAllScheduledNotifications()
-    if (scheduledNotifs.length === 0) await scheduleAllYearlyNotifications()
+    let user = await Users.getUser()
+    console.log('user', user)
+    if (!user) user = await Users.createUser()
+    else {
+        AsyncStorage.setItem(
+            'shouldSendNotifications',
+            user.shouldSendNotifications.toString(),
+        )
+        AsyncStorage.setItem('timeTrigger', JSON.stringify(user.timeTrigger))
+    }
 }
 
 export default function App() {
@@ -117,11 +93,14 @@ export default function App() {
 
     useEffect(() => {
         Notifications.addNotificationResponseReceivedListener(notification => {
-            if (notification.actionIdentifier == SHARE_CATEGORY)
-                sharePhrase(notification.notification.request.content.body)
+            if (notification.actionIdentifier == SHARE_CATEGORY) {
+                const notificationBody =
+                    notification.notification.request.content.body
+                if (notificationBody) sharePhrase(notificationBody)
+            }
         })
 
-        if (!backgroundLoaded) init().then(_ => setbackgroundLoaded(true))
+        if (!backgroundLoaded) init().then(() => setbackgroundLoaded(true))
     }, [])
 
     return backgroundLoaded && fontsLoaded ? (
@@ -134,7 +113,7 @@ export default function App() {
             >
                 <Stack.Screen
                     name="Home"
-                    component={HomeScreen}
+                    component={homeScreen}
                     options={{
                         headerShown: false,
                     }}
@@ -143,7 +122,6 @@ export default function App() {
                 <Stack.Screen name="Santos del día" component={DailySaint} />
                 <Stack.Screen name="Ajustes" component={Settings} />
                 <Stack.Screen name="¿Quiénes Somos?" component={About} />
-                {/* <Stack.Screen name="Debug" component={Debug} /> */}
             </Stack.Navigator>
         </NavigationContainer>
     ) : (
