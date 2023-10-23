@@ -1,14 +1,14 @@
-export interface Phrase extends Object {
+export interface Phrase {
     text: string
     author: string
 }
 
-export interface SaintInfo extends Object {
+export interface SaintInfo {
     info: string
     saint: string
 }
 
-export interface TimeTrigger extends Object {
+export interface TimeTrigger {
     hour: number
     minute: number
 }
