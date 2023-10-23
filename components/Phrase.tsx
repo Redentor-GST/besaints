@@ -15,7 +15,9 @@ export default function PhraseView() {
         db.getDailyPhrase().then(phrase => setPhrase(phrase))
     }, [])
 
-    const onShare = async () => sharePhrase(`${phrase.text}\n${phrase.author}`)
+    const onShare = () => {
+        if (phrase) sharePhrase(`${phrase.text}\n${phrase.author}`)
+    }
 
     return fontsLoaded && phrase ? (
         <View

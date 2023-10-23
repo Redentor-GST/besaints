@@ -81,7 +81,7 @@ async function init() {
     else {
         AsyncStorage.setItem(
             'shouldSendNotifications',
-            user.shouldSendNotifications.toString()
+            user.shouldSendNotifications.toString(),
         )
         AsyncStorage.setItem('timeTrigger', JSON.stringify(user.timeTrigger))
     }
@@ -93,8 +93,11 @@ export default function App() {
 
     useEffect(() => {
         Notifications.addNotificationResponseReceivedListener(notification => {
-            if (notification.actionIdentifier == SHARE_CATEGORY)
-                sharePhrase(notification.notification.request.content.body)
+            if (notification.actionIdentifier == SHARE_CATEGORY) {
+                const notificationBody =
+                    notification.notification.request.content.body
+                if (notificationBody) sharePhrase(notificationBody)
+            }
         })
 
         if (!backgroundLoaded) init().then(() => setbackgroundLoaded(true))
