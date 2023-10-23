@@ -20,8 +20,8 @@ import { Saint } from '../utils/interfaces'
 
 function getTodaysVaticanLink(): string {
     const today = new Date()
-    let month = today.getMonth() + 1
-    let day = today.getDate()
+    const month = today.getMonth() + 1
+    const day = today.getDate()
     let monthStr = month.toString()
     let dayStr = day.toString()
     if (month < 10) monthStr = '0' + monthStr
@@ -42,7 +42,6 @@ const SaintView = ({ saintObj }: { saintObj: Saint }) => (
 
 export default function DailySaint() {
     const [dailySaints, setdailySaints] = useState<Saint[]>([])
-    const [isThereAnyInfo, setisThereAnyInfo] = useState(true)
     const [fontsLoaded] = useFonts({
         Poppins_400Regular_Italic,
         Poppins_400Regular,
@@ -52,29 +51,13 @@ export default function DailySaint() {
         getDailySaints().then(setdailySaints)
     }, [])
 
-    const SaintView = ({ _saintObj }) => (
-        <View>
-            <View style={styles.saintView}>
-                <Text style={styles.saintText}> {_saintObj.saint} </Text>
-            </View>
-
-            <View style={styles.infoView}>
-                <Text style={styles.infoText}>
-                    {_saintObj.info}
-                    {'\n'}{' '}
-                </Text>
-            </View>
-        </View>
-    )
-
     return dailySaints ? (
         fontsLoaded ? (
             <SafeAreaView style={styles.noMeLaContainer}>
                 <FlatList
                     data={dailySaints}
-                    renderItem={({ item }) => <SaintView _saintObj={item} />}
+                    renderItem={({ item }) => <SaintView saintObj={item} />}
                     keyExtractor={saint => saint.saint}
-                    ListHeaderComponent={<SaintView _saintObj={dailySaints} />}
                     ListFooterComponent={
                         <TouchableHighlight
                             style={styles.buttons}

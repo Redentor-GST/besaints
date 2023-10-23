@@ -108,7 +108,7 @@ async function scheduleNotification(
     triggerHour: number,
     triggerMinute: number,
     data: Phrase,
-    instant: boolean = false,
+    instant = false,
 ) {
     if (!(await db.shouldSendNotifications())) return
     const title = 'Frase del día'
