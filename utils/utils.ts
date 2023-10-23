@@ -3,7 +3,11 @@ import { Share } from 'react-native'
 export function createDateTrigger(
     date: string,
     hourTrigger: number,
+<<<<<<< HEAD
     minuteTrigger: number
+=======
+    minuteTrigger: number,
+>>>>>>> master
 ): Date {
     const parsed = parseStrDate(date)
     const month = parsed[0]
@@ -46,7 +50,12 @@ export const isLeapYear = () => {
 export const sharePhrase = async (phrase: string) => {
     await Share.share({
         message:
+<<<<<<< HEAD
       `"${phrase}"` +
       '\nDescubre más frases de santos en la aplicación Be Saints! https://linktr.ee/besaintsapp',
+=======
+            `"${phrase}"` +
+            '\nDescubre más frases de santos en la aplicación Be Saints! https://linktr.ee/besaintsapp',
+>>>>>>> master
     })
 }

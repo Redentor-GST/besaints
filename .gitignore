@@ -12,7 +12,6 @@ web-build/
 # macOS
 .DS_Store
 .idea
-.vscode
 *.swp
 phone.sh
 .expo-shared
@@ -92,4 +91,16 @@ web-build/
 dist/
 
 # @end expo-cli
+
+index.js
+metro.config.js
+ios/
+android/
+eas.json
+android
+ios
+test.js
+connect.sh
+.yarn
+.env
 googleservices.json
