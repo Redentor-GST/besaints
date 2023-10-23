@@ -19,6 +19,7 @@ export default StyleSheet.create({
     infoView: {
         alignContent: 'center',
         justifyContent: 'center',
+        fontWeight: 'bold',
     },
     infoText: {
         fontSize: 20,
@@ -32,6 +33,8 @@ export default StyleSheet.create({
         padding: 20,
     },
     buttons: {
+        width: '90%',
+        marginLeft: 15,
         backgroundColor: '#11263B',
         justifyContent: 'center',
         padding: 9,

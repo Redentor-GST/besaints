@@ -23,3 +23,10 @@ export type User = {
     shouldSendNotifications: boolean
     timeTrigger: TimeTrigger
 }
+
+export type Saint = {
+    saint: string
+    info: string
+}
+
+export type Saints = Record<string, Saint[]>

@@ -5,7 +5,7 @@ import { collection, getDocs, where, query } from 'firebase/firestore'
 
 const phrasesCollection = collection(db, 'phrases')
 
-const getDailyPhrase = async (): Promise<Phrase> => {
+const getDailyPhrase = async () => {
     const currentDate = getDateStr(new Date(), true)
     const q = query(phrasesCollection, where('date', '==', currentDate))
     const phraseDocs = await getDocs(q)
@@ -13,9 +13,7 @@ const getDailyPhrase = async (): Promise<Phrase> => {
     return {
         text: phrase.text,
         author: phrase.author,
-    }
+    } as Phrase
 }
 
-export default {
-    getDailyPhrase,
-}
+export { getDailyPhrase }

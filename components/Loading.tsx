@@ -1,22 +1,12 @@
 import React from 'react'
-import {
-    View,
-    Text,
-    StatusBar,
-    StyleSheet,
-    Platform,
-    ActivityIndicator,
-} from 'react-native'
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native'
 import { lightblue } from '../utils/consts'
 
 const styles = StyleSheet.create({
     activityContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%',
         height: '100%',
-        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-        padding: 20,
     },
 })
 

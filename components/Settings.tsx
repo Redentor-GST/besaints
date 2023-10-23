@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Text, View, Platform, ActivityIndicator } from 'react-native'
-import DateTimePicker from '@react-native-community/datetimepicker'
+import DateTimePicker, {
+    DateTimePickerEvent,
+} from '@react-native-community/datetimepicker'
 import ToggleSwitch from 'toggle-switch-react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { lightblue } from '../utils/consts'
@@ -12,12 +14,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 export default function Settings() {
     const [mode, setMode] = useState('date')
     const [show, setShow] = useState(false)
-    const [ssn, setssn] = useState(true)
+    const [shouldSendNotifications, setShouldSendNotifications] = useState(true)
     const [ssnLoaded, setssnLoaded] = useState(false)
     const [notifDateTrigger, setnotifDateTrigger] = useState(new Date())
     const [fontsLoaded] = useFonts({ Poppins_400Regular })
 
-    const onChange = async (event, selectedDate) => {
+    const onChange = async (
+        _event: DateTimePickerEvent,
+        selectedDate: Date,
+    ) => {
         const currentDate = selectedDate || notifDateTrigger
         setShow(Platform.OS === 'ios')
         if (currentDate.getTime() === notifDateTrigger.getTime()) return
@@ -38,7 +43,7 @@ export default function Settings() {
 
     useEffect(() => {
         AsyncStorage.getItem('shouldSendNotifications', (err, res) => {
-            setssn(res === 'true')
+            setShouldSendNotifications(res === 'true')
             setssnLoaded(true)
         })
         AsyncStorage.getItem('timeTrigger').then(timeTriggerStr => {
@@ -49,24 +54,24 @@ export default function Settings() {
                 now.getMonth() - 1,
                 now.getDate(),
                 timeTrigger.hour,
-                timeTrigger.minute
+                timeTrigger.minute,
             )
             setnotifDateTrigger(date)
         })
-    }, [ssn])
+    }, [shouldSendNotifications])
 
     function changessn() {
-        const _ssn = !ssn
-        setssn(_ssn)
-        users.modifyUser({ shouldSendNotifications: _ssn })
-        AsyncStorage.setItem('shouldSendNotifications', _ssn.toString())
+        const ssn = !shouldSendNotifications
+        setShouldSendNotifications(ssn)
+        users.modifyUser({ shouldSendNotifications: ssn })
+        AsyncStorage.setItem('shouldSendNotifications', ssn.toString())
     }
 
     return ssnLoaded && fontsLoaded ? (
         <View style={styles.container}>
             <View style={{ alignItems: 'center' }}>
                 <ToggleSwitch
-                    isOn={ssn}
+                    isOn={shouldSendNotifications}
                     onColor="green"
                     offColor="red"
                     label="Enviar notificaciones"

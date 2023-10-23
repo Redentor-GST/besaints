@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { defaultTrigger } from '../utils/consts'
 import { User, UserUpdateRequest } from '../utils/interfaces'
-import NotificationsUtils from '../utils/notifications'
+import { registerForPushNotificationsAsync } from '../utils/notifications'
 import { db } from '../firebaseConfig'
 import { timezone } from 'expo-localization'
 import {
@@ -27,9 +27,7 @@ const getUser = async (id?: string): Promise<User> => {
 }
 
 const createUser = async (): Promise<User> => {
-    const devicePushToken =
-        await NotificationsUtils.registerForPushNotificationsAsync()
-    console.log(db)
+    const devicePushToken = await registerForPushNotificationsAsync()
     const usersCollection = collection(db, 'users')
     const user = await addDoc(usersCollection, {
         shouldSendNotifications: true,

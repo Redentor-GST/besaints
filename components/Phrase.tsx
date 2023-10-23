@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Text, ScrollView, ActivityIndicator, View } from 'react-native'
-import db from '../db/phrases'
+import { getDailyPhrase } from '../db/phrases'
 import { Phrase } from '../utils/interfaces'
 import { useFonts, Poppins_400Regular_Italic } from '@expo-google-fonts/poppins'
 import { lightblue } from '../utils/consts'
@@ -9,15 +9,15 @@ import styles from '../styles/phrase'
 import { sharePhrase } from '../utils/utils'
 
 export default function PhraseView() {
-    const [phrase, setPhrase] = useState<Phrase | null>(null)
+    const [phrase, setPhrase] = useState<Phrase>()
     const [fontsLoaded] = useFonts({ Poppins_400Regular_Italic })
     useEffect(() => {
-        db.getDailyPhrase().then(phrase => setPhrase(phrase))
+        getDailyPhrase().then(setPhrase)
     }, [])
 
-    const onShare = async () => sharePhrase(`${phrase.text}\n${phrase.author}`)
+    const onShare = () => sharePhrase(`${phrase.text}\n${phrase.author}`)
 
-    return fontsLoaded && phrase ? (
+    return fontsLoaded ? (
         <View
             style={{
                 flex: 1,
