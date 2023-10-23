@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@babel/runtime':
+    specifier: ^7.23.2
+    version: 7.23.2
   '@expo-google-fonts/poppins':
     specifier: ^0.2.3
     version: 0.2.3
