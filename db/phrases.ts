@@ -1,14 +1,15 @@
 import { Phrase } from '../utils/interfaces'
 import { getDateStr } from '../utils/utils'
-import { db } from '../firebaseConfig'
-import { collection, getDocs, where, query } from 'firebase/firestore'
+import firestore from '@react-native-firebase/firestore'
 
-const phrasesCollection = collection(db, 'phrases')
+const fs = firestore()
+
+const phrasesCollection = fs.collection('phrases')
 
 const getDailyPhrase = async (): Promise<Phrase> => {
     const currentDate = getDateStr(new Date(), true)
-    const q = query(phrasesCollection, where('date', '==', currentDate))
-    const phraseDocs = await getDocs(q)
+    const q = phrasesCollection.where('date', '==', currentDate)
+    const phraseDocs = await q.get()
     const phrase = phraseDocs.docs[0].data()
     return {
         text: phrase.text,
