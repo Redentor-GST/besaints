@@ -42,7 +42,12 @@ export default function Settings() {
             minute: currentDate.getMinutes(),
         }
         const deviceId = user.device_id
-        await updateUser(deviceId, { time_trigger: timeTrigger.hour })
+        await updateUser(deviceId, {
+            time_trigger:
+                timeTrigger.minute != 0
+                    ? timeTrigger.hour + 0.5
+                    : timeTrigger.hour,
+        })
         setLoading(false)
     }
 

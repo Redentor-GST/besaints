@@ -2,7 +2,6 @@ import {
     View,
     Text,
     StatusBar,
-    StyleSheet,
     ImageBackground,
     Image,
     TouchableHighlight,
@@ -17,44 +16,13 @@ import { blue } from '../utils/consts'
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
 import About from './About'
 import { Loading } from './Loading'
-import db from '../db/db'
 import { createUser, getUser } from '../utils/users'
 import { registerForPushNotificationsAsync } from '../utils/notifications'
 import 'react-native-get-random-values'
 import { v4 as uuidv4 } from 'uuid'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { GlobalContext } from './Context'
-
-const styles = StyleSheet.create({
-    view: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    logo: {
-        width: '90%',
-        height: '20%',
-    },
-    backgroundImage: {
-        width: '112%',
-        height: '112%',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    buttons: {
-        width: 200,
-        height: 50,
-        backgroundColor: '#11263B',
-        justifyContent: 'center',
-        padding: '2%',
-        borderRadius: 5,
-    },
-    buttonsText: {
-        color: 'white',
-        fontSize: 13,
-        fontFamily: 'Poppins_400Regular',
-        textAlign: 'center',
-    },
-})
+import styles from '../styles/home'
 
 const HomeButton = ({ navigation, text }) => (
     <TouchableHighlight
