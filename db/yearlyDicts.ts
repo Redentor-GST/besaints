@@ -1,5 +1,3 @@
-import { Saints } from '../utils/interfaces'
-
 export const saints: Saints = {
     '01-01': [
         {
