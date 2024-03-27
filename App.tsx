@@ -14,17 +14,16 @@ import * as React from 'react'
 import Phrase from './components/Phrase'
 import Settings from './components/Settings'
 import DailySaint from './components/Saints'
-import {
-    scheduleAllYearlyNotifications,
-    getAllScheduledNotifications,
-} from './utils/notifications'
-import { blue, SHARE_CATEGORY } from './utils/consts'
+import { blue } from './utils/consts'
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
 import About from './components/About'
-import * as Notifications from 'expo-notifications'
-import { sharePhrase } from './utils/utils'
 import { Loading } from './components/Loading'
-import Debug from './components/Debug'
+import db from './db/db'
+import { createUser, getUser } from './utils/users'
+import { registerForPushNotificationsAsync } from './utils/notifications'
+import 'react-native-get-random-values'
+import { v4 as uuidv4 } from 'uuid'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const styles = StyleSheet.create({
     view: {
@@ -105,10 +104,39 @@ const HomeScreen = ({ navigation }) => (
     </View>
 )
 
+async function registerDeviceId() {
+    const uuid = uuidv4()
+    await AsyncStorage.setItem('deviceId', uuid)
+    return uuid
+}
+
+async function getDeviceId() {
+    const deviceId = await AsyncStorage.getItem('deviceId')
+    if (!deviceId) return registerDeviceId()
+
+    return deviceId
+}
+
 // :)
 async function init() {
-    const scheduledNotifs = await getAllScheduledNotifications()
-    if (scheduledNotifs.length === 0) await scheduleAllYearlyNotifications()
+    const shouldSendNotifications = await db.shouldSendNotifications()
+    const dbTimeTrigger = await db.getTimeTrigger()
+    const timeTrigger = dbTimeTrigger.hour
+    const deviceId = await getDeviceId()
+    const pushToken = await registerForPushNotificationsAsync()
+    if (!pushToken) return console.error('No push token')
+    return createUser({
+        device_id: deviceId,
+        should_send_notifications: shouldSendNotifications,
+        time_trigger: timeTrigger,
+        expo_push_token: pushToken,
+    })
+}
+
+async function shouldRegister() {
+    const deviceId = await getDeviceId()
+    const user = await getUser(deviceId)
+    return !!user
 }
 
 export default function App() {
@@ -116,12 +144,12 @@ export default function App() {
     const [fontsLoaded] = useFonts({ Poppins_400Regular })
 
     useEffect(() => {
-        Notifications.addNotificationResponseReceivedListener(notification => {
-            if (notification.actionIdentifier == SHARE_CATEGORY)
-                sharePhrase(notification.notification.request.content.body)
-        })
-
-        if (!backgroundLoaded) init().then(_ => setbackgroundLoaded(true))
+        shouldRegister()
+            .then(async res => {
+                if (!res) init().then(() => setbackgroundLoaded(true))
+                else setbackgroundLoaded(true)
+            })
+            .catch(e => console.error(e))
     }, [])
 
     return backgroundLoaded && fontsLoaded ? (

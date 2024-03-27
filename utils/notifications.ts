@@ -46,7 +46,8 @@ async function registerForPushNotificationsAsync() {
         })
     }
 
-    if (isDevice) {
+    if (!isDevice) alert('Must use physical device for Push Notifications')
+    else {
         const { status: existingStatus } =
             await Notifications.getPermissionsAsync()
         let finalStatus = existingStatus
@@ -54,12 +55,10 @@ async function registerForPushNotificationsAsync() {
             const { status } = await Notifications.requestPermissionsAsync()
             finalStatus = status
         }
-        if (finalStatus !== 'granted') {
-            alert('Failed to get push token for push notification!')
-            return
-        }
-        return (await Notifications.getExpoPushTokenAsync()).data
-    } else alert('Must use physical device for Push Notifications')
+        if (finalStatus !== 'granted')
+            return alert('Failed to get push token for push notification!')
+    }
+    return (await Notifications.getExpoPushTokenAsync()).data
 }
 
 const setShareNotificationCategory = async () =>
@@ -170,4 +169,5 @@ export {
     cancelAllScheduledNotifications,
     getAllScheduledNotifications,
     sendInstantNotification,
+    registerForPushNotificationsAsync,
 }
