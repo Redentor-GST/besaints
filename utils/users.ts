@@ -18,7 +18,7 @@ const createUser = async (body: CreateUserRequestBody) => {
 
 const updateUser = async (deviceId: string, body: UpdateUserRequestBody) => {
     return axios
-        .put(API_URL + '/user/' + deviceId, body)
+        .patch(API_URL + '/user/' + deviceId, body)
         .then(res => res.data)
         .catch(err => console.error(err.message))
 }

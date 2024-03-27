@@ -10,6 +10,7 @@ import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
 import styles from '../styles/settings'
 import { updateUser } from '../utils/users'
 import { GlobalContext } from './Context'
+import { timeTriggerAsString } from '../utils/utils'
 
 export default function Settings() {
     const [mode, setMode] = useState('date')
@@ -21,9 +22,13 @@ export default function Settings() {
     const [ssn, setssn] = useState(user.should_send_notifications)
 
     useEffect(() => {
+        console.log({ user })
+        setssn(user.should_send_notifications)
         if (user.time_trigger) {
             const date = new Date()
-            date.setHours(user.time_trigger)
+            const [hours, minutes] = user.time_trigger.split(':')
+            date.setHours(parseInt(hours))
+            date.setMinutes(parseInt(minutes))
             setnotifDateTrigger(date)
         }
     }, [user])
@@ -43,10 +48,10 @@ export default function Settings() {
         }
         const deviceId = user.device_id
         await updateUser(deviceId, {
-            time_trigger:
-                timeTrigger.minute != 0
-                    ? timeTrigger.hour + 0.5
-                    : timeTrigger.hour,
+            time_trigger: timeTriggerAsString(
+                timeTrigger.hour,
+                timeTrigger.minute,
+            ),
         })
         setLoading(false)
     }
@@ -67,7 +72,20 @@ export default function Settings() {
         setLoading(false)
     }
 
-    return ssn != undefined && !loading && fontsLoaded ? (
+    return !fontsLoaded || ssn == undefined ? (
+        <View style={styles.activityIndicatorView}>
+            <ActivityIndicator size={60} color={lightblue} />
+        </View>
+    ) : loading ? (
+        <View style={styles.activityIndicatorView}>
+            <ActivityIndicator size={60} color={lightblue} />
+            <Text>
+                {' '}
+                Programando notificaciones para las{' '}
+                {notifDateTrigger.toTimeString().slice(0, 5)}{' '}
+            </Text>
+        </View>
+    ) : (
         <View style={styles.container}>
             <View style={{ alignItems: 'center' }}>
                 <ToggleSwitch
@@ -108,15 +126,6 @@ export default function Settings() {
                     />
                 )}
             </View>
-        </View>
-    ) : (
-        <View style={styles.activityIndicatorView}>
-            <ActivityIndicator size={60} color={lightblue} />
-            <Text>
-                {' '}
-                Programando notificaciones para las{' '}
-                {notifDateTrigger.toTimeString().slice(0, 5)}{' '}
-            </Text>
         </View>
     )
 }

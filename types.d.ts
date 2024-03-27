@@ -7,7 +7,7 @@ type CreateUserRequestBody = {
 
 type UpdateUserRequestBody = {
     should_send_notifications?: boolean
-    time_trigger?: number
+    time_trigger?: string
     expo_push_token?: string
 }
 
@@ -36,7 +36,7 @@ type TimeTrigger = {
 type User = {
     device_id: string
     should_send_notifications: boolean
-    time_trigger: number
+    time_trigger: string
     expo_push_token: string
 }
 
