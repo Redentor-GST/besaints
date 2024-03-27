@@ -4,3 +4,20 @@ type CreateUserRequestBody = {
     time_trigger: number
     expo_push_token: string
 }
+
+type SaintInfo = {
+    info: string
+    saint: string
+}
+
+type Saint = {
+    saint: string
+    info: string
+}
+
+type Saints = Record<string, Saint[]>
+
+type Phrase = {
+    text: string
+    author: string
+}

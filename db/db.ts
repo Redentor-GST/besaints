@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { defaultTrigger } from '../utils/consts'
-import { Phrase, TimeTrigger } from '../utils/interfaces'
-import { compareTodayvsDate, getDateStr } from '../utils/utils'
-import { getDict, saints } from './yearlyDicts'
+import { TimeTrigger } from '../utils/interfaces'
+import { getDateStr } from '../utils/utils'
+import { saints } from './yearlyDicts'
 
 const timeTriggerName = 'timeTrigger'
 const ssnName = 'shouldSendNotifications'
@@ -31,21 +31,7 @@ const getTimeTrigger = async (): Promise<TimeTrigger> => {
 const setTimeTrigger = async (value: TimeTrigger): Promise<void> =>
     await AsyncStorage.setItem(timeTriggerName, JSON.stringify(value))
 
-const getAllPhrases = (): Phrase[] => getDict()
-
-const getDailyPhrase = (): Phrase => {
-    const phrases: Phrase[] = getDict()
-    for (const phrase of phrases)
-        if (compareTodayvsDate(phrase.date)) return phrase
-}
-
 const getDailySaints = () => saints[getDateStr(new Date(), true)]
-
-const getReminderNotificationID = async () =>
-    await AsyncStorage.getItem(reminderID)
-
-const setReminderNotificationID = async (id: string) =>
-    await AsyncStorage.setItem(reminderID, id)
 
 const clear = async (): Promise<void> => await AsyncStorage.multiRemove(tables)
 
@@ -54,10 +40,6 @@ export default {
     setShouldSendNotifications,
     getTimeTrigger,
     setTimeTrigger,
-    getAllPhrases,
-    getDailyPhrase,
     getDailySaints,
-    getReminderNotificationID,
-    setReminderNotificationID,
     clear,
 }
