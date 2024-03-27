@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { defaultTrigger } from '../utils/consts'
-import { TimeTrigger } from '../utils/interfaces'
 import { getDateStr } from '../utils/utils'
 import { saints } from './yearlyDicts'
 

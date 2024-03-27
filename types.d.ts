@@ -21,3 +21,8 @@ type Phrase = {
     text: string
     author: string
 }
+
+type TimeTrigger = {
+    hour: number
+    minute: number
+}
