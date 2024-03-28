@@ -16,7 +16,6 @@ import {
 } from '@expo-google-fonts/poppins'
 import { lightblue } from '../utils/consts'
 import styles from '../styles/saints'
-import { Saint } from '../utils/interfaces'
 
 function getTodaysVaticanLink(): string {
     const today = new Date()

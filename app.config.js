@@ -37,5 +37,6 @@ export default {
                 projectId: '60078d31-0462-4957-90c7-33c2afdc19c7',
             },
         },
+        owner: 'redentor',
     },
 }

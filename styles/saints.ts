@@ -2,6 +2,8 @@ import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
     noMeLaContainer: {
+        height: '100%',
+        alignItems: 'center',
         paddingVertical: 20,
         paddingHorizontal: 20,
         backgroundColor: '#024959',

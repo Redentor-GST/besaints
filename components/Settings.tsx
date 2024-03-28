@@ -1,27 +1,37 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Text, View, Platform, ActivityIndicator } from 'react-native'
 import DateTimePicker, {
     DateTimePickerEvent,
 } from '@react-native-community/datetimepicker'
-import db from '../db/db'
-import {
-    cancelAllScheduledNotifications,
-    scheduleAllYearlyNotifications,
-} from '../utils/notifications'
 import ToggleSwitch from 'toggle-switch-react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { lightblue } from '../utils/consts'
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins'
 import styles from '../styles/settings'
+import { updateUser } from '../utils/users'
+import { GlobalContext } from './Context'
+import { timeTriggerAsString } from '../utils/utils'
 
 export default function Settings() {
     const [mode, setMode] = useState('date')
     const [show, setShow] = useState(false)
-    const [ssn, setssn] = useState(true)
-    const [ssnLoaded, setssnLoaded] = useState(false)
-    const [notifDateTrigger, setnotifDateTrigger] = useState(new Date())
-    const [loadingNotifications, setloadingNotifications] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [fontsLoaded] = useFonts({ Poppins_400Regular })
+    const { user } = useContext(GlobalContext)
+    const [notifDateTrigger, setnotifDateTrigger] = useState<Date>()
+    const [ssn, setssn] = useState(user.should_send_notifications)
+
+    useEffect(() => {
+        console.log({ user })
+        setssn(user.should_send_notifications)
+        if (user.time_trigger) {
+            const date = new Date()
+            const [hours, minutes] = user.time_trigger.split(':')
+            date.setHours(parseInt(hours))
+            date.setMinutes(parseInt(minutes))
+            setnotifDateTrigger(date)
+        }
+    }, [user])
 
     const onChange = async (
         _event: DateTimePickerEvent,
@@ -31,15 +41,19 @@ export default function Settings() {
         setShow(Platform.OS === 'ios')
         if (currentDate.getTime() === notifDateTrigger.getTime()) return
         setnotifDateTrigger(currentDate)
-        setloadingNotifications(true)
-        await cancelAllScheduledNotifications()
+        setLoading(true)
         const timeTrigger = {
             hour: currentDate.getHours(),
             minute: currentDate.getMinutes(),
         }
-        await db.setTimeTrigger(timeTrigger)
-        await scheduleAllYearlyNotifications()
-        setloadingNotifications(false)
+        const deviceId = user.device_id
+        await updateUser(deviceId, {
+            time_trigger: timeTriggerAsString(
+                timeTrigger.hour,
+                timeTrigger.minute,
+            ),
+        })
+        setLoading(false)
     }
 
     const showMode = (currentMode: string) => {
@@ -49,30 +63,29 @@ export default function Settings() {
 
     const showTimepicker = () => showMode('time')
 
-    useEffect(() => {
-        db.shouldSendNotifications()
-            .then(res => setssn(res))
-            .finally(() => setssnLoaded(true))
-        db.getTimeTrigger().then(timeTrigger => {
-            const now = new Date()
-            const date = new Date(
-                now.getFullYear(),
-                now.getMonth() - 1,
-                now.getDate(),
-                timeTrigger.hour,
-                timeTrigger.minute,
-            )
-            setnotifDateTrigger(date)
-        })
-    }, [ssn])
-
     async function changessn() {
-        const _ssn = await db.shouldSendNotifications()
-        await db.setShouldSendNotifications(!_ssn)
-        setssn(!_ssn)
+        setLoading(true)
+        const newValue = !ssn
+        setssn(newValue)
+        const deviceId = user.device_id
+        await updateUser(deviceId, { should_send_notifications: newValue })
+        setLoading(false)
     }
 
-    return ssnLoaded && !loadingNotifications && fontsLoaded ? (
+    return !fontsLoaded || ssn == undefined ? (
+        <View style={styles.activityIndicatorView}>
+            <ActivityIndicator size={60} color={lightblue} />
+        </View>
+    ) : loading ? (
+        <View style={styles.activityIndicatorView}>
+            <ActivityIndicator size={60} color={lightblue} />
+            <Text>
+                {' '}
+                Programando notificaciones para las{' '}
+                {notifDateTrigger.toTimeString().slice(0, 5)}{' '}
+            </Text>
+        </View>
+    ) : (
         <View style={styles.container}>
             <View style={{ alignItems: 'center' }}>
                 <ToggleSwitch
@@ -113,15 +126,6 @@ export default function Settings() {
                     />
                 )}
             </View>
-        </View>
-    ) : (
-        <View style={styles.activityIndicatorView}>
-            <ActivityIndicator size={60} color={lightblue} />
-            <Text>
-                {' '}
-                Programando notificaciones para las{' '}
-                {notifDateTrigger.toTimeString().slice(0, 5)}{' '}
-            </Text>
         </View>
     )
 }

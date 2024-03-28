@@ -1,30 +1,9 @@
 import { Share } from 'react-native'
 
-export function createDateTrigger(
-    date: string,
-    hourTrigger: number,
-    minuteTrigger: number,
-): Date {
-    const parsed = parseStrDate(date)
-    const month = parsed[0]
-    const day = parsed[1]
-    const rn = new Date()
-    const dateTrigger = new Date(rn.getFullYear(), month - 1, day)
-    dateTrigger.setHours(hourTrigger, minuteTrigger, 0)
-    return dateTrigger
-}
-
-export function parseStrDate(date: string): [number, number] {
-    //Expected string "07-15"
-    const split = date.split('-')
-    const month = parseInt(split[0])
-    const day = parseInt(split[1])
-    return [month, day]
-}
-
-export function compareTodayvsDate(date: string) {
-    const now = new Date()
-    return getDateStr(now, true) === date
+export const timeTriggerAsString = (hours: number, minutes: number) => {
+    const h = hours.toString().padStart(2, '0')
+    const m = minutes.toString().padStart(2, '0')
+    return `${h}:${m}`
 }
 
 export function getDateStr(date: Date, incrementMonth: boolean) {
@@ -35,12 +14,6 @@ export function getDateStr(date: Date, incrementMonth: boolean) {
     if (month < 10) month = `0${month}`
 
     return `${month}-${day}`
-}
-
-export const isLeapYear = () => {
-    const now = new Date()
-    const year = now.getFullYear()
-    return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
 }
 
 export const sharePhrase = async (phrase: string) => {
